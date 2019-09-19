@@ -1,0 +1,136 @@
+@import '../../components/_styleVars.scss';
+
+.ui.container.userForms.kycForm{
+    max-width: 1170px !important;
+    padding-left: 43px !important; 
+    padding-right: 43px !important;
+
+    h1{
+        margin-top: -100px;
+        margin-bottom: 80px;
+        color: #ffffff;
+    }
+
+    .ui.form input{
+        padding-left: 20px !important;
+    }
+    .datePicker .icon.input input{
+        padding-left: 50px !important;
+    }
+
+    .ui.selection.dropdown{
+        position: relative;
+        padding-bottom: 20px;
+        border-radius: 52px;
+        &:after{
+            content: '';
+            border: 1px solid rgba(34, 36, 38, 0.15);
+            background: #fdfcfc;
+            left: 0;
+            position: absolute;
+            width: 100%;
+            height: 54px;
+            top: 0;
+            z-index: -1;
+            border-radius: 29px;
+        }
+        &:before{
+            color: $baseColor;
+            position: relative;
+            left: 10px;
+        }
+        .text{
+            padding-left: 35px;
+        }
+    }
+    
+    .kycWithThreeFields{
+        display: flex;
+        justify-content: space-between;
+
+        .field{
+            flex: 1 1;
+            flex-basis: 32%;
+            max-width: 32%;
+        }
+        input[type="file"]{
+            border-radius: 55px;
+            height: 55px;
+            padding-top: 16px;
+            background: #fdfcfc;
+        }        
+    }
+    .expDate{
+        label{
+            font-weight: 700;
+            margin-bottom: 9px;
+            display: block;
+        }
+        .field{
+            flex: 1 1;
+            flex-basis: 100%;
+            max-width: 100%;
+
+        }
+        span{
+            position: relative;
+            top: -18px;
+        }
+    }
+    .genderAndDatepicker{
+        display: flex;
+        justify-content: space-between;
+
+        .gender{
+            flex: 1 1;
+            flex-basis: 32%;
+            max-width: 32%;
+            display: flex;
+            flex-wrap: wrap;
+            
+            label{
+                flex: 1 1;
+                flex-basis: 100%;
+                max-width: 100%;
+                font-weight: 700;
+
+            }
+            .field{
+                margin-right: 25px;
+            }
+        }
+        .datePicker{
+            flex: 1 1;
+            flex-basis: 66%;
+            max-width: 66%;
+
+            label{
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+        }
+    }
+    .form-button{
+        margin: 0;
+        text-align: left;
+         button{
+            width: auto;
+            min-width: 147px;
+            &.secondary{
+                margin-left: 14px;
+                background: #fff;
+                box-shadow: 0 0 0 2px #e8e8e8;
+                color: $lightColor;
+                &:hover{
+                    background:#e8e8e8;
+                }
+            }
+            &:hover{
+            background: $lightColor;
+            }
+         }
+         
+    }
+}

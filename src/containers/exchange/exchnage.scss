@@ -1,0 +1,140 @@
+@import "../../components/_styleVars.scss";
+
+.exchangeBlock{
+    display: flex;
+    flex: 1;
+    height: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    flex-wrap: wrap;
+    background: #dfdfdf;
+
+    .sidebar{
+        width: 100%;
+        max-width:332px;
+        box-sizing: border-box;
+        
+        &.s-left{
+            background: #fff;
+            border-radius: 8px;
+            margin-right: 20px;
+            box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.09);
+        }
+        &.s-right{
+            padding-left: 20px;
+        }
+        .halfHeight{
+            height: 50%;
+        }
+        .orderBlock{
+            .menu{
+                padding:7px 14px;
+                a{
+                    border:1px solid $greenColor;
+                    margin-right: 10px;
+                    border-radius: 0 !important;
+                    &:nth-child(1){
+                        background: url(../../images/icon-both.png);
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        font-size: 0;
+                        width:33px;
+                        height: 26px;
+                    }
+                    &:nth-child(2){
+                        background: url(../../images/icon-sort-1.png);
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        font-size: 0;
+                        width:33px;
+                        height: 26px;
+                    }
+                    &:nth-child(3){
+                        background: url(../../images/icon-sort-3.png);
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        font-size: 0;
+                        width:33px;
+                        height: 26px;
+                    }
+                    &.active{
+                        border:1px solid $yelloColor;
+                        border-radius: 0 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .exchangeMiddleBlock{
+        width: 100%;
+        max-width:calc(100% - 684px);
+        box-sizing: border-box;
+        min-height: 100vh;
+       
+    }   
+
+}
+
+.tradeMap{
+    border-radius: 8px;
+    background: #fff;
+    box-shadow:0px 0px 16px 0px rgba(0, 0, 0, 0.09);
+
+    .tradeMapHeader{
+        background: #f0f0f0;
+        border-radius: 8px 8px 0 0;
+        padding:10px 15px; 
+        h2{
+        font-size: 16px;
+        font-weight: 600;
+        color: $darkColor;
+        }
+    }
+    .tradeMapBody{
+        display: flex;
+        min-height: 447px;
+        justify-content: center;
+        align-items: center;
+        p{
+            color: $lightColor;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+    }
+}
+
+.limitMarketBlock{
+    padding-top: 26px;
+    
+    .ui.tabular.menu{
+        padding:7px 0;
+        border-bottom: 0;
+        a.item{
+            margin-right: 5px;
+            border-radius: 35px !important;
+            font-size: 13px;
+            font-weight: 600;
+            padding-left: 24px;
+            padding-right: 24px;
+            color:#fff;
+            background: #bbbbbb;
+            border:0px;
+
+            &:nth-child(1){
+               
+            }
+            
+            &.active.item{
+                background: $baseColor;
+                border:0px;
+            }
+        }
+    }
+
+    .ui.segment{
+        border:0;
+        background: transparent;
+    }
+}
+

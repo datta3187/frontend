@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,500i,600,700,700i,800&display=swap');
+@import './components/_styleVars.scss';
+
+html {
+  position: relative;
+  min-height: 100%;
+  height: inherit;
+  
+}
+ul, li{list-style: none;}
+a{text-decoration: none;}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-bottom: 188px;
+}
+.ui.modal>.header{font-family: 'Montserrat', sans-serif;}
+h1, h2, h3, h4, h5{font-family: 'Montserrat', sans-serif;}
+.ui.button, .ui.form input:not([type]), .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=email], .ui.form input[type=file], .ui.form input[type=number], .ui.form input[type=password], .ui.form input[type=search], .ui.form input[type=tel], .ui.form input[type=text], .ui.form input[type=time], .ui.form input[type=url]{
+  font-family: 'Montserrat', sans-serif;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+.ui.container{width: 100%; max-width: 1170px !important;}
+.footer{
+  background: #002245;
+  padding: 15px;
+  float: left;
+  width: 100%;
+  position: absolute;
+  left:0px;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: end;
+  color: #fff;
+  z-index: 2;
+  box-sizing: border-box;
+}
+.boxWithShadow{
+  box-shadow: -2px 9px 23px 0 rgba(0,0,0,.06);
+  background: #fff;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 6px;
+  padding: 40px 120px !important;
+  z-index: 2;
+
+  @media(max-width: 874px){
+    padding-left: 20px !important ;
+    padding-right: 20px !important ;
+  }
+}
+.ui.container.userForms{
+  margin-top: 173px;
+  max-width: 863px !important;  
+}
+.ui.container.userForms, .forgotPasswordModal .content .ui.form{
+  .field{
+    margin-bottom: 18px;
+    >label{
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    
+  }
+  input[type="text"], input[type="password"], input[type="email"], input[type="select"]{
+    height: 54px;
+    border-radius: 55px;
+    background: #fdfcfc;
+    font-size: 14px;
+    padding-left: 50px !important;
+  }
+  .selection.dropdown{
+    border:0;
+    padding-top: 20px;
+    &:before{
+      font-family: Icons;
+      content:"\f0e0";
+    }
+    .default.text{
+      padding-left: 35px;
+    }
+    input{
+    border:1px solid rgba(34,36,38,.15) !important;
+    height: 54px;
+    border-radius: 55px;
+    background: #fdfcfc;
+    font-size: 14px;
+    }
+    .icon{
+      top: 1.685714em;
+      right: 2em;
+    }
+  }
+  .ui[class*="left icon"].input>i.icon{
+    left: 13px;
+    color:$baseColor;
+    opacity: 1;
+  }
+  .form-button{
+    text-align: center;
+    margin-bottom: -106px;
+    button{
+      width: 100%;
+      max-width: 100%;
+      border-radius: 45px;
+      font-size: 14px;
+      font-weight: 700;
+      height: 55px;
+      margin-bottom: 19px; 
+      background: $baseColor;    
+    }
+    p{
+      font-weight: 600;
+      color: $lightColor;
+
+      a{
+        color:$baseColor;
+        border-bottom:2px solid transparent;
+        transition: all .25s;
+
+        &:hover{
+          border-bottom:2px solid $baseColor;
+        }
+      }
+    }
+  }
+  .form-captcha{
+    margin-bottom: 65px;
+  }
+  .confirmPw{
+    display: flex;
+    justify-content: space-between;
+    > .field{
+      flex:1;
+      flex-basis: 49%;
+      max-width: 49%;
+    }
+    @media(max-width:767px){
+      flex-direction: column;
+      > .field{
+        flex-basis: 100%;
+        max-width: 100%;
+      }
+    }
+  }  
+}
+.userFormHeader{
+  text-align: center;
+  margin-bottom: 27px;
+  h1{
+    font-size: 28px;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  p{
+    color: #999;
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+
+.userFormAth{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  label{
+    font-size: 14px;
+    font-weight: 700;    
+  }
+  a{
+    font-weight: 700;
+    color: $baseColor;
+    border-bottom:2px solid transparent;
+    transition: all .25s;
+    &:hover{
+      border-bottom:2px solid $baseColor;
+    }
+  }
+}
