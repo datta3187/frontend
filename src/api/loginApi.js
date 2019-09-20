@@ -3,7 +3,7 @@ import config from "../config";
 
 export const onLogin = payload => {
   const URL = config.apiUrl;
-  return axios(`${URL}api/v2/identity/sessions`, {
+  return axios(`${URL}barong/identity/sessions`, {
     method: "POST",
     headers: {
       "content-type": "application/json" // whatever you want
