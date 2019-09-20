@@ -24,6 +24,20 @@ const docOptions = [
 ]
 
 export class Profile extends Component {
+
+    componentDidMount()
+    {
+        profileApi.getProfile()
+            .then(res => {
+                this.setState({
+                    fields: res
+                })
+            })
+            .catch(error => {
+
+            });
+    }
+
     constructor(props) {
         window.scrollTo(0, 0);
         super(props)
@@ -50,14 +64,14 @@ export class Profile extends Component {
                 // gender: ""
             },
             errors: {
-                firstname: '',
+                first_name: '',
                 // middleName: '',
-                lastName: '',
-                dateOfBirth: '',
+                last_name: '',
+                dob: '',
                 address: '',
                 city: '',
                 country: '',
-                postalCode: '',
+                postcode: '',
                 // phoneNumber: '',
                 // documentType: '',
                 // documentNumber: '',
@@ -129,11 +143,9 @@ export class Profile extends Component {
         e.preventDefault();
         console.log("FORM DATA", this.state.fields);
         this.setState({ loading: true });
-        debugger
         profileApi.onProfileSubmission(this.state.fields)
             .then(res => {
                 console.log("Profile response", res);
-                debugger
                 this.setState({ loading: false });
                 if (res.state == 'pending') {
                     toast.error("something something");
@@ -155,7 +167,9 @@ export class Profile extends Component {
                 debugger
                 // toast.error(error.response.data.message);
             });
-    };
+    }
+
+
 
 
     render() {
@@ -173,6 +187,7 @@ export class Profile extends Component {
                             <Form.Field>
                                 <label>First Name</label>
                                 <Input type="text"
+                                       value={this.state.fields.first_name}
                                     onChange={this.setFormValue.bind(this, "first_name")}
                                     onKeyUp={this.handleSaveProfileKeyup.bind(this, "firstname")}
                                     placeholder='First Name' />
@@ -193,6 +208,7 @@ export class Profile extends Component {
                             <Form.Field>
                                 <label>Last Name</label>
                                 <Input type="text"
+                                       value={this.state.fields.last_name}
                                     onChange={this.setFormValue.bind(this, "last_name")}
                                     onKeyUp={this.handleSaveProfileKeyup.bind(this, "lastName")}
                                     placeholder='Last Name' />
@@ -240,7 +256,7 @@ export class Profile extends Component {
                                         iconPosition='left'
                                         startMode="['year', 'month', 'day']"
                                         placeholder="Date"
-                                        value={this.state.date}
+                                        value={this.state.fields.date}
                                         onChange={this.handleChangeDate}
                                     />
                                 </div>
@@ -260,7 +276,7 @@ export class Profile extends Component {
                                 <Select placeholder='country'
                                         name='country'
                                     options={countryOptions}
-                                        value={this.state.country}
+                                        value={this.state.fields.country}
                                         onChange={this.dropdownChange} />
                                 <span style={{ color: "red" }}>
                                     {this.state.errors["email"]}
@@ -282,7 +298,7 @@ export class Profile extends Component {
                                 <Select placeholder='City'
                                         name='city'
                                         options={regionOptions}
-                                        value={this.state.city}
+                                        value={this.state.fields.city}
                                         onChange={this.dropdownChange} />
                                 <span style={{ color: "red" }}>
                                     {this.state.errors["password"]}
@@ -292,6 +308,7 @@ export class Profile extends Component {
                             <Form.Field>
                                 <label>Postal Code</label>
                                 <Input type="text"
+                                       value={this.state.fields.postcode}
                                     onChange={this.setFormValue.bind(this, "postcode")}
                                     onKeyUp={this.handleSaveProfileKeyup.bind(this, "postalCode")}
                                     placeholder='Last Name' />
