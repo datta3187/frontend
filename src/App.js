@@ -27,7 +27,6 @@ class App extends Component {
             <Route path="/exchange" component={Exchange} />
             <Route path="/emailConfirmation/:id" exact component={EmailConfirmation} />
             <Route path="/resetpassword" exact component={ResetPassword} />
-            {/* <Route path="/" exact component={PostList} /> */}
 
           </Switch>
         </div>
