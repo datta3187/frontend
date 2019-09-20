@@ -8,6 +8,8 @@ import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
 
+// const CAPTCHA_NAME = 'demoCaptcha';
+
 
 
 
@@ -15,7 +17,7 @@ class Register extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            fields: { email: '', password: '', conPassword: '', refid: 'ID44682EBC54', terms: '' },
+            fields: { email: '', password: '', conPassword: '', refid: 'IDAEBDF1468B', terms: '' },
             errors: { email: '', password: '', conPassword: '', refid: '', terms: '' },
             loading: false,
             isTermSelected: false
@@ -60,14 +62,12 @@ class Register extends Component {
         ) {
             if (
                 !fields["password"].match(
-                    // /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
                     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-
                 )
             ) {
                 formIsValid = false;
                 errors["password"] =
-                    "Password should have one number and one special character,minimum 6 characters";
+                    "Password should have one number and one special character,minimum 8 characters";
             }
         }
 
@@ -128,13 +128,14 @@ class Register extends Component {
                     console.log("Login response", res);
                     this.setState({ loading: false });
 
-                    // this.props.history.push("/Pusher/thanks", {
-                    //     email: this.state.fields.email
-                    // });
+                    this.props.history.push("/email-verification", {
+                        email: this.state.fields.email
+                    });
                 })
                 .catch(error => {
                     this.setState({ loading: false });
-                    // toast.error(error.response.data.message);
+                    debugger
+                    toast.error(error.response.data.message);
                 });
         } else {
             this.setState({ loading: false });

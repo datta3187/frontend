@@ -65,7 +65,7 @@ class Login extends Component {
             ) {
                 formIsValid = false;
                 errors["password"] =
-                    "Password should have one number and one special character,minimum 6 characters";
+                    "Password should have one number and one special character,minimum 8 characters";
             }
         }
 

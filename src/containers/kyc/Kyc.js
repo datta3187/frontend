@@ -4,7 +4,7 @@ import { DateInput, TimeInput, DateTimeInput, DatesRangeInput } from 'semantic-u
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import * as loginApi from "../../api/loginApi";
+import * as loginApi from "../../api/authApi";
 import FileBase64 from 'react-file-base64';
 
 import './Kyc.scss'
