@@ -187,3 +187,54 @@ code {
     }
   }
 }
+
+.form-row{
+  display: flex;
+  justify-content: space-between;
+  .form-group{
+    width:48%;
+    max-width: 49%;
+    margin-bottom: 15px;
+
+    input[type="text"], input[type="email"]{
+      width:100%;
+    }
+
+    .twelve.wide.field{
+      width: 100% !important;
+    }
+    .genderAndDatepicker .datePicker {
+      flex-basis: 100% !important;
+      max-width: 100% !important;
+
+    }
+    &.dd{
+      .twelve.wide.field{
+        height: 54px;
+        border-radius: 55px;
+        background: #fdfcfc;
+        font-size: 14px;
+        border: 1px solid rgba(34,36,38,.15);
+
+        > .dropdown{
+          width:100%;
+          padding:0 25px;
+          height: 45px;
+          position: relative;
+          padding-top: 10px;
+
+          > .icon{
+              position: absolute;
+              right: 25px;
+              top: 45%;
+              transform:translateY(-50%);
+          }
+          > .menu{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+}

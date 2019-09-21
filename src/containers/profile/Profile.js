@@ -159,88 +159,100 @@ export class Profile extends Component {
                         ref="form"
                         onSubmit={this.saveprofile}
                     >
-                        <Input
-                            type="text"
-                            placeholder="First Name"
-                            onChange={this.setFormValue.bind(this, "first_name")}
-                            value={this.state.fields.first_name}
-                            validators={['required']}
-                            errorMessages={['this field is required']}
-                            width={50}
-                        />
-
-                        <Input
-                            type="text"
-                            placeholder="Last Name"
-                            onChange={this.setFormValue.bind(this, "last_name")}
-                            value={this.state.fields.last_name}
-                            validators={['required']}
-                            errorMessages={['this field is required']}
-                            width={50}
-                        />
-
-                        <div className="genderAndDatepicker">
-                            <div className="datePicker">
-                                <div>
-                                <DateInput
-                                    placeholder="Date Of Birth"
-                                name="date"
-                                iconPosition='left'
-                                startMode="['year', 'month', 'day']"
-                                placeholder="Date"
-                                value={this.state.fields.dob}
-                                onChange={this.handleChangeDate}
-                                />
+                        <div className="form-row">
+                                <div className="form-group">
+                                    <Input
+                                        type="text"
+                                        placeholder="First Name"
+                                        onChange={this.setFormValue.bind(this, "first_name")}
+                                        value={this.state.fields.first_name}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
                                 </div>
+                                <div className="form-group">
+                                    <Input
+                                        type="text"
+                                        placeholder="Last Name"
+                                        onChange={this.setFormValue.bind(this, "last_name")}
+                                        value={this.state.fields.last_name}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
+                                </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
+                                <div className="genderAndDatepicker">
+                                    <div className="datePicker">
+                                        <div>
+                                            <DateInput
+                                                placeholder="Date Of Birth"
+                                                name="date"
+                                                iconPosition='left'
+                                                startMode="['year', 'month', 'day']"
+                                                placeholder="Date"
+                                                value={this.state.fields.dob}
+                                                onChange={this.handleChangeDate}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <Input
+                                    type="text"
+                                    placeholder="Address"
+                                    onChange={this.setFormValue.bind(this, "address")}
+                                    value={this.state.fields.address}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                />
                             </div>
                         </div>
 
-                        <Input
-                            type="text"
-                            placeholder="Address"
-                            onChange={this.setFormValue.bind(this, "address")}
-                            value={this.state.fields.address}
-                            validators={['required']}
-                            errorMessages={['this field is required']}
-                            width={50}
-                        />
+                        <div className="form-row">
+                            <div className="form-group dd">
+                                <Dropdown
+                                    Placeholder="City"
+                                    name="city"
+                                    onChange={this.dropdownChange}
+                                    value={this.state.fields.city}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                    validators={['required']}
+                                    errorMessages={['You must select one option']}
+                                    options={regionOptions}
+                                />
+                            </div>
+                            <div className="form-group  dd">
+                                <Dropdown
+                                    Placeholder="Country"
+                                    name="country"
+                                    onChange={this.dropdownChange}
+                                    value={this.state.fields.country}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                    validators={['required']}
+                                    errorMessages={['You must select one option']}
+                                    options={countryOptions}
+                                />
+                            </div>
+                        </div>
 
-
-                        <Dropdown
-                            Placeholder="City"
-                            name="city"
-                            onChange={this.dropdownChange}
-                            value={this.state.fields.city}
-                            validators={['required']}
-                            errorMessages={['this field is required']}
-                            validators={['required']}
-                            errorMessages={['You must select one option']}
-                            options={regionOptions}
-                        />
-
-
-                        <Dropdown
-                            Placeholder="Country"
-                            name="country"
-                            onChange={this.dropdownChange}
-                            value={this.state.fields.country}
-                            validators={['required']}
-                            errorMessages={['this field is required']}
-                            validators={['required']}
-                            errorMessages={['You must select one option']}
-                            options={countryOptions}
-                        />
-
-                        <Input
-                            type="text"
-                            placeholder="Postal Code"
-                            onChange={this.setFormValue.bind(this, "postcode")}
-                            value={this.state.fields.postcode}
-                            validators={['required']}
-                            errorMessages={['this field is required']}
-                            width={50}
-                        />
-
+                        <div className="form-row">
+                            <div className="form-group">
+                                <Input
+                                    type="text"
+                                    placeholder="Postal Code"
+                                    onChange={this.setFormValue.bind(this, "postcode")}
+                                    value={this.state.fields.postcode}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                />
+                            </div>
+                        </div>
 
                         <Button color="teal">Submit</Button>
                         </Form>
