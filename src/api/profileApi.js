@@ -6,7 +6,7 @@ export const onProfileSubmission = payload => {
     return axios(`${URL}barong/resource/profiles`, {
         method: "POST",
         headers: {
-            "content-type": "application/json" // whatever you want
+            "Content-Type": "application/x-www-form-urlencoded" // whatever you want
         },
         data: payload
     })
@@ -22,7 +22,7 @@ export const getProfile = payload => {
     return axios(`${URL}barong/resource/profiles/me`, {
         method: "GET",
         headers: {
-            "content-type": "application/json" // whatever you want
+            "Content-Type": "application/x-www-form-urlencoded" // whatever you want
         },
     })
         .then(response => response.data)

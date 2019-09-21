@@ -1,3 +1,3 @@
 export default {
-  apiUrl: "http://www.app.local/api/v2/"
+  apiUrl: "http://45bc211b.ngrok.io/api/v2/"
 };

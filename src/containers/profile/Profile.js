@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
-import { Container, Form, Input, Select, Checkbox, Radio, Button, Dropdown } from 'semantic-ui-react'
-import { DateInput, TimeInput, DateTimeInput, DatesRangeInput } from 'semantic-ui-calendar-react';
+import React, { Component } from 'react';
+import { Container, Button } from 'semantic-ui-react';
+import { DateInput } from 'semantic-ui-calendar-react';
+import {Form, Input, Dropdown} from 'semantic-ui-react-form-validator';
+
 import * as profileApi from "../../api/profileApi";
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 
 
 import Footer from '../../components/Footer'
@@ -29,6 +31,7 @@ export class Profile extends Component {
     {
         profileApi.getProfile()
             .then(res => {
+                debugger
                 this.setState({
                     fields: res
                 })
@@ -44,40 +47,21 @@ export class Profile extends Component {
         this.state = {
             fields: {
                 first_name: '',
-                // middleName: '',
                 last_name: '',
                 dob: '',
-                // date: '',
-                // time: '',
-                // dateTime: '',
-                // datesRange: '',
                 address: '',
                 country: '',
                 city: '',
-                postcode: '',
-                // phoneNumber: '',
-                // documentType: '',
-                // documentNumber: '',
-                // expiryDate: '',
-                // uploadDocument: '',
-                // SelfiWithIdProof: '',
-                // gender: ""
+                postcode: ''
             },
             errors: {
                 first_name: '',
-                // middleName: '',
                 last_name: '',
                 dob: '',
                 address: '',
                 city: '',
                 country: '',
-                postcode: '',
-                // phoneNumber: '',
-                // documentType: '',
-                // documentNumber: '',
-                // expiryDate: '',
-                // uploadDocument: '',
-                // SelfiWithIdProof: ''
+                postcode: ''
             },
             loading: false,
         }
@@ -101,18 +85,9 @@ export class Profile extends Component {
         })
     }
 
-    handleSaveProfileKeyup(field, e) {
-        this.setState(prevState => {
-            let errors = Object.assign({}, prevState.errors);
-            errors[field] = "";
-            return { errors };
-        });
-    }
-
     handleChangeDate = (event, { name, value }) => {
         // if (this.state.hasOwnProperty(name)) {
         this.setState({ [name]: value });
-        debugger
         this.setState(prevState => {
             let fields = Object.assign({}, prevState.fields);  // creating copy of state variable jasper
             fields.dob = value;                     // update the name property, assign a new value
@@ -121,32 +96,14 @@ export class Profile extends Component {
         // }
     }
 
-    radioChange = (e, { value }) => {
-        this.setState({ value: value });
-
-        this.setState(prevState => {
-            let fields = Object.assign({}, prevState.fields);  // creating copy of state variable jasper
-            fields.gender = value;                     // update the name property, assign a new value                 
-            return { fields: fields };                                 // return new object jasper object
-        })
-    }
-
-    //
-    // signupkyc = e => {
-    //     e.preventDefault();
-    //     debugger
-    //     console.log("FORM DATA", this.state.fields);
-    // }
-
-    // button
     saveprofile = e => {
         e.preventDefault();
         console.log("FORM DATA", this.state.fields);
-        this.setState({ loading: true });
+        this.setState({ loading: true })
         profileApi.onProfileSubmission(this.state.fields)
             .then(res => {
                 console.log("Profile response", res);
-                this.setState({ loading: false });
+                this.setState({loading: false});
                 if (res.state == 'pending') {
                     toast.error("something something");
                 } else {
@@ -154,7 +111,7 @@ export class Profile extends Component {
                     localStorage.setItem("user", JSON.stringify(res));
                     toast.success("submitted successfully");
                     setTimeout(() => {
-                        this.props.history.push("/kyc")
+                        this.props.history.push("/profile")
 
                     }, 2000)
                 }
@@ -163,219 +120,222 @@ export class Profile extends Component {
                 // });
             })
             .catch(error => {
-                this.setState({ loading: false });
+                this.setState({loading: false});
                 debugger
-                // toast.error(error.response.data.message);
             });
+
     }
-
-
 
 
     render() {
         return (
-            < div >
+            <div>
                 <Header />
 
                 <Container className="boxWithShadow userForms kycForm">
                     <div className="userFormHeader">
                         <h1>Profile</h1>
                     </div>
-                    <Form>
 
-                        <div className="kycWithThreeFields">
-                            <Form.Field>
-                                <label>First Name</label>
-                                <Input type="text"
-                                       value={this.state.fields.first_name}
-                                    onChange={this.setFormValue.bind(this, "first_name")}
-                                    onKeyUp={this.handleSaveProfileKeyup.bind(this, "firstname")}
-                                    placeholder='First Name' />
-                                <span style={{ color: "red" }}>
-                                    {this.state.errors["email"]}
-                                </span>
-                            </Form.Field>
-                            {/*<Form.Field>*/}
-                                {/*<label>Middle Name</label>*/}
-                                {/*<Input type="text"*/}
-                                    {/*onChange={this.setFormValue.bind(this, "middleName")}*/}
-                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "middleName")}*/}
-                                    {/*placeholder='Middle Name' />*/}
-                                {/*<span style={{ color: "red" }}>*/}
-                                    {/*{this.state.errors["password"]}*/}
-                                {/*</span>*/}
-                            {/*</Form.Field>*/}
-                            <Form.Field>
-                                <label>Last Name</label>
-                                <Input type="text"
-                                       value={this.state.fields.last_name}
-                                    onChange={this.setFormValue.bind(this, "last_name")}
-                                    onKeyUp={this.handleSaveProfileKeyup.bind(this, "lastName")}
-                                    placeholder='Last Name' />
-                                <span style={{ color: "red" }}>
-                                    {this.state.errors["conPassword"]}
-                                </span>
-                            </Form.Field>
-                        </div>
-                        <div className="genderAndDatepicker">
-                            {/*<div className="gender">*/}
-                                {/*<label>Gender</label>*/}
-                                {/*<Form.Field>*/}
-                                    {/*<Radio*/}
-                                        {/*label='Male'*/}
-                                        {/*name='gender'*/}
-                                        {/*value='male'*/}
-                                        {/*checked={this.state.value === 'male'}*/}
-                                        {/*onChange={this.radioChange}*/}
-                                    {/*/>*/}
-                                {/*</Form.Field>*/}
-                                {/*<Form.Field>*/}
-                                    {/*<Radio*/}
-                                        {/*label='Female'*/}
-                                        {/*name='gender'*/}
-                                        {/*value='female'*/}
-                                        {/*checked={this.state.value === 'female'}*/}
-                                        {/*onChange={this.radioChange}*/}
-                                    {/*/>*/}
-                                {/*</Form.Field>*/}
-                                {/*<Form.Field>*/}
-                                    {/*<Radio*/}
-                                        {/*label='Other'*/}
-                                        {/*name='gender'*/}
-                                        {/*value='other'*/}
-                                        {/*checked={this.state.value === 'other'}*/}
-                                        {/*onChange={this.radioChange}*/}
-                                    {/*/>*/}
-                                {/*</Form.Field>*/}
-                            {/*</div>*/}
-                            <div className="datePicker">
-                                <label>Date of Birth</label>
-                                <div>
-                                    <DateInput
-                                        name="date"
-                                        iconPosition='left'
-                                        startMode="['year', 'month', 'day']"
-                                        placeholder="Date"
-                                        value={this.state.fields.date}
-                                        onChange={this.handleChangeDate}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <Form.Field>
-                            <label>Address</label>
-                            <Input type="text"
-                                onChange={this.setFormValue.bind(this, "address")}
-                                onKeyUp={this.handleSaveProfileKeyup.bind(this, "address")}
-                                iconPosition='left' placeholder='Address' />
-                        </Form.Field>
-
-                        <div className="kycWithThreeFields">
-                            <Form.Field>
-                                <label>Country</label>
-                                <Select placeholder='country'
-                                        name='country'
-                                    options={countryOptions}
-                                        value={this.state.fields.country}
-                                        onChange={this.dropdownChange} />
-                                <span style={{ color: "red" }}>
-                                    {this.state.errors["email"]}
-                                </span>
-                            </Form.Field>
-                            {/*<Form.Field>*/}
-                                {/*<label>City</label>*/}
-                                {/*<Select placeholder='City'*/}
-                                    {/*options={regionOptions}*/}
-                                    {/*onChange={this.setFormValue.bind(this, "city")}*/}
-                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "city")} />*/}
-                                {/*<span style={{ color: "red" }}>*/}
-                                    {/*{this.state.errors["password"]}*/}
-                                {/*</span>*/}
-                            {/*</Form.Field>*/}
-
-                            <Form.Field>
-                                <label>City</label>
-                                <Select placeholder='City'
-                                        name='city'
-                                        options={regionOptions}
-                                        value={this.state.fields.city}
-                                        onChange={this.dropdownChange} />
-                                <span style={{ color: "red" }}>
-                                    {this.state.errors["password"]}
-                                </span>
-                            </Form.Field>
-
-                            <Form.Field>
-                                <label>Postal Code</label>
-                                <Input type="text"
-                                       value={this.state.fields.postcode}
-                                    onChange={this.setFormValue.bind(this, "postcode")}
-                                    onKeyUp={this.handleSaveProfileKeyup.bind(this, "postalCode")}
-                                    placeholder='Last Name' />
-                                <span style={{ color: "red" }}>
-                                    {this.state.errors["conPassword"]}
-                                </span>
-                            </Form.Field>
-                        </div>
+                    {/*<Form>*/}
                         {/*<div className="kycWithThreeFields">*/}
                             {/*<Form.Field>*/}
-                                {/*<label>Phone Number</label>*/}
+                                {/*<label>First Name</label>*/}
                                 {/*<Input type="text"*/}
-                                    {/*onChange={this.setFormValue.bind(this, "phoneNumber")}*/}
-                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "phoneNumber")}*/}
-                                    {/*placeholder='Phone Number' />*/}
+                                       {/*value={this.state.fields.first_name}*/}
+                                    {/*onChange={this.setFormValue.bind(this, "first_name")}*/}
+                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "firstname")}*/}
+                                    {/*placeholder='First Name' />*/}
                                 {/*<span style={{ color: "red" }}>*/}
                                     {/*{this.state.errors["email"]}*/}
                                 {/*</span>*/}
                             {/*</Form.Field>*/}
+
                             {/*<Form.Field>*/}
-                                {/*<label>Document Type</label>*/}
-                                {/*<Select placeholder='City'*/}
-                                    {/*options={docOptions}*/}
-                                    {/*onChange={this.setFormValue.bind(this, "documentType")}*/}
-                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "documentType")} />*/}
-                                {/*<span style={{ color: "red" }}>*/}
-                                    {/*{this.state.errors["password"]}*/}
-                                {/*</span>*/}
-                            {/*</Form.Field>*/}
-                            {/*<Form.Field>*/}
-                                {/*<label>Document Number</label>*/}
+                                {/*<label>Last Name</label>*/}
                                 {/*<Input type="text"*/}
-                                    {/*onChange={this.setFormValue.bind(this, "documentNumber")}*/}
-                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "documentNumber")}*/}
-                                    {/*placeholder='Document Number' />*/}
+                                       {/*value={this.state.fields.last_name}*/}
+                                    {/*onChange={this.setFormValue.bind(this, "last_name")}*/}
+                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "lastName")}*/}
+                                    {/*placeholder='Last Name' />*/}
                                 {/*<span style={{ color: "red" }}>*/}
                                     {/*{this.state.errors["conPassword"]}*/}
                                 {/*</span>*/}
                             {/*</Form.Field>*/}
                         {/*</div>*/}
+                        {/*<div className="genderAndDatepicker">*/}
+                            {/*<div className="datePicker">*/}
+                                {/*<label>Date of Birth</label>*/}
+                                {/*<div>*/}
+                                    {/*<DateInput*/}
+                                        {/*name="date"*/}
+                                        {/*iconPosition='left'*/}
+                                        {/*startMode="['year', 'month', 'day']"*/}
+                                        {/*placeholder="Date"*/}
+                                        {/*value={this.state.fields.date}*/}
+                                        {/*onChange={this.handleChangeDate}*/}
+                                    {/*/>*/}
+                                {/*</div>*/}
+                            {/*</div>*/}
+                        {/*</div>*/}
+                        {/*<Form.Field>*/}
+                            {/*<label>Address</label>*/}
+                            {/*<Input type="text"*/}
+                                {/*onChange={this.setFormValue.bind(this, "address")}*/}
+                                {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "address")}*/}
+                                {/*iconPosition='left' placeholder='Address' />*/}
+                        {/*</Form.Field>*/}
+
                         {/*<div className="kycWithThreeFields">*/}
                             {/*<Form.Field>*/}
-                                {/*<label>Expiry Date</label>*/}
-                                {/*<Input type="text"*/}
-                                    {/*onChange={this.setFormValue.bind(this, "expiryDate")}*/}
-                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "expiryDate")}*/}
-                                    {/*iconPosition='left'*/}
-                                    {/*placeholder='Expiry Date' />*/}
+                                {/*<label>Country</label>*/}
+                                {/*<Select placeholder='country'*/}
+                                        {/*name='country'*/}
+                                    {/*options={countryOptions}*/}
+                                        {/*value={this.state.fields.country}*/}
+                                        {/*onChange={this.dropdownChange} />*/}
                                 {/*<span style={{ color: "red" }}>*/}
                                     {/*{this.state.errors["email"]}*/}
                                 {/*</span>*/}
                             {/*</Form.Field>*/}
+
+                            {/*<Form.Field>*/}
+                                {/*<label>City</label>*/}
+                                {/*<Select placeholder='City'*/}
+                                        {/*name='city'*/}
+                                        {/*options={regionOptions}*/}
+                                        {/*value={this.state.fields.city}*/}
+                                        {/*onChange={this.dropdownChange} />*/}
+                                {/*<span style={{ color: "red" }}>*/}
+                                    {/*{this.state.errors["password"]}*/}
+                                {/*</span>*/}
+                            {/*</Form.Field>*/}
+
+                            {/*<Form.Field>*/}
+                                {/*<label>Postal Code</label>*/}
+                                {/*<Input type="text"*/}
+                                       {/*value={this.state.fields.postcode}*/}
+                                    {/*onChange={this.setFormValue.bind(this, "postcode")}*/}
+                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "postalCode")}*/}
+                                    {/*placeholder='Last Name' />*/}
+                                {/*<span style={{ color: "red" }}>*/}
+                                    {/*{this.state.errors["conPassword"]}*/}
+                                {/*</span>*/}
+                            {/*</Form.Field>*/}
                         {/*</div>*/}
-                        <Form.Field className="userFormAth">
-                            <span style={{ color: "red" }}>
-                                {this.state.errors["terms"]}
-                            </span>
-                        </Form.Field>
-                        <div className="form-button">
-                            <Button type='submit' onClick={this.saveprofile} primary>Submit</Button>
-                            <Button type='submit' secondary>Cancel</Button>
+
+                        {/*<Form.Field className="userFormAth">*/}
+                            {/*<span style={{ color: "red" }}>*/}
+                                {/*{this.state.errors["terms"]}*/}
+                            {/*</span>*/}
+                        {/*</Form.Field>*/}
+                        {/*<div className="form-button">*/}
+                            {/*<Button type='submit' onClick={this.saveprofile} primary>Submit</Button>*/}
+                            {/*<Button type='submit' secondary>Cancel</Button>*/}
+                        {/*</div>*/}
+                    {/*</Form>*/}
+                    <Form
+                        ref="form"
+                        onSubmit={this.saveprofile}
+                    >
+                        <Input
+                            type="text"
+                            placeholder="First Name"
+                            onChange={this.setFormValue.bind(this, "first_name")}
+                            value={this.state.fields.first_name}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            width={50}
+                        />
+
+                        <Input
+                            type="text"
+                            placeholder="Last Name"
+                            onChange={this.setFormValue.bind(this, "last_name")}
+                            value={this.state.fields.last_name}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            width={50}
+                        />
+
+                        {/*<Input*/}
+                            {/*type="text"*/}
+                            {/*placeholder="Date Of Birth"*/}
+                            {/*onChange={this.handleChangeDate}*/}
+                            {/*value={this.state.fields.dob}*/}
+                            {/*validators={['required']}*/}
+                            {/*errorMessages={['this field is required']}*/}
+                        {/*/>*/}
+
+                        <div className="genderAndDatepicker">
+                            <div className="datePicker">
+                                <div>
+                                <DateInput
+                                    placeholder="Date Of Birth"
+                                name="date"
+                                iconPosition='left'
+                                startMode="['year', 'month', 'day']"
+                                placeholder="Date"
+                                value={this.state.fields.date}
+                                onChange={this.handleChangeDate}
+                                />
+                                </div>
+                            </div>
                         </div>
-                    </Form>
+
+                        <Input
+                            type="text"
+                            placeholder="Address"
+                            onChange={this.setFormValue.bind(this, "address")}
+                            value={this.state.fields.address}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            width={50}
+                        />
+
+
+                        <Dropdown
+                            Placeholder="City"
+                            name="city"
+                            onChange={this.dropdownChange}
+                            value={this.state.fields.city}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            validators={['required']}
+                            errorMessages={['You must select one option']}
+                            options={regionOptions}
+                        />
+
+
+                        <Dropdown
+                            Placeholder="Country"
+                            name="country"
+                            onChange={this.dropdownChange}
+                            value={this.state.fields.country}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            validators={['required']}
+                            errorMessages={['You must select one option']}
+                            options={countryOptions}
+                        />
+
+                        <Input
+                            type="text"
+                            placeholder="Postal Code"
+                            onChange={this.setFormValue.bind(this, "postcode")}
+                            value={this.state.fields.postcode}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            width={50}
+                        />
+
+
+                        <Button color="teal">Submit</Button>
+                        </Form>
                 </Container>
-                {/* <h2>{JSON.stringify(identity)}</h2> */}
                 <Footer />
-            </div >
+
+            </div>
         )
     }
 }
