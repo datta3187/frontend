@@ -10,13 +10,14 @@ import * as loginApi from "../../api/loginApi";
 class EmailVerify extends Component {
     constructor(props) {
         super(props)
-        let msg = "An email confirmation has been sent on your registered email."
-        if (typeof(this.props.location.state) !== "undefined"){
+
+
+        if (props && typeof(props.location.state) !== "undefined"){
             this.state = {
-                user: {email: this.props.location.state.email},
+                user: {email: props.location.state.email},
                 flag: true
             }
-            toast.success(msg);
+            toast.success('An email confirmation has been sent on your registered email.');
         }
         else{
             this.state = {flag: false, user: {} }
@@ -24,7 +25,6 @@ class EmailVerify extends Component {
     }
 
     resendEmail = () => {
-        console.log(this.state.user);
         loginApi.resendVerification(this.state.user)
             .then(res => {
                 toast.success('Email has been re-sent successfully!');
@@ -44,15 +44,12 @@ class EmailVerify extends Component {
                 <Header />
                 <Container className="boxWithShadow userForms verifyBlock">
                     <div className="userFormHeader">
-                        <h1>VERIFY YOUR EMAIL ADDRESS</h1>
+                        <h1>VERIFY YOUR EMAIL ADDRESS{this.state.flag}</h1>
                         <p>To complete registration, check for an email in your inbox with further instruction. If you cannot find the email, please check your spam folder</p>
                     </div>
                     <div text-align="center">
-
                         {
-                            this.state.flag
-                                ? <Link onClick={this.resendEmail}>Resend email</Link>
-                                : null
+                            this.state.flag ? <Link onClick={this.resendEmail}>Resend email</Link> : null
                         }
 
                     </div>

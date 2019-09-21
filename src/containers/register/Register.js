@@ -133,9 +133,9 @@ class Register extends Component {
                     });
                 })
                 .catch(error => {
-                    this.setState({ loading: false });
                     debugger
-                    toast.error(error.response.data.message);
+                    this.setState({ loading: false });
+                    toast.error("Error :" + error);
                 });
         } else {
             this.setState({ loading: false });

@@ -1,4 +1,4 @@
 export default {
-  apiUrl: "http://e06a4faf.ngrok.io/api/v2/barong",
-  peatioUrl: "http://e06a4faf.ngrok.io/api/v2/peatio"
+  apiUrl: "http://45bc211b.ngrok.io/api/v2/barong",
+  peatioUrl: "http://45bc211b.ngrok.io/api/v2/peatio"
 };
