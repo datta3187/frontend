@@ -4,7 +4,7 @@ import { DateInput } from 'semantic-ui-calendar-react';
 import {Form, Input, Dropdown} from 'semantic-ui-react-form-validator';
 
 import * as profileApi from "../../api/profileApi";
-import { toast } from "react-toastify"
+import { ToastContainer, toast } from "react-toastify"
 
 
 import Footer from '../../components/Footer'
@@ -111,7 +111,7 @@ export class Profile extends Component {
                     localStorage.setItem("user", JSON.stringify(res));
                     toast.success("submitted successfully");
                     setTimeout(() => {
-                        this.props.history.push("/profile")
+                        this.props.history.push("/kyc")
 
                     }, 2000)
                 }
@@ -119,9 +119,12 @@ export class Profile extends Component {
                 //     email: this.state.fields.email
                 // });
             })
-            .catch(error => {
-                this.setState({loading: false});
-                debugger
+            .catch(err => {
+                this.setState({loading: false})
+                if (err.message != "Network Error"){
+                    toast.error(err.response.data.errors);
+                }else{
+                    toast.error(err.message);                }
             });
 
     }
@@ -130,6 +133,10 @@ export class Profile extends Component {
     render() {
         return (
             <div>
+                <ToastContainer
+                    enableMultiContainer
+                    position={toast.POSITION.TOP_RIGHT}
+                />
                 <Header />
 
                 <Container className="boxWithShadow userForms kycForm">
@@ -138,92 +145,6 @@ export class Profile extends Component {
                     </div>
 
                     {/*<Form>*/}
-                        {/*<div className="kycWithThreeFields">*/}
-                            {/*<Form.Field>*/}
-                                {/*<label>First Name</label>*/}
-                                {/*<Input type="text"*/}
-                                       {/*value={this.state.fields.first_name}*/}
-                                    {/*onChange={this.setFormValue.bind(this, "first_name")}*/}
-                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "firstname")}*/}
-                                    {/*placeholder='First Name' />*/}
-                                {/*<span style={{ color: "red" }}>*/}
-                                    {/*{this.state.errors["email"]}*/}
-                                {/*</span>*/}
-                            {/*</Form.Field>*/}
-
-                            {/*<Form.Field>*/}
-                                {/*<label>Last Name</label>*/}
-                                {/*<Input type="text"*/}
-                                       {/*value={this.state.fields.last_name}*/}
-                                    {/*onChange={this.setFormValue.bind(this, "last_name")}*/}
-                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "lastName")}*/}
-                                    {/*placeholder='Last Name' />*/}
-                                {/*<span style={{ color: "red" }}>*/}
-                                    {/*{this.state.errors["conPassword"]}*/}
-                                {/*</span>*/}
-                            {/*</Form.Field>*/}
-                        {/*</div>*/}
-                        {/*<div className="genderAndDatepicker">*/}
-                            {/*<div className="datePicker">*/}
-                                {/*<label>Date of Birth</label>*/}
-                                {/*<div>*/}
-                                    {/*<DateInput*/}
-                                        {/*name="date"*/}
-                                        {/*iconPosition='left'*/}
-                                        {/*startMode="['year', 'month', 'day']"*/}
-                                        {/*placeholder="Date"*/}
-                                        {/*value={this.state.fields.date}*/}
-                                        {/*onChange={this.handleChangeDate}*/}
-                                    {/*/>*/}
-                                {/*</div>*/}
-                            {/*</div>*/}
-                        {/*</div>*/}
-                        {/*<Form.Field>*/}
-                            {/*<label>Address</label>*/}
-                            {/*<Input type="text"*/}
-                                {/*onChange={this.setFormValue.bind(this, "address")}*/}
-                                {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "address")}*/}
-                                {/*iconPosition='left' placeholder='Address' />*/}
-                        {/*</Form.Field>*/}
-
-                        {/*<div className="kycWithThreeFields">*/}
-                            {/*<Form.Field>*/}
-                                {/*<label>Country</label>*/}
-                                {/*<Select placeholder='country'*/}
-                                        {/*name='country'*/}
-                                    {/*options={countryOptions}*/}
-                                        {/*value={this.state.fields.country}*/}
-                                        {/*onChange={this.dropdownChange} />*/}
-                                {/*<span style={{ color: "red" }}>*/}
-                                    {/*{this.state.errors["email"]}*/}
-                                {/*</span>*/}
-                            {/*</Form.Field>*/}
-
-                            {/*<Form.Field>*/}
-                                {/*<label>City</label>*/}
-                                {/*<Select placeholder='City'*/}
-                                        {/*name='city'*/}
-                                        {/*options={regionOptions}*/}
-                                        {/*value={this.state.fields.city}*/}
-                                        {/*onChange={this.dropdownChange} />*/}
-                                {/*<span style={{ color: "red" }}>*/}
-                                    {/*{this.state.errors["password"]}*/}
-                                {/*</span>*/}
-                            {/*</Form.Field>*/}
-
-                            {/*<Form.Field>*/}
-                                {/*<label>Postal Code</label>*/}
-                                {/*<Input type="text"*/}
-                                       {/*value={this.state.fields.postcode}*/}
-                                    {/*onChange={this.setFormValue.bind(this, "postcode")}*/}
-                                    {/*onKeyUp={this.handleSaveProfileKeyup.bind(this, "postalCode")}*/}
-                                    {/*placeholder='Last Name' />*/}
-                                {/*<span style={{ color: "red" }}>*/}
-                                    {/*{this.state.errors["conPassword"]}*/}
-                                {/*</span>*/}
-                            {/*</Form.Field>*/}
-                        {/*</div>*/}
-
                         {/*<Form.Field className="userFormAth">*/}
                             {/*<span style={{ color: "red" }}>*/}
                                 {/*{this.state.errors["terms"]}*/}
@@ -258,15 +179,6 @@ export class Profile extends Component {
                             width={50}
                         />
 
-                        {/*<Input*/}
-                            {/*type="text"*/}
-                            {/*placeholder="Date Of Birth"*/}
-                            {/*onChange={this.handleChangeDate}*/}
-                            {/*value={this.state.fields.dob}*/}
-                            {/*validators={['required']}*/}
-                            {/*errorMessages={['this field is required']}*/}
-                        {/*/>*/}
-
                         <div className="genderAndDatepicker">
                             <div className="datePicker">
                                 <div>
@@ -276,7 +188,7 @@ export class Profile extends Component {
                                 iconPosition='left'
                                 startMode="['year', 'month', 'day']"
                                 placeholder="Date"
-                                value={this.state.fields.date}
+                                value={this.state.fields.dob}
                                 onChange={this.handleChangeDate}
                                 />
                                 </div>
