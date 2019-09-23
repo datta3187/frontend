@@ -115,9 +115,6 @@ export class Profile extends Component {
 
                     }, 2000)
                 }
-                // this.props.history.push("/Pusher/thanks", {
-                //     email: this.state.fields.email
-                // });
             })
             .catch(err => {
                 this.setState({loading: false})
@@ -144,17 +141,6 @@ export class Profile extends Component {
                         <h1>Profile</h1>
                     </div>
 
-                    {/*<Form>*/}
-                        {/*<Form.Field className="userFormAth">*/}
-                            {/*<span style={{ color: "red" }}>*/}
-                                {/*{this.state.errors["terms"]}*/}
-                            {/*</span>*/}
-                        {/*</Form.Field>*/}
-                        {/*<div className="form-button">*/}
-                            {/*<Button type='submit' onClick={this.saveprofile} primary>Submit</Button>*/}
-                            {/*<Button type='submit' secondary>Cancel</Button>*/}
-                        {/*</div>*/}
-                    {/*</Form>*/}
                     <Form
                         ref="form"
                         onSubmit={this.saveprofile}
@@ -255,7 +241,7 @@ export class Profile extends Component {
                         </div>
 
                         <Button color="teal">Submit</Button>
-                        </Form>
+                    </Form>
                 </Container>
                 <Footer />
 
