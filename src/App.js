@@ -24,7 +24,7 @@ class App extends Component {
             <Route path="/profile" component={Profile} />
             <Route path="/kyc" component={Kyc} />
             <Route path="/exchange" component={Exchange} />
-            <Route path="/emailConfirmation/:id" exact component={EmailConfirmation} />
+            <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
             <Route path="/resetpassword" exact component={ResetPassword} />
 
           </Switch>

@@ -11,16 +11,20 @@ class EmailVerify extends Component {
     constructor(props) {
         super(props)
 
-
         if (props && typeof(props.location.state) !== "undefined"){
             this.state = {
                 user: {email: props.location.state.email},
                 flag: true
             }
-            toast.success('An email confirmation has been sent on your registered email.');
         }
         else{
             this.state = {flag: false, user: {} }
+        }
+    }
+
+    componentDidMount() {
+        if (this.state.flag){
+            toast.success('An email confirmation has been sent on your registered email.');
         }
     }
 

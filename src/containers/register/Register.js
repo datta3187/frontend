@@ -145,7 +145,6 @@ class Register extends Component {
 
 
     render() {
-
         return (
             < div >
                 {this.state.loading && (

@@ -179,6 +179,17 @@ class Login extends Component {
         }
     }
 
+    componentDidMount() {
+        if(this.props.location.state){
+            if(this.props.location.state.email_verified){
+                toast.success(this.props.location.state.msg)
+            }
+            else {
+                toast.error(this.props.location.state.msg)
+            }
+        }
+    }
+
     render() {
         return (
             <Auhenticate>

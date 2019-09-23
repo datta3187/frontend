@@ -39,7 +39,7 @@ export const verifyEmail = id => {
     token: id
   }
   const URL = config.apiUrl;
-  return axios(`${URL}api/v2/identity/users/email/confirm_code`, {
+  return axios(`${URL}/identity/users/email/confirm_code`, {
     method: "POST",
     headers: {
       "content-type": "application/json" // whatever you want

@@ -1,45 +1,42 @@
 import React, { Component } from 'react'
 import * as loginApi from "../../api/loginApi"
+import {Dimmer, Loader} from "semantic-ui-react";
 
 
 class EmailConfirmation extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
-
+            loading: true
         }
     }
 
-    componentWillMount = () => {
-        console.log("VID", this.props.match.params.id);
-        this.VerifyUserEmail(this.props.match.params.id);
-    };
-
-    VerifyUserEmail = id => {
-        loginApi
-            .verifyEmail(id)
+    componentDidMount = () => {
+        loginApi.verifyEmail(this.props.match.params.token)
             .then(res => {
-                console.log("Verify response", res);
-                // toast.success("Email has been verified successfully");
-                // setTimeout(() => {
-                //     this.props.history.push("/Pushr");
-                // }, 2000);
+                this.setState({ loading: false })
+                this.props.history.push("/login", {
+                    email_verified: true,
+                    msg: 'Email has been verified successfully!'
+                });
             })
-            .catch(error => {
-                // toast.error(error.response.data.message);
-                // setTimeout(() => {
-                //     this.props.history.push("/Pushr");
-                // }, 2000);
-            });
-    };
-
-
+            .catch(err => {
+                this.setState({ loading: false })
+                this.props.history.push("/login", {
+                    email_verified: false,
+                    msg: 'Invalid token'
+                });
+            })
+    }
 
     render() {
         return (
             <div>
-                Confirmed
+                {this.state.loading && (
+                    <Dimmer active>
+                        <Loader content="Loading..." />
+                    </Dimmer>
+                )}
             </div>
         )
     }
