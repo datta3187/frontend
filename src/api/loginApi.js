@@ -3,7 +3,7 @@ import config from "../config";
 
 export const onLogin = payload => {
   const URL = config.apiUrl;
-  return axios(`${URL}barong/identity/sessions`, {
+  return axios(`${URL}/identity/sessions`, {
     method: "POST",
     headers: {
       "content-type": "application/json" // whatever you want
@@ -18,7 +18,7 @@ export const onLogin = payload => {
 
 export const onSignup = payload => {
   const URL = config.apiUrl;
-  return axios(`${URL}api/v2/identity/users`, {
+  return axios(`${URL}/identity/users`, {
     method: "POST",
     headers: {
       "content-type": "application/json" // whatever you want
@@ -31,22 +31,6 @@ export const onSignup = payload => {
     });
 };
 
-// Kyc Api
-export const onKyc = payload => {
-  const URL = config.apiUrl
-  debugger
-  return axios(`${URL}/barong/resource/documents`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json" // whatever you want
-    },
-    data: payload
-  })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
 
 // user/emailconfirmation/:id
 
@@ -55,7 +39,7 @@ export const verifyEmail = id => {
     token: id
   }
   const URL = config.apiUrl;
-  return axios(`${URL}api/v2/identity/users/email/confirm_code`, {
+  return axios(`${URL}/identity/users/email/confirm_code`, {
     method: "POST",
     headers: {
       "content-type": "application/json" // whatever you want
@@ -116,10 +100,10 @@ export const resetMyPasswordApi = payload => {
     });
 };
 
-// reset verification email
+// send confirmation email
 export const resendVerification = payload => {
   const URL = config.apiUrl;
-  return axios(`${URL}user/resend`, {
+  return axios(`${URL}/identity/users/email/generate_code`, {
     method: "POST",
     headers: {
       "content-type": "application/json" // whatever you want

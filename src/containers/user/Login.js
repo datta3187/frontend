@@ -65,7 +65,7 @@ class Login extends Component {
             ) {
                 formIsValid = false;
                 errors["password"] =
-                    "Password should have one number and one special character,minimum 6 characters";
+                    "Password should have one number and one special character,minimum 8 characters";
             }
         }
 
@@ -176,6 +176,17 @@ class Login extends Component {
 
         } else {
             this.setState({ loading: false });
+        }
+    }
+
+    componentDidMount() {
+        if(this.props.location.state){
+            if(this.props.location.state.email_verified){
+                toast.success(this.props.location.state.msg)
+            }
+            else {
+                toast.error(this.props.location.state.msg)
+            }
         }
     }
 
