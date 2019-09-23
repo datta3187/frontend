@@ -33,11 +33,12 @@ export const onSignup = payload => {
 
 // Kyc Api
 export const onKyc = payload => {
-  const URL = config.apiUrl;
-  return axios(`${URL}api/v2/management/documents`, {
+  const URL = config.apiUrl
+  debugger
+  return axios(`${URL}/barong/resource/documents`, {
     method: "POST",
     headers: {
-      "content-type": "application/json" // whatever you want
+      "Content-Type": "application/json" // whatever you want
     },
     data: payload
   })
