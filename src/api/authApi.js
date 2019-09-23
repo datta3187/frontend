@@ -4,10 +4,11 @@ import config from "../config";
 // Kyc Api
 export const onKyc = payload => {
     const URL = config.apiUrl;
-    return axios(`${URL}api/v2/management/documents`, {
+    debugger
+    return axios(`${URL}/resource/documents`, {
         method: "POST",
         headers: {
-            "content-type": "application/json" // whatever you want
+            "content-type": "multipart/form-data" // whatever you want
         },
         data: payload
     })
