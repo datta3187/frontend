@@ -168,7 +168,6 @@ class Login extends Component {
             console.log("data :" + this.state.forfields)
             loginApi.forgotPasswordApi(this.state.forfields)
                 .then(res => {
-                    // this.props.history.push("/login")
                     this.setState({isParentOpen: false})
                     toast.success("Password reset link has been sent on your email.")
                 })

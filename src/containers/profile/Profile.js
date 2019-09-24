@@ -115,14 +115,14 @@ export class Profile extends Component {
                     }, 2000)
                 }
             })
-            .catch(err => {
-                this.setState({loading: false})
-                if (err.message != "Network Error"){
-                    toast.error(err.response.data.errors);
-                }else{
-                    toast.error(err.message);                }
-            });
-
+            .catch(error =>{
+                if(error.response){
+                    toast.error(error.response.data.errors[0]);
+                }
+                else{
+                    toast.error(""+ error);
+                }
+            })
     }
 
 

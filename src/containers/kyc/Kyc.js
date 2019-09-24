@@ -4,7 +4,6 @@ import {Dropdown, Form, Input} from 'semantic-ui-react-form-validator';
 import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
 import LoggedInHeader from "../../components/LoggedInHeader";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import * as authApi from "../../api/authApi";
 
 import './Kyc.scss'
@@ -56,6 +55,17 @@ class Kyc extends Component {
     }
 
 
+    handleChangeDocExpire = (event, { name, value }) => {
+        // if (this.state.hasOwnProperty(name)) {
+        this.setState({ [name]: value });
+        this.setState(prevState => {
+            let fields = Object.assign({}, prevState.fields);  // creating copy of state variable jasper
+            fields.doc_expire = value;                     // update the name property, assign a new value
+            return { fields: fields };                                 // return new object jasper object
+        })
+        // }
+    }
+
 
     dropdownChange = (e, {name, value}) => {
         this.setState({ [name]: value });
@@ -93,13 +103,16 @@ class Kyc extends Component {
             .then(res => {
                 console.log("KYC response", res);
                 this.setState({ loading: false });
-
-                this.props.history.push("/setting");
+                toast.success("submitted successfully");
+                this.props.history.push("/settings");
             })
-            .catch(err => {
-                console.log('Error', err);
-                toast.success(err.response.data.errors);
-
+            .catch(error =>{
+                if(error.response){
+                    toast.error(error.response.data.errors[0]);
+                }
+                else{
+                    toast.error(""+ error);
+                }
             })
     }
 
@@ -145,8 +158,7 @@ class Kyc extends Component {
                             startMode="['year', 'month', 'day']"
                             placeholder="yy/mm/dd"
                             value={this.state.fields.doc_expire}
-                            // onChange={this.handleChangeDocExpire}
-                            onChange={this.setFormValue.bind(this, "doc_expire")}
+                            onChange={this.handleChangeDocExpire}
                         />
 
 

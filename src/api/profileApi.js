@@ -3,10 +3,10 @@ import config from "../config";
 
 export const onProfileSubmission = payload => {
     const URL = config.apiUrl;
-    return axios(`${URL}barong/resource/profiles`, {
+    return axios(`${URL}/resource/profiles`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded" // whatever you want
+            "Content-Type": "application/json" // whatever you want
         },
         data: payload
     })
@@ -19,10 +19,10 @@ export const onProfileSubmission = payload => {
 
 export const getProfile = payload => {
     const URL = config.apiUrl;
-    return axios(`${URL}barong/resource/profiles/me`, {
+    return axios(`${URL}/resource/profiles/me`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded" // whatever you want
+            "Content-Type": "application/json" // whatever you want
         },
     })
         .then(response => response.data)
