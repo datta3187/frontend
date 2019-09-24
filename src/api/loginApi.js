@@ -68,7 +68,7 @@ export const googleLoginSignup = payload => {
     });
 };
 
-// forgot password
+// to send email - forgot password
 export const forgotPasswordApi = payload => {
   const URL = config.apiUrl;
   return axios(`${URL}/identity/users/password/generate_code`, {
@@ -84,13 +84,13 @@ export const forgotPasswordApi = payload => {
     });
 };
 
-// reset password
-export const resetMyPasswordApi = payload => {
+// To reset password
+export const resetPassword = payload => {
   const URL = config.apiUrl;
-  return axios(`${URL}user/resetpassword`, {
+  return axios(`${URL}/identity/users/password/confirm_code`, {
     method: "POST",
     headers: {
-      "content-type": "application/json" // whatever you want
+      "content-type": "application/json"
     },
     data: payload
   })
@@ -115,3 +115,18 @@ export const resendVerification = payload => {
       throw error;
     });
 };
+
+export const remoteApi = (api_url, method_type, payload) => {
+  const URL = config.apiUrl;
+  return axios(`${URL}/${api_url}`, {
+    method: method_type.toUpperCase(),
+    headers: {
+      "content-type": "application/json" // whatever you want
+    },
+    data: payload
+  })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+}

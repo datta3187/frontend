@@ -166,7 +166,6 @@ class Login extends Component {
 
         if (this.handleForgotValidation()) {
             console.log("data :" + this.state.forfields)
-            debugger
             loginApi.forgotPasswordApi(this.state.forfields)
                 .then(res => {
                     // this.props.history.push("/login")

@@ -1,23 +1,63 @@
 import React, { Component } from 'react'
-import { Container, Button, Checkbox, Form, Input, Image, Modal, Transition } from 'semantic-ui-react'
+import {Container, Button, Checkbox, Form, Input, Image, Modal, Transition, Dimmer, Loader} from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import * as loginApi from "../../api/loginApi";
+import {toast, ToastContainer} from "react-toastify";
 
 class ResetPassword extends Component {
     constructor(props) {
         super(props)
         this.state = {
             data: {reset_password_token: '', password: '', confirm_password: '', lang: 'EN'},
-            errors: {reset_password_token: '', password: '', confirm_password: ''}
+            errors: {reset_password_token: '', password: '', confirm_password: ''},
+            loading: false
         }
     }
 
-    
+    setFormValue(field, e) {
+
+        console.log('helo')
+    }
+
+    resetState(field, e) {
+        console.log('Helo');
+    }
+
+    resetPassword = e => {
+        e.preventDefault();
+        this.setState({ loading: true });
+        let api_url = 'identity/users/password/confirm_code'
+        loginApi.remoteApi(api_url, 'POST' , this.state.data)
+            .then(res => {
+                this.setState({loading: false})
+                toast.success('Password has been reset successfully!');
+                this.props.history.push("/login")
+            })
+            .catch(error =>{
+                if(error.response){
+                    toast.error(error.response.data.errors[0]);
+                }
+                else{
+                    toast.error(""+ error);
+                }
+            })
+    }
 
     render() {
         return (
             <div>
+                {this.state.loading && (
+                    <Dimmer active>
+                        <Loader content="Loading..." />
+                    </Dimmer>
+                )}
+
+                <ToastContainer
+                    enableMultiContainer
+                    position={toast.POSITION.TOP_RIGHT}
+                />
                 <Header />
                 <Container className="boxWithShadow userForms">
                     <div className="userFormHeader">
@@ -30,7 +70,7 @@ class ResetPassword extends Component {
                             <Input icon='lock'
                                 type='password'
                                 onChange={this.setFormValue.bind(this, "password")}
-                                onKeyUp={this.handleSignupKeyup.bind(this, "password")}
+                                onKeyUp={this.resetState.bind(this, "password")}
                                 iconPosition='left'
                                 placeholder='Password' />
                             <span style={{ color: "red" }}>
@@ -43,7 +83,7 @@ class ResetPassword extends Component {
                             <Input icon='lock'
                                 type='password'
                                 onChange={this.setFormValue.bind(this, "password")}
-                                onKeyUp={this.handleSignupKeyup.bind(this, "password")}
+                                onKeyUp={this.resetState.bind(this, "password")}
                                 iconPosition='left'
                                 placeholder='Password' />
                             <span style={{ color: "red" }}>
@@ -53,7 +93,7 @@ class ResetPassword extends Component {
 
                         <div className="form-captcha"></div>
                         <div className="form-button">
-                            <Button onClick={this.signInWithPeatio} primary>Primary</Button>
+                            <Button onClick={this.resetPassword} primary>Primary</Button>
                             <p>Don't have an Account? <Link to="/Register">Sign Up Now</Link></p>
                         </div>
                     </Form>
