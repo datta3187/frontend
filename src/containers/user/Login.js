@@ -145,7 +145,7 @@ class Login extends Component {
                     localStorage.setItem("user", JSON.stringify(res));
                     toast.success("Logged in successfully");
                     this.setState({ loading: false });
-                    this.props.history.push("/kyc")
+                    this.props.history.push("/profile")
                 }
             })
             .catch(error => {
@@ -169,8 +169,6 @@ class Login extends Component {
             debugger
             loginApi.forgotPasswordApi(this.state.forfields)
                 .then(res => {
-                    debugger
-                    console.log('Hi')
                     // this.props.history.push("/login")
                     this.setState({isParentOpen: false})
                     toast.success("Password reset link has been sent on your email.")
