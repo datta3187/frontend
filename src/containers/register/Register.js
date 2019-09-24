@@ -7,15 +7,17 @@ import * as loginApi from "../../api/loginApi"
 import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
+import config from "../../config";
+import Recaptcha from "../../components/Recaptcha";
 
 // const CAPTCHA_NAME = 'demoCaptcha';
 
 class Register extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             fields: { email: '', password: '', conPassword: '', refid: 'IDAEBDF1468B', terms: '' },
-            errors: { email: '', password: '', conPassword: '', refid: '', terms: '' },
+            errors: { email: '', password: '', conPassword: '', refid: '', terms: '', captcha_response: '' },
             loading: false,
             isTermSelected: false
         }
@@ -103,11 +105,18 @@ class Register extends Component {
                 errors["email"] = "Email is not valid";
             }
         }
-        //ters and condition validation
+        //terms and condition validation
 
         if (!this.state.isTermSelected) {
             formIsValid = false;
             errors["terms"] = "Please accept terms & conditions";
+        }
+
+        if (config.captchaPolicy != 'disabled') {
+            if (!fields["captcha_response"]) {
+                formIsValid = false;
+                errors["captcha_response"] = "Verify the captcha";
+            }
         }
 
         this.setState({ errors: errors });
@@ -141,7 +150,15 @@ class Register extends Component {
         }
     };
 
+    handleCaptcha = e => {
+        let fields = this.state.fields;
+        fields.captcha_response = e;
+        this.setState({fields});
 
+        let errors = this.state.errors;
+        errors.captcha_response = '';
+        this.setState({errors});
+    };
 
     render() {
         return (
@@ -207,13 +224,18 @@ class Register extends Component {
                                 onKeyUp={this.handleSignupKeyup.bind(this, "refid")}
                                 iconPosition='left' placeholder='Referral Id' />
                         </Form.Field>
+                        <div className="form-captcha">
+                            <Recaptcha handler={this.handleCaptcha}/>
+                            <span style={{color: "red"}}>
+                                {this.state.errors["captcha_response"]}
+                            </span>
+                        </div>
                         <Form.Field className="userFormAth">
                             <Checkbox onClick={this.aggreed} label="I agree to AnXchange' s Terms of Use" />
                             <span style={{ color: "red" }}>
                                 {this.state.errors["terms"]}
                             </span>
                         </Form.Field>
-                        <div className="form-captcha"></div>
                         <div className="form-button">
                             <Button type='submit' onClick={this.signupWithPeatio} primary>Sign Up</Button>
                             <p>Already have an account?  <Link to="/login">Sign In</Link></p>
