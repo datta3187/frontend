@@ -62,7 +62,7 @@ export class Setting extends Component {
 
                 <Container className="boxWithShadow userForms">
                     <div className="userFormHeader">
-                        <h1>Detail</h1>
+                        <h1>EXTO Referral Program</h1>
                     </div>
 
                     <Grid divided='vertically'>
@@ -158,7 +158,7 @@ export class Setting extends Component {
                                     <List divided verticalAlign='middle'>
                                         <List.Item>
                                             <List.Content floated='right'>
-                                                <button type="button" onClick={() => this.setState({ isParentOpen: true })}>Enable</button>
+                                                <Button type="button" onClick={() => this.setState({ isParentOpen: true })}>Enable</Button>
                                                 {/*<Button onClick={() => this.setState({ isParentOpen: true })}>Enable</Button>*/}
                                             </List.Content>
                                             <List.Content>Used for withdrawals and security modifications.</List.Content>
