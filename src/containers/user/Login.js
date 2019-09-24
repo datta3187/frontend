@@ -136,8 +136,8 @@ class Login extends Component {
     signInWithPeatio = e => {
         e.preventDefault();
         this.setState({ loading: true });
-
-        loginApi.onLogin(this.state.fields)
+        if (this.handleValidation() && this.state.isTermSelected) {
+            loginApi.onLogin(this.state.fields)
             .then(res => {
                 if (res.state == 'pending') {
                     toast.error("e-mail verification pending");
@@ -158,7 +158,9 @@ class Login extends Component {
                 }
 
             });
-
+        } else {
+            this.setState({ loading: false });
+        }
     };
 
     forgotPassword = e => {

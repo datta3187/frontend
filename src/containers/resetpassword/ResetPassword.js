@@ -16,6 +16,18 @@ class ResetPassword extends Component {
         }
     }
 
+    componentDidMount() {
+        debugger
+        this.setState(prevState => {
+            debugger
+            let newData = Object.assign({}, prevState.data);
+            newData['reset_password_token'] = this.props.match.params.token
+            return { newData };
+        });
+        debugger
+        console.log('i am here')
+    }
+
     setFormValue(field, e) {
 
         console.log('helo')
@@ -24,25 +36,33 @@ class ResetPassword extends Component {
     resetState(field, e) {
         console.log('Helo');
     }
+    handleValidation(){
+
+    }
 
     resetPassword = e => {
         e.preventDefault();
         this.setState({ loading: true });
         let api_url = 'identity/users/password/confirm_code'
-        loginApi.remoteApi(api_url, 'POST' , this.state.data)
-            .then(res => {
-                this.setState({loading: false})
-                toast.success('Password has been reset successfully!');
-                this.props.history.push("/login")
-            })
-            .catch(error =>{
-                if(error.response){
-                    toast.error(error.response.data.errors[0]);
-                }
-                else{
-                    toast.error(""+ error);
-                }
-            })
+        if (this.handleValidation() && this.state.isTermSelected) {
+            loginApi.remoteApi(api_url, 'POST' , this.state.data)
+                .then(res => {
+                    this.setState({loading: false})
+                    toast.success('Password has been reset successfully!');
+                    this.props.history.push("/login")
+                })
+                .catch(error =>{
+                    if(error.response){
+                        toast.error(error.response.data.errors[0]);
+                    }
+                    else{
+                        toast.error(""+ error);
+                    }
+                })
+        }
+        else {
+            this.setState({ loading: false });
+        }
     }
 
     render() {
