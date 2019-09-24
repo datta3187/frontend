@@ -132,49 +132,60 @@ class Login extends Component {
         return formIsValid;
     };
 
-
-
-    // button 
+    // button
     signInWithPeatio = e => {
         e.preventDefault();
-        console.log("FORM DATA", this.state.fields);
         this.setState({ loading: true });
-        // if (this.handleValidation() && this.state.isTermSelected) {
-        // alert('dfds')
+
         loginApi.onLogin(this.state.fields)
             .then(res => {
-                console.log("Login response", res);
-                this.setState({ loading: false });
                 if (res.state == 'pending') {
-                    toast.error("verification pending");
+                    toast.error("e-mail verification pending");
                 } else {
-
                     localStorage.setItem("user", JSON.stringify(res));
                     toast.success("Logged in successfully");
-                    setTimeout(() => {
-                        this.props.history.push("/kyc")
-
-                    }, 2000)
+                    this.setState({ loading: false });
+                    this.props.history.push("/kyc")
                 }
-                // this.props.history.push("/Pusher/thanks", {
-                //     email: this.state.fields.email
-                // });
             })
             .catch(error => {
                 this.setState({ loading: false });
-                // toast.error(error.response.data.message);
+                if(error.response){
+                    toast.error(error.response.data.errors[0]);
+                }
+                else{
+                    toast.error(""+ error);
+                }
+
             });
-        // } else {
-        //     this.setState({ loading: false });
-        // }
+
     };
 
     forgotPassword = e => {
         e.preventDefault();
-        console.log("FORM DATA", this.state.forfields);
-        if (this.handleForgotValidation()) {
 
-        } else {
+        if (this.handleForgotValidation()) {
+            console.log("data :" + this.state.forfields)
+            debugger
+            loginApi.forgotPasswordApi(this.state.forfields)
+                .then(res => {
+                    debugger
+                    console.log('Hi')
+                    // this.props.history.push("/login")
+                    this.setState({isParentOpen: false})
+                    toast.success("Password reset link has been sent on your email.")
+                })
+                .catch(error =>{
+                    if(error.response){
+                        toast.error(error.response.data.errors[0]);
+                    }
+                    else{
+                        toast.error(""+ error);
+                    }
+                })
+
+        }
+        else {
             this.setState({ loading: false });
         }
     }
@@ -256,7 +267,7 @@ class Login extends Component {
 
 
                     <Modal size="small" open={this.state.isParentOpen} className="forgotPasswordModal">
-                        <a className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" class="close link icon"></i></a>
+                        <a className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" className="close link icon"></i></a>
                         <Modal.Header>
                             <h3>Forgot Password?</h3>
                             <span>We just need your registred email address to send you password reset</span>

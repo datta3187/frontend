@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify"
 
 
 import Footer from '../../components/Footer'
-import Header from '../../components/Header'
+import LoggedInHeader from '../../components/LoggedInHeader'
 
 const countryOptions = [
     { key: 'af', value: 'af', text: 'Afghanistan' },
@@ -134,7 +134,7 @@ export class Profile extends Component {
                     enableMultiContainer
                     position={toast.POSITION.TOP_RIGHT}
                 />
-                <Header />
+                <LoggedInHeader />
 
                 <Container className="boxWithShadow userForms kycForm">
                     <div className="userFormHeader">

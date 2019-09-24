@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { Container, Form, Input, Select, Checkbox, Radio, Button, Dropdown } from 'semantic-ui-react'
 import { DateInput, TimeInput, DateTimeInput, DatesRangeInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
-import Header from '../../components/Header'
+import LoggedInHeader from "../../components/LoggedInHeader";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import * as loginApi from "../../api/authApi";
 import FileBase64 from 'react-file-base64';
 
 import './Kyc.scss'
+
 
 
 const docType = [
@@ -171,7 +172,7 @@ class Kyc extends Component {
     render() {
         return (
             < div >
-                <Header />
+                <LoggedInHeader />
                 <Container className="boxWithShadow userForms kycForm">
                     <div className="userFormHeader">
                         <h1>Know Your Customer</h1>
