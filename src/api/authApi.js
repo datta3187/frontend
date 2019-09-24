@@ -4,7 +4,6 @@ import config from "../config";
 // Kyc Api
 export const onKyc = payload => {
     const URL = config.apiUrl;
-    debugger
     return axios(`${URL}/resource/documents`, {
         method: "POST",
         headers: {
