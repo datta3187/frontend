@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Button } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
-import {Form, Input, Dropdown} from 'semantic-ui-react-form-validator';
+import { Form, Input, Dropdown } from 'semantic-ui-react-form-validator';
 
 import * as profileApi from "../../api/profileApi";
 import { ToastContainer, toast } from "react-toastify"
@@ -27,8 +27,7 @@ const docOptions = [
 
 export class Profile extends Component {
 
-    componentDidMount()
-    {
+    componentDidMount() {
         profileApi.getProfile()
             .then(res => {
                 this.setState({
@@ -73,7 +72,7 @@ export class Profile extends Component {
         this.setState({ fields });
     }
 
-    dropdownChange = (e, {name, value}) => {
+    dropdownChange = (e, { name, value }) => {
         this.setState({ [name]: value });
 
         this.setState(prevState => {
@@ -102,7 +101,7 @@ export class Profile extends Component {
         profileApi.onProfileSubmission(this.state.fields)
             .then(res => {
                 console.log("Profile response", res);
-                this.setState({loading: false});
+                this.setState({ loading: false });
                 if (res.state == 'pending') {
                     toast.error("something something");
                 } else {
@@ -115,12 +114,12 @@ export class Profile extends Component {
                     }, 2000)
                 }
             })
-            .catch(error =>{
-                if(error.response){
+            .catch(error => {
+                if (error.response) {
                     toast.error(error.response.data.errors[0]);
                 }
-                else{
-                    toast.error(""+ error);
+                else {
+                    toast.error("" + error);
                 }
             })
     }
@@ -145,26 +144,29 @@ export class Profile extends Component {
                         onSubmit={this.saveprofile}
                     >
                         <div className="form-row">
-                                <div className="form-group">
-                                    <Input
-                                        type="text"
-                                        placeholder="First Name"
-                                        onChange={this.setFormValue.bind(this, "first_name")}
-                                        value={this.state.fields.first_name}
-                                        validators={['required']}
-                                        errorMessages={['this field is required']}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <Input
-                                        type="text"
-                                        placeholder="Last Name"
-                                        onChange={this.setFormValue.bind(this, "last_name")}
-                                        value={this.state.fields.last_name}
-                                        validators={['required']}
-                                        errorMessages={['this field is required']}
-                                    />
-                                </div>
+                            <div className="form-group">
+
+                                <Input
+                                    label="First Name"
+                                    type="text"
+                                    placeholder="First Name"
+                                    onChange={this.setFormValue.bind(this, "first_name")}
+                                    value={this.state.fields.first_name}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <Input
+                                    label="Last Name"
+                                    type="text"
+                                    placeholder="Last Name"
+                                    onChange={this.setFormValue.bind(this, "last_name")}
+                                    value={this.state.fields.last_name}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                />
+                            </div>
                         </div>
 
                         <div className="form-row">
@@ -173,6 +175,7 @@ export class Profile extends Component {
                                     <div className="datePicker">
                                         <div>
                                             <DateInput
+                                                label="Date of Birth"
                                                 placeholder="Date Of Birth"
                                                 name="date"
                                                 iconPosition='left'
@@ -187,6 +190,7 @@ export class Profile extends Component {
                             </div>
                             <div className="form-group">
                                 <Input
+                                    label="Address"
                                     type="text"
                                     placeholder="Address"
                                     onChange={this.setFormValue.bind(this, "address")}
@@ -199,8 +203,10 @@ export class Profile extends Component {
 
                         <div className="form-row">
                             <div className="form-group dd">
+
                                 <Dropdown
-                                    Placeholder="City"
+                                    label="City"
+                                    placeholder="City"
                                     name="city"
                                     onChange={this.dropdownChange}
                                     value={this.state.fields.city}
@@ -213,7 +219,8 @@ export class Profile extends Component {
                             </div>
                             <div className="form-group  dd">
                                 <Dropdown
-                                    Placeholder="Country"
+                                    label="Country"
+                                    placeholder="Country"
                                     name="country"
                                     onChange={this.dropdownChange}
                                     value={this.state.fields.country}
@@ -229,6 +236,7 @@ export class Profile extends Component {
                         <div className="form-row">
                             <div className="form-group">
                                 <Input
+                                    label="Postal Code"
                                     type="text"
                                     placeholder="Postal Code"
                                     onChange={this.setFormValue.bind(this, "postcode")}
@@ -239,7 +247,7 @@ export class Profile extends Component {
                             </div>
                         </div>
 
-                        <Button color="teal">Submit</Button>
+                        <Button>Submit</Button>
                     </Form>
                 </Container>
                 <Footer />
