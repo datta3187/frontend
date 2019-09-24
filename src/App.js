@@ -10,6 +10,7 @@ import ResetPassword from './containers/resetpassword/ResetPassword'
 import Kyc from './containers/kyc/Kyc'
 import Exchange from './containers/exchange/Exchange'
 import Profile from './containers/profile/Profile'
+import Setting from './containers/setting/Setting'
 
 class App extends Component {
   render() {
@@ -26,7 +27,7 @@ class App extends Component {
             <Route path="/exchange" component={Exchange} />
             <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
             <Route path="/resetpassword" exact component={ResetPassword} />
-
+            <Route path="/settings" component={Setting} />
           </Switch>
         </div>
       </Router>

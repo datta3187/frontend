@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Form, Input, Tab, Checkbox, Icon, Button, Dropdown } from 'semantic-ui-react'
+import { Tab, Checkbox } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import Limit from './Limit'

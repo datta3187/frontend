@@ -31,7 +31,6 @@ export class Profile extends Component {
     {
         profileApi.getProfile()
             .then(res => {
-                debugger
                 this.setState({
                     fields: res
                 })

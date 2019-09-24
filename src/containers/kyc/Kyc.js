@@ -8,6 +8,7 @@ import * as authApi from "../../api/authApi";
 // import FileBase64 from 'react-file-base64';
 
 import './Kyc.scss'
+import {toast} from "react-toastify";
 
 
 const docType = [
@@ -39,7 +40,7 @@ class Kyc extends Component {
                 doc_expire: '',
                 upload: null,
             },
-            upload:'',
+            upload:[],
 
             loading: false,
         }
@@ -49,9 +50,12 @@ class Kyc extends Component {
 
     onFileUploadChange =(e)=> {
         // const formData = new FormData();
-        // formData.append('upload',e.target.files[0])
+        // formData.append
+        // var file = e.target.files[0];
+        // this.setState(prevState => ({
+        //     upload: [...prevState.upload, file]
+        // }));
         this.setState({upload:e.target.files[0]});
-
     }
 
 
@@ -73,52 +77,34 @@ class Kyc extends Component {
         this.setState({ fields });
     }
 
-
-    // handleChangeDocExpire = (event, { name, value }) => {
-    //     this.setState({ [name]: value });
-    //
-    //     this.setState(prevState => {
-    //         let fields = Object.assign({}, prevState.fields);
-    //         fields.doc_expire = value;
-    //         return { fields: fields };
-    //     })
-    // }
-
-
-
-
-
     signupkyc = e => {
         e.preventDefault()
-
-
-console.log("UPLOAD",this.state.upload)
-
         let formData = new FormData(); //formdata
-
-
-        // var data = {
-        //     doc_type: this.state.fields.doc_type,
-        //     doc_number: this.state.fields.doc_number,
-        //     doc_expire: this.state.fields.doc_expire,
-        //     upload: this.state.upload
-        // }
-        // if (this.handleValidation()) {
         formData.append('doc_type',this.state.fields.doc_type)
         formData.append('doc_number',this.state.fields.doc_number)
         formData.append('doc_expire',this.state.fields.doc_expire)
-        formData.append('upload',this.state.upload)
-            authApi.onKyc(formData)
-                .then(res => {
-                    console.log('data sent', res)
-                })
-                .catch(errors => {
-                    console.log('Error', errors)
-                })
-        // }
-        // else {
-        //     this.setState({ loading: false });
-        // }
+        formData.append('upload', this.state.upload)
+
+        // const formData = new FormData();
+        // formData.append('doc_type',this.state.fields.doc_type)
+        // formData.append('doc_number',this.state.fields.doc_number)
+        // formData.append('doc_expire',this.state.fields.doc_expire)
+        // this.state.upload.map(function(file){
+        //     formData.append('upload', file)
+        // })
+
+        authApi.onKyc(formData)
+            .then(res => {
+                console.log("KYC response", res);
+                this.setState({ loading: false });
+
+                this.props.history.push("/setting");
+            })
+            .catch(err => {
+                console.log('Error', err);
+                toast.success(err.response.data.errors);
+
+            })
     }
 
     render() {
@@ -171,12 +157,13 @@ console.log("UPLOAD",this.state.upload)
 
                         <Input
                             type="file"
-                            name="upload[]"
+                            name="upload"
                             placeholder="Upload Document"
-                            value={this.state.fields.upload}
+                            value={this.state.upload.filename}
                             onChange={this.onFileUploadChange}
                             // validators={['required']}
                             // errorMessages={['this field is required']}
+                            // allowedExtensions={['jpeg']}
                         />
 
                         <Button color="teal">Submit</Button>
