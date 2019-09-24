@@ -9,14 +9,15 @@ import Auhenticate from '../../components/Auhenticate/Auhenticate';
 import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css"
-
+import ReCAPTCHA from "react-google-recaptcha";
+import config from "../../config";
 
 class Login extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             fields: { email: '', password: '' },
-            errors: { email: '', password: '' },
+            errors: { email: '', password: '', captcha_response: '' },
             forfields: { email: '' },
             loading: false,
             isParentOpen: false
@@ -93,6 +94,17 @@ class Login extends Component {
             }
         }
 
+        if (config.captchaPolicy != 'disabled') {
+            if (!fields["captcha_response"]) {
+                formIsValid = false;
+                errors["captcha_response"] = "Verify the captcha";
+            }
+        }
+
+        if (!formIsValid) {
+            this.setState({ loading: false });
+        }
+
         this.setState({ errors: errors });
         return formIsValid;
     };
@@ -136,30 +148,29 @@ class Login extends Component {
     signInWithPeatio = e => {
         e.preventDefault();
         this.setState({ loading: true });
-        if (this.handleValidation() && this.state.isTermSelected) {
+        if (this.handleValidation()) {
             loginApi.onLogin(this.state.fields)
-            .then(res => {
-                if (res.state == 'pending') {
-                    toast.error("e-mail verification pending");
-                } else {
-                    localStorage.setItem("user", JSON.stringify(res));
-                    toast.success("Logged in successfully");
+                .then(res => {
+                    if (res.state == 'pending') {
+                        toast.error("e-mail verification pending");
+                    } else {
+                        localStorage.setItem("user", JSON.stringify(res));
+                        toast.success("Logged in successfully");
+                        this.setState({ loading: false });
+                        this.props.history.push("/profile")
+                    }
+                })
+                .catch(error => {
                     this.setState({ loading: false });
-                    this.props.history.push("/profile")
-                }
-            })
-            .catch(error => {
-                this.setState({ loading: false });
-                if(error.response){
-                    toast.error(error.response.data.errors[0]);
-                }
-                else{
-                    toast.error(""+ error);
-                }
+                    if(error.response){
+                        toast.error(error.response.data.errors[0]);
+                    }
+                    else{
+                        toast.error(""+ error);
+                    }
 
-            });
-        } else {
-            this.setState({ loading: false });
+                });
+
         }
     };
 
@@ -198,6 +209,16 @@ class Login extends Component {
             }
         }
     }
+
+    handleCaptcha = e => {
+        let fields = this.state.fields;
+        fields.captcha_response = e;
+        this.setState({fields});
+
+        let errors = this.state.errors;
+        errors.captcha_response = '';
+        this.setState({errors});
+    };
 
     render() {
         return (
@@ -252,9 +273,20 @@ class Login extends Component {
                                 {/* <Modal size="small" open={this.state.isParentOpen} trigger={<a>Forgot Password?</a>} className="forgotPasswordModal"> */}
 
                             </Form.Field>
-                            <div className="form-captcha"></div>
+
+                            {(config.captchaPolicy != 'disabled') && (
+                                <div className="form-captcha">
+                                    <ReCAPTCHA
+                                        sitekey={config.recatpchaSiteKey}
+                                        onChange={this.handleCaptcha}
+                                    />
+                                    <span style={{color: "red"}}>
+                                        {this.state.errors["captcha_response"]}
+                                    </span>
+                                </div>
+                            )}
                             <div className="form-button">
-                                <Button onClick={this.signInWithPeatio} primary>Primary</Button>
+                                <Button onClick={this.signInWithPeatio} primary>Sign In</Button>
                                 <p>Don't have an Account? <Link to="/Register">Sign Up Now</Link></p>
                             </div>
                         </Form>

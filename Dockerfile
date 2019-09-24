@@ -4,7 +4,7 @@ WORKDIR /home/node
 COPY --chown=node:node . .
 
 USER node
-RUN yarn install
+RUN npm install
 
 EXPOSE 3000
 
