@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
-import ReCAPTCHA from "react-google-recaptcha";
+import Recaptcha from "../../components/Recaptcha";
 
 // const CAPTCHA_NAME = 'demoCaptcha';
 
@@ -224,23 +224,18 @@ class Register extends Component {
                                 onKeyUp={this.handleSignupKeyup.bind(this, "refid")}
                                 iconPosition='left' placeholder='Referral Id' />
                         </Form.Field>
+                        <div className="form-captcha">
+                            <Recaptcha handler={this.handleCaptcha}/>
+                            <span style={{color: "red"}}>
+                                {this.state.errors["captcha_response"]}
+                            </span>
+                        </div>
                         <Form.Field className="userFormAth">
                             <Checkbox onClick={this.aggreed} label="I agree to AnXchange' s Terms of Use" />
                             <span style={{ color: "red" }}>
                                 {this.state.errors["terms"]}
                             </span>
                         </Form.Field>
-                        {(config.captchaPolicy != 'disabled') && (
-                            <div className="form-captcha">
-                                <ReCAPTCHA
-                                    sitekey={config.recatpchaSiteKey}
-                                    onChange={this.handleCaptcha}
-                                />
-                                <span style={{color: "red"}}>
-                                        {this.state.errors["captcha_response"]}
-                                    </span>
-                            </div>
-                        )}
                         <div className="form-button">
                             <Button type='submit' onClick={this.signupWithPeatio} primary>Sign Up</Button>
                             <p>Already have an account?  <Link to="/login">Sign In</Link></p>

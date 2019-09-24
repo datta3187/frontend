@@ -9,8 +9,8 @@ import Auhenticate from '../../components/Auhenticate/Auhenticate';
 import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css"
-import ReCAPTCHA from "react-google-recaptcha";
 import config from "../../config";
+import Recaptcha from "../../components/Recaptcha";
 
 class Login extends Component {
     constructor(props) {
@@ -274,17 +274,12 @@ class Login extends Component {
 
                             </Form.Field>
 
-                            {(config.captchaPolicy != 'disabled') && (
-                                <div className="form-captcha">
-                                    <ReCAPTCHA
-                                        sitekey={config.recatpchaSiteKey}
-                                        onChange={this.handleCaptcha}
-                                    />
-                                    <span style={{color: "red"}}>
-                                        {this.state.errors["captcha_response"]}
-                                    </span>
-                                </div>
-                            )}
+                            <div className="form-captcha">
+                                <Recaptcha handler={this.handleCaptcha}/>
+                                <span style={{color: "red"}}>
+                                    {this.state.errors["captcha_response"]}
+                                </span>
+                            </div>
                             <div className="form-button">
                                 <Button onClick={this.signInWithPeatio} primary>Sign In</Button>
                                 <p>Don't have an Account? <Link to="/Register">Sign Up Now</Link></p>
