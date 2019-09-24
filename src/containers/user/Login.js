@@ -166,12 +166,8 @@ class Login extends Component {
 
         if (this.handleForgotValidation()) {
             console.log("data :" + this.state.forfields)
-            debugger
             loginApi.forgotPasswordApi(this.state.forfields)
                 .then(res => {
-                    debugger
-                    console.log('Hi')
-                    // this.props.history.push("/login")
                     this.setState({isParentOpen: false})
                     toast.success("Password reset link has been sent on your email.")
                 })
