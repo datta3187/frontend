@@ -10,9 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 // const CAPTCHA_NAME = 'demoCaptcha';
 
-
-
-
 class Register extends Component {
     constructor(props) {
         super(props)
@@ -120,12 +117,10 @@ class Register extends Component {
     // button 
     signupWithPeatio = e => {
         e.preventDefault();
-        console.log("FORM DATA", this.state.fields);
         this.setState({ loading: true });
         if (this.handleValidation() && this.state.isTermSelected) {
             loginApi.onSignup(this.state.fields)
                 .then(res => {
-                    console.log("Login response", res);
                     this.setState({ loading: false });
 
                     this.props.history.push("/email-verification", {
@@ -133,9 +128,13 @@ class Register extends Component {
                     });
                 })
                 .catch(error => {
-                    debugger
                     this.setState({ loading: false });
-                    toast.error("Error :" + error);
+                    if(error.response){
+                        toast.error(error.response.data.errors[0]);
+                    }
+                    else{
+                        toast.error(""+ error);
+                    }
                 });
         } else {
             this.setState({ loading: false });

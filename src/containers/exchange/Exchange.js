@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Tab, Checkbox } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
-import Header from '../../components/Header'
+import LoggedInHeader from '../../components/LoggedInHeader'
 import Limit from './Limit'
 import Market from './Market'
 
@@ -19,17 +19,12 @@ const limitMarket = [
     { menuItem: 'Market', render: () => <Tab.Pane><Market /></Tab.Pane> },
 ]
 
-
-
-
 class Exchange extends Component {
-
-
 
     render() {
         return (
             <div style={{ 'background': '#dfdfdf' }}>
-                <Header abc="exchangeHdr" />
+                <LoggedInHeader abc="exchangeHdr" />
                 <div className="tradeBar">
                     <ul className="rowVolume">
                         <li>BTC/BCH</li>

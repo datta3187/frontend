@@ -71,7 +71,7 @@ export const googleLoginSignup = payload => {
 // forgot password
 export const forgotPasswordApi = payload => {
   const URL = config.apiUrl;
-  return axios(`${URL}user/forgotpassword`, {
+  return axios(`${URL}/identity/users/password/generate_code`, {
     method: "POST",
     headers: {
       "content-type": "application/json" // whatever you want

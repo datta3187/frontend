@@ -3,9 +3,9 @@ import { Container, Button } from 'semantic-ui-react'
 import {Dropdown, Form, Input} from 'semantic-ui-react-form-validator';
 import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
-import Header from '../../components/Header'
-import * as authApi from "../../api/authApi";
-// import FileBase64 from 'react-file-base64';
+import LoggedInHeader from "../../components/LoggedInHeader";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import * as loginApi from "../../api/authApi";
 
 import './Kyc.scss'
 import {toast} from "react-toastify";
@@ -24,9 +24,6 @@ class Kyc extends Component {
     constructor(props) {
         window.scrollTo(0, 0);
         super(props)
-        // this.state ={
-        //     file:null
-        // }
         this.state = {
             fields: {
                 doc_type: '',
@@ -71,7 +68,6 @@ class Kyc extends Component {
     }
 
     setFormValue(field, e) {
-
         let fields = this.state.fields;
         fields[field] = e.target.value;
         this.setState({ fields });
@@ -108,10 +104,9 @@ class Kyc extends Component {
     }
 
     render() {
-        console.log("ALL STATES",this.state)
         return (
             < div >
-                <Header />
+                <LoggedInHeader />
                 <Container className="boxWithShadow userForms kycForm">
                     <div className="userFormHeader">
                         <h1>Know Your Customer</h1>

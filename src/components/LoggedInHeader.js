@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './header.scss'
 import { Container } from 'semantic-ui-react';
 
-class Header extends Component {
+class LoggedInHeader extends Component {
 
     render() {
         return (
@@ -16,8 +16,8 @@ class Header extends Component {
                         <div className="headerRight">
                             <nav>
                                 <ul className="r-nav">
-                                    <li><Link to="/trading/ethbtc">Trade</Link></li>
-                                    <li className="hasLoginBtn"><Link to="/login">Login</Link></li>
+                                    <li><Link to="/trading/ethbtc">Exchange</Link></li>
+                                    <li><Link to="/signout">Logout</Link></li>
                                 </ul>
                             </nav>
                         </div>
@@ -28,5 +28,4 @@ class Header extends Component {
     }
 }
 
-
-export default Header
+export default LoggedInHeader

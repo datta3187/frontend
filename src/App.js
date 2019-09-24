@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import "./index.scss";
 import Login from './containers/user/Login'
+import Logout from './containers/user/Logout'
 import Register from './containers/register/Register'
 import EmailVerify from './containers/register/EmailVerify'
 import EmailConfirmation from './containers/emailConfirmation/EmailConfirmation'
@@ -24,10 +25,12 @@ class App extends Component {
             <Route path="/email-verification" exact component={EmailVerify} />
             <Route path="/profile" component={Profile} />
             <Route path="/kyc" component={Kyc} />
-            <Route path="/exchange" component={Exchange} />
+            <Route path="/trading/:market" component={Exchange} />
             <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
-            <Route path="/resetpassword" exact component={ResetPassword} />
+            <Route path="/password-reset/:token" exact component={ResetPassword} />
+            <Route path="/signout" exact component={Logout} />
             <Route path="/settings" component={Setting} />
+
           </Switch>
         </div>
       </Router>
