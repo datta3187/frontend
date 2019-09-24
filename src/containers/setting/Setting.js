@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import {Grid, Container, List, Button, Segment, Divider, Modal, Input, Form} from 'semantic-ui-react';
+import { Grid, Container, List, Button, Segment, Divider, Modal, Input, Form } from 'semantic-ui-react';
 import { ToastContainer, toast } from "react-toastify"
-
-
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import * as Api from "../../api/remoteApi";
+import './setting.scss'
 // import {Form} from "semantic-ui-react/dist/commonjs/collections/Form";
 
 var QRCode = require('qrcode.react');
@@ -31,8 +30,7 @@ export class Setting extends Component {
         this.setState({ fields });
     }
     //
-    componentDidMount()
-    {
+    componentDidMount() {
         let api_url = 'resource/users/me';
         Api.remoteApi(api_url, 'get', {})
             .then(res => {
@@ -40,12 +38,12 @@ export class Setting extends Component {
                     fields: res
                 })
             })
-            .catch(error =>{
-                if(error.response){
+            .catch(error => {
+                if (error.response) {
                     toast.error(error.response.data.errors[0]);
                 }
-                else{
-                    toast.error(""+ error);
+                else {
+                    toast.error("" + error);
                 }
             })
     }
@@ -53,41 +51,42 @@ export class Setting extends Component {
     render() {
         const user = this.state.fields;
         return (
-        <div>
+            <div>
                 <ToastContainer
                     enableMultiContainer
                     position={toast.POSITION.TOP_RIGHT}
                 />
                 <Header />
 
-                <Container className="boxWithShadow userForms">
+                <Container className="boxWithShadow settingPage">
                     <div className="userFormHeader">
-                        <h1>EXTO Referral Program</h1>
+                        <h1>Setting</h1>
                     </div>
 
                     <Grid divided='vertically'>
+
                         <Grid.Row columns={3}>
                             <Grid.Column>
                                 LAST EXTO RATE
                                 0.00000
-                            </Grid.Column>
+                    </Grid.Column>
                             <Grid.Column>
                                 TRADING VOLUME
                                 0.00000
-                            </Grid.Column>
+                    </Grid.Column>
                             <Grid.Column>
                                 EXTO BALANCE
                                 0.00000
-                            </Grid.Column>
+                    </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={2}>
                             <Grid.Column>
                                 TRADING PROFIT  0.00 EXTO
-                            </Grid.Column>
+                    </Grid.Column>
                             <Grid.Column>
                                 ACCOUNT SETTINGS
-
-                                <List divided verticalAlign='middle'>
+        
+                        <List divided verticalAlign='middle'>
                                     <List.Item>
                                         <List.Content floated='right'>
                                             {user.email}
@@ -102,7 +101,7 @@ export class Setting extends Component {
                                     </List.Item>
                                     <List.Item>
                                         <List.Content floated='right'>
-                                            {user.level!=3? 'Unverified' : 'Verified' }
+                                            {user.level != 3 ? 'Unverified' : 'Verified'}
                                         </List.Content>
                                         <List.Content>KYC Status</List.Content>
                                     </List.Item>
@@ -116,68 +115,59 @@ export class Setting extends Component {
                             </Grid.Column>
                         </Grid.Row>
 
-                        <Grid.Row columns={2}>
-                            <Grid.Column>
-                                <Segment>
-                                    E-mail Verification
-                                    <List divided verticalAlign='middle'>
-                                        <List.Item>
-                                            <List.Content floated='right'>
-                                                <Button>Verified</Button>
-                                            </List.Content>
-                                            <List.Content>Your email adress has been verified successfully, remember and protect this e-mail address, it is the single certificate for your account</List.Content>
-                                        </List.Item>
-                                    </List>
-                                </Segment>
-                                <Segment>
-                                    Verify Account
-                                    <List divided verticalAlign='middle'>
-                                        <List.Item>
-                                            <List.Content floated='right'>
-                                                <Button>Submit</Button>
-                                            </List.Content>
-                                            <List.Content>Lena</List.Content>
-                                        </List.Item>
-                                    </List>
-                                </Segment>
-                                <Segment>
-                                    Password
-                                    <List divided verticalAlign='middle'>
-                                        <List.Item>
-                                            <List.Content floated='right'>
-                                                <Button>Change Password</Button>
-                                            </List.Content>
-                                            <List.Content>This password is required for login, please remember it.</List.Content>
-                                        </List.Item>
-                                    </List>
-                                </Segment>
-                            </Grid.Column>
-                            <Grid.Column>
-                                <Segment>
-                                    Google Authentication
-                                    <List divided verticalAlign='middle'>
-                                        <List.Item>
-                                            <List.Content floated='right'>
-                                                <Button type="button" onClick={() => this.setState({ isParentOpen: true })}>Enable</Button>
-                                                {/*<Button onClick={() => this.setState({ isParentOpen: true })}>Enable</Button>*/}
-                                            </List.Content>
-                                            <List.Content>Used for withdrawals and security modifications.</List.Content>
-                                        </List.Item>
-                                    </List>
-                                    <Divider section />
-                                    SMS Authentication
-                                    <List divided verticalAlign='middle'>
-                                        <List.Item>
-                                            <List.Content floated='right'>
-                                                <Button>Enable</Button>
-                                            </List.Content>
-                                            <List.Content>Used for withdrawals and security modifications.
-                                            </List.Content>
-                                        </List.Item>
-                                    </List>
-                                </Segment>
-                            </Grid.Column>
-                        </Grid.Row>
+                        <Grid>
+                            <Grid.Row columns={2} className="settingList emailVerification">
+                                <Grid.Column className="settingListdesc">
+                                    <b>E-mail Verification</b>
+                                    <br />Your email adress has been verified successfully, remember and protect this e-mail address, it is the single certificate for your account
+                                </Grid.Column>
+                                <Grid.Column className="settingListBtn">
+                                    <Button>Verified</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+
+                            <Grid.Row columns={2} className="settingList verifyAccount">
+                                <Grid.Column className="settingListdesc">
+                                    <b>Verify Account</b>
+                                    <br />Lena
+                                </Grid.Column>
+                                <Grid.Column className="settingListBtn">
+                                    <Button>Verified</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+
+                            <Grid.Row columns={2} className="settingList passwordR">
+                                <Grid.Column className="settingListdesc">
+                                    <b>Password</b>
+                                    <br />This password is required for login, please remember it.
+                                </Grid.Column>
+                                <Grid.Column className="settingListBtn">
+                                    <Button>Change</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+
+                            <Grid.Row columns={2} className="settingList googleAuth">
+                                <Grid.Column className="settingListdesc">
+                                    <b>Google Authentication</b>
+                                    <br />Used for withdrawals and security modifications.
+                                </Grid.Column>
+                                <Grid.Column className="settingListBtn">
+                                    <Button type="button" onClick={() => this.setState({ isParentOpen: true })}>Enable</Button>
+                                    {/*<Button onClick={() => this.setState({ isParentOpen: true })}>Enable</Button>*/}
+                                </Grid.Column>
+                            </Grid.Row>
+
+                            <Grid.Row columns={2} className="settingList smsAuth">
+                                <Grid.Column className="settingListdesc">
+                                    <b>SMS Authentication</b>
+                                    <br />Used for withdrawals and security modifications.
+                                </Grid.Column>
+                                <Grid.Column className="settingListBtn">
+                                    <Button>Enable</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+
+                        </Grid>
                     </Grid>
                 </Container>
                 <Footer />
@@ -195,13 +185,13 @@ export class Setting extends Component {
                             <Form>
                                 <Form.Field>
                                     <Input icon=''
-                                           type="text"
-                                           onChange={this.setFormValue.bind(this, "code")}
-                                           iconPosition='left'
-                                           placeholder='code' />
+                                        type="text"
+                                        onChange={this.setFormValue.bind(this, "code")}
+                                        iconPosition='left'
+                                        placeholder='code' />
                                     {/*<span style={{ color: "red" }}>*/}
-                                            {/*{this.state.errors["email"]}*/}
-                                        {/*</span>*/}
+                                    {/*{this.state.errors["email"]}*/}
+                                    {/*</span>*/}
                                 </Form.Field>
                                 <Button className="resetButton" onClick={this.verifyGoogleAuth} primary>Verify</Button>
                             </Form>
