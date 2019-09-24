@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Container, Button, Checkbox, Form, Input, Image, Modal, Transition } from 'semantic-ui-react'
+import { Container, Button, Checkbox, Form, Input, Modal } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import * as loginApi from "../../api/loginApi";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import './User.scss'
 import Auhenticate from '../../components/Auhenticate/Auhenticate';
 import { ToastContainer, toast } from "react-toastify"
@@ -136,7 +136,7 @@ class Login extends Component {
     signInWithPeatio = e => {
         e.preventDefault();
         this.setState({ loading: true });
-        if (this.handleValidation() && this.state.isTermSelected) {
+        if (this.handleValidation()) {
             loginApi.onLogin(this.state.fields)
             .then(res => {
                 if (res.state == 'pending') {

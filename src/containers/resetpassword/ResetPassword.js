@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Container, Button, Checkbox, Form, Input, Image, Modal, Transition, Dimmer, Loader} from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as loginApi from "../../api/loginApi";
 import {toast, ToastContainer} from "react-toastify";
 
@@ -19,7 +19,6 @@ class ResetPassword extends Component {
     componentDidMount() {
         debugger
         this.setState(prevState => {
-            debugger
             let newData = Object.assign({}, prevState.data);
             newData['reset_password_token'] = this.props.match.params.token
             return { newData };
