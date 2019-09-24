@@ -3,7 +3,7 @@ import {Container, Button, Checkbox, Form, Input, Image, Modal, Transition, Dimm
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import * as loginApi from "../../api/loginApi";
+import * as Api from "../../api/remoteApi";
 import {toast, ToastContainer} from "react-toastify";
 
 class ResetPassword extends Component {
@@ -17,20 +17,19 @@ class ResetPassword extends Component {
     }
 
     componentDidMount() {
-        debugger
         this.setState(prevState => {
-            debugger
-            let newData = Object.assign({}, prevState.data);
-            newData['reset_password_token'] = this.props.match.params.token
-            return { newData };
+            let data = Object.assign({}, prevState.data);
+            data.reset_password_token = this.props.match.params.token
+            return { data };
         });
-        debugger
-        console.log('i am here')
+
     }
 
     setFormValue(field, e) {
-
-        console.log('helo')
+        let data = this.state.data;
+        data[field] = e.target.value;
+        this.setState({ data });
+        console.log('done')
     }
 
     resetState(field, e) {
@@ -42,27 +41,29 @@ class ResetPassword extends Component {
 
     resetPassword = e => {
         e.preventDefault();
+        debugger
+        this.handleValidation()
         this.setState({ loading: true });
         let api_url = 'identity/users/password/confirm_code'
-        if (this.handleValidation() && this.state.isTermSelected) {
-            loginApi.remoteApi(api_url, 'POST' , this.state.data)
-                .then(res => {
-                    this.setState({loading: false})
-                    toast.success('Password has been reset successfully!');
-                    this.props.history.push("/login")
-                })
-                .catch(error =>{
-                    if(error.response){
-                        toast.error(error.response.data.errors[0]);
-                    }
-                    else{
-                        toast.error(""+ error);
-                    }
-                })
-        }
-        else {
-            this.setState({ loading: false });
-        }
+        // if (this.handleValidation() && this.state.isTermSelected) {
+        //     Api.remoteApi(api_url, 'POST' , this.state.data)
+        //         .then(res => {
+        //             this.setState({loading: false})
+        //             toast.success('Password has been reset successfully!');
+        //             this.props.history.push("/login")
+        //         })
+        //         .catch(error =>{
+        //             if(error.response){
+        //                 toast.error(error.response.data.errors[0]);
+        //             }
+        //             else{
+        //                 toast.error(""+ error);
+        //             }
+        //         })
+        // }
+        // else {
+        //     this.setState({ loading: false });
+        // }
     }
 
     render() {

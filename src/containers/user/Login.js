@@ -136,7 +136,7 @@ class Login extends Component {
     signInWithPeatio = e => {
         e.preventDefault();
         this.setState({ loading: true });
-        if (this.handleValidation() && this.state.isTermSelected) {
+        if (this.handleValidation()) {
             loginApi.onLogin(this.state.fields)
             .then(res => {
                 if (res.state == 'pending') {
@@ -216,7 +216,7 @@ class Login extends Component {
                     <Header />
                     <Container className="boxWithShadow userForms">
                         <div className="userFormHeader">
-                            <h1>Sign in</h1>
+                            <h1>Sign in hello</h1>
                             <p>Enter your details to Email id and password to access your account</p>
                         </div>
                         <Form>
@@ -254,7 +254,7 @@ class Login extends Component {
                             </Form.Field>
                             <div className="form-captcha"></div>
                             <div className="form-button">
-                                <Button onClick={this.signInWithPeatio} primary>Primary</Button>
+                                <Button onClick={this.signInWithPeatio} primary>LogIn</Button>
                                 <p>Don't have an Account? <Link to="/Register">Sign Up Now</Link></p>
                             </div>
                         </Form>
