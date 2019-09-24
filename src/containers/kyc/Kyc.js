@@ -5,7 +5,7 @@ import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
 import LoggedInHeader from "../../components/LoggedInHeader";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import * as loginApi from "../../api/authApi";
+import * as authApi from "../../api/authApi";
 
 import './Kyc.scss'
 import {toast} from "react-toastify";
