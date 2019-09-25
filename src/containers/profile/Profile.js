@@ -103,7 +103,7 @@ export class Profile extends Component {
             .then(res => {
                 console.log("Profile response", res);
                 this.setState({loading: false});
-                if (res.state == 'pending') {
+                if (res.state === 'pending') {
                     toast.error("something something");
                 } else {
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Container, Button, Checkbox, Form, Input, Image, Modal, Transition } from 'semantic-ui-react'
+import { Container, Button, Checkbox, Form, Input, Modal } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import * as loginApi from "../../api/loginApi";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import './User.scss'
 import Auhenticate from '../../components/Auhenticate/Auhenticate';
 import { ToastContainer, toast } from "react-toastify"
@@ -94,7 +94,7 @@ class Login extends Component {
             }
         }
 
-        if (config.captchaPolicy != 'disabled') {
+        if (config.captchaPolicy) {
             if (!fields["captcha_response"]) {
                 formIsValid = false;
                 errors["captcha_response"] = "Verify the captcha";
@@ -144,6 +144,19 @@ class Login extends Component {
         return formIsValid;
     };
 
+    redirectPath =(level_no) =>{
+        let path = "/kyc"
+        switch(level_no) {
+            case 1:
+                path = '/phone'
+                break;
+            case 2:
+                path = '/profile'
+                break;
+        }
+        return path;
+    }
+
     // button
     signInWithPeatio = e => {
         e.preventDefault();
@@ -151,16 +164,18 @@ class Login extends Component {
         if (this.handleValidation()) {
             loginApi.onLogin(this.state.fields)
                 .then(res => {
-                    if (res.state == 'pending') {
+                    debugger
+                    if (res.state === 'pending') {
                         toast.error("e-mail verification pending");
                     } else {
                         localStorage.setItem("user", JSON.stringify(res));
                         toast.success("Logged in successfully");
                         this.setState({ loading: false });
-                        this.props.history.push("/profile")
+                        this.props.history.push(this.redirectPath(res.level))
                     }
                 })
                 .catch(error => {
+                    debugger
                     this.setState({ loading: false });
                     if(error.response){
                         toast.error(error.response.data.errors[0]);
@@ -275,7 +290,7 @@ class Login extends Component {
 
                             </Form.Field>
 
-                            {(config.captchaPolicy != 'disabled') && (
+                            {config.captchaPolicy && (
                                 <div className="form-captcha">
                                     <ReCAPTCHA
                                         sitekey={config.recatpchaSiteKey}

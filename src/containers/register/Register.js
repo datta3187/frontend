@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
-import { Container, Form, Input, Checkbox, Button, Dropdown } from 'semantic-ui-react'
+import { Container, Form, Input, Checkbox, Button } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import * as loginApi from "../../api/loginApi"
 import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
 import ReCAPTCHA from "react-google-recaptcha";
-
-// const CAPTCHA_NAME = 'demoCaptcha';
 
 class Register extends Component {
     constructor(props) {
@@ -76,7 +74,7 @@ class Register extends Component {
             fields["conPassword"] !== ""
         ) {
             if (fields["conPassword"] !== fields["password"]) {
-                errors["conPassword"] = "Password is Unmached.";
+                errors["conPassword"] = "Passwords don't match";
             }
         } else {
             errors["conPassword"] = "Confirm Password is Required";
@@ -112,7 +110,7 @@ class Register extends Component {
             errors["terms"] = "Please accept terms & conditions";
         }
 
-        if (config.captchaPolicy != 'disabled') {
+        if (config.captchaPolicy) {
             if (!fields["captcha_response"]) {
                 formIsValid = false;
                 errors["captcha_response"] = "Verify the captcha";
@@ -230,7 +228,7 @@ class Register extends Component {
                                 {this.state.errors["terms"]}
                             </span>
                         </Form.Field>
-                        {(config.captchaPolicy != 'disabled') && (
+                        {(config.captchaPolicy) && (
                             <div className="form-captcha">
                                 <ReCAPTCHA
                                     sitekey={config.recatpchaSiteKey}

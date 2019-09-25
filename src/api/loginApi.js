@@ -1,14 +1,20 @@
 import axios from "axios";
 import config from "../config";
 
+
+
 export const onLogin = payload => {
   const URL = config.apiUrl;
+
   return axios(`${URL}/identity/sessions`, {
     method: "POST",
     headers: {
-      "content-type": "application/json" // whatever you want
+      "content-type": "application/json",
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Origin': 'http://e2dd94a6.ngrok.io'
     },
-    data: payload
+    data: payload,
+    withCredentials: true
   })
     .then(response => response.data)
     .catch(error => {
