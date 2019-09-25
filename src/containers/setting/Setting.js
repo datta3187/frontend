@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify"
 
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
+import ChangePass from '../../components/change_password/ChangePassword'
 import * as Api from "../../api/remoteApi";
 import LoginGuard from "../../components/login_guard/LoginGuard";
 // import {Form} from "semantic-ui-react/dist/commonjs/collections/Form";
@@ -19,7 +20,8 @@ export class Setting extends Component {
                 uid: 'N/A',
                 level: '',
                 refid: 'EXTO123456',
-                isParentOpen: false
+                isParentOpen: false,
+                passwordModal: false
             },
             qr: null,
             code: null,
@@ -197,7 +199,9 @@ export class Setting extends Component {
                                         <List divided verticalAlign='middle'>
                                             <List.Item>
                                                 <List.Content floated='right'>
-                                                    <Button>Change Password</Button>
+                                                    {/*<Button>Change Password</Button>*/}
+                                                    <Button type="button" onClick={() => this.setState({ passwordModal: true })}>Change Password</Button>
+
                                                 </List.Content>
                                                 <List.Content>This password is required for login, please remember it.</List.Content>
                                             </List.Item>
@@ -261,6 +265,8 @@ export class Setting extends Component {
                             </Modal.Description>
                         </Modal.Content>
                     </Modal>
+                    {/*Change password Modal*/}
+                    <ChangePass />
                 </div>
             </LoginGuard>
         )
