@@ -5,12 +5,15 @@ import Header from '../../components/Header'
 import * as loginApi from "../../api/loginApi";
 import { Link } from "react-router-dom"
 import './User.scss'
-import Auhenticate from '../../components/Auhenticate/Auhenticate';
 import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css"
 import config from "../../config";
 import Recaptcha from "../../components/Recaptcha";
+import LogoutGuard from "../../components/logout_guard";
+import Auth from "../../components/Auth";
+
+const auth = new Auth();
 
 class Login extends Component {
     constructor(props) {
@@ -167,7 +170,7 @@ class Login extends Component {
                     if (res.state === 'pending') {
                         toast.error("e-mail verification pending");
                     } else {
-                        localStorage.setItem("user", JSON.stringify(res));
+                        auth.setSession(res);
                         toast.success("Logged in successfully");
                         this.setState({ loading: false });
                         this.props.history.push('/kyc')
@@ -237,7 +240,7 @@ class Login extends Component {
 
     render() {
         return (
-            <Auhenticate>
+            <LogoutGuard>
                 <div>
                     {this.state.loading && (
                         <Dimmer active>
@@ -336,7 +339,7 @@ class Login extends Component {
                     </Modal>
 
                 </div >
-            </Auhenticate>
+            </LogoutGuard>
         )
     }
 }

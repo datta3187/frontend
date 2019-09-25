@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const remoteApi = (api_url, method_type, payload) => {
     const URL = config.apiUrl;
-    debugger
     return axios(`${URL}/${api_url}`, {
         method: method_type.toUpperCase(),
         headers: {

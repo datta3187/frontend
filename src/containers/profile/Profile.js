@@ -8,7 +8,8 @@ import { ToastContainer, toast } from "react-toastify"
 
 
 import Footer from '../../components/Footer'
-import LoggedInHeader from '../../components/LoggedInHeader'
+import Header from '../../components/Header'
+import LoginGuard from "../../components/login_guard/LoginGuard";
 
 const countryOptions = [
     { key: 'af', value: 'af', text: 'Afghanistan' },
@@ -128,17 +129,18 @@ export class Profile extends Component {
 
     render() {
         return (
-            <div>
-                <ToastContainer
-                    enableMultiContainer
-                    position={toast.POSITION.TOP_RIGHT}
-                />
-                <LoggedInHeader />
+            <LoginGuard>
+                <div>
+                    <ToastContainer
+                        enableMultiContainer
+                        position={toast.POSITION.TOP_RIGHT}
+                    />
+                    <Header />
 
-                <Container className="boxWithShadow userForms kycForm">
-                    <div className="userFormHeader">
-                        <h1>Profile</h1>
-                    </div>
+                    <Container className="boxWithShadow userForms kycForm">
+                        <div className="userFormHeader">
+                            <h1>Profile</h1>
+                        </div>
 
                     <Form
                         ref="form"
@@ -169,37 +171,37 @@ export class Profile extends Component {
                             </div>
                         </div>
 
-                        <div className="form-row">
-                            <div className="form-group">
-                                <div className="genderAndDatepicker">
-                                    <div className="datePicker">
-                                        <div>
-                                            <DateInput
-                                                label="Date of Birth"
-                                                placeholder="Date Of Birth"
-                                                name="date"
-                                                iconPosition='left'
-                                                startMode="['year', 'month', 'day']"
-                                                placeholder="Date"
-                                                value={this.state.fields.dob}
-                                                onChange={this.handleChangeDate}
-                                            />
+                            <div className="form-row">
+                                <div className="form-group">
+                                    <div className="genderAndDatepicker">
+                                        <div className="datePicker">
+                                            <div>
+                                                <DateInput
+                                                    label="Date of Birth"
+                                                    placeholder="Date Of Birth"
+                                                    name="date"
+                                                    iconPosition='left'
+                                                    startMode="['year', 'month', 'day']"
+                                                    placeholder="Date"
+                                                    value={this.state.fields.dob}
+                                                    onChange={this.handleChangeDate}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="form-group">
+                                    <Input
+                                        label="Address"
+                                        type="text"
+                                        placeholder="Address"
+                                        onChange={this.setFormValue.bind(this, "address")}
+                                        value={this.state.fields.address}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <Input
-                                    label="Address"
-                                    type="text"
-                                    placeholder="Address"
-                                    onChange={this.setFormValue.bind(this, "address")}
-                                    value={this.state.fields.address}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                />
-                            </div>
-                        </div>
 
                         <div className="form-row">
                             <div className="form-group dd">
@@ -232,26 +234,27 @@ export class Profile extends Component {
                             </div>
                         </div>
 
-                        <div className="form-row">
-                            <div className="form-group">
-                                <Input
-                                    label="Postal Code"
-                                    type="text"
-                                    placeholder="Postal Code"
-                                    onChange={this.setFormValue.bind(this, "postcode")}
-                                    value={this.state.fields.postcode}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                />
+                            <div className="form-row">
+                                <div className="form-group">
+                                    <Input
+                                        label="Postal Code"
+                                        type="text"
+                                        placeholder="Postal Code"
+                                        onChange={this.setFormValue.bind(this, "postcode")}
+                                        value={this.state.fields.postcode}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        <Button>Submit</Button>
-                    </Form>
-                </Container>
-                <Footer />
+                            <Button>Submit</Button>
+                        </Form>
+                    </Container>
+                    <Footer />
 
-            </div>
+                </div>
+            </LoginGuard>
         )
     }
 }

@@ -5,6 +5,7 @@ import {Container} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
 import * as loginApi from "../../api/loginApi";
+import LogoutGuard from "../../components/logout_guard";
 
 
 class EmailVerify extends Component {
@@ -40,26 +41,28 @@ class EmailVerify extends Component {
 
     render(){
         return(
-            <div>
-                <ToastContainer
-                    enableMultiContainer
-                    position={toast.POSITION.TOP_RIGHT}
-                />
-                <Header />
-                <Container className="boxWithShadow userForms verifyBlock">
-                    <div className="userFormHeader">
-                        <h1>VERIFY YOUR EMAIL ADDRESS{this.state.flag}</h1>
-                        <p>To complete registration, check for an email in your inbox with further instruction. If you cannot find the email, please check your spam folder</p>
-                    </div>
-                    <div text-align="center">
-                        {
-                            this.state.flag ? <Link onClick={this.resendEmail}>Resend email</Link> : null
-                        }
+            <LogoutGuard>
+                <div>
+                    <ToastContainer
+                        enableMultiContainer
+                        position={toast.POSITION.TOP_RIGHT}
+                    />
+                    <Header />
+                    <Container className="boxWithShadow userForms verifyBlock">
+                        <div className="userFormHeader">
+                            <h1>VERIFY YOUR EMAIL ADDRESS{this.state.flag}</h1>
+                            <p>To complete registration, check for an email in your inbox with further instruction. If you cannot find the email, please check your spam folder</p>
+                        </div>
+                        <div text-align="center">
+                            {
+                                this.state.flag ? <Link onClick={this.resendEmail}>Resend email</Link> : null
+                            }
 
-                    </div>
-                </Container>
-                <Footer />
-            </div>
+                        </div>
+                    </Container>
+                    <Footer />
+                </div>
+            </LogoutGuard>
         )
     }
 }
