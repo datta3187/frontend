@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Button, Modal} from 'semantic-ui-react';
 import { Form, Input } from 'semantic-ui-react-form-validator';
+import * as Api from "../../api/remoteApi";
+import {toast, ToastContainer} from "react-toastify";
 
 
 class ChangePassword extends Component {
@@ -11,9 +13,13 @@ class ChangePassword extends Component {
                 old_password: '',
                 new_password: '',
                 confirm_password: ''
-            },
+            }
+            // isOpen: props.passModalOpen
         }
+        console.log("PROPS",this.props)
+
     }
+
 
     setFormValue(field, e) {
         let fields = this.state.fields;
@@ -21,48 +27,65 @@ class ChangePassword extends Component {
         this.setState({ fields });
     }
 
+    changePassword =(e)=> {
+        e.preventDefault();
+        let api_url = 'resource/users/password';
+        console.log("data :" + this.state.fields);
+        Api.remoteApi(api_url, 'put', this.state.fields)
+            .then(res => {
+                this.setState({isOpen: false})
+                toast.success("Password changed successfully");
+            })
+            .catch(error =>{
+                if(error.response){
+                    toast.error(error.response.data.errors[0]);
+                }
+                else{
+                    toast.error(""+ error);
+                }
+            })
+    }
+
     render() {
         return (
             <div>
-                <Modal size="small" open={this.props.passwordModal} className="forgotPasswordModal">
-                    <a className="mClose" onClick={() => this.setState({ passwordModal: false })}><i aria-hidden="true" className="close link icon"></i></a>
+                <ToastContainer
+                    enableMultiContainer
+                    position={toast.POSITION.TOP_RIGHT}
+                />
+                <Modal size="small" open={this.props.passModalOpen} className="forgotPasswordModal">
+                    <a className="mClose" onClick={this.props.closeModal}><i aria-hidden="true" className="close link icon"></i></a>
                     <Modal.Header>
                         <h3>Change Password?</h3>
                     </Modal.Header>
                     <Modal.Content>
                         <Modal.Description >
-                            <Form>
-                                <Form.Field>
+                            <Form onSubmit={this.changePassword}>
                                     <Input
                                         label="Old Password"
-                                        type="text"
+                                        type="password"
                                         onChange={this.setFormValue.bind(this, "old_password")}
                                         value={this.state.fields.old_password}
                                         validators={['required']}
-                                        errorMessages={['this field is required']}
+                                        errorMessages={['Enter your old password']}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                     <Input
                                         label="New Password"
-                                        type="text"
+                                        type="password"
                                         onChange={this.setFormValue.bind(this, "new_password")}
                                         value={this.state.fields.new_password}
                                         validators={['required']}
-                                        errorMessages={['this field is required']}
+                                        errorMessages={['Enter your password']}
                                     />
-                                </Form.Field>
-                                <Form.Field>
                                     <Input
                                         label="Confirm Password"
-                                        type="text"
+                                        type="password"
                                         onChange={this.setFormValue.bind(this, "confirm_password")}
                                         value={this.state.fields.confirm_password}
                                         validators={['required']}
-                                        errorMessages={['this field is required']}
+                                        errorMessages={['Enter your confirm password']}
                                     />
-                                </Form.Field>
-                                <Button className="resetButton" onClick={this.changePassword} primary>Submit</Button>
+                                <Button className="resetButton" primary>Submit</Button>
                             </Form>
                         </Modal.Description>
                     </Modal.Content>
