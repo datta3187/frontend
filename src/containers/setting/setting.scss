@@ -1,0 +1,96 @@
+@import "../../components/_styleVars.scss";
+
+.ui.container.settingPage{
+    margin-top: 173px;
+    max-width: 1170px !important;
+    padding: 80px 0px 0 0 !important;  
+
+    .userFormHeader{
+        margin-top: -129px;
+
+        h1{
+            color: #fff;
+        }
+    }
+
+    .settingList{
+        justify-content: space-between;
+        padding-top: 27px;
+        padding-bottom: 27px;
+        border-bottom:1px solid #f6f6f6;
+
+        .settingListdesc{
+            max-width:calc(100% - 200px);
+            width:100% !important;
+            font-size: 14px;
+            color:$lightColor;
+            padding-left: 139px;
+            position: relative;
+
+            &:before{
+                position: absolute;
+                content:'';
+                width: 75px;
+                height: 75px;
+                background: #f9f9f9 url(../../images/setting-icons.png) no-repeat;
+                border:1px solid #f1f1f1;
+                border-radius: 50%;
+                left:35px;
+                top:50%;
+                transform: translateY(-50%);
+            }
+
+            &:before{
+                background-position: 0 0;
+            }
+            b{
+                font-size: 18px;
+                color: $darkColor;
+                margin-bottom: 10px;  
+                display: inline-block;
+            }
+        }
+        &.emailVerification{
+            .settingListdesc{
+                &:before{
+                    background-position: -25px -26px;
+                }
+            }
+        }
+        &.verifyAccount{
+            .settingListdesc{
+                &:before{
+                    background-position: -25px -154px;
+                }
+            }
+        }
+        &.passwordR{
+            .settingListdesc{
+                &:before{
+                    background-position: -25px -280px;
+                }
+            }
+        }
+        &.googleAuth{
+            .settingListdesc{
+                &:before{
+                    background-position: -25px -406px;
+                }
+            }
+        }
+        &.smsAuth{
+            .settingListdesc{
+                &:before{
+                    background-position: -25px -532px;
+                }
+            }
+        }
+       
+        .settingListBtn{
+            text-align: right;
+            padding-right: 30px;
+            max-width: 200px;           
+        }
+    }
+    
+  }
