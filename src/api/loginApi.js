@@ -1,8 +1,6 @@
 import axios from "axios";
 import config from "../config";
 
-
-
 export const onLogin = payload => {
   const URL = config.apiUrl;
 

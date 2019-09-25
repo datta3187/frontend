@@ -5,8 +5,8 @@ import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import ChangePassword from '../../components/change_password/ChangePassword'
 import * as Api from "../../api/remoteApi";
-import LoginGuard from "../../components/login_guard/LoginGuard";
 import './setting.scss'
+import LoginGuard from "../../components/loginGuard/LoginGuard";
 
 export class Setting extends Component {
 
