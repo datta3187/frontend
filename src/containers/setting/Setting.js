@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import {Grid, Container, List, Button, Segment, Divider, Modal, Input, Form} from 'semantic-ui-react';
+import { Grid, Container, List, Button, Segment, Divider, Modal, Input, Form } from 'semantic-ui-react';
 import { ToastContainer, toast } from "react-toastify"
-
-
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import ChangePass from '../../components/change_password/ChangePassword'
 import * as Api from "../../api/remoteApi";
 import LoginGuard from "../../components/login_guard/LoginGuard";
-// import {Form} from "semantic-ui-react/dist/commonjs/collections/Form";
+import './setting.scss'
 
 export class Setting extends Component {
 
@@ -119,27 +117,28 @@ export class Setting extends Component {
                             <h1>EXTO Referral Program</h1>
                         </div>
 
-                        <Grid divided='vertically'>
-                            <Grid.Row columns={3}>
-                                <Grid.Column>
-                                    LAST EXTO RATE
-                                    0.00000
-                                </Grid.Column>
-                                <Grid.Column>
-                                    TRADING VOLUME
-                                    0.00000
-                                </Grid.Column>
-                                <Grid.Column>
-                                    EXTO BALANCE
-                                    0.00000
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row columns={2}>
-                                <Grid.Column>
-                                    TRADING PROFIT  0.00 EXTO
-                                </Grid.Column>
-                                <Grid.Column>
-                                    ACCOUNT SETTINGS
+                    <Grid divided='vertically'>
+
+                        <Grid.Row columns={3}>
+                            <Grid.Column>
+                                LAST EXTO RATE
+                                0.00000
+                    </Grid.Column>
+                            <Grid.Column>
+                                TRADING VOLUME
+                                0.00000
+                    </Grid.Column>
+                            <Grid.Column>
+                                EXTO BALANCE
+                                0.00000
+                    </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row columns={2}>
+                            <Grid.Column>
+                                TRADING PROFIT  0.00 EXTO
+                    </Grid.Column>
+                            <Grid.Column>
+                                ACCOUNT SETTINGS
 
                                     <List divided verticalAlign='middle'>
                                         <List.Item>
@@ -170,69 +169,54 @@ export class Setting extends Component {
                                 </Grid.Column>
                             </Grid.Row>
 
-                            <Grid.Row columns={2}>
-                                <Grid.Column>
-                                    <Segment>
-                                        E-mail Verification
-                                        <List divided verticalAlign='middle'>
-                                            <List.Item>
-                                                <List.Content floated='right'>
-                                                    <Button>Verified</Button>
-                                                </List.Content>
-                                                <List.Content>Your email address has been verified successfully, remember and protect this e-mail address, it is the single certificate for your account</List.Content>
-                                            </List.Item>
-                                        </List>
-                                    </Segment>
-                                    <Segment>
-                                        Verify Account
-                                        <List divided verticalAlign='middle'>
-                                            <List.Item>
-                                                <List.Content floated='right'>
-                                                    <Button onClick={() => this.props.history.push("/kyc")}>Submit</Button>
-                                                </List.Content>
-                                                <List.Content></List.Content>
-                                            </List.Item>
-                                        </List>
-                                    </Segment>
-                                    <Segment>
-                                        Password
-                                        <List divided verticalAlign='middle'>
-                                            <List.Item>
-                                                <List.Content floated='right'>
-                                                    {/*<Button>Change Password</Button>*/}
-                                                    <Button type="button" onClick={() => this.setState({ passwordModal: true })}>Change Password</Button>
-
-                                                </List.Content>
-                                                <List.Content>This password is required for login, please remember it.</List.Content>
-                                            </List.Item>
-                                        </List>
-                                    </Segment>
+                        <Grid>
+                            <Grid.Row columns={2} className="settingList emailVerification">
+                                <Grid.Column className="settingListdesc">
+                                    <b>E-mail Verification</b>
+                                    <br />Your email adress has been verified successfully, remember and protect this e-mail address, it is the single certificate for your account
                                 </Grid.Column>
-                                <Grid.Column>
-                                    <Segment>
-                                        Google Authentication
-                                        <List divided verticalAlign='middle'>
-                                            <List.Item>
-                                                <List.Content floated='right'>
-                                                    <Button type="button" className="disableBtn" onClick={() => this.setState({ isParentOpen: true })}>{this.state.googleAuth ? 'Disable' : 'Enable'}</Button>
-                                                </List.Content>
-                                                <List.Content>Used for withdrawals and security modifications.</List.Content>
-                                            </List.Item>
-                                        </List>
-                                        <Divider section />
-                                        SMS Authentication
-                                        <List divided verticalAlign='middle'>
-                                            <List.Item>
-                                                <List.Content floated='right'>
-                                                    <Button>Enable</Button>
-                                                </List.Content>
-                                                <List.Content>Used for withdrawals and security modifications.
-                                                </List.Content>
-                                            </List.Item>
-                                        </List>
-                                    </Segment>
+                                <Grid.Column className="settingListBtn">
+                                    <Button>Verified</Button>
                                 </Grid.Column>
                             </Grid.Row>
+                            <Grid.Row columns={2} className="settingList verifyAccount">
+                                <Grid.Column className="settingListdesc">
+                                    <b>Verify Account</b>
+                                    <br />
+                                </Grid.Column>
+                                <Grid.Column className="settingListBtn">
+                                    <Button onClick={() => this.props.history.push("/kyc")}>Submit</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row columns={2} className="settingList passwordR">
+                                <Grid.Column className="settingListdesc">
+                                    <b>Password</b>
+                                    <br />This password is required for login, please remember it.
+                                </Grid.Column>
+                                <Grid.Column className="settingListBtn">
+                                    <Button type="button" onClick={() => this.setState({ passwordModal: true })}>Change Password</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row columns={2} className="settingList googleAuth">
+                                <Grid.Column className="settingListdesc">
+                                    <b>Google Authentication</b>
+                                    <br />Used for withdrawals and security modifications.
+                                </Grid.Column>
+                                <Grid.Column className="settingListBtn">
+                                    <Button type="button" className="disableBtn" onClick={() => this.setState({ isParentOpen: true })}>{this.state.googleAuth ? 'Disable' : 'Enable'}</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+
+                            <Grid.Row columns={2} className="settingList smsAuth">
+                                <Grid.Column className="settingListdesc">
+                                    <b>SMS Authentication</b>
+                                    <br />Used for withdrawals and security modifications.
+                                </Grid.Column>
+                                <Grid.Column className="settingListBtn">
+                                    <Button>Enable</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
                         </Grid>
                     </Container>
                     <Footer />
