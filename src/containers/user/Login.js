@@ -252,7 +252,7 @@ class Login extends Component {
                     <Header />
                     <Container className="boxWithShadow userForms">
                         <div className="userFormHeader">
-                            <h1>Sign in</h1>
+                            <h1>Sign in </h1>
                             <p>Enter your details to Email id and password to access your account</p>
                         </div>
                         <Form>
