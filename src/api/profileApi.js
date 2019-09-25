@@ -6,7 +6,8 @@ export const onProfileSubmission = payload => {
     return axios(`${URL}/resource/profiles`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json" // whatever you want
+            "Content-Type": "application/json" ,
+            "Access-Control-Allow-Origin": "*"
         },
         data: payload
     })
@@ -22,7 +23,8 @@ export const getProfile = payload => {
     return axios(`${URL}/resource/profiles/me`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json" // whatever you want
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         },
     })
         .then(response => response.data)
