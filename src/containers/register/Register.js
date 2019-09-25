@@ -9,7 +9,7 @@ import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
 import Recaptcha from "../../components/Recaptcha";
-import LogoutGuard from "../../components/logout_guard";
+import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 
 class Register extends Component {
     constructor(props) {

@@ -12,6 +12,7 @@ import Kyc from './containers/kyc/Kyc'
 import Exchange from './containers/exchange/Exchange'
 import Profile from './containers/profile/Profile'
 import Setting from './containers/setting/Setting'
+import Phone from './containers/phone/Phone'
 
 class App extends Component {
   render() {
@@ -21,7 +22,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/login" exact component={Login} />
-            {/*<Route path="/phone" component={Phone} />*/}
+            <Route path="/phone" component={Phone} />
             <Route path="/register" component={Register} />
             <Route path="/email-verification" exact component={EmailVerify} />
             <Route path="/profile" component={Profile} />
