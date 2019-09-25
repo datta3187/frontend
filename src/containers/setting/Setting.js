@@ -57,7 +57,6 @@ export class Setting extends Component {
                     position={toast.POSITION.TOP_RIGHT}
                 />
                 <Header />
-
                 <Container className="boxWithShadow settingPage">
                     <div className="userFormHeader">
                         <h1>Setting</h1>
@@ -85,7 +84,7 @@ export class Setting extends Component {
                     </Grid.Column>
                             <Grid.Column>
                                 ACCOUNT SETTINGS
-        
+
                         <List divided verticalAlign='middle'>
                                     <List.Item>
                                         <List.Content floated='right'>
