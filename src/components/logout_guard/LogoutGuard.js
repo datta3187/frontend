@@ -1,8 +1,11 @@
 import React from "react";
 import { Redirect } from "react-router";
 import PropTypes from "prop-types";
+import Auth from '../../components/Auth'
 
-class AuthenticatedUser extends React.Component {
+const auth = new Auth();
+
+class LogoutGuard extends React.Component {
   constructor(props) {
     super(props);
 
@@ -10,6 +13,7 @@ class AuthenticatedUser extends React.Component {
       loading: true
     };
   }
+
   static propTypes = {
     location: PropTypes.object,
     children: PropTypes.node
@@ -23,22 +27,20 @@ class AuthenticatedUser extends React.Component {
 
   render() {
     const { children, location } = this.props;
-    var user = JSON.parse(localStorage.getItem("User"));
-    console.log("LOCALE", user);
-    console.log("CHIL", children);
-    console.log("Location", location);
-    if (user != null) {
+
+    if (!auth.isAuthenticated()) {
       return children;
     } else {
       return (
-        <Redirect
-          to={{
-            pathname: "/Pusher",
-            state: { from: location }
-          }}
-        />
+          <Redirect
+              to={{
+                pathname: "/settings",
+                state: {from: location}
+              }}
+          />
       );
     }
   }
 }
-export default AuthenticatedUser;
+
+export default LogoutGuard;

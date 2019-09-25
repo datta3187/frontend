@@ -29,7 +29,7 @@ class App extends Component {
             <Route path="/trading/:market" component={Exchange} />
             <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
             <Route path="/password-reset/:token" exact component={ResetPassword} />
-            <Route path="/signout" exact component={Logout} />
+            <Route path="/logout" exact component={Logout} />
             <Route path="/settings" component={Setting} />
 
           </Switch>

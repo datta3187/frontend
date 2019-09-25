@@ -2,10 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import './header.scss'
 import { Container } from 'semantic-ui-react';
+import Auth from './Auth'
+
+const auth = new Auth();
 
 class Header extends Component {
 
     render() {
+        let link;
+
+        if (auth.isAuthenticated()) {
+            link = <Link to="/logout">Logout</Link>
+        } else {
+            link = <Link to="/login">Login</Link>
+        }
+
         return (
             <div className={`beforeLoginHeader  ${this.props.abc}`} >
                 <Container>
@@ -17,7 +28,7 @@ class Header extends Component {
                             <nav>
                                 <ul className="r-nav">
                                     <li><Link to="/trading/ethbtc">Trade</Link></li>
-                                    <li className="hasLoginBtn"><Link to="/login">Login</Link></li>
+                                    <li className="hasLoginBtn">{link}</li>
                                 </ul>
                             </nav>
                         </div>
