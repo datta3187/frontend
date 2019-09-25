@@ -1,7 +1,11 @@
 import React from "react";
 import { Redirect } from "react-router";
 import PropTypes from "prop-types";
-class Authenticate extends React.Component {
+import Auth from '../../components/Auth'
+
+const auth = new Auth();
+
+class LoginGuard extends React.Component {
   constructor(props) {
     super(props);
 
@@ -22,20 +26,20 @@ class Authenticate extends React.Component {
 
   render() {
     const { children, location } = this.props;
-    var user = JSON.parse(localStorage.getItem("user"));
 
-    if (user == null) {
+    if (auth.isAuthenticated()) {
       return children;
     } else {
       return (
-        <Redirect
-          to={{
-            pathname: "/kyc",
-            state: { from: location }
-          }}
-        />
+          <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: location }
+              }}
+          />
       );
     }
   }
 }
-export default Authenticate;
+
+export default LoginGuard;

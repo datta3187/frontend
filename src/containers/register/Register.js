@@ -9,6 +9,7 @@ import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
 import Recaptcha from "../../components/Recaptcha";
+import LogoutGuard from "../../components/logout_guard";
 
 class Register extends Component {
     constructor(props) {
@@ -160,89 +161,91 @@ class Register extends Component {
 
     render() {
         return (
-            < div >
-                {this.state.loading && (
-                    <Dimmer active>
-                        <Loader content="Loading..." />
-                    </Dimmer>
-                )}
+            <LogoutGuard>
+                < div >
+                    {this.state.loading && (
+                        <Dimmer active>
+                            <Loader content="Loading..." />
+                        </Dimmer>
+                    )}
 
-                <ToastContainer
-                    enableMultiContainer
-                    position={toast.POSITION.TOP_RIGHT}
-                />
+                    <ToastContainer
+                        enableMultiContainer
+                        position={toast.POSITION.TOP_RIGHT}
+                    />
 
 
-                <Header />
-                <Container className="boxWithShadow userForms">
-                    <div className="userFormHeader">
-                        <h1>Sign Up</h1>
-                        <p>Enter your details to register with us</p>
-                    </div>
-                    <Form>
-                        <Form.Field>
-                            <label>Email</label>
-                            <Input icon='mail'
-                                type="email"
-                                onChange={this.setFormValue.bind(this, "email")}
-                                onKeyUp={this.handleSignupKeyup.bind(this, "email")}
-                                iconPosition='left'
-                                placeholder='Email' />
-                            <span style={{ color: "red" }}>
-                                {this.state.errors["email"]}
-                            </span>
-                        </Form.Field>
-                        <div className="confirmPw">
+                    <Header />
+                    <Container className="boxWithShadow userForms">
+                        <div className="userFormHeader">
+                            <h1>Sign Up</h1>
+                            <p>Enter your details to register with us</p>
+                        </div>
+                        <Form>
                             <Form.Field>
-                                <label>Password</label>
-                                <Input icon='lock' type="password"
-                                    onChange={this.setFormValue.bind(this, "password")}
-                                    onKeyUp={this.handleSignupKeyup.bind(this, "password")}
-                                    iconPosition='left' placeholder='Password' />
+                                <label>Email</label>
+                                <Input icon='mail'
+                                    type="email"
+                                    onChange={this.setFormValue.bind(this, "email")}
+                                    onKeyUp={this.handleSignupKeyup.bind(this, "email")}
+                                    iconPosition='left'
+                                    placeholder='Email' />
                                 <span style={{ color: "red" }}>
-                                    {this.state.errors["password"]}
+                                    {this.state.errors["email"]}
                                 </span>
                             </Form.Field>
+                            <div className="confirmPw">
+                                <Form.Field>
+                                    <label>Password</label>
+                                    <Input icon='lock' type="password"
+                                        onChange={this.setFormValue.bind(this, "password")}
+                                        onKeyUp={this.handleSignupKeyup.bind(this, "password")}
+                                        iconPosition='left' placeholder='Password' />
+                                    <span style={{ color: "red" }}>
+                                        {this.state.errors["password"]}
+                                    </span>
+                                </Form.Field>
+                                <Form.Field>
+                                    <label>Confirm Password</label>
+                                    <Input icon='lock' type="password"
+                                        onChange={this.setFormValue.bind(this, "conPassword")}
+                                        onKeyUp={this.handleSignupKeyup.bind(this, "conPassword")}
+                                        iconPosition='left' placeholder='Password' />
+                                    <span style={{ color: "red" }}>
+                                        {this.state.errors["conPassword"]}
+                                    </span>
+                                </Form.Field>
+                            </div>
                             <Form.Field>
-                                <label>Confirm Password</label>
-                                <Input icon='lock' type="password"
-                                    onChange={this.setFormValue.bind(this, "conPassword")}
-                                    onKeyUp={this.handleSignupKeyup.bind(this, "conPassword")}
-                                    iconPosition='left' placeholder='Password' />
+                                <label>Referral Id</label>
+                                <Input icon='mail' type="text"
+                                    value={this.state.fields.refid}
+                                    onChange={this.setFormValue.bind(this, "refid")}
+                                    onKeyUp={this.handleSignupKeyup.bind(this, "refid")}
+                                    iconPosition='left' placeholder='Referral Id' />
+                            </Form.Field>
+                            <div className="form-captcha">
+                                <Recaptcha handler={this.handleCaptcha}/>
+                                <span style={{color: "red"}}>
+                                    {this.state.errors["captcha_response"]}
+                                </span>
+                            </div>
+                            <Form.Field className="userFormAth">
+                                <Checkbox onClick={this.aggreed} label="I agree to AnXchange' s Terms of Use" />
                                 <span style={{ color: "red" }}>
-                                    {this.state.errors["conPassword"]}
+                                    {this.state.errors["terms"]}
                                 </span>
                             </Form.Field>
-                        </div>
-                        <Form.Field>
-                            <label>Referral Id</label>
-                            <Input icon='mail' type="text"
-                                value={this.state.fields.refid}
-                                onChange={this.setFormValue.bind(this, "refid")}
-                                onKeyUp={this.handleSignupKeyup.bind(this, "refid")}
-                                iconPosition='left' placeholder='Referral Id' />
-                        </Form.Field>
-                        <div className="form-captcha">
-                            <Recaptcha handler={this.handleCaptcha}/>
-                            <span style={{color: "red"}}>
-                                {this.state.errors["captcha_response"]}
-                            </span>
-                        </div>
-                        <Form.Field className="userFormAth">
-                            <Checkbox onClick={this.aggreed} label="I agree to AnXchange' s Terms of Use" />
-                            <span style={{ color: "red" }}>
-                                {this.state.errors["terms"]}
-                            </span>
-                        </Form.Field>
-                        <div className="form-button">
-                            <Button type='submit' onClick={this.signupWithPeatio} primary>Sign Up</Button>
-                            <p>Already have an account?  <Link to="/login">Sign In</Link></p>
-                        </div>
-                    </Form>
-                </Container>
-                {/* <h2>{JSON.stringify(identity)}</h2> */}
-                <Footer />
-            </div >
+                            <div className="form-button">
+                                <Button type='submit' onClick={this.signupWithPeatio} primary>Sign Up</Button>
+                                <p>Already have an account?  <Link to="/login">Sign In</Link></p>
+                            </div>
+                        </Form>
+                    </Container>
+                    {/* <h2>{JSON.stringify(identity)}</h2> */}
+                    <Footer />
+                </div >
+            </LogoutGuard>
         )
     }
 }

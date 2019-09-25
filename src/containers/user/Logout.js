@@ -1,9 +1,12 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
+import Auth from '../../components/Auth'
+
+const auth = new Auth();
 
 class Logout extends Component {
 
     componentWillMount() {
-        localStorage.clear();
+        auth.logout();
         this.props.history.push("/");
     }
 
