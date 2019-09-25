@@ -94,7 +94,7 @@ class Login extends Component {
             }
         }
 
-        if (config.captchaPolicy != 'disabled') {
+        if (config.captchaPolicy) {
             if (!fields["captcha_response"]) {
                 formIsValid = false;
                 errors["captcha_response"] = "Verify the captcha";
@@ -144,6 +144,19 @@ class Login extends Component {
         return formIsValid;
     };
 
+    redirectPath =(level_no) =>{
+        let path = "/kyc"
+        switch(level_no) {
+            case 1:
+                path = '/phone'
+                break;
+            case 2:
+                path = '/profile'
+                break;
+        }
+        return path;
+    }
+
     // button
     signInWithPeatio = e => {
         e.preventDefault();
@@ -151,13 +164,13 @@ class Login extends Component {
         if (this.handleValidation()) {
             loginApi.onLogin(this.state.fields)
                 .then(res => {
-                    if (res.state == 'pending') {
+                    if (res.state === 'pending') {
                         toast.error("e-mail verification pending");
                     } else {
                         localStorage.setItem("user", JSON.stringify(res));
                         toast.success("Logged in successfully");
                         this.setState({ loading: false });
-                        this.props.history.push("/profile")
+                        this.props.history.push(this.redirectPath(res.level))
                     }
                 })
                 .catch(error => {
@@ -274,6 +287,7 @@ class Login extends Component {
                                 {/* <Modal size="small" open={this.state.isParentOpen} trigger={<a>Forgot Password?</a>} className="forgotPasswordModal"> */}
 
                             </Form.Field>
+
 
                             <div className="form-captcha">
                                 <Recaptcha handler={this.handleCaptcha}/>

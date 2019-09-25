@@ -27,7 +27,8 @@ const docOptions = [
 
 export class Profile extends Component {
 
-    componentDidMount() {
+    componentDidMount()
+    {
         profileApi.getProfile()
             .then(res => {
                 this.setState({
@@ -114,12 +115,12 @@ export class Profile extends Component {
                     }, 2000)
                 }
             })
-            .catch(error => {
-                if (error.response) {
+            .catch(error =>{
+                if(error.response){
                     toast.error(error.response.data.errors[0]);
                 }
-                else {
-                    toast.error("" + error);
+                else{
+                    toast.error(""+ error);
                 }
             })
     }
@@ -145,7 +146,6 @@ export class Profile extends Component {
                     >
                         <div className="form-row">
                             <div className="form-group">
-
                                 <Input
                                     label="First Name"
                                     type="text"
@@ -203,7 +203,6 @@ export class Profile extends Component {
 
                         <div className="form-row">
                             <div className="form-group dd">
-
                                 <Dropdown
                                     label="City"
                                     placeholder="City"
