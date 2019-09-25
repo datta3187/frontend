@@ -3,11 +3,12 @@ import { Container, Button } from 'semantic-ui-react'
 import { Dropdown, Form, Input } from 'semantic-ui-react-form-validator';
 import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
-import LoggedInHeader from "../../components/LoggedInHeader";
+import Header from "../../components/Header";
 import * as authApi from "../../api/authApi";
 
 import './Kyc.scss'
 import { toast } from "react-toastify";
+import LoginGuard from "../../components/login_guard/LoginGuard";
 
 
 const docType = [
@@ -118,84 +119,86 @@ class Kyc extends Component {
 
     render() {
         return (
-            < div >
-                <LoggedInHeader />
-                <Container className="boxWithShadow userForms kycForm">
-                    <div className="userFormHeader">
-                        <h1>Know Your Customer</h1>
-                    </div>
-
-                    <Form
-                        ref="form"
-                        onSubmit={this.signupkyc}
-                    >
-                        <div className="form-row">
-                            <div className="form-group dd">
-                                <Dropdown
-                                    label="Document type"
-                                    placeholder="Document type"
-                                    name="doc_type"
-                                    onChange={this.dropdownChange}
-                                    value={this.state.fields.doc_type}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                    validators={['required']}
-                                    errorMessages={['You must select one option']}
-                                    options={docType}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <Input
-                                    label="Document Number"
-                                    type="text"
-                                    placeholder="Document Number"
-                                    onChange={this.setFormValue.bind(this, "doc_number")}
-                                    value={this.state.fields.doc_number}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                />
-                            </div>
+            <LoginGuard>
+                < div >
+                    <Header />
+                    <Container className="boxWithShadow userForms kycForm">
+                        <div className="userFormHeader">
+                            <h1>Know Your Customer</h1>
                         </div>
 
-                        <div className="form-row">
-                            <div className="form-group">
-                                <div className="genderAndDatepicker">
-                                    <div className="datePicker">
-                                        <div>
-                                            <DateInput
-                                                label="Document Expiry Date"
-                                                placeholder="Document Expiry Date"
-                                                name="doc_expire"
-                                                iconPosition='left'
-                                                startMode="['year', 'month', 'day']"
-                                                placeholder="yy/mm/dd"
-                                                value={this.state.fields.doc_expire}
-                                                onChange={this.handleChangeDocExpire}
-                                            />
+                        <Form
+                            ref="form"
+                            onSubmit={this.signupkyc}
+                        >
+                            <div className="form-row">
+                                <div className="form-group dd">
+                                    <Dropdown
+                                        label="Document type"
+                                        placeholder="Document type"
+                                        name="doc_type"
+                                        onChange={this.dropdownChange}
+                                        value={this.state.fields.doc_type}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                        validators={['required']}
+                                        errorMessages={['You must select one option']}
+                                        options={docType}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <Input
+                                        label="Document Number"
+                                        type="text"
+                                        placeholder="Document Number"
+                                        onChange={this.setFormValue.bind(this, "doc_number")}
+                                        value={this.state.fields.doc_number}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="form-row">
+                                <div className="form-group">
+                                    <div className="genderAndDatepicker">
+                                        <div className="datePicker">
+                                            <div>
+                                                <DateInput
+                                                    label="Document Expiry Date"
+                                                    placeholder="Document Expiry Date"
+                                                    name="doc_expire"
+                                                    iconPosition='left'
+                                                    startMode="['year', 'month', 'day']"
+                                                    placeholder="yy/mm/dd"
+                                                    value={this.state.fields.doc_expire}
+                                                    onChange={this.handleChangeDocExpire}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="form-group">
+                                    <Input
+                                        label="Upload Document"
+                                        type="file"
+                                        name="upload"
+                                        placeholder="Upload Document"
+                                        value={this.state.upload.filename}
+                                        onChange={this.onFileUploadChange}
+                                    // validators={['required']}
+                                    // errorMessages={['this field is required']}
+                                    // allowedExtensions={['jpeg']}
+                                    />
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <Input
-                                    label="Upload Document"
-                                    type="file"
-                                    name="upload"
-                                    placeholder="Upload Document"
-                                    value={this.state.upload.filename}
-                                    onChange={this.onFileUploadChange}
-                                // validators={['required']}
-                                // errorMessages={['this field is required']}
-                                // allowedExtensions={['jpeg']}
-                                />
-                            </div>
-                        </div>
 
-                        <Button>Submit</Button>
-                    </Form>
-                </Container>
-                <Footer />
-            </div >
+                            <Button>Submit</Button>
+                        </Form>
+                    </Container>
+                    <Footer />
+                </div >
+            </LoginGuard>
         )
     }
 }
