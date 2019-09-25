@@ -13,8 +13,7 @@ export const onLogin = payload => {
       'Access-Control-Allow-Credentials': true,
       'Access-Control-Allow-Origin': 'http://e2dd94a6.ngrok.io'
     },
-    data: payload,
-    withCredentials: true
+    data: payload
   })
     .then(response => response.data)
     .catch(error => {

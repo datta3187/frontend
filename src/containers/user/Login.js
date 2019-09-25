@@ -170,7 +170,8 @@ class Login extends Component {
                         localStorage.setItem("user", JSON.stringify(res));
                         toast.success("Logged in successfully");
                         this.setState({ loading: false });
-                        this.props.history.push(this.redirectPath(res.level))
+                        this.props.history.push('/kyc')
+                        // this.props.history.push(this.redirectPath(res.level))
                     }
                 })
                 .catch(error => {
