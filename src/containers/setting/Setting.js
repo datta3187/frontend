@@ -6,7 +6,6 @@ import { ToastContainer, toast } from "react-toastify"
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import * as Api from "../../api/remoteApi";
-// import {Form} from "semantic-ui-react/dist/commonjs/collections/Form";
 
 export class Setting extends Component {
 
@@ -18,10 +17,11 @@ export class Setting extends Component {
                 uid: 'N/A',
                 level: '',
                 refid: 'EXTO123456',
-                isParentOpen: false,
+                isParentOpen: false
             },
             qr: null,
-            code: null
+            code: null,
+            googleAuth: false
         }
     }
 
@@ -43,7 +43,8 @@ export class Setting extends Component {
         Api.remoteApi(api_url, 'get', {})
             .then(res => {
                 this.setState({
-                    fields: res
+                    fields: res,
+                    googleAuth: res.otp
                 })
             })
             .catch(error =>{
@@ -75,16 +76,18 @@ export class Setting extends Component {
             })
     }
 
-
     verifyGoogleAuth =(e)=> {
         e.preventDefault();
-        let api_url = 'resource/otp/enable'
-        console.log("data :" + this.state.code)
+        let api_url = ( this.state.googleAuth ? 'resource/otp/disable' :'resource/otp/enable');
+        let msg = (this.state.googleAuth ? 'Disable' : 'Enable' );
+        let googleAuthStatus = !(this.state.googleAuth);
+        console.log("data :" + this.state.code);
         Api.remoteApi(api_url, 'post', {code: this.state.code})
             .then(res => {
-                debugger
-                this.setState({isParentOpen: false})
-                toast.success("Enabled")
+                console.log("Before:" + this.state.googleAuth);
+                this.setState({googleAuth: googleAuthStatus, code: '', isParentOpen: false});
+                toast.success(msg);
+                console.log("After:" + this.state.googleAuth);
             })
             .catch(error =>{
                 if(error.response){
@@ -95,16 +98,6 @@ export class Setting extends Component {
                 }
             })
     }
-
-    disableGoogleAuth =(e)=> {
-        e.preventDefault();
-
-    }
-
-    // googleAuth =(e)=> {
-    //     let data = e
-    //     (data == 'disable' ? 'resource/otp/verify' : 'resource/otp/enable' );
-    // }
 
     render() {
         const user = this.state.fields;
@@ -214,8 +207,7 @@ export class Setting extends Component {
                                     <List divided verticalAlign='middle'>
                                         <List.Item>
                                             <List.Content floated='right'>
-                                                <Button type="button" onClick={() => this.setState({ isParentOpen: true })}>Enable</Button>
-                                                {/*<Button type="button" onClick={this.disableGoogleAuth}>Disable</Button>*/}
+                                                <Button type="button" className="disableBtn" onClick={() => this.setState({ isParentOpen: true })}>{this.state.googleAuth ? 'Disable' : 'Enable'}</Button>
                                             </List.Content>
                                             <List.Content>Used for withdrawals and security modifications.</List.Content>
                                         </List.Item>
@@ -242,12 +234,16 @@ export class Setting extends Component {
                 <Modal size="small" open={this.state.isParentOpen} className="forgotPasswordModal">
                     <a className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" className="close link icon"></i></a>
                     <Modal.Header>
-                        <h3>Enable Google Authentication</h3>
+                        <h3>{this.state.googleAuth ? 'Disable' : 'Enable'} Google Authentication</h3>
                     </Modal.Header>
-
                     <Modal.Content>
                         <Modal.Description >
-                            <img alt="QR Code" src={"data:image/png;base64," + this.state.qr} />
+
+                            {
+                                this.state.googleAuth ?
+                                    null : <img  alt="QR Code" src={"data:image/png;base64," + this.state.qr} />
+                            }
+
                             <Form>
                                 <Form.Field>
                                     <Input icon=''
@@ -256,42 +252,12 @@ export class Setting extends Component {
                                            value={this.state.code}
                                            iconPosition='left'
                                            placeholder='code' />
-                                    {/*<span style={{ color: "red" }}>*/}
-                                            {/*{this.state.errors["email"]}*/}
-                                        {/*</span>*/}
                                 </Form.Field>
                                 <Button className="resetButton" onClick={this.verifyGoogleAuth} primary>Verify</Button>
                             </Form>
                         </Modal.Description>
                     </Modal.Content>
                 </Modal>
-
-            {/*Googgle auth disbale modal*/}
-            <Modal size="small" open={this.state.isParentOpen} className="forgotPasswordModal">
-                <a className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" className="close link icon"></i></a>
-                <Modal.Header>
-                    <h3>Enable Google Authentication</h3>
-                </Modal.Header>
-
-                <Modal.Content>
-                    <Modal.Description >
-                        <Form>
-                            <Form.Field>
-                                <Input icon=''
-                                       type="text"
-                                       onChange={this.setCodeValue.bind(this, "code")}
-                                       value={this.state.code}
-                                       iconPosition='left'
-                                       placeholder='code' />
-                                {/*<span style={{ color: "red" }}>*/}
-                                {/*{this.state.errors["email"]}*/}
-                                {/*</span>*/}
-                            </Form.Field>
-                            <Button className="resetButton" onClick={this.disableGoogleAuth} primary>Verify</Button>
-                        </Form>
-                    </Modal.Description>
-                </Modal.Content>
-            </Modal>
             </div>
         )
     }
