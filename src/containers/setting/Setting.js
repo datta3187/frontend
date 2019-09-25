@@ -3,7 +3,7 @@ import { Grid, Container, List, Button, Segment, Divider, Modal, Input, Form } f
 import { ToastContainer, toast } from "react-toastify"
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
-import ChangePass from '../../components/change_password/ChangePassword'
+import ChangePassword from '../../components/change_password/ChangePassword'
 import * as Api from "../../api/remoteApi";
 import LoginGuard from "../../components/login_guard/LoginGuard";
 import './setting.scss'
@@ -18,12 +18,12 @@ export class Setting extends Component {
                 uid: 'N/A',
                 level: '',
                 refid: 'EXTO123456',
-                isParentOpen: false,
-                passwordModal: false
+                isParentOpen: false
             },
             qr: null,
             code: null,
-            googleAuth: false
+            googleAuth: false,
+            passwordModal: false
         }
     }
 
@@ -101,6 +101,10 @@ export class Setting extends Component {
             })
     }
 
+    changePasswordEvent =()=> {
+        this.setState({passwordModal:false})
+    }
+
     render() {
         const user = this.state.fields;
         return (
@@ -173,7 +177,7 @@ export class Setting extends Component {
                             <Grid.Row columns={2} className="settingList emailVerification">
                                 <Grid.Column className="settingListdesc">
                                     <b>E-mail Verification</b>
-                                    <br />Your email adress has been verified successfully, remember and protect this e-mail address, it is the single certificate for your account
+                                    <br />Your email address has been verified successfully, remember and protect this e-mail address, it is the single certificate for your account
                                 </Grid.Column>
                                 <Grid.Column className="settingListBtn">
                                     <Button>Verified</Button>
@@ -195,6 +199,8 @@ export class Setting extends Component {
                                 </Grid.Column>
                                 <Grid.Column className="settingListBtn">
                                     <Button type="button" onClick={() => this.setState({ passwordModal: true })}>Change Password</Button>
+                                    {/*<Button type="button" className="disableBtn" onClick={()=>this.changePasswordEvent()}>Change Password</Button>*/}
+
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row columns={2} className="settingList googleAuth">
@@ -250,7 +256,7 @@ export class Setting extends Component {
                         </Modal.Content>
                     </Modal>
                     {/*Change password Modal*/}
-                    <ChangePass />
+                    <ChangePassword passModalOpen={this.state.passwordModal} closeModal={this.changePasswordEvent}/>
                 </div>
             </LoginGuard>
         )
