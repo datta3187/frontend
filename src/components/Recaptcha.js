@@ -6,7 +6,7 @@ export default class Recaptcha extends Component {
     render() {
         return (
             <div>
-                {(config.captchaPolicy != 'disabled') && (
+                {(config.captchaPolicy) && (
                     <ReCAPTCHA
                         sitekey={config.recatpchaSiteKey}
                         onChange={this.props.handler}

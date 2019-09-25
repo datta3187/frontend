@@ -238,7 +238,7 @@ export class Setting extends Component {
                 </Container>
                 <Footer />
 
-                {/*Googgle auth modal*/}
+                {/*Googgle auth enable modal*/}
                 <Modal size="small" open={this.state.isParentOpen} className="forgotPasswordModal">
                     <a className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" className="close link icon"></i></a>
                     <Modal.Header>
@@ -265,6 +265,33 @@ export class Setting extends Component {
                         </Modal.Description>
                     </Modal.Content>
                 </Modal>
+
+            {/*Googgle auth disbale modal*/}
+            <Modal size="small" open={this.state.isParentOpen} className="forgotPasswordModal">
+                <a className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" className="close link icon"></i></a>
+                <Modal.Header>
+                    <h3>Enable Google Authentication</h3>
+                </Modal.Header>
+
+                <Modal.Content>
+                    <Modal.Description >
+                        <Form>
+                            <Form.Field>
+                                <Input icon=''
+                                       type="text"
+                                       onChange={this.setCodeValue.bind(this, "code")}
+                                       value={this.state.code}
+                                       iconPosition='left'
+                                       placeholder='code' />
+                                {/*<span style={{ color: "red" }}>*/}
+                                {/*{this.state.errors["email"]}*/}
+                                {/*</span>*/}
+                            </Form.Field>
+                            <Button className="resetButton" onClick={this.disableGoogleAuth} primary>Verify</Button>
+                        </Form>
+                    </Modal.Description>
+                </Modal.Content>
+            </Modal>
             </div>
         )
     }

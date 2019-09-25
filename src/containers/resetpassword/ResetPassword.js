@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import {Container, Button, Checkbox, Form, Input, Image, Modal, Transition, Dimmer, Loader} from 'semantic-ui-react'
+import {Container, Button, Form, Input, Dimmer, Loader} from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { Link } from "react-router-dom";
-import * as loginApi from "../../api/loginApi";
+import * as Api from "../../api/remoteApi";
 import {toast, ToastContainer} from "react-toastify";
 
 class ResetPassword extends Component {
@@ -11,44 +11,76 @@ class ResetPassword extends Component {
         super(props)
         this.state = {
             data: {reset_password_token: '', password: '', confirm_password: '', lang: 'EN'},
-            errors: {reset_password_token: '', password: '', confirm_password: ''},
+            errors: {password: '', confirm_password: ''},
             loading: false
         }
     }
 
     componentDidMount() {
-        debugger
         this.setState(prevState => {
-            let newData = Object.assign({}, prevState.data);
-            newData['reset_password_token'] = this.props.match.params.token
-            return { newData };
+            let data = Object.assign({}, prevState.data);
+            data.reset_password_token = this.props.match.params.token
+            return { data };
         });
-        debugger
-        console.log('i am here')
+
     }
 
     setFormValue(field, e) {
-
-        console.log('helo')
+        let data = this.state.data;
+        data[field] = e.target.value;
+        this.setState({ data });
     }
 
-    resetState(field, e) {
-        console.log('Helo');
+    // hide all errors on key press
+    hideErrors(field, e) {
+        this.setState(prevState => {
+            let errors = Object.assign({}, prevState.errors);
+            errors[field] = "";
+            return { errors };
+        });
     }
+
     handleValidation(){
+        let data = this.state.data;
+        let errors = {};
+        let formIsValid = true;
 
+        Object.keys(this.state.errors).map((key) =>{
+            if(!data[key]){
+                formIsValid = false
+                errors[key] = `${key} is required.`
+            }
+        });
+
+        if (typeof data["password"] !== "undefined" &&  data["password"].length > 0 ) {
+            if (!data["password"].match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ )) {
+                formIsValid = false;
+                errors["password"] ="Password should have one number and one special character,minimum 8 characters";
+            }
+        }
+
+        if(data['password'].length > 0 && data['confirm_password'].length > 0){
+            if(data['password'] !== data['confirm_password']){
+                errors['confirm_password'] = "Passwords do not match."
+            }
+        }
+
+        this.setState({ errors: errors });
+        return formIsValid;
     }
 
     resetPassword = e => {
         e.preventDefault();
         this.setState({ loading: true });
         let api_url = 'identity/users/password/confirm_code'
-        if (this.handleValidation() && this.state.isTermSelected) {
-            loginApi.remoteApi(api_url, 'POST' , this.state.data)
+        if (this.handleValidation()) {
+            Api.remoteApi(api_url, 'POST' , this.state.data)
                 .then(res => {
                     this.setState({loading: false})
-                    toast.success('Password has been reset successfully!');
-                    this.props.history.push("/login")
+                    this.props.history.push("/login", {
+                        email_verified: true,
+                        msg: 'Password has been changed successfully.'
+                    });
                 })
                 .catch(error =>{
                     if(error.response){
@@ -89,7 +121,7 @@ class ResetPassword extends Component {
                             <Input icon='lock'
                                 type='password'
                                 onChange={this.setFormValue.bind(this, "password")}
-                                onKeyUp={this.resetState.bind(this, "password")}
+                                onKeyUp={this.hideErrors.bind(this, "password")}
                                 iconPosition='left'
                                 placeholder='Password' />
                             <span style={{ color: "red" }}>
@@ -101,18 +133,18 @@ class ResetPassword extends Component {
                             <label>Confirm Password</label>
                             <Input icon='lock'
                                 type='password'
-                                onChange={this.setFormValue.bind(this, "password")}
-                                onKeyUp={this.resetState.bind(this, "password")}
+                                onChange={this.setFormValue.bind(this, "confirm_password")}
+                                onKeyUp={this.hideErrors.bind(this, "confirm_password")}
                                 iconPosition='left'
-                                placeholder='Password' />
+                                placeholder='confirm password' />
                             <span style={{ color: "red" }}>
-                                {this.state.errors["password"]}
+                                {this.state.errors["confirm_password"]}
                             </span>
                         </Form.Field>
 
                         <div className="form-captcha"></div>
                         <div className="form-button">
-                            <Button onClick={this.resetPassword} primary>Primary</Button>
+                            <Button onClick={this.resetPassword} primary>Change Password</Button>
                             <p>Don't have an Account? <Link to="/Register">Sign Up Now</Link></p>
                         </div>
                     </Form>

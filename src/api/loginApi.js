@@ -1,12 +1,17 @@
 import axios from "axios";
 import config from "../config";
 
+
+
 export const onLogin = payload => {
   const URL = config.apiUrl;
+
   return axios(`${URL}/identity/sessions`, {
     method: "POST",
     headers: {
-      "content-type": "application/json" // whatever you want
+      "content-type": "application/json",
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Origin': 'http://e2dd94a6.ngrok.io'
     },
     data: payload
   })
@@ -115,18 +120,3 @@ export const resendVerification = payload => {
       throw error;
     });
 };
-
-export const remoteApi = (api_url, method_type, payload) => {
-  const URL = config.apiUrl;
-  return axios(`${URL}/${api_url}`, {
-    method: method_type.toUpperCase(),
-    headers: {
-      "content-type": "application/json" // whatever you want
-    },
-    data: payload
-  })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-}
