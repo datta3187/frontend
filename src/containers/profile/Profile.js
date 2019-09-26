@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button } from 'semantic-ui-react';
+import { Container, Button, Step, Icon } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import { Form, Input, Dropdown } from 'semantic-ui-react-form-validator';
 
@@ -28,22 +28,9 @@ const docOptions = [
 
 export class Profile extends Component {
 
-    componentDidMount()
-    {
-        profileApi.getProfile()
-            .then(res => {
-                this.setState({
-                    fields: res
-                })
-            })
-            .catch(error => {
-
-            });
-    }
-
     constructor(props) {
         window.scrollTo(0, 0);
-        super(props)
+        super(props);
         this.state = {
             fields: {
                 first_name: '',
@@ -83,7 +70,7 @@ export class Profile extends Component {
             fields[name] = value;
             return { fields: fields };                                 // return new object jasper object
         })
-    }
+    };
 
     handleChangeDate = (event, { name, value }) => {
         // if (this.state.hasOwnProperty(name)) {
@@ -94,7 +81,7 @@ export class Profile extends Component {
             return { fields: fields };                                 // return new object jasper object
         })
         // }
-    }
+    };
 
     saveprofile = e => {
         e.preventDefault();
@@ -124,7 +111,7 @@ export class Profile extends Component {
                     toast.error(""+ error);
                 }
             })
-    }
+    };
 
 
     render() {
@@ -141,6 +128,30 @@ export class Profile extends Component {
                         <div className="userFormHeader">
                             <h1>Profile</h1>
                         </div>
+
+                        <Step.Group>
+                            <Step completed>
+                                <Icon name='phone' />
+                                <Step.Content>
+                                    <Step.Title>Phone</Step.Title>
+                                    <Step.Description>Enter Your Phone Number</Step.Description>
+                                </Step.Content>
+                            </Step>
+                            <Step active>
+                                <Icon name='user' />
+                                <Step.Content>
+                                    <Step.Title>Profile</Step.Title>
+                                    <Step.Description>Enter Your Personal Details</Step.Description>
+                                </Step.Content>
+                            </Step>
+                            <Step>
+                                <Icon name='file' />
+                                <Step.Content>
+                                    <Step.Title>KYC</Step.Title>
+                                    <Step.Description>Complete Your KYC</Step.Description>
+                                </Step.Content>
+                            </Step>
+                        </Step.Group>
 
                     <Form
                         ref="form"

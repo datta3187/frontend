@@ -7,11 +7,14 @@ import ChangePassword from '../../components/change_password/ChangePassword'
 import * as Api from "../../api/remoteApi";
 import './setting.scss'
 import LoginGuard from "../../components/loginGuard/LoginGuard";
+import Auth from '../../components/Auth'
+
+const auth = new Auth();
 
 export class Setting extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             fields: {
                 email: 'N/A',
@@ -39,23 +42,13 @@ export class Setting extends Component {
 
 
     //
-    componentDidMount() {
-        let api_url = 'resource/users/me';
-        Api.remoteApi(api_url, 'get', {})
-            .then(res => {
-                this.setState({
-                    fields: res,
-                    googleAuth: res.otp
-                })
-            })
-            .catch(error => {
-                if (error.response) {
-                    toast.error(error.response.data.errors[0]);
-                }
-                else {
-                    toast.error("" + error);
-                }
-            })
+    componentDidMount()
+    {
+        let user = auth.getUser();
+        this.setState({
+            fields: user,
+            googleAuth: user.otp
+        });
     }
 
     componentWillMount() {

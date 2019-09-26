@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button } from 'semantic-ui-react'
+import { Container, Button, Step, Icon } from 'semantic-ui-react'
 import { Dropdown, Form, Input } from 'semantic-ui-react-form-validator';
 import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
@@ -136,7 +136,29 @@ class Kyc extends Component {
                         <div className="userFormHeader">
                             <h1>Know Your Customer</h1>
                         </div>
-
+                        <Step.Group>
+                            <Step completed>
+                                <Icon name='phone' />
+                                <Step.Content>
+                                    <Step.Title>Phone</Step.Title>
+                                    <Step.Description>Enter Your Phone Number</Step.Description>
+                                </Step.Content>
+                            </Step>
+                            <Step completed>
+                                <Icon name='user' />
+                                <Step.Content>
+                                    <Step.Title>Profile</Step.Title>
+                                    <Step.Description>Enter Your Personal Details</Step.Description>
+                                </Step.Content>
+                            </Step>
+                            <Step active>
+                                <Icon name='file' />
+                                <Step.Content>
+                                    <Step.Title>KYC</Step.Title>
+                                    <Step.Description>Complete Your KYC</Step.Description>
+                                </Step.Content>
+                            </Step>
+                        </Step.Group>
                         <Form
                             ref="form"
                             onSubmit={this.signupkyc}

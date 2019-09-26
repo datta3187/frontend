@@ -13,6 +13,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 // import Recaptcha from "../../components/Recaptcha";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 import Auth from "../../components/Auth";
+import * as profileApi from "../../api/profileApi";
+import * as Api from "../../api/remoteApi";
 
 const auth = new Auth();
 
@@ -148,18 +150,24 @@ class Login extends Component {
         return formIsValid;
     };
 
-    redirectPath =(level_no) =>{
-        let path = "/kyc"
-        switch(level_no) {
-            case 1:
-                path = '/phone'
-                break;
-            case 2:
-                path = '/profile'
-                break;
+    redirectPath =() =>{
+        let path = "/phone";
+        let phone = auth.getPhone();
+        let profile = auth.getProfile();
+        let document = auth.getDocument();
+
+        if (phone) {
+            path = 'profile'
         }
+        else if (profile) {
+            path = 'kyc'
+        }
+        else if (document) {
+            path = 'settings'
+        }
+
         return path;
-    }
+    };
 
     // button
     signInWithPeatio = e => {
@@ -173,9 +181,11 @@ class Login extends Component {
                     } else {
                         auth.setSession(res);
                         toast.success("Logged in successfully");
+                        this.fetchProfile();
+                        this.fetchPhones();
+                        this.fetchDocuments();
                         this.setState({ loading: false });
-                        // this.props.history.push('/kyc')
-                        this.props.history.push(this.redirectPath(res.level))
+                        this.props.history.push(this.redirectPath())
                     }
                 })
                 .catch(error => {
@@ -192,6 +202,46 @@ class Login extends Component {
         } else {
             this.setState({ loading: false });
         }
+    };
+
+    fetchProfile = e => {
+        profileApi.getProfile()
+            .then(res => {
+                auth.setProfile(res)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    };
+
+    fetchPhones = e => {
+        let api_url = 'resource/phones';
+        Api.remoteApi(api_url, 'get', {})
+            .then(res => {
+                auth.setPhone(res);
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.error(error.response.data.errors[0]);
+                } else {
+                    console.error("" + error);
+                }
+            });
+    };
+
+    fetchDocuments = e => {
+        let api_url = 'resource/documents';
+        Api.remoteApi(api_url, 'get', {})
+            .then(res => {
+                auth.setDocument(res);
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.error(error.response.data.errors[0]);
+                } else {
+                    console.error("" + error);
+                }
+            });
     };
 
     forgotPassword = e => {

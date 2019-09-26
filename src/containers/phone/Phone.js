@@ -22,7 +22,7 @@ export class Phone extends Component {
                 verification_code: ''
             },
             loading: false,
-            show_otp_field: true,
+            show_otp_field: false,
             on_form_save: this.savePhone
         }
     }
@@ -48,7 +48,7 @@ export class Phone extends Component {
                     toast.error("" + error);
                 }
             })
-    }
+    };
 
     verifyPhone = e => {
         let api_url = 'resource/phones/verify';
@@ -79,7 +79,7 @@ export class Phone extends Component {
             .catch(error => {
                 if (error.response) {
                     toast.error(error.response.data.errors[0]);
-                    let phone_exists = (/exists/g).test(error.response.data.errors[0]);
+                    let phone_exists = (/registered/g).test(error.response.data.errors[0]);
                     if (phone_exists) {
                         this.setState({ show_otp_field: true });
                         this.setState({ on_form_save: this.verifyPhone });
@@ -102,8 +102,7 @@ export class Phone extends Component {
             fields[name] = value;
             return { fields: fields };                                 // return new object jasper object
         })
-    }
-
+    };
 
     render() {
         return (
@@ -119,6 +118,30 @@ export class Phone extends Component {
                         <div className="userFormHeader">
                             <h1>Phone</h1>
                         </div>
+
+                        <Step.Group>
+                            <Step active>
+                                <Icon name='phone' />
+                                <Step.Content>
+                                    <Step.Title>Phone</Step.Title>
+                                    <Step.Description>Enter Your Phone Number</Step.Description>
+                                </Step.Content>
+                            </Step>
+                            <Step>
+                                <Icon name='user' />
+                                <Step.Content>
+                                    <Step.Title>Profile</Step.Title>
+                                    <Step.Description>Enter Your Personal Details</Step.Description>
+                                </Step.Content>
+                            </Step>
+                            <Step>
+                                <Icon name='file' />
+                                <Step.Content>
+                                    <Step.Title>KYC</Step.Title>
+                                    <Step.Description>Complete Your KYC</Step.Description>
+                                </Step.Content>
+                            </Step>
+                        </Step.Group>
 
                         <Form ref="form" onSubmit={this.state.on_form_save}>
                             <div className="form-row">
