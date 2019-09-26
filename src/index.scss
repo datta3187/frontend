@@ -22,6 +22,7 @@ h1, h2, h3, h4, h5{font-family: 'Montserrat', sans-serif;}
 .ui.button, .ui.form input:not([type]), .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=email], .ui.form input[type=file], .ui.form input[type=number], .ui.form input[type=password], .ui.form input[type=search], .ui.form input[type=tel], .ui.form input[type=text], .ui.form input[type=time], .ui.form input[type=url]{
   font-family: 'Montserrat', sans-serif;
 }
+.ui.selection.active.dropdown{box-shadow: none !important;}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -69,7 +70,7 @@ code {
     }
     
   }
-  input[type="text"], input[type="password"], input[type="email"], input[type="select"]{
+  input[type="text"], input[type="password"], input[type="email"], input[type="select"], input[type="number"]{
     height: 54px;
     border-radius: 55px;
     background: #fdfcfc;
@@ -79,10 +80,11 @@ code {
   .selection.dropdown{
     border:0;
     padding-top: 20px;
-    &:before{
-      font-family: Icons;
-      content:"\f0e0";
-    }
+      &:before{
+        font-family: Icons;
+        content:"\f0e0";
+       
+      }
     .default.text{
       padding-left: 35px;
     }
@@ -249,6 +251,11 @@ code {
       font-size: 14px;
       padding-top: 14px;
       padding-bottom: 14px;
+      }
+
+      &.fw{
+        width:100%;
+        max-width: 100%;
       }
   }
 

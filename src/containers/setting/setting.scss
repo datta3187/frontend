@@ -92,5 +92,78 @@
             max-width: 200px;           
         }
     }
+
+    .sectionRow{
+        margin:0 20px;
+
+        .extoRefHeader{
+            h2{
+                font-size: 22px;
+                color:$darkColor;
+                margin-top: 11px;
+            }
+        }
+        &.highLighted{
+            border:0px;
+            background: #f6f6f6;
+            margin:0 30px;
+            
+            &::before{
+                display: none;
+            }
+            h3{
+                font-size: 14px;
+                font-weight: 400;
+                color: #bbb9b9;
+                margin-bottom: 0;
+               
+            }
+            p{
+                font-weight: 600;
+                font-size: 15px;
+                color: #333;
+            }
+        }
+        &.sectionTradingAccountsetting{
+            justify-content: space-between;
+            padding-left: 10px;
+            padding-right: 10px;
+            &::before{
+                display: none;
+            }
+
+            > div{
+                background: #f6f6f6;
+                padding:0 0;
+                max-width: 49%;
+                border-radius: 8px;
+
+                h3{
+                    background: #bbbbbb;
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: #fff;
+                    box-sizing: border-box;
+                    padding: 14px 18px;
+                    border-radius: 8px 8px 0 0;
+                }
+                p{
+                    padding: 14px 18px;
+                }
+                
+            }
+        }
+        .accSetting{
+            padding-left: 18px;
+            padding-right: 18px;
+            margin-bottom: 14px;
+            .item{
+                padding-top: 8px;
+                padding-bottom: 8px;
+            }
+        }
+
+    }
+    
     
   }
