@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify"
 
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
-import LoginGuard from "../../components/login_guard/LoginGuard";
+import LoginGuard from "../../components/loginGuard/LoginGuard";
 
 const countryOptions = [
     { key: 'af', value: 'af', text: 'Afghanistan' },
@@ -181,7 +181,6 @@ export class Profile extends Component {
                                                     placeholder="Date Of Birth"
                                                     name="date"
                                                     iconPosition='left'
-                                                    startMode="['year', 'month', 'day']"
                                                     placeholder="Date"
                                                     value={this.state.fields.dob}
                                                     onChange={this.handleChangeDate}

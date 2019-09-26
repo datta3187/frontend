@@ -8,7 +8,7 @@ import * as authApi from "../../api/authApi";
 
 import './Kyc.scss'
 import {toast, ToastContainer} from "react-toastify";
-import LoginGuard from "../../components/login_guard/LoginGuard";
+import LoginGuard from "../../components/loginGuard/LoginGuard";
 
 const docType = [
     { key: 'passport', value: 'passport', text: 'Passport' },
@@ -179,7 +179,6 @@ class Kyc extends Component {
                                                     placeholder="Document Expiry Date"
                                                     name="doc_expire"
                                                     iconPosition='left'
-                                                    startMode="['year', 'month', 'day']"
                                                     placeholder="yy/mm/dd"
                                                     value={this.state.fields.doc_expire}
                                                     onChange={this.handleChangeDocExpire}

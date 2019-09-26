@@ -17,7 +17,6 @@ export const onProfileSubmission = payload => {
         });
 };
 
-
 export const getProfile = payload => {
     const URL = config.apiUrl;
     return axios(`${URL}/resource/profiles/me`, {
