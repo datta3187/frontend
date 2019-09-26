@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Tab, Checkbox } from 'semantic-ui-react'
+import { Tab } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import Limit from './Limit'
