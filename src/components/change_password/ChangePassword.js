@@ -33,7 +33,7 @@ class ChangePassword extends Component {
         console.log("data :" + this.state.fields);
         Api.remoteApi(api_url, 'put', this.state.fields)
             .then(res => {
-                this.setState({isOpen: false})
+                this.props.closeModal();
                 toast.success("Password changed successfully");
             })
             .catch(error =>{
@@ -49,10 +49,6 @@ class ChangePassword extends Component {
     render() {
         return (
             <div>
-                <ToastContainer
-                    enableMultiContainer
-                    position={toast.POSITION.TOP_RIGHT}
-                />
                 <Modal size="small" open={this.props.passModalOpen} className="forgotPasswordModal">
                     <a className="mClose" onClick={this.props.closeModal}><i aria-hidden="true" className="close link icon"></i></a>
                     <Modal.Header>
