@@ -7,15 +7,21 @@ import Header from "../../components/Header";
 import * as authApi from "../../api/authApi";
 
 import './Kyc.scss'
-import { toast } from "react-toastify";
-import LoginGuard from "../../components/login_guard/LoginGuard";
-
+import {toast, ToastContainer} from "react-toastify";
+import LoginGuard from "../../components/loginGuard/LoginGuard";
 
 const docType = [
     { key: 'passport', value: 'passport', text: 'Passport' },
-    { key: 'Identity card', value: 'Identity card', text: 'Identity card' },
-    { key: 'Driver license', value: 'Driver license', text: 'Driver license' },
-    { key: 'Utility Bill', value: 'Utility Bill', text: 'Utility Bill' }
+    { key: 'passport-front', value: 'passport-front', text: 'Passport Front' },
+    { key: 'passport-back', value: 'passport-back', text: 'Passport Back' },
+    { key: 'identity-card', value: 'identity-card', text: 'Identity card' },
+    { key: 'identity-card-front', value: 'identity-card-front', text: 'Identity Card Front' },
+    { key: 'identity-card-back', value: 'identity-card-back', text: 'Identity Card Back' },
+    { key: 'driver-license', value: 'driver-license', text: 'Driver License'},
+    { key: 'driver-license', value: 'driver-license-front', text: 'Driver License Front' },
+    { key: 'driver-license', value: 'driver-license-back', text: 'Driver License Back' },
+    { key: 'utility-bill', value: 'utility-bill', text: 'Utility Bill' },
+    { key: 'faceid', value: 'faceid', text: 'Face ID' }
 ]
 
 
@@ -122,6 +128,10 @@ class Kyc extends Component {
             <LoginGuard>
                 < div >
                     <Header />
+                    <ToastContainer
+                        enableMultiContainer
+                        position={toast.POSITION.TOP_RIGHT}
+                    />
                     <Container className="boxWithShadow userForms kycForm">
                         <div className="userFormHeader">
                             <h1>Know Your Customer</h1>
@@ -169,7 +179,6 @@ class Kyc extends Component {
                                                     placeholder="Document Expiry Date"
                                                     name="doc_expire"
                                                     iconPosition='left'
-                                                    startMode="['year', 'month', 'day']"
                                                     placeholder="yy/mm/dd"
                                                     value={this.state.fields.doc_expire}
                                                     onChange={this.handleChangeDocExpire}

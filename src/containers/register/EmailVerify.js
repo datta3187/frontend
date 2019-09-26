@@ -5,7 +5,7 @@ import {Container} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
 import * as loginApi from "../../api/loginApi";
-import LogoutGuard from "../../components/logout_guard";
+import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 
 
 class EmailVerify extends Component {
