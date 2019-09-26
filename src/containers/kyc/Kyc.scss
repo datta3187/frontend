@@ -22,6 +22,7 @@
         position: relative;
         padding-bottom: 20px;
         border-radius: 52px;
+        box-shadow: none !important;
         &:after{
             content: '';
             border: 1px solid rgba(34, 36, 38, 0.15);

@@ -1,0 +1,57 @@
+@import "../../components/_styleVars.scss";
+
+.phoneSection{
+    .ccDrop{
+        .selection.dropdown{
+            border:0;
+            padding-top: 20px;
+            padding-left: 23px;
+              &:before{
+                font-family: Icons;
+                content:"\f0e0";  
+                color: $baseColor;  
+              }
+            .default.text{
+              padding-left: 0px !important;
+            }
+            input{
+            border:1px solid rgba(34,36,38,.15) !important;
+            height: 54px;
+            border-radius: 55px;
+            background: #fdfcfc;
+            font-size: 14px;
+            }
+            .icon{
+              top: 1.685714em;
+              right: 2em;
+            }
+            .text{
+                margin-left: 14px;
+            }
+        }        
+    }
+    .ph{
+        .twelve.wide.field{
+            margin-bottom: 0;
+        }
+    }
+    .otp-sec{
+        position: relative;
+        .resOtp{
+            position: absolute;
+            top: 0;
+            right: 0;
+            top: 45%;
+            right: 16px;
+            background: #fff;
+            color: $baseColor;
+            font-weight: 700;
+            border-bottom: 2px solid transparent;
+            transition: all .35s;
+
+            &:hover{
+                border-bottom: 2px solid $baseColor;
+            }
+        }
+    }
+}
