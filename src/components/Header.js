@@ -27,7 +27,7 @@ class Header extends Component {
                         <div className="headerRight">
                             <nav>
                                 <ul className="r-nav">
-                                    <li><Link to="/trading/ethbtc">Trade</Link></li>
+                                    <li><Link to="/trading/ETH_BTC">Trade</Link></li>
                                     <li className="hasLoginBtn">{link}</li>
                                 </ul>
                             </nav>

@@ -9,9 +9,7 @@ export const onLogin = payload => {
   return axios(`${URL}/identity/sessions`, {
     method: "POST",
     headers: {
-      "content-type": "application/json",
-      'Access-Control-Allow-Credentials': true,
-      'Access-Control-Allow-Origin': 'http://e2dd94a6.ngrok.io'
+      "content-type": "application/json"
     },
     data: payload
   })
