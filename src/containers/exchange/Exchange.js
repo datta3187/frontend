@@ -4,14 +4,15 @@ import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import Limit from './Limit'
 import Market from './Market'
+import Ticker from './Ticker'
 
-import './exchnage.scss'
+import './exchange.scss'
 
 
 const orderTabs = [
-    { menuItem: 'Tab 1', render: () => <Tab.Pane>No Sell History</Tab.Pane> },
-    { menuItem: 'Tab 2', render: () => <Tab.Pane>No Sell History</Tab.Pane> },
-    { menuItem: 'Tab 3', render: () => <Tab.Pane>No Sell History</Tab.Pane> },
+    { menuItem: 'Tab 1', render: () => <Tab.Pane>helo</Tab.Pane> },
+    { menuItem: 'Tab 2', render: () => <Tab.Pane>Hi</Tab.Pane> },
+    { menuItem: 'Tab 3', render: () => <Tab.Pane>Bye</Tab.Pane> },
 ]
 
 const limitMarket = [
@@ -21,22 +22,22 @@ const limitMarket = [
 
 class Exchange extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            market: ''
+        }
+    }
+
+    componentWillMount() {
+        this.setState({market: this.props.match.params.market})
+    }
+
     render() {
         return (
             <div style={{ 'background': '#dfdfdf' }}>
-                <Header/>
-                <div className="tradeBar">
-                    <ul className="rowVolume">
-                        <li>BTC/BCH</li>
-                        <li><h3>LAST PRICE</h3><p>0.0679</p></li>
-                        <li><h3>24H CHANGE</h3><p className={`green`}>0.00006%  +0.80%</p></li>
-                        <li><h3>24H HIGHT</h3><p>1</p></li>
-                        <li><h3>24H LOW</h3><p>1</p></li>
-                        <li><h3>24H VOLUME</h3><p>0.0</p></li>
-
-                    </ul>
-                    <Checkbox toggle />
-                </div>
+                <Header abc="exchangeHdr"/>
+                <Ticker market={this.state.market} />
                 <div className="exchangeBlock">
                     <div className="sidebar s-left">
                         <div className="halfHeight">
