@@ -219,7 +219,7 @@ export class Setting extends Component {
                                     <br />Used for withdrawals and security modifications.
                                 </Grid.Column>
                                 <Grid.Column className="settingListBtn">
-                                    <Button>Enable</Button>
+                                    <Button onClick={() => this.props.history.push("/phone")}>Enable</Button>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
