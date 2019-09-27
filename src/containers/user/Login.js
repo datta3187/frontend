@@ -10,7 +10,6 @@ import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css"
 import config from "../../config";
 import ReCAPTCHA from "react-google-recaptcha";
-// import Recaptcha from "../../components/Recaptcha";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 import Auth from "../../components/Auth";
 
@@ -148,20 +147,6 @@ class Login extends Component {
         return formIsValid;
     };
 
-    redirectPath =(level_no) =>{
-        let path = "/kyc"
-        switch(level_no) {
-            case 1:
-                path = '/phone'
-                break;
-            case 2:
-                path = '/profile'
-                break;
-        }
-        return path;
-    }
-
-    // button
     signInWithPeatio = e => {
         e.preventDefault();
         this.setState({ loading: true });
@@ -172,10 +157,12 @@ class Login extends Component {
                         toast.error("e-mail verification pending");
                     } else {
                         auth.setSession(res);
-                        toast.success("Logged in successfully");
+                        // toast.success("Logged in successfully");
+                        auth.fetchProfile();
+                        auth.fetchPhones();
+                        auth.fetchDocuments();
                         this.setState({ loading: false });
-                        // this.props.history.push('/kyc')
-                        this.props.history.push(this.redirectPath(res.level))
+                        this.props.history.push('/settings');
                     }
                 })
                 .catch(error => {
@@ -187,7 +174,6 @@ class Login extends Component {
                     else{
                         toast.error(""+ error);
                     }
-
             });
         } else {
             this.setState({ loading: false });
@@ -294,16 +280,14 @@ class Login extends Component {
 
                             </Form.Field>
 
-
                             <div className="form-captcha">
                                 {(config.captchaPolicy) && (
-                                <ReCAPTCHA
-                                    ref={(r) => this.recaptcha = r}
-                                    sitekey={config.recatpchaSiteKey}
-                                    onChange={this.handleCaptcha}
+                                   <ReCAPTCHA
+                                        ref={(r) => this.recaptcha = r}
+                                        sitekey={config.recatpchaSiteKey}
+                                        onChange={this.handleCaptcha}
                                     />
                                 )}
-
                                 <span style={{color: "red"}}>
                                     {this.state.errors["captcha_response"]}
                                 </span>
