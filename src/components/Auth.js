@@ -1,3 +1,6 @@
+import * as profileApi from "../api/profileApi";
+import * as Api from "../api/remoteApi";
+
 export default class Auth {
 
     setSession = (authResult) => {
@@ -10,6 +13,7 @@ export default class Auth {
         localStorage.removeItem('user');
         localStorage.removeItem('phone');
         localStorage.removeItem('profile');
+        localStorage.removeItem('document');
     };
 
     // checks if the user is authenticated
@@ -23,8 +27,10 @@ export default class Auth {
     };
 
     setPhone = (res) => {
-        let result = JSON.stringify(res);
-        localStorage.setItem("phone", result);
+        if (res && res.length) {
+            let result = JSON.stringify(res);
+            localStorage.setItem("phone", result);
+        }
     };
 
     getProfile = () => {
@@ -41,11 +47,53 @@ export default class Auth {
     };
 
     setDocument = (res) => {
-        let result = JSON.stringify(res);
-        localStorage.setItem("document", result);
+        if (res && res.length) {
+            let result = JSON.stringify(res);
+            localStorage.setItem("document", result);
+        }
     };
 
     getUser = () => {
         return JSON.parse(localStorage.getItem('user'));
+    };
+
+    fetchProfile = e => {
+        profileApi.getProfile()
+            .then(res => {
+                this.setProfile(res)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    };
+
+    fetchPhones = e => {
+        let api_url = 'resource/phones';
+        Api.remoteApi(api_url, 'get', {})
+            .then(res => {
+                this.setPhone(res);
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.error(error.response.data.errors[0]);
+                } else {
+                    console.error("" + error);
+                }
+            });
+    };
+
+    fetchDocuments = e => {
+        let api_url = 'resource/documents';
+        Api.remoteApi(api_url, 'get', {})
+            .then(res => {
+                this.setDocument(res);
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.error(error.response.data.errors[0]);
+                } else {
+                    console.error("" + error);
+                }
+            });
     };
 }

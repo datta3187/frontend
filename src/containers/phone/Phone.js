@@ -96,7 +96,6 @@ export class Phone extends Component {
         fields.phone_number = fields.country_code + fields.number;
         this.setState({ fields });
 
-
         this.setState(prevState => {
             let fields = Object.assign({}, prevState.fields);  // creating copy of state variable jasper
             fields[name] = value;

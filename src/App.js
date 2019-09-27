@@ -14,6 +14,7 @@ import Profile from './containers/profile/Profile'
 import Setting from './containers/setting/Setting'
 import Phone from './containers/phone/Phone'
 import {toast, ToastContainer} from "react-toastify";
+import NotFound from "./containers/errors/NotFound";
 
 class App extends Component {
   render() {
@@ -33,6 +34,7 @@ class App extends Component {
             <Route path="/password-reset/:token" exact component={ResetPassword} />
             <Route path="/logout" exact component={Logout} />
             <Route path="/settings" component={Setting} />
+            <Route component={NotFound}/>
           </Switch>
           <ToastContainer
               enableMultiContainer

@@ -150,26 +150,6 @@ class Login extends Component {
         return formIsValid;
     };
 
-    redirectPath =() =>{
-        let path = "/phone";
-        let phone = auth.getPhone();
-        let profile = auth.getProfile();
-        let document = auth.getDocument();
-
-        if (phone) {
-            path = 'profile'
-        }
-        else if (profile) {
-            path = 'kyc'
-        }
-        else if (document) {
-            path = 'settings'
-        }
-
-        return path;
-    };
-
-    // button
     signInWithPeatio = e => {
         e.preventDefault();
         this.setState({ loading: true });
@@ -180,12 +160,12 @@ class Login extends Component {
                         toast.error("e-mail verification pending");
                     } else {
                         auth.setSession(res);
-                        toast.success("Logged in successfully");
-                        this.fetchProfile();
-                        this.fetchPhones();
-                        this.fetchDocuments();
+                        // toast.success("Logged in successfully");
+                        auth.fetchProfile();
+                        auth.fetchPhones();
+                        auth.fetchDocuments();
                         this.setState({ loading: false });
-                        this.props.history.push(this.redirectPath())
+                        this.props.history.push('/settings');
                     }
                 })
                 .catch(error => {
@@ -197,51 +177,10 @@ class Login extends Component {
                     else{
                         toast.error(""+ error);
                     }
-
             });
         } else {
             this.setState({ loading: false });
         }
-    };
-
-    fetchProfile = e => {
-        profileApi.getProfile()
-            .then(res => {
-                auth.setProfile(res)
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    };
-
-    fetchPhones = e => {
-        let api_url = 'resource/phones';
-        Api.remoteApi(api_url, 'get', {})
-            .then(res => {
-                auth.setPhone(res);
-            })
-            .catch(error => {
-                if (error.response) {
-                    console.error(error.response.data.errors[0]);
-                } else {
-                    console.error("" + error);
-                }
-            });
-    };
-
-    fetchDocuments = e => {
-        let api_url = 'resource/documents';
-        Api.remoteApi(api_url, 'get', {})
-            .then(res => {
-                auth.setDocument(res);
-            })
-            .catch(error => {
-                if (error.response) {
-                    console.error(error.response.data.errors[0]);
-                } else {
-                    console.error("" + error);
-                }
-            });
     };
 
     forgotPassword = e => {

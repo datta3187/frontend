@@ -6,10 +6,13 @@ import { Form, Input, Dropdown } from 'semantic-ui-react-form-validator';
 import * as profileApi from "../../api/profileApi";
 import { ToastContainer, toast } from "react-toastify"
 
-
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import LoginGuard from "../../components/loginGuard/LoginGuard";
+import { Redirect } from "react-router";
+import Auth from '../../components/Auth'
+
+const auth = new Auth();
 
 const countryOptions = [
     { key: 'af', value: 'af', text: 'Afghanistan' },
@@ -51,6 +54,29 @@ export class Profile extends Component {
                 postcode: ''
             },
             loading: false,
+        }
+
+    }
+
+    componentWillMount() {
+        let profile = auth.getProfile();
+        if (profile) {
+            this.setState(
+                {
+                    redirect: true,
+                    redirect_to: '/kyc'
+                }
+            )
+        }
+
+        let user = auth.getUser();
+        if (user.level < 2) {
+            this.setState(
+                {
+                    redirect: true,
+                    redirect_to: '/phone'
+                }
+            )
         }
 
     }
@@ -115,6 +141,14 @@ export class Profile extends Component {
 
 
     render() {
+        if (this.state.redirect){
+            return <Redirect
+                to={{
+                    pathname: this.state.redirect_to,
+                    state: {from: this.props.location}
+                }}
+            />
+        }
         return (
             <LoginGuard>
                 <div>
