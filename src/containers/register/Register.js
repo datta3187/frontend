@@ -234,7 +234,6 @@ class Register extends Component {
                                     onChange={this.handleCaptcha}
                                     />
                                 )}
-
                                 <span style={{color: "red"}}>
                                     {this.state.errors["captcha_response"]}
                                 </span>
