@@ -51,17 +51,17 @@ class Kyc extends Component {
         }
     }
 
-    componentDidMount() {
-        let user = auth.getUser();
-        if (user.level < 2) {
-            this.setState(
-                {
-                    redirect: true,
-                    redirect_to: '/phone'
-                }
-            )
-        }
-    }
+    // componentDidMount() {
+    //     let user = auth.getUser();
+    //     if (user.level < 2) {
+    //         this.setState(
+    //             {
+    //                 redirect: true,
+    //                 redirect_to: '/phone'
+    //             }
+    //         )
+    //     }
+    // }
 
     onFileUploadChange = (e) => {
         // const formData = new FormData();

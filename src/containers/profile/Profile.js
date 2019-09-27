@@ -56,28 +56,28 @@ export class Profile extends Component {
 
     }
 
-    componentWillMount() {
-        let profile = auth.getProfile();
-        if (profile) {
-            this.setState(
-                {
-                    redirect: true,
-                    redirect_to: '/kyc'
-                }
-            )
-        }
-
-        let user = auth.getUser();
-        if (user.level < 2) {
-            this.setState(
-                {
-                    redirect: true,
-                    redirect_to: '/phone'
-                }
-            )
-        }
-
-    }
+    // componentWillMount() {
+    //     let profile = auth.getProfile();
+    //     if (profile) {
+    //         this.setState(
+    //             {
+    //                 redirect: true,
+    //                 redirect_to: '/kyc'
+    //             }
+    //         )
+    //     }
+    //
+    //     let user = auth.getUser();
+    //     if (user.level < 2) {
+    //         this.setState(
+    //             {
+    //                 redirect: true,
+    //                 redirect_to: '/phone'
+    //             }
+    //         )
+    //     }
+    //
+    // }
 
     setFormValue(field, e) {
         let fields = this.state.fields;

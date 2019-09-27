@@ -53,25 +53,25 @@ export class Setting extends Component {
     }
 
     componentWillMount() {
-        let user = auth.getUser();
-        if (user.level == 1) {
-            this.setState(
-                {
-                    redirect: true,
-                    redirect_to: '/phone'
-                }
-            )
-        }
-
-        let document = auth.getDocument();
-        if (user.level == 2 && !document) {
-            this.setState(
-                {
-                    redirect: true,
-                    redirect_to: '/kyc'
-                }
-            )
-        }
+        // let user = auth.getUser();
+        // if (user.level == 1) {
+        //     this.setState(
+        //         {
+        //             redirect: true,
+        //             redirect_to: '/phone'
+        //         }
+        //     )
+        // }
+        //
+        // let document = auth.getDocument();
+        // if (user.level == 2 && !document) {
+        //     this.setState(
+        //         {
+        //             redirect: true,
+        //             redirect_to: '/kyc'
+        //         }
+        //     )
+        // }
 
         let api_url = 'resource/otp/generate_qrcode';
         Api.remoteApi(api_url, 'post', {})
