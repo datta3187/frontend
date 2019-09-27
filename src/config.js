@@ -6,4 +6,3 @@ export default {
   captchaPolicy: true,
   recatpchaSiteKey: "6Ldk47kUAAAAADVE3xKJGnt2g4xuRZT6ds_ojc6i"
 };
-

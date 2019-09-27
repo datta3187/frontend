@@ -10,7 +10,7 @@ export const remoteApi = (api_url, method_type, payload) => {
         }
     }
     if(typeof payload !== "undefined" && method_type.toUpperCase() === "POST"){
-        others = Object.assign({}, others, { payload: payload })
+        others = Object.assign({}, others, { data: payload })
     }
 
     return axios(`${URL}/${api_url}`, others)
@@ -30,7 +30,7 @@ export const peatioApi = (api_url, method_type, payload=undefined) => {
         }
     }
     if(typeof payload !== "undefined" && method_type.toUpperCase() === "POST"){
-        others = Object.assign({}, others, { payload: payload })
+        others = Object.assign({}, others, { data: payload })
     }
 
     return axios(`${URL}/${api_url}`, others)
