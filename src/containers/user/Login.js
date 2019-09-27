@@ -10,11 +10,8 @@ import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css"
 import config from "../../config";
 import ReCAPTCHA from "react-google-recaptcha";
-// import Recaptcha from "../../components/Recaptcha";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 import Auth from "../../components/Auth";
-import * as profileApi from "../../api/profileApi";
-import * as Api from "../../api/remoteApi";
 
 const auth = new Auth();
 
@@ -283,16 +280,14 @@ class Login extends Component {
 
                             </Form.Field>
 
-
                             <div className="form-captcha">
                                 {(config.captchaPolicy) && (
-                                <ReCAPTCHA
-                                    ref={(r) => this.recaptcha = r}
-                                    sitekey={config.recatpchaSiteKey}
-                                    onChange={this.handleCaptcha}
+                                   <ReCAPTCHA
+                                        ref={(r) => this.recaptcha = r}
+                                        sitekey={config.recatpchaSiteKey}
+                                        onChange={this.handleCaptcha}
                                     />
                                 )}
-
                                 <span style={{color: "red"}}>
                                     {this.state.errors["captcha_response"]}
                                 </span>

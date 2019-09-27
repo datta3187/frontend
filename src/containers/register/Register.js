@@ -8,9 +8,8 @@ import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
-import ReCAPTCHA from "react-google-recaptcha";
-// import Recaptcha from "../../components/Recaptcha";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
+import ReCAPTCHA from "react-google-recaptcha";
 
 class Register extends Component {
     constructor(props) {
@@ -228,13 +227,12 @@ class Register extends Component {
                             </Form.Field>
                             <div className="form-captcha">
                                 {(config.captchaPolicy) && (
-                                <ReCAPTCHA
-                                    ref={(r) => this.recaptcha = r}
-                                    sitekey={config.recatpchaSiteKey}
-                                    onChange={this.handleCaptcha}
+                                    <ReCAPTCHA
+                                        ref={(r) => this.recaptcha = r}
+                                        sitekey={config.recatpchaSiteKey}
+                                        onChange={this.handleCaptcha}
                                     />
                                 )}
-
                                 <span style={{color: "red"}}>
                                     {this.state.errors["captcha_response"]}
                                 </span>
