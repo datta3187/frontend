@@ -73,7 +73,6 @@ class Login extends Component {
                     "Password should have one number and one special character,minimum 8 characters";
             }
         }
-
         //Email
         if (!fields["email"]) {
             formIsValid = false;
