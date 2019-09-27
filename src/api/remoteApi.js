@@ -17,8 +17,8 @@ export const remoteApi = (api_url, method_type, payload) => {
     .then(response => response.data)
     .catch(error => {
         throw error;
-    });
-}
+    })
+};
 
 export const peatioApi = (api_url, method_type, payload=undefined) => {
     const URL = config.peatioUrl;
@@ -38,5 +38,5 @@ export const peatioApi = (api_url, method_type, payload=undefined) => {
     .catch(error => {
         throw error;
     });
-}
+};
 
