@@ -1,20 +1,25 @@
+const BigNumber = require('bignumber.js');
 
-export const priceChange = (open, last, n=8) => {
-    let p1 = parseFloat(open)
-    let p2 = parseFloat(last)
-    return Math.round((p2-p1), n)
+export const h24Change = (open, last, n=6) => {
+    let p1 = new BigNumber(open)
+    let p2 = new BigNumber(last)
+    return (p2.minus(p1)).toFixed(n)
 }
 
 export const ticker_color_class= (l, o) => {
-    let last = parseFloat(l)
-    let open = parseFloat(o)
-    if(last === open){
-        return 'orange_txt'
+    let last = new BigNumber(l)
+    let open = new BigNumber(o)
+    if(last.eq(open)){
+        return ''
     }
-    else if(last < open){
+    else if(last.gt(open)){
         return 'pink_txt'
     }
     else {
         return 'green_txt'
     }
+}
+
+export const toFixed =(num, tofixed=6) => {
+    return new BigNumber(num).toFixed(tofixed)
 }

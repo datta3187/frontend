@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {Checkbox} from "semantic-ui-react";
 import * as Api from "../../api/remoteApi";
 import "./exchange.scss";
-
 import * as formatter from './Formatter'
 
 class Ticker extends Component{
@@ -53,17 +52,27 @@ class Ticker extends Component{
         )
     }
 
+    getClassName() {
+        return formatter.ticker_color_class(this.state.ticker.last, this.state.ticker.open)
+    }
+
+    h24Change(){
+        let change = formatter.h24Change(this.state.ticker.last, this.state.ticker.open) + ' ' + this.state.ticker.price_change_percent
+        return change
+    }
+
+
     render() {
         return (
             <div>
                 <div className="tradeBar">
                     <ul className="rowVolume">
                         <li>{this.marketName(this.props.market)}</li>
-                        <li><h3>LAST PRICE</h3><p>{this.state.ticker.last}</p></li>
-                        <li><h3>24H CHANGE</h3><p className={formatter.ticker_color_class(this.state.ticker.last, this.state.ticker.open)}>{formatter.priceChange(this.state.ticker.last, this.state.ticker.open, 8)} {this.state.ticker.price_change_percent}</p></li>
-                        <li><h3>24H HIGHT</h3><p>{this.state.ticker.high}</p></li>
-                        <li><h3>24H LOW</h3><p>{this.state.ticker.low}</p></li>
-                        <li><h3>24H VOLUME</h3><p>{this.state.ticker.volume}</p></li>
+                        <li><h3>LAST PRICE</h3><p>{formatter.toFixed(this.state.ticker.last)}</p></li>
+                        <li><h3>24H CHANGE</h3><p className={this.getClassName()}>{this.h24Change()}</p></li>
+                        <li><h3>24H HIGHT</h3><p>{formatter.toFixed(this.state.ticker.high)}</p></li>
+                        <li><h3>24H LOW</h3><p>{formatter.toFixed(this.state.ticker.low)}</p></li>
+                        <li><h3>24H VOLUME</h3><p>{formatter.toFixed(this.state.ticker.volume)}</p></li>
                     </ul>
                     <Checkbox toggle />
                 </div>
