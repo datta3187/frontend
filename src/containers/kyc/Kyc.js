@@ -6,9 +6,9 @@ import Footer from '../../components/Footer'
 import Header from "../../components/Header";
 import * as Api from "../../api/remoteApi";
 import './Kyc.scss'
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import LoginGuard from "../../components/loginGuard/LoginGuard";
-import {Redirect} from "react-router";
+import { Redirect } from "react-router";
 import Auth from '../../components/Auth'
 
 const auth = new Auth();
@@ -20,7 +20,7 @@ const docType = [
     { key: 'identity-card', value: 'identity-card', text: 'Identity card' },
     { key: 'identity-card-front', value: 'identity-card-front', text: 'Identity Card Front' },
     { key: 'identity-card-back', value: 'identity-card-back', text: 'Identity Card Back' },
-    { key: 'driver-license', value: 'driver-license', text: 'Driver License'},
+    { key: 'driver-license', value: 'driver-license', text: 'Driver License' },
     { key: 'driver-license-front', value: 'driver-license-front', text: 'Driver License Front' },
     { key: 'driver-license-back', value: 'driver-license-back', text: 'Driver License Back' },
     { key: 'utility-bill', value: 'utility-bill', text: 'Utility Bill' },
@@ -135,120 +135,117 @@ class Kyc extends Component {
     }
 
     render() {
-        if (this.state.redirect){
+        if (this.state.redirect) {
             return <Redirect
                 to={{
                     pathname: this.state.redirect_to,
-                    state: {from: this.props.location}
+                    state: { from: this.props.location }
                 }}
             />
         }
         return (
-            <LoginGuard>
-                < div >
-                    <Header />
-                    <ToastContainer
-                        enableMultiContainer
-                        position={toast.POSITION.TOP_RIGHT}
-                    />
-                    <Container className="boxWithShadow userForms kycForm">
-                        <div className="userFormHeader">
-                            <h1>Know Your Customer</h1>
-                        </div>
-                        <Step.Group>
-                            <Step completed>
-                                <Icon name='phone' />
-                                <Step.Content>
-                                    <Step.Title>Phone</Step.Title>
-                                    <Step.Description>Enter Your Phone Number</Step.Description>
-                                </Step.Content>
-                            </Step>
-                            <Step completed>
-                                <Icon name='user' />
-                                <Step.Content>
-                                    <Step.Title>Profile</Step.Title>
-                                    <Step.Description>Enter Your Personal Details</Step.Description>
-                                </Step.Content>
-                            </Step>
-                            <Step active>
-                                <Icon name='file' />
-                                <Step.Content>
-                                    <Step.Title>KYC</Step.Title>
-                                    <Step.Description>Complete Your KYC</Step.Description>
-                                </Step.Content>
-                            </Step>
-                        </Step.Group>
-                        <Form
-                            ref="form"
-                            onSubmit={this.signupkyc}
-                        >
-                            <div className="form-row">
-                                <div className="form-group dd">
-                                    <Dropdown
-                                        label="Document type"
-                                        placeholder="Document type"
-                                        name="doc_type"
-                                        onChange={this.dropdownChange}
-                                        value={this.state.fields.doc_type}
-                                        validators={['required']}
-                                        errorMessages={['this field is required']}
-                                        validators={['required']}
-                                        errorMessages={['You must select one option']}
-                                        options={docType}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <Input
-                                        label="Document Number"
-                                        type="text"
-                                        placeholder="Document Number"
-                                        onChange={this.setFormValue.bind(this, "doc_number")}
-                                        value={this.state.fields.doc_number}
-                                        validators={['required']}
-                                        errorMessages={['this field is required']}
-                                    />
-                                </div>
+            // <LoginGuard>
+            < div >
+                <Header />
+                <ToastContainer
+                    enableMultiContainer
+                    position={toast.POSITION.TOP_RIGHT}
+                />
+                <Container className="boxWithShadow userForms kycForm">
+                    <div className="userFormHeader">
+                        <h1>Know Your Customer</h1>
+                    </div>
+                    <Step.Group className="profileSepts">
+                        <Step completed>
+                            <Icon name='phone' />
+                            <Step.Content>
+                                <Step.Title>Phone</Step.Title>
+                            </Step.Content>
+                        </Step>
+                        <Step completed>
+                            <Icon name='user' />
+                            <Step.Content>
+                                <Step.Title>Profile</Step.Title>
+                            </Step.Content>
+                        </Step>
+                        <Step active>
+                            <Icon name='file' />
+                            <Step.Content>
+                                <Step.Title>KYC</Step.Title>
+                            </Step.Content>
+                        </Step>
+                    </Step.Group>
+                    <Form
+                        ref="form"
+                        onSubmit={this.signupkyc}
+                    >
+                        <div className="form-row">
+                            <div className="form-group dd">
+                                <Dropdown
+                                    label="Document type"
+                                    placeholder="Document type"
+                                    name="doc_type"
+                                    onChange={this.dropdownChange}
+                                    value={this.state.fields.doc_type}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                    validators={['required']}
+                                    errorMessages={['You must select one option']}
+                                    options={docType}
+                                />
                             </div>
+                            <div className="form-group">
+                                <Input
+                                    label="Document Number"
+                                    type="text"
+                                    placeholder="Document Number"
+                                    onChange={this.setFormValue.bind(this, "doc_number")}
+                                    value={this.state.fields.doc_number}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                />
+                            </div>
+                        </div>
 
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <div className="genderAndDatepicker">
-                                        <div className="datePicker">
-                                            <div>
-                                                <DateInput
-                                                    label="Document Expiry Date"
-                                                    placeholder="Document Expiry Date"
-                                                    name="doc_expire"
-                                                    iconPosition='left'
-                                                    placeholder="yy/mm/dd"
-                                                    value={this.state.fields.doc_expire}
-                                                    onChange={this.handleChangeDocExpire}
-                                                />
-                                            </div>
+                        <div className="form-row">
+                            <div className="form-group">
+                                <div className="genderAndDatepicker">
+                                    <div className="datePicker">
+                                        <div>
+                                            <DateInput
+                                                label="Document Expiry Date"
+                                                placeholder="Document Expiry Date"
+                                                name="doc_expire"
+                                                iconPosition='left'
+                                                placeholder="yy/mm/dd"
+                                                value={this.state.fields.doc_expire}
+                                                onChange={this.handleChangeDocExpire}
+                                            />
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group">
-                                    <Input
-                                        label="Upload Document"
-                                        type="file"
-                                        name="upload"
-                                        placeholder="Upload Document"
-                                        value={this.state.upload.filename}
-                                        onChange={this.onFileUploadChange}
-                                    // validators={['required']}
-                                    // errorMessages={['this field is required']}
-                                    // allowedExtensions={['jpeg']}
-                                    />
-                                </div>
                             </div>
+                            <div className="form-group">
+                                <Input
+                                    label="Upload Document"
+                                    type="file"
+                                    name="upload"
+                                    placeholder="Upload Document"
+                                    value={this.state.upload.filename}
+                                    onChange={this.onFileUploadChange}
+                                // validators={['required']}
+                                // errorMessages={['this field is required']}
+                                // allowedExtensions={['jpeg']}
+                                />
+                            </div>
+                        </div>
 
-                            <Button>Submit</Button>
-                        </Form>
-                    </Container>
-                    <Footer />
-                </div >
-            </LoginGuard>
+                        <Button>Submit</Button>
+                    </Form>
+                </Container>
+                <Footer />
+            </div >
+            // </LoginGuard>
         )
     }
 }

@@ -130,63 +130,62 @@ export class Profile extends Component {
                     }, 2000)
                 }
             })
-            .catch(error =>{
-                if(error.response){
+            .catch(error => {
+                if (error.response) {
                     toast.error(error.response.data.errors[0]);
                 }
-                else{
-                    toast.error(""+ error);
+                else {
+                    toast.error("" + error);
                 }
             })
     };
 
 
     render() {
-        if (this.state.redirect){
+        if (this.state.redirect) {
             return <Redirect
                 to={{
                     pathname: this.state.redirect_to,
-                    state: {from: this.props.location}
+                    state: { from: this.props.location }
                 }}
             />
         }
         return (
-            <LoginGuard>
-                <div>
-                    <ToastContainer
-                        enableMultiContainer
-                        position={toast.POSITION.TOP_RIGHT}
-                    />
-                    <Header />
+            // <LoginGuard>
+            <div>
+                <ToastContainer
+                    enableMultiContainer
+                    position={toast.POSITION.TOP_RIGHT}
+                />
+                <Header />
 
-                    <Container className="boxWithShadow userForms kycForm">
-                        <div className="userFormHeader">
-                            <h1>Profile</h1>
-                        </div>
+                <Container className="boxWithShadow userForms kycForm">
+                    <div className="userFormHeader">
+                        <h1>Profile</h1>
+                    </div>
 
-                        <Step.Group>
-                            <Step completed>
-                                <Icon name='phone' />
-                                <Step.Content>
-                                    <Step.Title>Phone</Step.Title>
-                                    <Step.Description>Enter Your Phone Number</Step.Description>
-                                </Step.Content>
-                            </Step>
-                            <Step active>
-                                <Icon name='user' />
-                                <Step.Content>
-                                    <Step.Title>Profile</Step.Title>
-                                    <Step.Description>Enter Your Personal Details</Step.Description>
-                                </Step.Content>
-                            </Step>
-                            <Step>
-                                <Icon name='file' />
-                                <Step.Content>
-                                    <Step.Title>KYC</Step.Title>
-                                    <Step.Description>Complete Your KYC</Step.Description>
-                                </Step.Content>
-                            </Step>
-                        </Step.Group>
+                    <Step.Group className="profileSepts">
+                        {/*completed*/}
+                        <Step completed>
+                            <Icon name='phone' />
+                            <Step.Content>
+                                <Step.Title>Phone</Step.Title>
+                            </Step.Content>
+                        </Step>
+                        {/*active */}
+                        <Step active >
+                            <Icon name='user' />
+                            <Step.Content>
+                                <Step.Title>Profile</Step.Title>
+                            </Step.Content>
+                        </Step>
+                        <Step>
+                            <Icon name='file' />
+                            <Step.Content>
+                                <Step.Title>KYC</Step.Title>
+                            </Step.Content>
+                        </Step>
+                    </Step.Group>
 
                     <Form
                         ref="form"
@@ -217,36 +216,36 @@ export class Profile extends Component {
                             </div>
                         </div>
 
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <div className="genderAndDatepicker">
-                                        <div className="datePicker">
-                                            <div>
-                                                <DateInput
-                                                    label="Date of Birth"
-                                                    placeholder="Date Of Birth"
-                                                    name="date"
-                                                    iconPosition='left'
-                                                    placeholder="Date"
-                                                    value={this.state.fields.dob}
-                                                    onChange={this.handleChangeDate}
-                                                />
-                                            </div>
+                        <div className="form-row">
+                            <div className="form-group">
+                                <div className="genderAndDatepicker">
+                                    <div className="datePicker">
+                                        <div>
+                                            <DateInput
+                                                label="Date of Birth"
+                                                placeholder="Date Of Birth"
+                                                name="date"
+                                                iconPosition='left'
+                                                placeholder="Date"
+                                                value={this.state.fields.dob}
+                                                onChange={this.handleChangeDate}
+                                            />
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group">
-                                    <Input
-                                        label="Address"
-                                        type="text"
-                                        placeholder="Address"
-                                        onChange={this.setFormValue.bind(this, "address")}
-                                        value={this.state.fields.address}
-                                        validators={['required']}
-                                        errorMessages={['this field is required']}
-                                    />
-                                </div>
                             </div>
+                            <div className="form-group">
+                                <Input
+                                    label="Address"
+                                    type="text"
+                                    placeholder="Address"
+                                    onChange={this.setFormValue.bind(this, "address")}
+                                    value={this.state.fields.address}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                />
+                            </div>
+                        </div>
 
                         <div className="form-row">
                             <div className="form-group dd">
@@ -279,27 +278,27 @@ export class Profile extends Component {
                             </div>
                         </div>
 
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <Input
-                                        label="Postal Code"
-                                        type="text"
-                                        placeholder="Postal Code"
-                                        onChange={this.setFormValue.bind(this, "postcode")}
-                                        value={this.state.fields.postcode}
-                                        validators={['required']}
-                                        errorMessages={['this field is required']}
-                                    />
-                                </div>
+                        <div className="form-row">
+                            <div className="form-group">
+                                <Input
+                                    label="Postal Code"
+                                    type="text"
+                                    placeholder="Postal Code"
+                                    onChange={this.setFormValue.bind(this, "postcode")}
+                                    value={this.state.fields.postcode}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                />
                             </div>
+                        </div>
 
-                            <Button>Submit</Button>
-                        </Form>
-                    </Container>
-                    <Footer />
+                        <Button>Submit</Button>
+                    </Form>
+                </Container>
+                <Footer />
 
-                </div>
-            </LoginGuard>
+            </div>
+            // </LoginGuard>
         )
     }
 }
