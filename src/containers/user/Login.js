@@ -167,7 +167,7 @@ class Login extends Component {
                 })
                 .catch(error => {
                     this.setState({ loading: false });
-                    this.recaptcha.reset();
+                    // this.recaptcha.reset();
                     if(error.response){
                         toast.error(error.response.data.errors[0]);
                     }
