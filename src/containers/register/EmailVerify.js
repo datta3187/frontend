@@ -10,7 +10,7 @@ import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 
 class EmailVerify extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         if (props && typeof(props.location.state) !== "undefined"){
             this.state = {
