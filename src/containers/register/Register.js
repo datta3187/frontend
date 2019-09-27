@@ -16,7 +16,7 @@ class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fields: { email: '', password: '', conPassword: '', refid: 'IDAEBDF1468B', terms: '' },
+            fields: { email: '', password: '', conPassword: '', refid: config.referralId, terms: '' },
             errors: { email: '', password: '', conPassword: '', refid: '', terms: '', captcha_response: '' },
             loading: false,
             isTermSelected: false
@@ -138,7 +138,9 @@ class Register extends Component {
                 })
                 .catch(error => {
                     this.setState({ loading: false });
-                    this.recaptcha.reset();
+                    if(config.captchaPolicy){
+                        this.recaptcha.reset();
+                    }
                     if(error.response){
                         toast.error(error.response.data.errors[0]);
                     }
