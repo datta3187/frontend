@@ -5,15 +5,10 @@ import Header from '../../components/Header'
 import Limit from './Limit'
 import Market from './Market'
 import Ticker from './Ticker'
+import OrderBook from './OrderBook'
 
 import './exchange.scss'
 
-
-const orderTabs = [
-    { menuItem: 'Tab 1', render: () => <Tab.Pane>helo</Tab.Pane> },
-    { menuItem: 'Tab 2', render: () => <Tab.Pane>Hi</Tab.Pane> },
-    { menuItem: 'Tab 3', render: () => <Tab.Pane>Bye</Tab.Pane> },
-]
 
 const limitMarket = [
     { menuItem: 'Limit', render: () => <Tab.Pane><Limit /></Tab.Pane> },
@@ -21,7 +16,6 @@ const limitMarket = [
 ]
 
 class Exchange extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -39,13 +33,8 @@ class Exchange extends Component {
                 <Header abc="exchangeHdr"/>
                 <Ticker market={this.state.market} />
                 <div className="exchangeBlock">
-                    <div className="sidebar s-left">
-                        <div className="halfHeight">
-                            <div className="orderBlock">
-                                <Tab panes={orderTabs} />
-                            </div>
-                        </div>
-                    </div>
+                    <OrderBook market={this.state.market} />
+
                     <div className="exchangeMiddleBlock">
 
                         <div className="tradeMap">
