@@ -7,11 +7,15 @@ import ChangePassword from '../../components/change_password/ChangePassword'
 import * as Api from "../../api/remoteApi";
 import './setting.scss'
 import LoginGuard from "../../components/loginGuard/LoginGuard";
+import Auth from '../../components/Auth'
+import {Redirect} from "react-router";
+
+const auth = new Auth();
 
 export class Setting extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             fields: {
                 email: 'N/A',
@@ -39,26 +43,36 @@ export class Setting extends Component {
 
 
     //
-    componentDidMount() {
-        let api_url = 'resource/users/me';
-        Api.remoteApi(api_url, 'get', {})
-            .then(res => {
-                this.setState({
-                    fields: res,
-                    googleAuth: res.otp
-                })
-            })
-            .catch(error => {
-                if (error.response) {
-                    toast.error(error.response.data.errors[0]);
-                }
-                else {
-                    toast.error("" + error);
-                }
-            })
+    componentDidMount()
+    {
+        let user = auth.getUser();
+        this.setState({
+            fields: user,
+            googleAuth: user.otp
+        });
     }
 
     componentWillMount() {
+        let user = auth.getUser();
+        if (user.level == 1) {
+            this.setState(
+                {
+                    redirect: true,
+                    redirect_to: '/phone'
+                }
+            )
+        }
+
+        let document = auth.getDocument();
+        if (user.level == 2 && !document) {
+            this.setState(
+                {
+                    redirect: true,
+                    redirect_to: '/kyc'
+                }
+            )
+        }
+
         let api_url = 'resource/otp/generate_qrcode';
         Api.remoteApi(api_url, 'post', {})
             .then(res => {
@@ -104,9 +118,18 @@ export class Setting extends Component {
     }
 
     render() {
+        if (this.state.redirect){
+            return <Redirect
+                to={{
+                    pathname: this.state.redirect_to,
+                    state: {from: this.props.location}
+                }}
+            />
+        }
+
         const user = this.state.fields;
         return (
-            // <LoginGuard>
+            <LoginGuard>
             <div>
                 <ToastContainer
                     enableMultiContainer
@@ -261,7 +284,7 @@ export class Setting extends Component {
                 {/*Change password Modal*/}
                 <ChangePassword passModalOpen={this.state.passwordModal} closeModal={this.changePasswordEvent} />
             </div>
-            // </LoginGuard>
+            </LoginGuard>
         )
     }
 }

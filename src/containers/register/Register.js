@@ -8,8 +8,8 @@ import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
-import Recaptcha from "../../components/Recaptcha";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
+import ReCAPTCHA from "react-google-recaptcha";
 
 class Register extends Component {
     constructor(props) {
@@ -137,6 +137,7 @@ class Register extends Component {
                 })
                 .catch(error => {
                     this.setState({ loading: false });
+                    this.recaptcha.reset();
                     if(error.response){
                         toast.error(error.response.data.errors[0]);
                     }
@@ -225,7 +226,13 @@ class Register extends Component {
                                     iconPosition='left' placeholder='Referral Id' />
                             </Form.Field>
                             <div className="form-captcha">
-                                <Recaptcha handler={this.handleCaptcha}/>
+                                {(config.captchaPolicy) && (
+                                    <ReCAPTCHA
+                                        ref={(r) => this.recaptcha = r}
+                                        sitekey={config.recatpchaSiteKey}
+                                        onChange={this.handleCaptcha}
+                                    />
+                                )}
                                 <span style={{color: "red"}}>
                                     {this.state.errors["captcha_response"]}
                                 </span>

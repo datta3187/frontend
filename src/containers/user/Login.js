@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css"
 import config from "../../config";
-import Recaptcha from "../../components/Recaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 import Auth from "../../components/Auth";
 
@@ -147,20 +147,6 @@ class Login extends Component {
         return formIsValid;
     };
 
-    redirectPath =(level_no) =>{
-        let path = "/kyc"
-        switch(level_no) {
-            case 1:
-                path = '/phone'
-                break;
-            case 2:
-                path = '/profile'
-                break;
-        }
-        return path;
-    }
-
-    // button
     signInWithPeatio = e => {
         e.preventDefault();
         this.setState({ loading: true });
@@ -171,21 +157,23 @@ class Login extends Component {
                         toast.error("e-mail verification pending");
                     } else {
                         auth.setSession(res);
-                        toast.success("Logged in successfully");
+                        // toast.success("Logged in successfully");
+                        auth.fetchProfile();
+                        auth.fetchPhones();
+                        auth.fetchDocuments();
                         this.setState({ loading: false });
-                        this.props.history.push('/kyc')
-                        // this.props.history.push(this.redirectPath(res.level))
+                        this.props.history.push('/settings');
                     }
                 })
                 .catch(error => {
                     this.setState({ loading: false });
+                    this.recaptcha.reset();
                     if(error.response){
                         toast.error(error.response.data.errors[0]);
                     }
                     else{
                         toast.error(""+ error);
                     }
-
             });
         } else {
             this.setState({ loading: false });
@@ -292,13 +280,19 @@ class Login extends Component {
 
                             </Form.Field>
 
-
                             <div className="form-captcha">
-                                <Recaptcha handler={this.handleCaptcha}/>
+                                {(config.captchaPolicy) && (
+                                   <ReCAPTCHA
+                                        ref={(r) => this.recaptcha = r}
+                                        sitekey={config.recatpchaSiteKey}
+                                        onChange={this.handleCaptcha}
+                                    />
+                                )}
                                 <span style={{color: "red"}}>
                                     {this.state.errors["captcha_response"]}
                                 </span>
                             </div>
+
                             <div className="form-button">
                                 <Button onClick={this.signInWithPeatio} primary>Sign In</Button>
                                 <p>Don't have an Account? <Link to="/Register">Sign Up Now</Link></p>

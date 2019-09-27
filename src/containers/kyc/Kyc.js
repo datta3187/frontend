@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button } from 'semantic-ui-react'
+import { Container, Button, Step, Icon } from 'semantic-ui-react'
 import { Dropdown, Form, Input } from 'semantic-ui-react-form-validator';
 import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
@@ -9,6 +9,10 @@ import * as authApi from "../../api/authApi";
 import './Kyc.scss'
 import {toast, ToastContainer} from "react-toastify";
 import LoginGuard from "../../components/loginGuard/LoginGuard";
+import {Redirect} from "react-router";
+import Auth from '../../components/Auth'
+
+const auth = new Auth();
 
 const docType = [
     { key: 'passport', value: 'passport', text: 'Passport' },
@@ -18,18 +22,17 @@ const docType = [
     { key: 'identity-card-front', value: 'identity-card-front', text: 'Identity Card Front' },
     { key: 'identity-card-back', value: 'identity-card-back', text: 'Identity Card Back' },
     { key: 'driver-license', value: 'driver-license', text: 'Driver License'},
-    { key: 'driver-license', value: 'driver-license-front', text: 'Driver License Front' },
-    { key: 'driver-license', value: 'driver-license-back', text: 'Driver License Back' },
+    { key: 'driver-license-front', value: 'driver-license-front', text: 'Driver License Front' },
+    { key: 'driver-license-back', value: 'driver-license-back', text: 'Driver License Back' },
     { key: 'utility-bill', value: 'utility-bill', text: 'Utility Bill' },
     { key: 'faceid', value: 'faceid', text: 'Face ID' }
-]
+];
 
 
 class Kyc extends Component {
-
     constructor(props) {
         window.scrollTo(0, 0);
-        super(props)
+        super(props);
         this.state = {
             fields: {
                 doc_type: '',
@@ -49,7 +52,17 @@ class Kyc extends Component {
         }
     }
 
-
+    componentDidMount() {
+        let user = auth.getUser();
+        if (user.level < 2) {
+            this.setState(
+                {
+                    redirect: true,
+                    redirect_to: '/phone'
+                }
+            )
+        }
+    }
 
     onFileUploadChange = (e) => {
         // const formData = new FormData();
@@ -59,8 +72,7 @@ class Kyc extends Component {
         //     upload: [...prevState.upload, file]
         // }));
         this.setState({ upload: e.target.files[0] });
-    }
-
+    };
 
     handleChangeDocExpire = (event, { name, value }) => {
         // if (this.state.hasOwnProperty(name)) {
@@ -124,6 +136,14 @@ class Kyc extends Component {
     }
 
     render() {
+        if (this.state.redirect){
+            return <Redirect
+                to={{
+                    pathname: this.state.redirect_to,
+                    state: {from: this.props.location}
+                }}
+            />
+        }
         return (
             <LoginGuard>
                 < div >
@@ -136,7 +156,29 @@ class Kyc extends Component {
                         <div className="userFormHeader">
                             <h1>Know Your Customer</h1>
                         </div>
-
+                        <Step.Group>
+                            <Step completed>
+                                <Icon name='phone' />
+                                <Step.Content>
+                                    <Step.Title>Phone</Step.Title>
+                                    <Step.Description>Enter Your Phone Number</Step.Description>
+                                </Step.Content>
+                            </Step>
+                            <Step completed>
+                                <Icon name='user' />
+                                <Step.Content>
+                                    <Step.Title>Profile</Step.Title>
+                                    <Step.Description>Enter Your Personal Details</Step.Description>
+                                </Step.Content>
+                            </Step>
+                            <Step active>
+                                <Icon name='file' />
+                                <Step.Content>
+                                    <Step.Title>KYC</Step.Title>
+                                    <Step.Description>Complete Your KYC</Step.Description>
+                                </Step.Content>
+                            </Step>
+                        </Step.Group>
                         <Form
                             ref="form"
                             onSubmit={this.signupkyc}
