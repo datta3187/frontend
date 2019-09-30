@@ -3,7 +3,8 @@ import { Container, Button, Step, Icon } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import { Form, Input, Dropdown } from 'semantic-ui-react-form-validator';
 
-import * as profileApi from "../../api/profileApi";
+// import * as profileApi from "../../api/profileApi";
+import * as Api from "../../api/remoteApi";
 import { ToastContainer, toast } from "react-toastify"
 
 import Footer from '../../components/Footer'
@@ -112,8 +113,11 @@ export class Profile extends Component {
     saveprofile = e => {
         e.preventDefault();
         console.log("FORM DATA", this.state.fields);
-        this.setState({ loading: true })
-        profileApi.onProfileSubmission(this.state.fields)
+        this.setState({ loading: true });
+        let api_url = 'resource/profiles';
+        let payload = this.state.fields;
+        Api.remoteApi(api_url, 'POST', payload)
+        // Api.onProfileSubmission(this.state.fields)
             .then(res => {
                 console.log("Profile response", res);
                 this.setState({ loading: false });

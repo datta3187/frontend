@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Container, Button, Checkbox, Form, Input, Modal } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
-import * as loginApi from "../../api/loginApi";
 import { Link } from "react-router-dom"
 import './User.scss'
 import { ToastContainer, toast } from "react-toastify"
@@ -12,6 +11,8 @@ import config from "../../config";
 import ReCAPTCHA from "react-google-recaptcha";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 import Auth from "../../components/Auth";
+import * as Api from "../../api/remoteApi";
+// import * as loginApi from "../../api/loginApi";
 
 const auth = new Auth();
 
@@ -151,7 +152,11 @@ class Login extends Component {
         e.preventDefault();
         this.setState({ loading: true });
         if (this.handleValidation()) {
-            loginApi.onLogin(this.state.fields)
+            console.log('login---1222-------');
+            let api_url = 'identity/sessions';
+            let payload = this.state.fields
+            Api.remoteApi(api_url, 'POST', payload )
+            // Api.onLogin(this.state.fields)
                 .then(res => {
                     if (res.state === 'pending') {
                         toast.error("e-mail verification pending");
@@ -185,7 +190,10 @@ class Login extends Component {
 
         if (this.handleForgotValidation()) {
             console.log("data :" + this.state.forfields)
-            loginApi.forgotPasswordApi(this.state.forfields)
+            let api_url = 'identity/users/password/generate_code';
+            let payload = this.state.forfields;
+            Api.remoteApi(api_url, 'POST', payload )
+            // loginApi.forgotPasswordApi(this.state.forfields)
                 .then(res => {
                     this.setState({isParentOpen: false})
                     toast.success("Password reset link has been sent on your email.")
@@ -198,7 +206,6 @@ class Login extends Component {
                         toast.error(""+ error);
                     }
                 })
-
         }
         else {
             this.setState({ loading: false });

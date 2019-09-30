@@ -27,7 +27,7 @@ class Ticker extends Component{
 
     componentWillMount() {
         let api_url = 'public/markets/'+ this.market() +'/tickers'
-        Api.peatioApi(api_url, "GET")
+        Api.remoteApi(api_url, "GET", {}, 'peatio')
             .then(res => {
                 this.setState(prevState => {
                     let ticker = Object.assign({}, prevState.ticker);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import * as loginApi from "../../api/loginApi"
+// import * as loginApi from "../../api/loginApi"
 import {Dimmer, Loader} from "semantic-ui-react";
+import * as Api from "../../api/remoteApi";
 
 
 class EmailConfirmation extends Component {
@@ -12,7 +13,10 @@ class EmailConfirmation extends Component {
     }
 
     componentDidMount = () => {
-        loginApi.verifyEmail(this.props.match.params.token)
+        let api_url = 'identity/users/email/confirm_code';
+        let payload = this.props.match.params.token;
+        Api.remoteApi(api_url, 'POST', payload )
+        // loginApi.verifyEmail(this.props.match.params.token)
             .then(res => {
                 this.setState({ loading: false })
                 this.props.history.push("/login", {
