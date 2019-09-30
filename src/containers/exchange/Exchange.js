@@ -6,25 +6,28 @@ import Limit from './Limit'
 import Market from './Market'
 import Ticker from './Ticker'
 import OrderBook from './OrderBook'
+import MarketList from './MarketList'
+import Trade from './Trade'
 
-import './exchange.scss'
+import './css/exchange.scss'
 
 
 const limitMarket = [
     { menuItem: 'Limit', render: () => <Tab.Pane><Limit /></Tab.Pane> },
-    { menuItem: 'Market', render: () => <Tab.Pane><Market /></Tab.Pane> },
+    { menuItem: 'Market', render: () => <Tab.Pane><Market /></Tab.Pane> }
 ]
 
 class Exchange extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            market: ''
+            market: 'ethbtc'
         }
     }
 
     componentWillMount() {
-        this.setState({market: this.props.match.params.market})
+        let mkt =this.props.match.params.market.toLowerCase().split('_').join('')
+        this.setState({market: mkt})
     }
 
     render() {
@@ -51,7 +54,14 @@ class Exchange extends Component {
                         </div>
 
                     </div>
-                    <div className="sidebar s-right">sdfsdf</div>
+                    <div className="sidebar s-right">
+                        <div>
+                            <MarketList />
+                        </div>
+                        <div>
+                            <Trade market={this.state.market} />
+                        </div>
+                    </div>
                 </div>
                 <Footer />
             </div>

@@ -3,11 +3,7 @@ import { Tab } from 'semantic-ui-react'
 import  AskOrder from './AskOrder'
 import  BidOrder from './BidOrder'
 
-
-
-import "./exchange.scss";
-
-
+import "./css/exchange.scss";
 
 class OrderBook extends Component {
     constructor(props) {
@@ -23,7 +19,7 @@ class OrderBook extends Component {
                 { menuItem: 'Tab 1', render: () =>
                         <div>
                             <Tab.Pane>
-                                <AskOrder height={315} market={this.props.market} />
+                                <AskOrder height={315} market={ this.props.market } />
                             </Tab.Pane>
                             <div>
                                 <center>
@@ -32,18 +28,19 @@ class OrderBook extends Component {
                                 </center>
                             </div>
                             <Tab.Pane>
-                                <BidOrder height={315} market={this.props.market} />
+                                <BidOrder height={315} market={ this.props.market } />
                             </Tab.Pane>
                         </div>
                 },
                 { menuItem: 'Tab 2', render: () =>
                         <Tab.Pane>
-                            <AskOrder height={630} market={this.props.market} />
+
+                            <BidOrder height={630}  market={ this.props.market } />
                         </Tab.Pane>
                 },
                 { menuItem: 'Tab 3', render: () =>
                         <Tab.Pane>
-                            <BidOrder height={630}  market={this.props.market} />
+                            <AskOrder height={630} market={ this.props.market } />
                         </Tab.Pane>
                 },
             ]
@@ -52,9 +49,7 @@ class OrderBook extends Component {
 
     render(){
         return (
-
             <div className="sidebar s-left">
-
                 <div className="halfHeight">
                     <div className="orderBlock">
                         <Tab panes={this.state.panes} />

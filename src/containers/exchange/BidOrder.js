@@ -3,7 +3,7 @@ import { Column, Table } from 'react-virtualized'
 import config from "../../config";
 
 import 'react-virtualized/styles.css'
-import "./exchange.scss";
+import "./css/exchange.scss";
 import Websocket from 'react-websocket';
 import * as formatter from './Formatter'
 
@@ -16,25 +16,17 @@ class BidOrder extends Component {
         }
     }
 
-    handleData(e){
-        let data = JSON.parse(e);
+    handleData(data){
+        let result = JSON.parse(data);
         let stream_type = this.props.market + '.update';
-        if(typeof data[stream_type] !== 'undefined'){
-            console.log('data []', data[stream_type]['bids']);
-            let formatted_data = this.changeFormat(data[stream_type]['bids'])
+        if(typeof result[stream_type] !== 'undefined'){
+            let formatted_data = this.changeFormat(result[stream_type]['bids'])
             this.setState({bids: formatted_data})
         }
-        console.log("path => ", this.path())
-        console.log("Bid data ==>", this.state.bids)
-    }
-
-    market(){
-        let mkt = this.props.market
-        return mkt.toLowerCase().split('_').join('')
     }
 
     path() {
-        return config.webSocketUrl+ this.market() + '.update'
+        return config.webSocketUrl+ this.props.market + '.update'
     }
 
     changeFormat(data){
@@ -50,6 +42,7 @@ class BidOrder extends Component {
             <div>
                 <Websocket url={this.path()}
                            onMessage={this.handleData.bind(this)}/>
+
                 <Table
                     width={310}
                     height={this.props.height}
