@@ -4,8 +4,8 @@ import Header from '../../components/Header'
 import {Container} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
-import * as loginApi from "../../api/loginApi";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
+import * as Api from "../../api/remoteApi";
 
 
 class EmailVerify extends Component {
@@ -30,7 +30,10 @@ class EmailVerify extends Component {
     }
 
     resendEmail = () => {
-        loginApi.resendVerification(this.state.user)
+        let api_url = 'identity/users/email/generate_code';
+        let payload = this.state.user
+        Api.remoteApi(api_url, 'POST', payload )
+        // loginApi.resendVerification(this.state.user)
             .then(res => {
                 toast.success('Email has been re-sent successfully!');
             })

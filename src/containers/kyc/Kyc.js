@@ -4,8 +4,7 @@ import { Dropdown, Form, Input } from 'semantic-ui-react-form-validator';
 import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
 import Header from "../../components/Header";
-import * as authApi from "../../api/authApi";
-
+import * as Api from "../../api/remoteApi";
 import './Kyc.scss'
 import {toast, ToastContainer} from "react-toastify";
 import LoginGuard from "../../components/loginGuard/LoginGuard";
@@ -118,7 +117,7 @@ class Kyc extends Component {
         //     formData.append('upload', file)
         // })
 
-        authApi.onKyc(formData)
+        Api.onKyc(formData)
             .then(res => {
                 console.log("KYC response", res);
                 this.setState({ loading: false });

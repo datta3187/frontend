@@ -3,13 +3,13 @@ import { Container, Form, Input, Checkbox, Button } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { Link } from "react-router-dom"
-import * as loginApi from "../../api/loginApi"
 import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 import ReCAPTCHA from "react-google-recaptcha";
+import * as Api from "../../api/remoteApi";
 
 class Register extends Component {
     constructor(props) {
@@ -126,8 +126,11 @@ class Register extends Component {
     signupWithPeatio = e => {
         e.preventDefault();
         this.setState({ loading: true });
+
         if (this.handleValidation() && this.state.isTermSelected) {
-            loginApi.onSignup(this.state.fields)
+            let api_url = 'identity/users';
+            let payload = this.state.fields;
+            Api.remoteApi(api_url, 'POST', payload )
                 .then(res => {
                     this.setState({ loading: false });
 
