@@ -39,4 +39,3 @@ export const peatioApi = (api_url, method_type, payload=undefined) => {
         throw error;
     });
 }
-
