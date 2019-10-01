@@ -4,7 +4,7 @@ import { Divider, Grid, Button, Container } from 'semantic-ui-react'
 class Withdraw extends Component {
 
     render() {
-        const t =  this.props.withdraw_arr
+        const t =  this.props.balance_arr
         return (
             <div>
                 <Container>

@@ -17,14 +17,13 @@ class Wallets extends Component {
     }
 
     componentWillMount() {
-        // let api_url = '/public/currencies';
-        let api_url = 'account/balances';
+        let api_url = '/public/currencies';
         let panes_arr = [];
         Api.peatioApi(api_url, 'get', {})
             .then(res => {
                if (res.length>0){
                    for(let i=0; i<res.length; i++){
-                        panes_arr.push({ menuItem: res[i].currency.toUpperCase(), render: () => <Tab.Pane><Funds funds_arr={res[i]}/></Tab.Pane> })
+                        panes_arr.push({ menuItem: res[i].id.toUpperCase(), render: () => <Tab.Pane><Funds funds_arr={res[i]}/></Tab.Pane> })
                    }
                }
                this.setState({panes: panes_arr});
@@ -49,7 +48,7 @@ class Wallets extends Component {
                     enableMultiContainer
                     position={toast.POSITION.TOP_RIGHT}
                 />
-                <Container className="boxWithShadow userForms kycForm">
+                <Container className="boxWithShadow userForms">
                     <div className="userFormHeader">
                         <h1>Your Wallet</h1>
 

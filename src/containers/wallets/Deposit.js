@@ -1,10 +1,42 @@
 import React, { Component } from 'react'
 import {Grid, Container, Divider} from 'semantic-ui-react'
+import * as Api from "../../api/remoteApi";
+import {toast} from "react-toastify";
 
 class Deposit extends Component {
 
+    constructor(props){
+        super(props)
+        this.state = {
+            payment_address: ''
+        }
+
+    }
+
+    componentDidMount=()=> {
+        //For retrieving deposit payment addresses
+        // this.getPaymentAddress();
+    }
+
+    getPaymentAddress =()=>{
+
+        let api_url = "account/deposit_address/" + this.props.balance_arr.id
+        Api.peatioApi(api_url, 'get', {})
+            .then(res => {
+                // const merged = {...this.props.deposit_arr, ...res}
+                this.setState({payment_address: res.address});
+            })
+            .catch(error => {
+                if (error.response) {
+                    toast.error(error.response.data.errors[0]);
+                } else {
+                    toast.error("" + error);
+                }
+            })
+    }
+
     render() {
-        const t =  this.props.deposit_arr
+        let t =  this.props.balance_arr;
         return (
             <div>
                 <Container>
