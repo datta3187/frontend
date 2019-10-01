@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import {Container, Form, Input, Checkbox, Button, Dropdown, Dimmer, Loader} from 'semantic-ui-react'
-import {toast, ToastContainer} from "react-toastify";
+import {Container, Form, Input, Checkbox, Button, Dimmer, Loader} from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import {Link} from "react-router-dom";
@@ -25,12 +24,6 @@ class TwoFactor extends Component {
                         <Loader content="Loading..." />
                     </Dimmer>
                 )}
-
-                <ToastContainer
-                    enableMultiContainer
-                    position={toast.POSITION.TOP_RIGHT}
-                />
-
 
                 <Header />
                 <Container className="boxWithShadow userForms">

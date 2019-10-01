@@ -3,9 +3,10 @@ import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import {Container} from "semantic-ui-react";
 import {Link} from "react-router-dom";
-import {toast, ToastContainer} from "react-toastify";
-import * as loginApi from "../../api/loginApi";
+import {toast} from "react-toastify";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
+import * as CustomError from "../../api/handleError";
+import * as Api from "../../api/remoteApi";
 
 
 class EmailVerify extends Component {
@@ -30,12 +31,15 @@ class EmailVerify extends Component {
     }
 
     resendEmail = () => {
-        loginApi.resendVerification(this.state.user)
+        let api_url = 'identity/users/email/generate_code';
+        let payload = this.state.user
+        Api.remoteApi(api_url, 'POST', payload )
+        // loginApi.resendVerification(this.state.user)
             .then(res => {
                 toast.success('Email has been re-sent successfully!');
             })
             .catch(error => {
-                toast.error("Error: "+ error);
+                CustomError.handle(error)
             })
     }
 
@@ -43,10 +47,6 @@ class EmailVerify extends Component {
         return(
             <LogoutGuard>
                 <div>
-                    <ToastContainer
-                        enableMultiContainer
-                        position={toast.POSITION.TOP_RIGHT}
-                    />
                     <Header />
                     <Container className="boxWithShadow userForms verifyBlock">
                         <div className="userFormHeader">

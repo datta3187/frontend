@@ -271,3 +271,40 @@ code {
     padding:20px 47px;
   } 
 } 
+
+.ui.steps.profileSepts{
+  width: 100%;
+  margin-bottom: 38px;
+  border-radius: 27px;
+  overflow: hidden;
+  .step{
+    justify-content: flex-start;
+    i{
+      color: $baseColor;
+      font-size: 1.5em;
+    } 
+    .content{
+        .title{
+          color: $darkColor;
+         
+        }
+        .description{
+          color: $lightColor;
+        }
+     }
+     &.active{
+       background: $baseColor;
+       i{
+        color: #fff;        
+      }
+      .content{
+        .title{
+          color: #fff;       
+        }
+      }
+     }
+     &.active::after{
+       background: $baseColor;
+     }
+  }
+}

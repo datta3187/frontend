@@ -3,19 +3,19 @@ import { Container, Form, Input, Checkbox, Button } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { Link } from "react-router-dom"
-import * as loginApi from "../../api/loginApi"
-import { ToastContainer, toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css";
 import config from "../../config";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 import ReCAPTCHA from "react-google-recaptcha";
+import * as Api from "../../api/remoteApi";
+import * as CustomError from "../../api/handleError";
 
 class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fields: { email: '', password: '', conPassword: '', refid: 'IDAEBDF1468B', terms: '' },
+            fields: { email: '', password: '', conPassword: '', refid: config.referralId, terms: '' },
             errors: { email: '', password: '', conPassword: '', refid: '', terms: '', captcha_response: '' },
             loading: false,
             isTermSelected: false
@@ -126,8 +126,11 @@ class Register extends Component {
     signupWithPeatio = e => {
         e.preventDefault();
         this.setState({ loading: true });
+
         if (this.handleValidation() && this.state.isTermSelected) {
-            loginApi.onSignup(this.state.fields)
+            let api_url = 'identity/users';
+            let payload = this.state.fields;
+            Api.remoteApi(api_url, 'POST', payload)
                 .then(res => {
                     this.setState({ loading: false });
 
@@ -137,13 +140,10 @@ class Register extends Component {
                 })
                 .catch(error => {
                     this.setState({ loading: false });
-                    this.recaptcha.reset();
-                    if(error.response){
-                        toast.error(error.response.data.errors[0]);
+                    if (config.captchaPolicy) {
+                        this.recaptcha.reset();
                     }
-                    else{
-                        toast.error(""+ error);
-                    }
+                    CustomError.handle(error)
                 });
         } else {
             this.setState({ loading: false });
@@ -153,11 +153,11 @@ class Register extends Component {
     handleCaptcha = e => {
         let fields = this.state.fields;
         fields.captcha_response = e;
-        this.setState({fields});
+        this.setState({ fields });
 
         let errors = this.state.errors;
         errors.captcha_response = '';
-        this.setState({errors});
+        this.setState({ errors });
     };
 
     render() {
@@ -169,12 +169,6 @@ class Register extends Component {
                             <Loader content="Loading..." />
                         </Dimmer>
                     )}
-
-                    <ToastContainer
-                        enableMultiContainer
-                        position={toast.POSITION.TOP_RIGHT}
-                    />
-
 
                     <Header />
                     <Container className="boxWithShadow userForms">
@@ -233,7 +227,7 @@ class Register extends Component {
                                         onChange={this.handleCaptcha}
                                     />
                                 )}
-                                <span style={{color: "red"}}>
+                                <span style={{ color: "red" }}>
                                     {this.state.errors["captcha_response"]}
                                 </span>
                             </div>
