@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router";
 import PropTypes from "prop-types";
-import Auth from '../../components/Auth'
+import Auth from '../Auth'
 
 const auth = new Auth();
 
@@ -31,12 +31,12 @@ class LoginGuard extends React.Component {
       return children;
     } else {
       return (
-          <Redirect
-              to={{
-                pathname: "/login",
-                state: { from: location }
-              }}
-          />
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { from: location }
+          }}
+        />
       );
     }
   }

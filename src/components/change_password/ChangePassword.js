@@ -1,8 +1,8 @@
-import React, {Component} from "react";
-import {Button, Modal} from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Button, Modal } from 'semantic-ui-react';
 import { Form, Input } from 'semantic-ui-react-form-validator';
 import * as Api from "../../api/remoteApi";
-import {toast, ToastContainer} from "react-toastify";
+import { toast } from "react-toastify";
 
 
 class ChangePassword extends Component {
@@ -16,8 +16,6 @@ class ChangePassword extends Component {
             }
             // isOpen: props.passModalOpen
         }
-        console.log("PROPS",this.props)
-
     }
 
 
@@ -27,8 +25,9 @@ class ChangePassword extends Component {
         this.setState({ fields });
     }
 
-    changePassword =(e)=> {
+    changePassword = (e) => {
         e.preventDefault();
+        debugger
         let api_url = 'resource/users/password';
         console.log("data :" + this.state.fields);
         Api.remoteApi(api_url, 'put', this.state.fields)
@@ -36,12 +35,12 @@ class ChangePassword extends Component {
                 this.props.closeModal();
                 toast.success("Password changed successfully");
             })
-            .catch(error =>{
-                if(error.response){
+            .catch(error => {
+                if (error.response) {
                     toast.error(error.response.data.errors[0]);
                 }
-                else{
-                    toast.error(""+ error);
+                else {
+                    toast.error("" + error);
                 }
             })
     }

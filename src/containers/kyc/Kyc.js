@@ -6,9 +6,10 @@ import Footer from '../../components/Footer'
 import Header from "../../components/Header";
 import * as Api from "../../api/remoteApi";
 import './Kyc.scss'
-import {toast, ToastContainer} from "react-toastify";
+import { toast } from "react-toastify";
 import LoginGuard from "../../components/loginGuard/LoginGuard";
-import {Redirect} from "react-router";
+import { Redirect } from "react-router";
+import * as CustomError from "../../api/handleError";
 import Auth from '../../components/Auth'
 
 const auth = new Auth();
@@ -20,7 +21,7 @@ const docType = [
     { key: 'identity-card', value: 'identity-card', text: 'Identity card' },
     { key: 'identity-card-front', value: 'identity-card-front', text: 'Identity Card Front' },
     { key: 'identity-card-back', value: 'identity-card-back', text: 'Identity Card Back' },
-    { key: 'driver-license', value: 'driver-license', text: 'Driver License'},
+    { key: 'driver-license', value: 'driver-license', text: 'Driver License' },
     { key: 'driver-license-front', value: 'driver-license-front', text: 'Driver License Front' },
     { key: 'driver-license-back', value: 'driver-license-back', text: 'Driver License Back' },
     { key: 'utility-bill', value: 'utility-bill', text: 'Utility Bill' },
@@ -46,15 +47,19 @@ class Kyc extends Component {
     }
 
     componentDidMount() {
-        let user = auth.getUser();
-        if (user.level < 2) {
-            this.setState(
-                {
-                    redirect: true,
-                    redirect_to: '/phone'
+        auth.fetchUser()
+            .then(res => {
+                let user = auth.getUser();
+                if (user && user.level < 2) {
+                    this.setState(
+                        {
+                            redirect: true,
+                            redirect_to: '/phone'
+                        }
+                    )
                 }
-            )
-        }
+            })
+
     }
 
     onFileUploadChange = (e) => {
@@ -77,7 +82,7 @@ class Kyc extends Component {
         this.setState({ fields });
     }
 
-    signupkyc = e => {
+    submitKyc = e => {
         e.preventDefault()
         let formData = new FormData(); //formdata
         formData.append('doc_type', this.state.fields.doc_type)
@@ -97,25 +102,20 @@ class Kyc extends Component {
             .then(res => {
                 console.log("KYC response", res);
                 this.setState({ loading: false });
-                toast.success("submitted successfully");
+                toast.success("Submitted Successfully");
                 this.props.history.push("/settings");
             })
             .catch(error => {
-                if (error.response) {
-                    toast.error(error.response.data.errors[0]);
-                }
-                else {
-                    toast.error("" + error);
-                }
+                CustomError.handle(error);
             })
     }
 
     render() {
-        if (this.state.redirect){
+        if (this.state.redirect) {
             return <Redirect
                 to={{
                     pathname: this.state.redirect_to,
-                    state: {from: this.props.location}
+                    state: { from: this.props.location }
                 }}
             />
         }
@@ -123,40 +123,33 @@ class Kyc extends Component {
             <LoginGuard>
                 < div >
                     <Header />
-                    <ToastContainer
-                        enableMultiContainer
-                        position={toast.POSITION.TOP_RIGHT}
-                    />
                     <Container className="boxWithShadow userForms kycForm">
                         <div className="userFormHeader">
                             <h1>Know Your Customer</h1>
                         </div>
-                        <Step.Group>
-                            <Step completed>
+                        <Step.Group className="profileSepts">
+                            <Step>
                                 <Icon name='phone' />
                                 <Step.Content>
                                     <Step.Title>Phone</Step.Title>
-                                    <Step.Description>Enter Your Phone Number</Step.Description>
                                 </Step.Content>
                             </Step>
-                            <Step completed>
+                            <Step>
                                 <Icon name='user' />
                                 <Step.Content>
                                     <Step.Title>Profile</Step.Title>
-                                    <Step.Description>Enter Your Personal Details</Step.Description>
                                 </Step.Content>
                             </Step>
                             <Step active>
                                 <Icon name='file' />
                                 <Step.Content>
                                     <Step.Title>KYC</Step.Title>
-                                    <Step.Description>Complete Your KYC</Step.Description>
                                 </Step.Content>
                             </Step>
                         </Step.Group>
                         <Form
                             ref="form"
-                            onSubmit={this.signupkyc}
+                            onSubmit={this.submitKyc}
                         >
                             <div className="form-row">
                                 <div className="form-group dd">
@@ -168,8 +161,6 @@ class Kyc extends Component {
                                         value={this.state.fields.doc_type}
                                         validators={['required']}
                                         errorMessages={['this field is required']}
-                                        validators={['required']}
-                                        errorMessages={['You must select one option']}
                                         options={docType}
                                     />
                                 </div>
@@ -193,7 +184,6 @@ class Kyc extends Component {
                                             <div>
                                                 <DateInput
                                                     label="Document Expiry Date"
-                                                    placeholder="Document Expiry Date"
                                                     name="doc_expire"
                                                     iconPosition='left'
                                                     placeholder="yy/mm/dd"
