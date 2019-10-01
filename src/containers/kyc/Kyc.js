@@ -4,7 +4,7 @@ import { Dropdown, Form, Input } from 'semantic-ui-react-form-validator';
 import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
 import Header from "../../components/Header";
-import * as authApi from "../../api/authApi";
+import * as Api from "../../api/remoteApi";
 import './Kyc.scss'
 import {toast, ToastContainer} from "react-toastify";
 import LoginGuard from "../../components/loginGuard/LoginGuard";
@@ -65,9 +65,9 @@ class Kyc extends Component {
         this.setState({ [name]: value });
 
         this.setState(prevState => {
-            let fields = Object.assign({}, prevState.fields); 
+            let fields = Object.assign({}, prevState.fields);
             fields[name] = value;
-            return { fields: fields };                                
+            return { fields: fields };
         })
     }
 
@@ -85,7 +85,15 @@ class Kyc extends Component {
         formData.append('doc_expire', this.state.fields.doc_expire)
         formData.append('upload', this.state.upload)
 
-        authApi.onKyc(formData)
+        // const formData = new FormData();
+        // formData.append('doc_type',this.state.fields.doc_type)
+        // formData.append('doc_number',this.state.fields.doc_number)
+        // formData.append('doc_expire',this.state.fields.doc_expire)
+        // this.state.upload.map(function(file){
+        //     formData.append('upload', file)
+        // })
+
+        Api.onKyc(formData)
             .then(res => {
                 console.log("KYC response", res);
                 this.setState({ loading: false });

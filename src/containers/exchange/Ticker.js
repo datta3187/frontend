@@ -1,50 +1,29 @@
 import React, { Component } from 'react'
 import {Checkbox} from "semantic-ui-react";
-import * as Api from "../../api/remoteApi";
-import "./exchange.scss";
+import "./css/exchange.scss";
 import * as formatter from './Formatter'
+import Websocket from 'react-websocket';
+import config from "../../config";
 
 class Ticker extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            ticker:{
-                last: "0.0",
-                low: "0.0",
-                high: "0.0",
-                volume: "0.0",
-                open: "0.0",
-                price_change_percent: '0.00%'
+            ticker: {
+                last: "0.00",
+                open: "0.00",
+                low: "0.00",
+                high: "0.00",
+                name: "ETH/BTC",
+                price_change_percent: "0.00%",
+                volume: "0.0"
             }
         }
     }
 
-    market(){
-        let mkt = this.props.market
-        return mkt.toLowerCase().split('_').join('')
-    }
-
-    componentWillMount() {
-        let api_url = 'public/markets/'+ this.market() +'/tickers'
-        Api.peatioApi(api_url, "GET")
-            .then(res => {
-                this.setState(prevState => {
-                    let ticker = Object.assign({}, prevState.ticker);
-                    Object.keys(ticker).map((key) =>{
-                      ticker[key] = res.ticker[key]
-                    })
-                    return { ticker };
-                });
-                console.log("New Ticker ==> ", this.state.ticker)
-            })
-            .catch(error =>{
-                console.log("Ticker's error ==>", error)
-            })
-    }
-
     marketName(market) {
-        let mkt = market.split('_')
+        let mkt = market.split('/')
         return (
             <div>
                 <span>{mkt[0]}</span>/<span>{mkt[1]}</span>
@@ -56,18 +35,29 @@ class Ticker extends Component{
         return formatter.ticker_color_class(this.state.ticker.last, this.state.ticker.open)
     }
 
-    h24Change(){
-        let change = formatter.h24Change(this.state.ticker.last, this.state.ticker.open) + ' ' + this.state.ticker.price_change_percent
-        return change
+    h24Change() {
+        return formatter.h24Change(this.state.ticker.last, this.state.ticker.open) + ' ' + this.state.ticker.price_change_percent
     }
 
+    path() {
+        return config.webSocketUrl+ 'global.tickers'
+    }
+
+    handleData(data) {
+        let result = JSON.parse(data);
+         if(typeof result['global.tickers'] !== 'undefined'){
+             this.setState({ticker: result["global.tickers"][this.props.market] })
+         }
+    }
 
     render() {
         return (
             <div>
+                <Websocket url={this.path()}
+                           onMessage={this.handleData.bind(this)}/>
                 <div className="tradeBar">
                     <ul className="rowVolume">
-                        <li>{this.marketName(this.props.market)}</li>
+                        <li>{this.marketName(this.state.ticker.name)}</li>
                         <li><h3>LAST PRICE</h3><p>{formatter.toFixed(this.state.ticker.last)}</p></li>
                         <li><h3>24H CHANGE</h3><p className={this.getClassName()}>{this.h24Change()}</p></li>
                         <li><h3>24H HIGHT</h3><p>{formatter.toFixed(this.state.ticker.high)}</p></li>

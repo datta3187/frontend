@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Container, Button, Checkbox, Form, Input, Modal } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
-import * as loginApi from "../../api/loginApi";
 import { Link } from "react-router-dom"
 import './User.scss'
 import { ToastContainer, toast } from "react-toastify"
@@ -12,6 +11,7 @@ import config from "../../config";
 import ReCAPTCHA from "react-google-recaptcha";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 import Auth from "../../components/Auth";
+import * as Api from "../../api/remoteApi";
 
 const auth = new Auth();
 
@@ -72,7 +72,6 @@ class Login extends Component {
                     "Password should have one number and one special character,minimum 8 characters";
             }
         }
-
         //Email
         if (!fields["email"]) {
             formIsValid = false;
@@ -151,7 +150,9 @@ class Login extends Component {
         e.preventDefault();
         this.setState({ loading: true });
         if (this.handleValidation()) {
-            loginApi.onLogin(this.state.fields)
+            let api_url = 'identity/sessions';
+            let payload = this.state.fields
+            Api.remoteApi(api_url, 'POST', payload )
                 .then(res => {
                     if (res.state === 'pending') {
                         toast.error("e-mail verification pending");
@@ -167,7 +168,9 @@ class Login extends Component {
                 })
                 .catch(error => {
                     this.setState({ loading: false });
-                    // this.recaptcha.reset();
+                    if(config.captchaPolicy){
+                        this.recaptcha.reset();
+                    }
                     if(error.response){
                         toast.error(error.response.data.errors[0]);
                     }
@@ -185,7 +188,9 @@ class Login extends Component {
 
         if (this.handleForgotValidation()) {
             console.log("data :" + this.state.forfields)
-            loginApi.forgotPasswordApi(this.state.forfields)
+            let api_url = 'identity/users/password/generate_code';
+            let payload = this.state.forfields;
+            Api.remoteApi(api_url, 'POST', payload )
                 .then(res => {
                     this.setState({isParentOpen: false})
                     toast.success("Password reset link has been sent on your email.")
@@ -198,7 +203,6 @@ class Login extends Component {
                         toast.error(""+ error);
                     }
                 })
-
         }
         else {
             this.setState({ loading: false });

@@ -1,3 +1,7 @@
+import React  from 'react';
+
+import moment from 'moment';
+
 const BigNumber = require('bignumber.js');
 
 export const h24Change = (open, last, n=6) => {
@@ -22,4 +26,15 @@ export const ticker_color_class= (l, o) => {
 
 export const toFixed =(num, tofixed=6) => {
     return new BigNumber(num).toFixed(tofixed)
+}
+
+export const total =(price, vol, tofixed=6) => {
+    let x = new BigNumber(price)
+    let y = new BigNumber(vol)
+    return x.multipliedBy(y).toFixed(tofixed)
+}
+
+export const tradeTime =(timestamp) =>{
+    let m = moment.unix(timestamp)
+    return `${m.format("HH:mm")}${m.format(":ss")}`
 }

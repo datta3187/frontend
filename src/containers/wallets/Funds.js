@@ -37,7 +37,7 @@ class Funds extends Component {
     getBalance= ()=>{
         console.log("FUNDS_ARR_ID", this.props.funds_arr.id);
         let api_url = "/account/balances/" + this.props.funds_arr.id
-        Api.peatioApi(api_url, 'get', {})
+        Api.remoteApi(api_url, 'get', {}, 'peatio')
             .then(res => {
                 this.setState({record: {currency: res.currency, balance: res.balance, locked: res.locked}})
             })

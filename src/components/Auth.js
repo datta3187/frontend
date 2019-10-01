@@ -1,4 +1,4 @@
-import * as profileApi from "../api/profileApi";
+// import * as profileApi from "../api/profileApi";
 import * as Api from "../api/remoteApi";
 
 export default class Auth {
@@ -58,7 +58,9 @@ export default class Auth {
     };
 
     fetchProfile = e => {
-        profileApi.getProfile()
+        let api_url = 'resource/profiles/me';
+        Api.remoteApi(api_url, 'GET', {} )
+        // Api.getProfile()
             .then(res => {
                 this.setProfile(res)
             })

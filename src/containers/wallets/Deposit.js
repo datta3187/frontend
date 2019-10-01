@@ -21,7 +21,7 @@ class Deposit extends Component {
     getPaymentAddress =()=>{
 
         let api_url = "account/deposit_address/" + this.props.balance_arr.id
-        Api.peatioApi(api_url, 'get', {})
+        Api.remoteApi(api_url, 'get', {}, 'peatio')
             .then(res => {
                 // const merged = {...this.props.deposit_arr, ...res}
                 this.setState({payment_address: res.address});

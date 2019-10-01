@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Container, Tab } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from "../../components/Header";
-
 import {toast, ToastContainer} from "react-toastify";
 import Funds from "../wallets/Funds";
 import * as Api from "../../api/remoteApi";
@@ -19,7 +18,7 @@ class Wallets extends Component {
     componentWillMount() {
         let api_url = '/public/currencies';
         let panes_arr = [];
-        Api.peatioApi(api_url, 'get', {})
+        Api.remoteApi(api_url, 'get', {},'peatio')
             .then(res => {
                if (res.length>0){
                    for(let i=0; i<res.length; i++){

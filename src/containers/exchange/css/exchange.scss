@@ -1,4 +1,4 @@
-@import "../../components/_styleVars.scss";
+@import "../../../components/styleVars";
 
 .exchangeBlock{
     display: flex;
@@ -34,7 +34,7 @@
                     margin-right: 10px;
                     border-radius: 0 !important;
                     &:nth-child(1){
-                        background: url(../../images/icon-both.png);
+                        background: url(../../../images/icon-both.png);
                         background-repeat: no-repeat;
                         background-position: center;
                         font-size: 0;
@@ -42,7 +42,7 @@
                         height: 26px;
                     }
                     &:nth-child(2){
-                        background: url(../../images/icon-sort-1.png);
+                        background: url(../../../images/icon-sort-1.png);
                         background-repeat: no-repeat;
                         background-position: center;
                         font-size: 0;
@@ -50,7 +50,7 @@
                         height: 26px;
                     }
                     &:nth-child(3){
-                        background: url(../../images/icon-sort-3.png);
+                        background: url(../../../images/icon-sort-3.png);
                         background-repeat: no-repeat;
                         background-position: center;
                         font-size: 0;
