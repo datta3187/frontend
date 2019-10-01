@@ -2,7 +2,6 @@ import config from "../config";
 import axios from "axios";
 
 export const remoteApi = (api_url, method_type, payload = 'undefined', base_url = 'barong') => {
-    console.log('remoteApi');
     const URL = (base_url == 'barong' ? config.apiUrl : config.peatioUrl);
 
     let others = {

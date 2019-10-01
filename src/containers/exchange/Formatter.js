@@ -1,5 +1,6 @@
 import React  from 'react';
-import moment from 'moment'
+
+import moment from 'moment';
 
 const BigNumber = require('bignumber.js');
 

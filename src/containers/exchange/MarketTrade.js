@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Column, Table } from 'react-virtualized'
 import config from "../../config";
-import * as Api from "../api/remoteApi";
+import * as Api from "../../api/remoteApi";
 
 import 'react-virtualized/styles.css'
 import "./css/exchange.scss";
@@ -37,20 +37,32 @@ class MarketTrade extends Component {
         return config.webSocketUrl+ this.props.market + '.trades'
     }
 
-    componentWillMount() {
-        let api_url = '';
-        Api.remoteApi(api_url, 'get', {})
-            .then(res => {
-                debugger
-                console.log('hello')
+    // Initial Trades from API
+    setFormattedData(data) {
+        let results = []
+        data.map((record) => {
+            results.push({
+                price: formatter.toFixed(record.price),
+                volume: formatter.toFixed(record.volume),
+                time: record.created_at.toString()
             })
-            .catch(error => {
-                if (error.response) {
-                    console.error(error.response.data.errors[0]);
-                } else {
-                    console.error("Trades List Error - " + error);
-                }
-            });
+        });
+        this.setState({trades: results})
+    }
+
+    componentWillMount() {
+        let api_url = '/public/markets/' + this.props.market + '/trades'
+        Api.remoteApi(api_url, 'get', undefined, 'peatio')
+        .then(res => {
+            this.setFormattedData(res)
+        })
+        .catch(error => {
+            if (error.response) {
+                console.error(error.response.data.errors[0]);
+            } else {
+                console.error("Trades List Error - " + error);
+            }
+        });
     }
 
 
