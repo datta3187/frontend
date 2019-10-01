@@ -51,17 +51,18 @@ class Kyc extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     let user = auth.getUser();
-    //     if (user.level < 2) {
-    //         this.setState(
-    //             {
-    //                 redirect: true,
-    //                 redirect_to: '/phone'
-    //             }
-    //         )
-    //     }
-    // }
+    componentDidMount() {
+        auth.fetchUser();
+        let user = auth.getUser();
+        if (user && user.level < 2) {
+            this.setState(
+                {
+                    redirect: true,
+                    redirect_to: '/phone'
+                }
+            )
+        }
+    }
 
     onFileUploadChange = (e) => {
         // const formData = new FormData();
@@ -144,7 +145,7 @@ class Kyc extends Component {
             />
         }
         return (
-            // <LoginGuard>
+            <LoginGuard>
             < div >
                 <Header />
                 <ToastContainer
@@ -245,7 +246,7 @@ class Kyc extends Component {
                 </Container>
                 <Footer />
             </div >
-            // </LoginGuard>
+            </LoginGuard>
         )
     }
 }

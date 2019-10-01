@@ -8,7 +8,7 @@ import {toast, ToastContainer} from "react-toastify";
 
 class ResetPassword extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             data: {reset_password_token: '', password: '', confirm_password: '', lang: 'EN'},
             errors: {password: '', confirm_password: ''},
@@ -72,11 +72,11 @@ class ResetPassword extends Component {
     resetPassword = e => {
         e.preventDefault();
         this.setState({ loading: true });
-        let api_url = 'identity/users/password/confirm_code'
+        let api_url = 'identity/users/password/confirm_code';
         if (this.handleValidation()) {
             Api.remoteApi(api_url, 'POST' , this.state.data)
                 .then(res => {
-                    this.setState({loading: false})
+                    this.setState({loading: false});
                     this.props.history.push("/login", {
                         email_verified: true,
                         msg: 'Password has been changed successfully.'

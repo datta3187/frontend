@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router";
 import PropTypes from "prop-types";
-import Auth from '../../components/Auth'
+import Auth from '../Auth'
 
 const auth = new Auth();
 

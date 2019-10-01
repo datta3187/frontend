@@ -140,7 +140,7 @@ class Register extends Component {
                 })
                 .catch(error => {
                     this.setState({ loading: false });
-                    if(config.captchaPolicy){
+                    if (config.captchaPolicy) {
                         this.recaptcha.reset();
                     }
                     if(error.response){

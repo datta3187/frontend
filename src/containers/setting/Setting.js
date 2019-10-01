@@ -45,34 +45,6 @@ export class Setting extends Component {
     //
     componentDidMount()
     {
-        let user = auth.getUser();
-        this.setState({
-            fields: user,
-            googleAuth: user.otp
-        });
-    }
-
-    componentWillMount() {
-        // let user = auth.getUser();
-        // if (user.level == 1) {
-        //     this.setState(
-        //         {
-        //             redirect: true,
-        //             redirect_to: '/phone'
-        //         }
-        //     )
-        // }
-        //
-        // let document = auth.getDocument();
-        // if (user.level == 2 && !document) {
-        //     this.setState(
-        //         {
-        //             redirect: true,
-        //             redirect_to: '/kyc'
-        //         }
-        //     )
-        // }
-
         let api_url = 'resource/otp/generate_qrcode';
         Api.remoteApi(api_url, 'post', {})
             .then(res => {
@@ -88,6 +60,36 @@ export class Setting extends Component {
                     toast.error("" + error);
                 }
             })
+
+        let user = auth.getUser();
+        this.setState({
+            fields: user,
+            googleAuth: user.otp
+        });
+    }
+
+    componentWillMount() {
+        auth.fetchUser();
+        let user = auth.getUser();
+        if (user.level == 1) {
+            this.setState(
+                {
+                    redirect: true,
+                    redirect_to: '/phone'
+                }
+            )
+        }
+
+        let document = auth.getDocument();
+
+        if (user.level == 2 && !document) {
+            this.setState(
+                {
+                    redirect: true,
+                    redirect_to: '/kyc'
+                }
+            )
+        }
     }
 
     verifyGoogleAuth = (e) => {
