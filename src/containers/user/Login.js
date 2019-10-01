@@ -229,7 +229,7 @@ class Login extends Component {
                         </Dimmer>
                     )}
 
-                    <Header />
+                    <Header activePath='login'/>
                     <Container className="boxWithShadow userForms">
                         <div className="userFormHeader">
                             <h1>Sign in</h1>

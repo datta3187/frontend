@@ -23,6 +23,7 @@ class Header extends Component {
 
     openLeftNav =()=> {
         console.log(this.props)
+        console.log(this.props.activePath)
         this.setState({
             is_open: !this.state.is_open
         })
@@ -51,15 +52,15 @@ class Header extends Component {
 
                     <div className={ this.state.is_open ? "ui visible left wide sidebar sideNav displayActive":"displayInactive"}>
                         <div className="childDiv">
-                            <div class="sideNavChild route-selected">
+                            <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                 <Image src={signin_img} />
                                 <Link to="/login">Sign In</Link>
                             </div>
-                            <div class="sideNavChild">
+                            <div className={this.props.activePath == 'register' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                 <Image src={signout_img} />
                                 <Link to="/Register">Sign Up</Link>
                             </div>
-                            <div class="sideNavChild">
+                            <div className={this.props.activePath == 'trade' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                 <Icon name="signal" />
                                 <Link to="/trading/ETH_BTC">Trade</Link>
                             </div>

@@ -33,7 +33,7 @@ class Exchange extends Component {
     render() {
         return (
             <div style={{ 'background': '#dfdfdf' }}>
-                <Header abc="exchangeHdr"/>
+                <Header abc="exchangeHdr" activePath='trade' />
                 <Ticker market={this.state.market} />
                 <div className="exchangeBlock">
                     <OrderBook market={this.state.market} />
