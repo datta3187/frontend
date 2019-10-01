@@ -3,12 +3,14 @@ import { Container, Button, Step, Icon } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import { Form, Input, Dropdown } from 'semantic-ui-react-form-validator';
 import * as Api from "../../api/remoteApi";
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import LoginGuard from "../../components/loginGuard/LoginGuard";
 import { Redirect } from "react-router";
-import Auth from '../../components/Auth'
+import * as CustomError from "../../api/handleError";
+import Auth from "../../components/Auth";
+import { async } from 'q';
 
 const auth = new Auth();
 
@@ -56,28 +58,37 @@ export class Profile extends Component {
 
     }
 
-    // componentWillMount() {
-    //     let profile = auth.getProfile();
-    //     if (profile) {
-    //         this.setState(
-    //             {
-    //                 redirect: true,
-    //                 redirect_to: '/kyc'
-    //             }
-    //         )
-    //     }
-    //
-    //     let user = auth.getUser();
-    //     if (user.level < 2) {
-    //         this.setState(
-    //             {
-    //                 redirect: true,
-    //                 redirect_to: '/phone'
-    //             }
-    //         )
-    //     }
-    //
-    // }
+    componentWillMount() {
+        auth.fetchProfile()
+            .then(res => {
+                let profile = auth.getProfile();
+                if (profile) {
+                    this.setState(
+                        {
+                            redirect: true,
+                            redirect_to: '/kyc'
+                        }
+                    )
+                }
+            })
+
+
+        auth.fetchUser()
+            .then(res => {
+                let user = auth.getUser();
+                if (user.level < 2) {
+                    this.setState(
+                        {
+                            redirect: true,
+                            redirect_to: '/phone'
+                        }
+                    )
+                }
+            })
+
+    }
+
+
 
     setFormValue(field, e) {
         let fields = this.state.fields;
@@ -107,36 +118,20 @@ export class Profile extends Component {
         // }
     };
 
-    saveprofile = e => {
+    saveProfile = e => {
         e.preventDefault();
-        console.log("FORM DATA", this.state.fields);
         this.setState({ loading: true });
         let api_url = 'resource/profiles';
         let payload = this.state.fields;
         Api.remoteApi(api_url, 'POST', payload)
-        // Api.onProfileSubmission(this.state.fields)
             .then(res => {
-                console.log("Profile response", res);
                 this.setState({ loading: false });
-                if (res.state == 'pending') {
-                    toast.error("something something");
-                } else {
-
-                    localStorage.setItem("user", JSON.stringify(res));
-                    toast.success("submitted successfully");
-                    setTimeout(() => {
-                        this.props.history.push("/kyc")
-
-                    }, 2000)
-                }
+                auth.fetchProfile();
+                this.props.history.push("/kyc");
+                toast.success("Submitted Successfully");
             })
             .catch(error => {
-                if (error.response) {
-                    toast.error(error.response.data.errors[0]);
-                }
-                else {
-                    toast.error("" + error);
-                }
+                CustomError.handle(error)
             })
     };
 
@@ -151,154 +146,144 @@ export class Profile extends Component {
             />
         }
         return (
-            // <LoginGuard>
-            <div>
-                <ToastContainer
-                    enableMultiContainer
-                    position={toast.POSITION.TOP_RIGHT}
-                />
-                <Header />
+            <LoginGuard>
+                <div>
+                    <Header />
 
-                <Container className="boxWithShadow userForms kycForm">
-                    <div className="userFormHeader">
-                        <h1>Profile</h1>
-                    </div>
-
-                    <Step.Group className="profileSepts">
-                        {/*completed*/}
-                        <Step completed>
-                            <Icon name='phone' />
-                            <Step.Content>
-                                <Step.Title>Phone</Step.Title>
-                            </Step.Content>
-                        </Step>
-                        {/*active */}
-                        <Step active >
-                            <Icon name='user' />
-                            <Step.Content>
-                                <Step.Title>Profile</Step.Title>
-                            </Step.Content>
-                        </Step>
-                        <Step>
-                            <Icon name='file' />
-                            <Step.Content>
-                                <Step.Title>KYC</Step.Title>
-                            </Step.Content>
-                        </Step>
-                    </Step.Group>
-
-                    <Form
-                        ref="form"
-                        onSubmit={this.saveprofile}
-                    >
-                        <div className="form-row">
-                            <div className="form-group">
-                                <Input
-                                    label="First Name"
-                                    type="text"
-                                    placeholder="First Name"
-                                    onChange={this.setFormValue.bind(this, "first_name")}
-                                    value={this.state.fields.first_name}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <Input
-                                    label="Last Name"
-                                    type="text"
-                                    placeholder="Last Name"
-                                    onChange={this.setFormValue.bind(this, "last_name")}
-                                    value={this.state.fields.last_name}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                />
-                            </div>
+                    <Container className="boxWithShadow userForms kycForm">
+                        <div className="userFormHeader">
+                            <h1>Profile</h1>
                         </div>
 
-                        <div className="form-row">
-                            <div className="form-group">
-                                <div className="genderAndDatepicker">
-                                    <div className="datePicker">
-                                        <div>
-                                            <DateInput
-                                                label="Date of Birth"
-                                                placeholder="Date Of Birth"
-                                                name="date"
-                                                iconPosition='left'
-                                                placeholder="Date"
-                                                value={this.state.fields.dob}
-                                                onChange={this.handleChangeDate}
-                                            />
+                        <Step.Group className="profileSepts">
+                            <Step>
+                                <Icon name='phone' />
+                                <Step.Content>
+                                    <Step.Title>Phone</Step.Title>
+                                </Step.Content>
+                            </Step>
+                            {/*active */}
+                            <Step active >
+                                <Icon name='user' />
+                                <Step.Content>
+                                    <Step.Title>Profile</Step.Title>
+                                </Step.Content>
+                            </Step>
+                            <Step>
+                                <Icon name='file' />
+                                <Step.Content>
+                                    <Step.Title>KYC</Step.Title>
+                                </Step.Content>
+                            </Step>
+                        </Step.Group>
+
+                        <Form
+                            ref="form"
+                            onSubmit={this.saveProfile}
+                        >
+                            <div className="form-row">
+                                <div className="form-group">
+                                    <Input
+                                        label="First Name"
+                                        type="text"
+                                        placeholder="First Name"
+                                        onChange={this.setFormValue.bind(this, "first_name")}
+                                        value={this.state.fields.first_name}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <Input
+                                        label="Last Name"
+                                        type="text"
+                                        placeholder="Last Name"
+                                        onChange={this.setFormValue.bind(this, "last_name")}
+                                        value={this.state.fields.last_name}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="form-row">
+                                <div className="form-group">
+                                    <div className="genderAndDatepicker">
+                                        <div className="datePicker">
+                                            <div>
+                                                <DateInput
+                                                    label="Date of Birth"
+                                                    placeholder="Date Of Birth"
+                                                    name="date"
+                                                    iconPosition='left'
+                                                    value={this.state.fields.dob}
+                                                    onChange={this.handleChangeDate}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="form-group">
+                                    <Input
+                                        label="Address"
+                                        type="text"
+                                        placeholder="Address"
+                                        onChange={this.setFormValue.bind(this, "address")}
+                                        value={this.state.fields.address}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <Input
-                                    label="Address"
-                                    type="text"
-                                    placeholder="Address"
-                                    onChange={this.setFormValue.bind(this, "address")}
-                                    value={this.state.fields.address}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                />
-                            </div>
-                        </div>
 
-                        <div className="form-row">
-                            <div className="form-group dd">
-                                <Dropdown
-                                    label="City"
-                                    placeholder="City"
-                                    name="city"
-                                    onChange={this.dropdownChange}
-                                    value={this.state.fields.city}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                    validators={['required']}
-                                    errorMessages={['You must select one option']}
-                                    options={regionOptions}
-                                />
+                            <div className="form-row">
+                                <div className="form-group dd">
+                                    <Dropdown
+                                        label="City"
+                                        placeholder="City"
+                                        name="city"
+                                        onChange={this.dropdownChange}
+                                        value={this.state.fields.city}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                        options={regionOptions}
+                                    />
+                                </div>
+                                <div className="form-group  dd">
+                                    <Dropdown
+                                        label="Country"
+                                        placeholder="Country"
+                                        name="country"
+                                        onChange={this.dropdownChange}
+                                        value={this.state.fields.country}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                        options={countryOptions}
+                                    />
+                                </div>
                             </div>
-                            <div className="form-group  dd">
-                                <Dropdown
-                                    label="Country"
-                                    placeholder="Country"
-                                    name="country"
-                                    onChange={this.dropdownChange}
-                                    value={this.state.fields.country}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                    validators={['required']}
-                                    errorMessages={['You must select one option']}
-                                    options={countryOptions}
-                                />
+
+                            <div className="form-row">
+                                <div className="form-group">
+                                    <Input
+                                        label="Postal Code"
+                                        type="text"
+                                        placeholder="Postal Code"
+                                        onChange={this.setFormValue.bind(this, "postcode")}
+                                        value={this.state.fields.postcode}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="form-row">
-                            <div className="form-group">
-                                <Input
-                                    label="Postal Code"
-                                    type="text"
-                                    placeholder="Postal Code"
-                                    onChange={this.setFormValue.bind(this, "postcode")}
-                                    value={this.state.fields.postcode}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                />
-                            </div>
-                        </div>
+                            <Button>Submit</Button>
+                        </Form>
+                    </Container>
+                    <Footer />
 
-                        <Button>Submit</Button>
-                    </Form>
-                </Container>
-                <Footer />
-
-            </div>
-            // </LoginGuard>
+                </div>
+            </LoginGuard>
         )
     }
 }

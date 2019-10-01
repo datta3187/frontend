@@ -6,9 +6,10 @@ import Footer from '../../components/Footer'
 import Header from "../../components/Header";
 import * as Api from "../../api/remoteApi";
 import './Kyc.scss'
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import LoginGuard from "../../components/loginGuard/LoginGuard";
 import { Redirect } from "react-router";
+import * as CustomError from "../../api/handleError";
 import Auth from '../../components/Auth'
 
 const auth = new Auth();
@@ -52,16 +53,19 @@ class Kyc extends Component {
     }
 
     componentDidMount() {
-        auth.fetchUser();
-        let user = auth.getUser();
-        if (user && user.level < 2) {
-            this.setState(
-                {
-                    redirect: true,
-                    redirect_to: '/phone'
+        auth.fetchUser()
+            .then(res => {
+                let user = auth.getUser();
+                if (user && user.level < 2) {
+                    this.setState(
+                        {
+                            redirect: true,
+                            redirect_to: '/phone'
+                        }
+                    )
                 }
-            )
-        }
+            })
+
     }
 
     onFileUploadChange = (e) => {
@@ -102,7 +106,7 @@ class Kyc extends Component {
         this.setState({ fields });
     }
 
-    signupkyc = e => {
+    submitKyc = e => {
         e.preventDefault()
         let formData = new FormData(); //formdata
         formData.append('doc_type', this.state.fields.doc_type)
@@ -122,16 +126,11 @@ class Kyc extends Component {
             .then(res => {
                 console.log("KYC response", res);
                 this.setState({ loading: false });
-                toast.success("submitted successfully");
+                toast.success("Submitted Successfully");
                 this.props.history.push("/settings");
             })
             .catch(error => {
-                if (error.response) {
-                    toast.error(error.response.data.errors[0]);
-                }
-                else {
-                    toast.error("" + error);
-                }
+                CustomError.handle(error);
             })
     }
 
@@ -146,106 +145,99 @@ class Kyc extends Component {
         }
         return (
             <LoginGuard>
-            < div >
-                <Header />
-                <ToastContainer
-                    enableMultiContainer
-                    position={toast.POSITION.TOP_RIGHT}
-                />
-                <Container className="boxWithShadow userForms kycForm">
-                    <div className="userFormHeader">
-                        <h1>Know Your Customer</h1>
-                    </div>
-                    <Step.Group className="profileSepts">
-                        <Step completed>
-                            <Icon name='phone' />
-                            <Step.Content>
-                                <Step.Title>Phone</Step.Title>
-                            </Step.Content>
-                        </Step>
-                        <Step completed>
-                            <Icon name='user' />
-                            <Step.Content>
-                                <Step.Title>Profile</Step.Title>
-                            </Step.Content>
-                        </Step>
-                        <Step active>
-                            <Icon name='file' />
-                            <Step.Content>
-                                <Step.Title>KYC</Step.Title>
-                            </Step.Content>
-                        </Step>
-                    </Step.Group>
-                    <Form
-                        ref="form"
-                        onSubmit={this.signupkyc}
-                    >
-                        <div className="form-row">
-                            <div className="form-group dd">
-                                <Dropdown
-                                    label="Document type"
-                                    placeholder="Document type"
-                                    name="doc_type"
-                                    onChange={this.dropdownChange}
-                                    value={this.state.fields.doc_type}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                    validators={['required']}
-                                    errorMessages={['You must select one option']}
-                                    options={docType}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <Input
-                                    label="Document Number"
-                                    type="text"
-                                    placeholder="Document Number"
-                                    onChange={this.setFormValue.bind(this, "doc_number")}
-                                    value={this.state.fields.doc_number}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                />
-                            </div>
+                < div >
+                    <Header />
+                    <Container className="boxWithShadow userForms kycForm">
+                        <div className="userFormHeader">
+                            <h1>Know Your Customer</h1>
                         </div>
+                        <Step.Group className="profileSepts">
+                            <Step>
+                                <Icon name='phone' />
+                                <Step.Content>
+                                    <Step.Title>Phone</Step.Title>
+                                </Step.Content>
+                            </Step>
+                            <Step>
+                                <Icon name='user' />
+                                <Step.Content>
+                                    <Step.Title>Profile</Step.Title>
+                                </Step.Content>
+                            </Step>
+                            <Step active>
+                                <Icon name='file' />
+                                <Step.Content>
+                                    <Step.Title>KYC</Step.Title>
+                                </Step.Content>
+                            </Step>
+                        </Step.Group>
+                        <Form
+                            ref="form"
+                            onSubmit={this.submitKyc}
+                        >
+                            <div className="form-row">
+                                <div className="form-group dd">
+                                    <Dropdown
+                                        label="Document type"
+                                        placeholder="Document type"
+                                        name="doc_type"
+                                        onChange={this.dropdownChange}
+                                        value={this.state.fields.doc_type}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                        options={docType}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <Input
+                                        label="Document Number"
+                                        type="text"
+                                        placeholder="Document Number"
+                                        onChange={this.setFormValue.bind(this, "doc_number")}
+                                        value={this.state.fields.doc_number}
+                                        validators={['required']}
+                                        errorMessages={['this field is required']}
+                                    />
+                                </div>
+                            </div>
 
-                        <div className="form-row">
-                            <div className="form-group">
-                                <div className="genderAndDatepicker">
-                                    <div className="datePicker">
-                                        <div>
-                                            <DateInput
-                                                label="Document Expiry Date"
-                                                placeholder="Document Expiry Date"
-                                                name="doc_expire"
-                                                iconPosition='left'
-                                                placeholder="yy/mm/dd"
-                                                value={this.state.fields.doc_expire}
-                                                onChange={this.handleChangeDocExpire}
-                                            />
+                            <div className="form-row">
+                                <div className="form-group">
+                                    <div className="genderAndDatepicker">
+                                        <div className="datePicker">
+                                            <div>
+                                                <DateInput
+                                                    label="Document Expiry Date"
+                                                    name="doc_expire"
+                                                    iconPosition='left'
+                                                    placeholder="yy/mm/dd"
+                                                    value={this.state.fields.doc_expire}
+                                                    onChange={this.handleChangeDocExpire}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="form-group">
+                                    <Input
+                                        label="Upload Document"
+                                        type="file"
+                                        name="upload"
+                                        placeholder="Upload Document"
+                                        value={this.state.upload.filename}
+                                        onChange={this.onFileUploadChange}
+                                    // validators={['required']}
+                                    // errorMessages={['this field is required']}
+                                    // allowedExtensions={['jpeg']}
+                                    />
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <Input
-                                    label="Upload Document"
-                                    type="file"
-                                    name="upload"
-                                    placeholder="Upload Document"
-                                    value={this.state.upload.filename}
-                                    onChange={this.onFileUploadChange}
-                                // validators={['required']}
-                                // errorMessages={['this field is required']}
-                                // allowedExtensions={['jpeg']}
-                                />
-                            </div>
-                        </div>
 
-                        <Button>Submit</Button>
-                    </Form>
-                </Container>
-                <Footer />
-            </div >
+                            <Button>Submit</Button>
+                        </Form>
+                    </Container>
+                    <Footer />
+                </div >
             </LoginGuard>
         )
     }

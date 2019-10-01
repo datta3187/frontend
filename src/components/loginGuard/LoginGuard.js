@@ -31,12 +31,12 @@ class LoginGuard extends React.Component {
       return children;
     } else {
       return (
-          <Redirect
-              to={{
-                pathname: "/login",
-                state: { from: location }
-              }}
-          />
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { from: location }
+          }}
+        />
       );
     }
   }

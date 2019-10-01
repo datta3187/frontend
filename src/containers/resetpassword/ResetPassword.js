@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
-import {Container, Button, Form, Input, Dimmer, Loader} from 'semantic-ui-react'
+import { Container, Button, Form, Input, Dimmer, Loader } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { Link } from "react-router-dom";
 import * as Api from "../../api/remoteApi";
-import {toast, ToastContainer} from "react-toastify";
+import * as CustomError from "../../api/handleError";
 
 class ResetPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: {reset_password_token: '', password: '', confirm_password: '', lang: 'EN'},
-            errors: {password: '', confirm_password: ''},
+            data: { reset_password_token: '', password: '', confirm_password: '', lang: 'EN' },
+            errors: { password: '', confirm_password: '' },
             loading: false
         }
     }
@@ -40,27 +40,27 @@ class ResetPassword extends Component {
         });
     }
 
-    handleValidation(){
+    handleValidation() {
         let data = this.state.data;
         let errors = {};
         let formIsValid = true;
 
-        Object.keys(this.state.errors).map((key) =>{
-            if(!data[key]){
+        Object.keys(this.state.errors).map((key) => {
+            if (!data[key]) {
                 formIsValid = false
                 errors[key] = `${key} is required.`
             }
         });
 
-        if (typeof data["password"] !== "undefined" &&  data["password"].length > 0 ) {
-            if (!data["password"].match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ )) {
+        if (typeof data["password"] !== "undefined" && data["password"].length > 0) {
+            if (!data["password"].match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,64}$/)) {
                 formIsValid = false;
-                errors["password"] ="Password should have one number and one special character,minimum 8 characters";
+                errors["password"] = "Password should have one number and one special character,minimum 8 characters";
             }
         }
 
-        if(data['password'].length > 0 && data['confirm_password'].length > 0){
-            if(data['password'] !== data['confirm_password']){
+        if (data['password'].length > 0 && data['confirm_password'].length > 0) {
+            if (data['password'] !== data['confirm_password']) {
                 errors['confirm_password'] = "Passwords do not match."
             }
         }
@@ -74,21 +74,16 @@ class ResetPassword extends Component {
         this.setState({ loading: true });
         let api_url = 'identity/users/password/confirm_code';
         if (this.handleValidation()) {
-            Api.remoteApi(api_url, 'POST' , this.state.data)
+            Api.remoteApi(api_url, 'POST', this.state.data)
                 .then(res => {
-                    this.setState({loading: false});
+                    this.setState({ loading: false });
                     this.props.history.push("/login", {
                         email_verified: true,
                         msg: 'Password has been changed successfully.'
                     });
                 })
-                .catch(error =>{
-                    if(error.response){
-                        toast.error(error.response.data.errors[0]);
-                    }
-                    else{
-                        toast.error(""+ error);
-                    }
+                .catch(error => {
+                    CustomError.handle(error)
                 })
         }
         else {
@@ -105,10 +100,6 @@ class ResetPassword extends Component {
                     </Dimmer>
                 )}
 
-                <ToastContainer
-                    enableMultiContainer
-                    position={toast.POSITION.TOP_RIGHT}
-                />
                 <Header />
                 <Container className="boxWithShadow userForms">
                     <div className="userFormHeader">

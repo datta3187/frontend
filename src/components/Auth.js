@@ -1,4 +1,3 @@
-// import * as profileApi from "../api/profileApi";
 import * as Api from "../api/remoteApi";
 
 export default class Auth {
@@ -57,10 +56,9 @@ export default class Auth {
         return JSON.parse(localStorage.getItem('user'));
     };
 
-    fetchProfile = e => {
+    fetchProfile = () => {
         let api_url = 'resource/profiles/me';
-        Api.remoteApi(api_url, 'GET', {} )
-        // Api.getProfile()
+        return Api.remoteApi(api_url, 'GET', {})
             .then(res => {
                 this.setProfile(res)
             })
@@ -69,48 +67,36 @@ export default class Auth {
             });
     };
 
-    fetchPhones = e => {
+    fetchPhones = () => {
         let api_url = 'resource/phones';
         Api.remoteApi(api_url, 'get', {})
             .then(res => {
                 this.setPhone(res);
             })
             .catch(error => {
-                if (error.response) {
-                    console.error(error.response.data.errors[0]);
-                } else {
-                    console.error("" + error);
-                }
+                console.log(error)
             });
     };
 
-    fetchDocuments = e => {
+    fetchDocuments = () => {
         let api_url = 'resource/documents';
-        Api.remoteApi(api_url, 'get', {})
+        return Api.remoteApi(api_url, 'get', {})
             .then(res => {
                 this.setDocument(res);
             })
             .catch(error => {
-                if (error.response) {
-                    console.error(error.response.data.errors[0]);
-                } else {
-                    console.error("" + error);
-                }
+                console.log(error)
             });
     };
 
-    fetchUser = async e => {
+    fetchUser = () => {
         let api_url = 'resource/users/me';
-        await Api.asyncAPI(api_url, 'get', {})
+        return Api.remoteApi(api_url, 'get', {})
             .then(res => {
                 this.setUser(res);
             })
             .catch(error => {
-                if (error.response) {
-                    console.error(error.response.data.errors[0]);
-                } else {
-                    console.error("" + error);
-                }
+                console.log(error)
             });
     };
 }
