@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Button, Step, Icon } from 'semantic-ui-react';
 import { Form, Input, Dropdown } from 'semantic-ui-react-form-validator';
 
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
@@ -10,6 +10,11 @@ import LoginGuard from "../../components/loginGuard/LoginGuard";
 import * as Api from "../../api/remoteApi";
 import countryCodes from "./CountryCodes";
 import './phone.scss'
+import * as CustomError from "../../api/handleError";
+
+import Auth from "../../components/Auth";
+
+const auth = new Auth();
 
 export class Phone extends Component {
     constructor(props) {
@@ -42,11 +47,7 @@ export class Phone extends Component {
                 toast.success(res.message);
             })
             .catch(error => {
-                if (error.response) {
-                    toast.error(error.response.data.errors[0]);
-                } else {
-                    toast.error("" + error);
-                }
+                CustomError.handle(error)
             })
     };
 
@@ -54,15 +55,13 @@ export class Phone extends Component {
         let api_url = 'resource/phones/verify';
         Api.remoteApi(api_url, 'post', this.state.fields)
             .then(res => {
+                auth.fetchUser();
+                auth.fetchPhones();
+                this.props.history.push('/profile');
                 toast.success('Phone Verified Successfully');
-                this.props.history.push('/settings')
             })
             .catch(error => {
-                if (error.response) {
-                    toast.error(error.response.data.errors[0]);
-                } else {
-                    toast.error("" + error);
-                }
+                CustomError.handle(error)
             })
     };
 
@@ -77,15 +76,13 @@ export class Phone extends Component {
                 this.setState({ on_form_save: this.verifyPhone });
             })
             .catch(error => {
+                CustomError.handle(error)
                 if (error.response) {
-                    toast.error(error.response.data.errors[0]);
                     let phone_exists = (/registered/g).test(error.response.data.errors[0]);
                     if (phone_exists) {
                         this.setState({ show_otp_field: true });
                         this.setState({ on_form_save: this.verifyPhone });
                     }
-                } else {
-                    toast.error("" + error);
                 }
             })
     };
@@ -107,10 +104,6 @@ export class Phone extends Component {
         return (
             <LoginGuard>
                 <div>
-                    <ToastContainer
-                        enableMultiContainer
-                        position={toast.POSITION.TOP_RIGHT}
-                    />
                     <Header />
 
                     <Container className="boxWithShadow userForms phoneSection">
@@ -118,26 +111,23 @@ export class Phone extends Component {
                             <h1>Phone</h1>
                         </div>
 
-                        <Step.Group>
+                        <Step.Group className="profileSepts">
                             <Step active>
                                 <Icon name='phone' />
                                 <Step.Content>
                                     <Step.Title>Phone</Step.Title>
-                                    <Step.Description>Enter Your Phone Number</Step.Description>
                                 </Step.Content>
                             </Step>
                             <Step>
                                 <Icon name='user' />
                                 <Step.Content>
                                     <Step.Title>Profile</Step.Title>
-                                    <Step.Description>Enter Your Personal Details</Step.Description>
                                 </Step.Content>
                             </Step>
                             <Step>
                                 <Icon name='file' />
                                 <Step.Content>
                                     <Step.Title>KYC</Step.Title>
-                                    <Step.Description>Complete Your KYC</Step.Description>
                                 </Step.Content>
                             </Step>
                         </Step.Group>
