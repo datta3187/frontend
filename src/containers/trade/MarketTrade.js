@@ -1,26 +1,33 @@
 import React, { Component } from 'react'
 import { Column, Table } from 'react-virtualized'
 import config from "../../config";
-import * as Api from "../../api/remoteApi";
+import { addTrade } from '../../redux/actions/socketAction'
+
 import 'react-virtualized/styles.css'
 import "./css/exchange.scss";
 import Websocket from 'react-websocket';
 import * as formatter from './Formatter'
 
-class MarketTrade extends Component {
-    constructor(props) {
+import { connect } from 'react-redux';
+
+
+class ConnectMarketTrade extends Component {
+    constructor(props){
         super(props);
         this.state = {
-            trades:[]
+            trades: []
         }
+
+        this.handleData = this.handleData.bind(this);
     }
+
 
     handleData(data){
         let result = JSON.parse(data);
         let stream_type = this.props.market + '.trades';
-        if(typeof result[stream_type] !== 'undefined'){
+        if(typeof result[stream_type] !== 'undefined') {
             let formatted_data = this.changeFormat(result[stream_type]['trades'])
-            this.setState({trades: formatted_data})
+            this.props.addTrade(formatted_data)
         }
     }
 
@@ -68,40 +75,48 @@ class MarketTrade extends Component {
     render(){
         return (
             <div>
-                {/*<Websocket url={this.path()}*/}
-                           {/*onMessage={this.handleData.bind(this)}/>*/}
-                {/*<Table*/}
-                    {/*width={310}*/}
-                    {/*height={350}*/}
-                    {/*disableHeader={true}*/}
-                    {/*rowHeight={15}*/}
-                    {/*rowCount={this.state.trades.length}*/}
-                    {/*rowGetter={({ index }) => this.state.trades[index]}*/}
-                    {/*isScrolling={false}*/}
-                {/*>*/}
-                    {/*<Column*/}
-                        {/*dataKey='price'*/}
-                        {/*label= 'Price'*/}
-                        {/*width={100}*/}
-                    {/*/>*/}
-                    {/*<Column*/}
-                        {/*label= 'Volume'*/}
-                        {/*width={100}*/}
-                        {/*dataKey='volume'*/}
-                    {/*/>*/}
-                    {/*<Column*/}
-                        {/*label= "Time"*/}
-                        {/*width={100}*/}
-                        {/*dataKey='time'*/}
-                    {/*/>*/}
-                {/*</Table>*/}
-                Count : 0
-                <button> +</button>
-                <button> -</button>
-                <button> Reset</button>
+                <Websocket url={this.path()}
+                           onMessage={this.handleData}/>
+                <Table
+                    width={310}
+                    height={350}
+                    disableHeader={true}
+                    rowHeight={15}
+                    rowCount={this.props.trades.length}
+                    rowGetter={({ index }) => this.props.trades[index]}
+                    isScrolling={false}
+                >
+                    <Column
+                        dataKey='price'
+                        label= 'Price'
+                        width={100}
+                    />
+                    <Column
+                        label= 'Volume'
+                        width={100}
+                        dataKey='volume'
+                    />
+                    <Column
+                        label= "Time"
+                        width={100}
+                        dataKey='time'
+                    />
+                </Table>
             </div>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return { trades: state.tradeState.trades }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        addTrade: (payload) => dispatch(addTrade(payload))
+    }
+}
+
+const MarketTrade = connect(mapStateToProps, mapDispatchToProps)(ConnectMarketTrade)
 
 export default MarketTrade;

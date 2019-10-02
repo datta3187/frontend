@@ -14,14 +14,14 @@ class Trade extends Component {
     componentWillMount() {
         this.setState({
             panes: [
-                { menuItem: 'All', render: () =>
+                { menuItem: 'Market', render: () =>
                     <div>
                         <Tab.Pane>
                             <MarketTrade market={this.props.market} />
                         </Tab.Pane>
                     </div>
                 },
-                { menuItem: 'My Trades', render: () =>
+                { menuItem: 'Yours', render: () =>
                     <div>
                         <Tab.Pane>
                             My Trade listing

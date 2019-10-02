@@ -18,6 +18,8 @@ function saveToLocalStorage(state) {
 const store = configureStore();
 // use only if store redux  data in localStorage
 store.subscribe(() => saveToLocalStorage(store.getState()));
+window.store = store;
+
 
 ReactDOM.render(
   <Provider store={store}>
