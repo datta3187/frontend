@@ -4,7 +4,7 @@ import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import { Link } from "react-router-dom"
 import './User.scss'
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { Dimmer, Loader } from "semantic-ui-react"
 import "react-toastify/dist/ReactToastify.css"
 import config from "../../config";
@@ -12,6 +12,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import LogoutGuard from "../../components/logoutGuard/LogoutGuard";
 import Auth from "../../components/Auth";
 import * as Api from "../../api/remoteApi";
+import * as CustomError from "../../api/handleError";   
 
 const auth = new Auth();
 
@@ -45,7 +46,6 @@ class Login extends Component {
         });
     }
 
-
     //signIn form validation
     handleValidation = () => {
         let fields = this.state.fields;
@@ -64,7 +64,7 @@ class Login extends Component {
         ) {
             if (
                 !fields["password"].match(
-                    /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
+                    /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,64}$/
                 )
             ) {
                 formIsValid = false;
@@ -151,35 +151,40 @@ class Login extends Component {
         this.setState({ loading: true });
         if (this.handleValidation()) {
             let api_url = 'identity/sessions';
-            let payload = this.state.fields
-            Api.remoteApi(api_url, 'POST', payload )
+            let payload = this.state.fields;
+            Api.remoteApi(api_url, 'POST', payload)
                 .then(res => {
                     if (res.state === 'pending') {
                         toast.error("e-mail verification pending");
                     } else {
-                        auth.setSession(res);
-                        // toast.success("Logged in successfully");
+                        auth.setUser(res);
                         auth.fetchProfile();
                         auth.fetchPhones();
                         auth.fetchDocuments();
                         this.setState({ loading: false });
-                        this.props.history.push('/settings');
+
+                        this.props.history.push(this.redirectUrl());
+                        toast.success("Logged In Successfully");
                     }
                 })
                 .catch(error => {
                     this.setState({ loading: false });
-                    if(config.captchaPolicy){
+                    if (config.captchaPolicy) {
                         this.recaptcha.reset();
                     }
-                    if(error.response){
-                        toast.error(error.response.data.errors[0]);
-                    }
-                    else{
-                        toast.error(""+ error);
-                    }
-            });
+
+                });
         } else {
             this.setState({ loading: false });
+        }
+    };
+
+    redirectUrl = () => {
+        const user = auth.getUser();
+        if (user.level === 1) {
+            return '/phone'
+        } else {
+            return '/settings'
         }
     };
 
@@ -190,18 +195,13 @@ class Login extends Component {
             console.log("data :" + this.state.forfields)
             let api_url = 'identity/users/password/generate_code';
             let payload = this.state.forfields;
-            Api.remoteApi(api_url, 'POST', payload )
+            Api.remoteApi(api_url, 'POST', payload)
                 .then(res => {
-                    this.setState({isParentOpen: false})
+                    this.setState({ isParentOpen: false });
                     toast.success("Password reset link has been sent on your email.")
                 })
-                .catch(error =>{
-                    if(error.response){
-                        toast.error(error.response.data.errors[0]);
-                    }
-                    else{
-                        toast.error(""+ error);
-                    }
+                .catch(error => {
+                    CustomError.handle(error);
                 })
         }
         else {
@@ -209,25 +209,14 @@ class Login extends Component {
         }
     };
 
-    componentDidMount() {
-        if(this.props.location.state){
-            if(this.props.location.state.email_verified){
-                toast.success(this.props.location.state.msg)
-            }
-            else {
-                toast.error(this.props.location.state.msg)
-            }
-        }
-    }
-
     handleCaptcha = e => {
         let fields = this.state.fields;
         fields.captcha_response = e;
-        this.setState({fields});
+        this.setState({ fields });
 
         let errors = this.state.errors;
         errors.captcha_response = '';
-        this.setState({errors});
+        this.setState({ errors });
     };
 
     render() {
@@ -240,10 +229,6 @@ class Login extends Component {
                         </Dimmer>
                     )}
 
-                    <ToastContainer
-                        enableMultiContainer
-                        position={toast.POSITION.TOP_RIGHT}
-                    />
                     <Header />
                     <Container className="boxWithShadow userForms">
                         <div className="userFormHeader">
@@ -286,13 +271,13 @@ class Login extends Component {
 
                             <div className="form-captcha">
                                 {(config.captchaPolicy) && (
-                                   <ReCAPTCHA
+                                    <ReCAPTCHA
                                         ref={(r) => this.recaptcha = r}
                                         sitekey={config.recatpchaSiteKey}
                                         onChange={this.handleCaptcha}
                                     />
                                 )}
-                                <span style={{color: "red"}}>
+                                <span style={{ color: "red" }}>
                                     {this.state.errors["captcha_response"]}
                                 </span>
                             </div>
