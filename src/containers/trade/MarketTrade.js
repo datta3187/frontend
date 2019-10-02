@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Column, Table } from 'react-virtualized'
 import config from "../../config";
-import { addTrade } from '../../redux/actions/socketAction'
+import { addMarketTrade } from '../../redux/actions/socketAction'
 
 import 'react-virtualized/styles.css'
 import "./css/exchange.scss";
@@ -14,9 +14,6 @@ import { connect } from 'react-redux';
 class ConnectMarketTrade extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            trades: []
-        }
 
         this.handleData = this.handleData.bind(this);
     }
@@ -42,35 +39,6 @@ class ConnectMarketTrade extends Component {
     path() {
         return config.webSocketUrl+ this.props.market + '.trades'
     }
-
-    // Initial Trades from API
-    // setFormattedData(data) {
-    //     let results = []
-    //     data.map((record) => {
-    //         results.push({
-    //             price: formatter.toFixed(record.price),
-    //             volume: formatter.toFixed(record.volume),
-    //             time: record.created_at.toString()
-    //         })
-    //     });
-    //     this.setState({trades: results})
-    // }
-    //
-    // componentWillMount() {
-    //     let api_url = '/public/markets/' + this.props.market + '/trades'
-    //     Api.remoteApi(api_url, 'get', undefined, 'peatio')
-    //     .then(res => {
-    //         this.setFormattedData(res)
-    //     })
-    //     .catch(error => {
-    //         if (error.response) {
-    //             console.error(error.response.data.errors[0]);
-    //         } else {
-    //             console.error("Trades List Error - " + error);
-    //         }
-    //     });
-    // }
-
 
     render(){
         return (
@@ -113,7 +81,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch){
     return {
-        addTrade: (payload) => dispatch(addTrade(payload))
+        addTrade: (payload) => dispatch(addMarketTrade(payload))
     }
 }
 

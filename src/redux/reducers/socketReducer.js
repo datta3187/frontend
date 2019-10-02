@@ -1,15 +1,21 @@
-import {ADD} from "../actions/actionTypes";
+import {MARKET_TRADE, MY_TRADE, TRADE_LIMIT} from "../actions/actionTypes";
 
 
 const initialState = {
-    trades: getTrades()
+    trades: getTrades('market_trades'),
+    my_trades: getTrades('my_trades')
+
 }
 
 function socketReducer(state= initialState, action){
     switch(action.type){
-        case ADD:
+        case MARKET_TRADE:
             return Object.assign({}, state, {
-                trades: Array.prototype.concat(action.data,  state.trades)
+                trades: Array.prototype.concat(action.data,  state.trades).slice(0,TRADE_LIMIT)
+            });
+        case MY_TRADE:
+            return Object.assign({}, state, {
+                my_trades: Array.prototype.concat(action.data,  state.my_trades).slice(0,TRADE_LIMIT)
             });
         default:
             return state;
@@ -17,13 +23,13 @@ function socketReducer(state= initialState, action){
     return state;
 }
 
-function getTrades(){
+function getTrades(key){
     try {
-        const serializedState = localStorage.getItem("state");
-        if (serializedState === null) {
+        const serializedMarketTrades = localStorage.getItem(key);
+        if (serializedMarketTrades === null) {
             return [];
         } else {
-            return JSON.parse(serializedState).tradeState.trades;
+            return JSON.parse(serializedMarketTrades)
         }
     } catch (error) {
         return [];

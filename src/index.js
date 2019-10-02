@@ -5,11 +5,21 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import configureStore, { history } from "./redux/store/configureStore";
 import { ConnectedRouter } from "connected-react-router";
+import {TRADE_LIMIT} from "./redux/actions/actionTypes";
 
 function saveToLocalStorage(state) {
   try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem("state", serializedState);
+    if(state.tradeState){
+        //  market trades
+        const serializedMarketTrade = JSON.stringify(state.tradeState.trades.slice(0,TRADE_LIMIT));
+        localStorage.setItem("market_trades", serializedMarketTrade);
+
+        // set my tradess
+        const serializedMyTrade = JSON.stringify(state.tradeState.my_trades.slice(0,TRADE_LIMIT));
+        localStorage.setItem("my_trades", serializedMyTrade);
+    }else {
+
+    }
   } catch (error) {
     console.log(error);
   }
@@ -18,7 +28,6 @@ function saveToLocalStorage(state) {
 const store = configureStore();
 // use only if store redux  data in localStorage
 store.subscribe(() => saveToLocalStorage(store.getState()));
-window.store = store;
 
 
 ReactDOM.render(

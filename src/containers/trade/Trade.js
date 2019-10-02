@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import "./css/exchange.scss";
 import { Tab } from 'semantic-ui-react'
 import MarketTrade from './MarketTrade'
+import MyTrade from './MyTrade'
 
 class Trade extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Trade extends Component {
                 { menuItem: 'Yours', render: () =>
                     <div>
                         <Tab.Pane>
-                            My Trade listing
+                            <MyTrade market={this.props.market} />
                         </Tab.Pane>
                     </div>
                 }

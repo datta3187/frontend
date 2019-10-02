@@ -1,8 +1,15 @@
 import * as actionTypes from "./actionTypes";
 
-export const addTrade = payload => {
+export const addMarketTrade = payload => {
   return {
-    type: actionTypes.ADD,
+    type: actionTypes.MARKET_TRADE,
+    data: payload
+  };
+};
+
+export const addMyTrade = payload => {
+  return {
+    type: actionTypes.MY_TRADE,
     data: payload
   };
 };
