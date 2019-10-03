@@ -9,10 +9,6 @@ import signout_img from "../images/signout.svg"
 const auth = new Auth();
 const IconNav = () => <Icon link  className='navBtn' name='bars' />
 
-const leftSideSegment = () => (
-    <Segment >Disabled content</Segment>
-)
-
 class Header extends Component {
     constructor(props) {
         super(props);
