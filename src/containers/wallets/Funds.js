@@ -14,7 +14,8 @@ class Funds extends Component {
                 currency: '',
                 balance: 0.00,
                 locked: 0.00
-            }
+            },
+            loading: false
         }
     }
     componentDidMount() {
@@ -35,15 +36,18 @@ class Funds extends Component {
     }
 
     getBalance= ()=>{
+        this.setState({loading: true});
         console.log("FUNDS_ARR_ID", this.props.funds_arr.id);
-        let api_url = "/account/balances/" + this.props.funds_arr.id
+        let api_url = "/account/balances/" + this.props.funds_arr.id;
         Api.remoteApi(api_url, 'get', {}, 'peatio')
             .then(res => {
-                this.setState({record: {currency: res.currency, balance: res.balance, locked: res.locked}})
+                this.setState({record: {currency: res.currency, balance: res.balance, locked: res.locked}});
+                this.setState({loading: false});
             })
             .catch(error => {
                 if (error.response) {
                     toast.error(error.response.data.errors[0]);
+                    this.setState({loading: false});
                 }
                 else {
                     toast.error("" + error);

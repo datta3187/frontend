@@ -8,27 +8,30 @@ class Deposit extends Component {
     constructor(props){
         super(props)
         this.state = {
-            payment_address: ''
+            payment_address: '',
+            loading: false
         }
 
     }
 
     componentDidMount=()=> {
         //For retrieving deposit payment addresses
-        // this.getPaymentAddress();
+        this.getPaymentAddress();
     }
 
     getPaymentAddress =()=>{
-
+        this.setState({loading: true});
         let api_url = "account/deposit_address/" + this.props.balance_arr.id
         Api.remoteApi(api_url, 'get', {}, 'peatio')
             .then(res => {
                 // const merged = {...this.props.deposit_arr, ...res}
                 this.setState({payment_address: res.address});
+                this.setState({loading: false});
             })
             .catch(error => {
                 if (error.response) {
                     toast.error(error.response.data.errors[0]);
+                    this.setState({loading: false});
                 } else {
                     toast.error("" + error);
                 }

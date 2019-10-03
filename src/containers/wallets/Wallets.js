@@ -11,11 +11,13 @@ class Wallets extends Component {
         window.scrollTo(0, 0);
         super(props);
         this.state = {
-            panes: []
+            panes: [],
+            loading: false
         }
     }
 
     componentWillMount() {
+        this.setState({loading: true});
         let api_url = '/public/currencies';
         let panes_arr = [];
         Api.remoteApi(api_url, 'get', {},'peatio')
@@ -26,10 +28,12 @@ class Wallets extends Component {
                    }
                }
                this.setState({panes: panes_arr});
+               this.setState({loading: false});
             })
             .catch(error => {
                 if (error.response) {
                     toast.error(error.response.data.errors[0]);
+                    this.setState({loading: false});
                 }
                 else {
                     toast.error("" + error);
