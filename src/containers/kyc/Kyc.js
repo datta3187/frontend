@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 import LoginGuard from "../../components/loginGuard/LoginGuard";
 import { Redirect } from "react-router";
 import * as CustomError from "../../api/handleError";
-import Auth from '../../components/Auth'
+import Auth from '../../components/Auth';
+import Moment from 'moment';
+
 
 const auth = new Auth();
 
@@ -37,11 +39,9 @@ class Kyc extends Component {
             fields: {
                 doc_type: '',
                 doc_number: '',
-                doc_expire: '',
-                upload: ''
+                doc_expire: ''
             },
             upload: [],
-
             loading: false,
         }
     }
@@ -63,7 +63,27 @@ class Kyc extends Component {
     }
 
     onFileUploadChange = (e) => {
+
         this.setState({ upload: e.target.files[0] });
+
+        let files = e.target.files;
+        let size = 2000000;
+        let err = [];
+        const types = ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'];
+        for(let x = 0; x<files.length; x++) {
+            if (files[x].size > size) {
+                err[x] = files[x].type+'is too large, please pick a smaller file\n';
+            }
+            if (types.every(type => (files[x].type !== type))) {
+                err[x] = files[x].type+' is not a supported format\n';
+                // assign message to array
+            }
+        };
+        for(let z = 0; z<err.length; z++) { // loop create toast message
+            e.target.value = null
+            toast.error(err[z])
+        }
+        return true;
     };
 
     dropdownChange = (e, { name, value }) => {
@@ -83,7 +103,7 @@ class Kyc extends Component {
     }
 
     submitKyc = e => {
-        e.preventDefault()
+        e.preventDefault();
         let formData = new FormData(); //formdata
         formData.append('doc_type', this.state.fields.doc_type)
         formData.append('doc_number', this.state.fields.doc_number)
@@ -162,7 +182,7 @@ class Kyc extends Component {
                                         type="text"
                                         placeholder="Document Number"
                                         onChange={this.setFormValue.bind(this, "doc_number")}
-                                        value={this.state.fields.doc_number}
+                                        value={this.state.fields.doc_number.toUpperCase()}
                                         validators={['required']}
                                         errorMessages={['this field is required']}
                                     />
@@ -179,8 +199,11 @@ class Kyc extends Component {
                                                     name="doc_expire"
                                                     iconPosition='left'
                                                     placeholder="yy/mm/dd"
-                                                    value={this.state.fields.doc_expire}
                                                     onChange={this.dropdownChange}
+                                                    minDate={Moment().toDate()}
+                                                    value={this.state.fields.doc_expire}
+                                                    validators={['required']}
+                                                    errorMessages={['this field is required']}
                                                 />
                                             </div>
                                         </div>
@@ -194,10 +217,11 @@ class Kyc extends Component {
                                         placeholder="Upload Document"
                                         value={this.state.upload.filename}
                                         onChange={this.onFileUploadChange}
+                                        // validators={['isValidExtension']}
+                                        // errorMessages={['hello ']}
                                     />
                                 </div>
                             </div>
-
                             <Button>Submit</Button>
                         </Form>
                     </Container>

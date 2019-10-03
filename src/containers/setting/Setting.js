@@ -207,7 +207,7 @@ export class Setting extends Component {
                                         <br />Verify Identity documents for advanced withdraw and deposit options
                                 </Grid.Column>
                                     <Grid.Column className="settingListBtn">
-                                        <Button onClick={() => this.props.history.push("/kyc")}>Submit</Button>
+                                        <Button onClick={() => this.props.history.push("/documents")}>Submit</Button>
                                     </Grid.Column>
                                 </Grid.Row>
                                 <Grid.Row columns={2} className="settingList passwordR">

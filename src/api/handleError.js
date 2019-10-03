@@ -11,7 +11,7 @@ export const handle = error => {
         toast.error(err);
         if (err === 'authz.invalid_session') {
             auth.logout()
-            this.props.history.push("/");
+            // this.props.history.push("/");
         }
     }
     else {

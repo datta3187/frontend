@@ -5,6 +5,7 @@ import Header from '../../components/Header'
 import { Link } from "react-router-dom";
 import * as Api from "../../api/remoteApi";
 import * as CustomError from "../../api/handleError";
+import {toast} from "react-toastify";
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -78,9 +79,9 @@ class ResetPassword extends Component {
                 .then(res => {
                     this.setState({ loading: false });
                     this.props.history.push("/login", {
-                        email_verified: true,
-                        msg: 'Password has been changed successfully.'
+                        email_verified: true
                     });
+                    toast.success("Password changed successfully");
                 })
                 .catch(error => {
                     CustomError.handle(error)
