@@ -27,7 +27,6 @@ class ChangePassword extends Component {
 
     changePassword = (e) => {
         e.preventDefault();
-        debugger
         let api_url = 'resource/users/password';
         console.log("data :" + this.state.fields);
         Api.remoteApi(api_url, 'put', this.state.fields)

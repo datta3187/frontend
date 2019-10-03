@@ -90,14 +90,6 @@ class Kyc extends Component {
         formData.append('doc_expire', this.state.fields.doc_expire)
         formData.append('upload', this.state.upload)
 
-        // const formData = new FormData();
-        // formData.append('doc_type',this.state.fields.doc_type)
-        // formData.append('doc_number',this.state.fields.doc_number)
-        // formData.append('doc_expire',this.state.fields.doc_expire)
-        // this.state.upload.map(function(file){
-        //     formData.append('upload', file)
-        // })
-
         Api.onKyc(formData)
             .then(res => {
                 console.log("KYC response", res);
