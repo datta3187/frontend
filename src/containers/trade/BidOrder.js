@@ -31,7 +31,7 @@ class BidOrder extends Component {
 
     changeFormat(data){
         let records = []
-        data.map((record) =>{
+        data.map((record) => {
             records.push({price: formatter.toFixed(record[0]), volume: formatter.toFixed(record[1]), total: formatter.total(record[0], record[1]) })
         });
         return records
