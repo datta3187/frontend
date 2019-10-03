@@ -8,8 +8,11 @@ import Ticker from './Ticker'
 import OrderBook from './OrderBook'
 import MarketList from './MarketList'
 import Trade from './Trade'
+// import PeatioSocket from '../../components/PeatioSocket'
 
 import './css/exchange.scss'
+
+// const mySocket = new PeatioSocket();
 
 
 const limitMarket = [
@@ -27,6 +30,7 @@ class Exchange extends Component {
 
     componentWillMount() {
         let mkt =this.props.match.params.market.toLowerCase().split('_').join('')
+        // mySocket.execute(mkt);
         this.setState({market: mkt})
     }
 
