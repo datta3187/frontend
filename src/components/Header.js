@@ -17,27 +17,18 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            is_open: false
+            is_open: false,
+            isLoggedIn: auth.isAuthenticated()
         }
     }
 
     openLeftNav =()=> {
-        console.log(this.props)
-        console.log(this.props.activePath)
         this.setState({
             is_open: !this.state.is_open
         })
     };
 
     render() {
-        let link;
-
-        if (auth.isAuthenticated()) {
-            link = <Link to="/logout">Logout</Link>
-        } else {
-            link = <Link to="/login">Login</Link>
-        }
-
         return (
             <div className={`beforeLoginHeader  ${this.props.abc}`} >
                 <Container>
@@ -52,14 +43,26 @@ class Header extends Component {
 
                     <div className={ this.state.is_open ? "ui visible left wide sidebar sideNav displayActive":"displayInactive"}>
                         <div className="childDiv">
-                            <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
-                                <Image src={signin_img} />
-                                <Link to="/login">Sign In</Link>
-                            </div>
-                            <div className={this.props.activePath == 'register' ? 'sideNavChild route-selected' : 'sideNavChild'}>
-                                <Image src={signout_img} />
-                                <Link to="/Register">Sign Up</Link>
-                            </div>
+                            {
+                                !(this.state.isLoggedIn)? (
+                                    <div>
+                                        <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
+                                            <Image src={signin_img} />
+                                            <Link to="/login">Sign In</Link>
+                                        </div>
+                                        <div className={this.props.activePath == 'register' ? 'sideNavChild route-selected' : 'sideNavChild'}>
+                                            <Image src={signout_img} />
+                                            <Link to="/Register">Sign Up</Link>
+                                        </div>
+                                    </div>
+                                ) : (
+                                        <div className='sideNavChild'>
+                                            <Image src={signout_img} />
+                                            <Link to="/logout">Logout</Link>
+                                        </div>
+                                    )
+                            }
+                            
                             <div className={this.props.activePath == 'trade' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                 <Icon name="signal" />
                                 <Link to="/trading/ETH_BTC">Trade</Link>
@@ -67,30 +70,10 @@ class Header extends Component {
                         </div>
                     </div>
                 </Container>
-            </ div>
+            </div>
         )
 
-        // return (
-        //     <div className={`beforeLoginHeader  ${this.props.abc}`} >
-        //         <Container>
-        //             <div className="header">
-        //                 <div className="headerLeft">
-        //                     <Link to="/login">Logo Goes Here</Link>
-        //                 </div>
-        //                 <div className="headerRight">
-        //                     <nav>
-        //                         <ul className="r-nav">
-        //                             <li><Link to="/trading/ETH_BTC">Trade</Link></li>
-        //                             <li className="hasLoginBtn">{link}</li>
-        //                         </ul>
-        //                     </nav>
-        //                 </div>
-        //             </div>
-        //         </Container>
-        //     </ div>
-        // )
     }
 }
-
 
 export default Header
