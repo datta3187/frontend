@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import {Dimmer, Loader} from "semantic-ui-react";
+import { Dimmer, Loader } from "semantic-ui-react";
 import * as Api from "../../api/remoteApi";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 
 class EmailConfirmation extends Component {
@@ -14,9 +14,9 @@ class EmailConfirmation extends Component {
 
     componentDidMount = () => {
         let api_url = 'identity/users/email/confirm_code';
-        let payload = this.props.match.params.token;
-        Api.remoteApi(api_url, 'POST', payload )
-        // loginApi.verifyEmail(this.props.match.params.token)
+        let payload = {}
+        payload["token"] = this.props.match.params.token;
+        Api.remoteApi(api_url, 'POST', payload)
             .then(res => {
                 this.setState({ loading: false });
                 this.props.history.push("/login");
