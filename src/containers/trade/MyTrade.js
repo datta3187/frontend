@@ -22,6 +22,8 @@ class ConnectMyTrade extends Component {
 
     handleData(data){
         let result = JSON.parse(data);
+        debugger
+        
         console.log('Private trades => :', result['trade']);
 
         // To do later format data coming from socket
@@ -52,8 +54,8 @@ class ConnectMyTrade extends Component {
                 <Websocket url={this.path()}
                            onMessage={this.handleData}/>
                 {
-                    this.props.trades.length == 0 ?
-                        <div> No trades </div>
+                    this.props.trades.length === 0 ?
+                        <div> No trades</div>
                         :
                         <Table
                             width={310}
