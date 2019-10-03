@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
-import reduxState from "./contactReducer";
 import { connectRouter } from "connected-react-router";
+
+import socketReducer from "./socketReducer";
+
 
 export default history =>
   combineReducers({
     router: connectRouter(history),
-    reduxState: reduxState
+    tradeState: socketReducer
   });

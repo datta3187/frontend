@@ -34,7 +34,6 @@ class OrderBook extends Component {
                 },
                 { menuItem: 'Tab 2', render: () =>
                         <Tab.Pane>
-
                             <BidOrder height={630}  market={ this.props.market } />
                         </Tab.Pane>
                 },
