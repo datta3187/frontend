@@ -4,7 +4,8 @@ import './header.scss'
 import { Container, Icon, Menu, Segment, Image} from 'semantic-ui-react';
 import Auth from './Auth'
 import signin_img from "../images/signin.svg"
-import signout_img from "../images/signout.svg"
+import signup_img from "../images/signup.svg"
+import signout_img from "../images/logout.svg"
 
 const auth = new Auth();
 const IconNav = () => <Icon link  className='navBtn' name='bars' />
@@ -38,32 +39,46 @@ class Header extends Component {
                     </div>
 
                     <div className={ this.state.is_open ? "ui visible left wide sidebar sideNav displayActive":"displayInactive"}>
-                        <div className="childDiv">
-                            {
-                                !(this.state.isLoggedIn)? (
+                        <div className="childDiv">   
+                            { 
+                                !this.state.isLoggedIn && 
                                     <div>
                                         <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                             <Image src={signin_img} />
                                             <Link to="/login">Sign In</Link>
                                         </div>
                                         <div className={this.props.activePath == 'register' ? 'sideNavChild route-selected' : 'sideNavChild'}>
-                                            <Image src={signout_img} />
+                                            <Image src={signup_img} />
                                             <Link to="/Register">Sign Up</Link>
                                         </div>
                                     </div>
-                                ) : (
-                                        <div className='sideNavChild'>
-                                            <Image src={signout_img} />
-                                            <Link to="/logout">Logout</Link>
-                                        </div>
-                                    )
-                            }
+                            }   
                             
                             <div className={this.props.activePath == 'trade' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                 <Icon name="signal" />
                                 <Link to="/trading/ETH_BTC">Trade</Link>
                             </div>
+
+                            { 
+                                this.state.isLoggedIn && 
+                                    <div className={this.props.activePath == 'trade' ? 'sideNavChild route-selected' : 'sideNavChild'}>
+                                        <Icon name="signal" />
+                                        <Link to="/wallet">Trade</Link>
+                                    </div>
+
+                            }
+
                         </div>
+
+                        { 
+                            this.state.isLoggedIn && 
+                                <div className='sideNavChild'>
+                                    <Image src={signout_img} />
+                                    <Link to="/logout">Logout</Link>
+                                </div>
+                        }
+                        
+
                     </div>
                 </Container>
             </div>
