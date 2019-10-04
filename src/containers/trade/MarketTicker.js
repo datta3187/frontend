@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import "./css/exchange.scss";
 
 class MarketTicker extends Component{
+    constructor(props){
+        super(props);
+    }
     render(){
         return(
             <div>
-                Hello
+                Hello {this.props.quote} here
             </div>
         )
     }
