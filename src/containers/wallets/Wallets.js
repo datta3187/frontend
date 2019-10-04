@@ -46,7 +46,7 @@ class Wallets extends Component {
         return(
             <div>
                 {/*<Header />*/}
-                <Header abc="exchangeHdr"/>
+                <Header abc="exchangeHdr" activePath='wallets'/>
                 <ToastContainer
                     enableMultiContainer
                     position={toast.POSITION.TOP_RIGHT}

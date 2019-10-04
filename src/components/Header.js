@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Link, Button } from 'react-router-dom'
 import './header.scss'
-import { Container, Icon, Menu, Segment, Image} from 'semantic-ui-react';
+import { Container, Icon, Image } from 'semantic-ui-react';
 import Auth from './Auth'
-import signin_img from "../images/signin.svg"
-import signout_img from "../images/signout.svg"
 
 const auth = new Auth();
-const IconNav = () => <Icon link  className='navBtn' name='bars' />
+const IconNav = () => <Icon link className='navBtn' name='bars' />
 
 class Header extends Component {
     constructor(props) {
@@ -18,7 +16,7 @@ class Header extends Component {
         }
     }
 
-    openLeftNav =()=> {
+    openLeftNav = () => {
         this.setState({
             is_open: !this.state.is_open
         })
@@ -37,33 +35,53 @@ class Header extends Component {
                         </div>
                     </div>
 
-                    <div className={ this.state.is_open ? "ui visible left wide sidebar sideNav displayActive":"displayInactive"}>
-                        <div className="childDiv">
+                    <div className={this.state.is_open ? 'ui visible left wide sidebar sideNav displayActive' : 'displayInactive'}>
+                        <div className='childDiv'>
                             {
-                                !(this.state.isLoggedIn)? (
-                                    <div>
-                                        <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
-                                            <Image src={signin_img} />
-                                            <Link to="/login">Sign In</Link>
-                                        </div>
-                                        <div className={this.props.activePath == 'register' ? 'sideNavChild route-selected' : 'sideNavChild'}>
-                                            <Image src={signout_img} />
-                                            <Link to="/Register">Sign Up</Link>
-                                        </div>
+                                !this.state.isLoggedIn &&
+                                <div>
+                                    <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
+                                        <Image src={require('../images/signin.svg')} />
+                                        <Link to="/login">Sign In</Link>
                                     </div>
-                                ) : (
-                                        <div className='sideNavChild'>
-                                            <Image src={signout_img} />
-                                            <Link to="/logout">Logout</Link>
-                                        </div>
-                                    )
+                                    <div className={this.props.activePath == 'register' ? 'sideNavChild route-selected' : 'sideNavChild'}>
+                                        <Image src={require('../images/signup.svg')} />
+                                        <Link to="/Register">Sign Up</Link>
+                                    </div>
+                                </div>
                             }
-                            
+
                             <div className={this.props.activePath == 'trade' ? 'sideNavChild route-selected' : 'sideNavChild'}>
-                                <Icon name="signal" />
+                                <Image src={require('../images/trade.svg')} />
                                 <Link to="/trading/ETH_BTC">Trade</Link>
                             </div>
+
+                            {
+                                this.state.isLoggedIn && (
+                                    <React.Fragment>
+                                        <div className={this.props.activePath == 'wallets' ? 'sideNavChild route-selected' : 'sideNavChild'}>
+                                            <Image src={require('../images/wallet.svg')} />
+                                            <Link to="/wallets">Wallets</Link>
+                                        </div>
+                                        <div className={this.props.activePath == 'orders' ? 'sideNavChild route-selected' : 'sideNavChild'}>
+                                            <Image src={require('../images/orders.svg')} />
+                                            <Link to="/wallets">Orders</Link>
+                                        </div>
+                                    </React.Fragment>
+                                )
+                            }
+
                         </div>
+
+                        {
+                            this.state.isLoggedIn &&
+                            <div className='sideNavChild'>
+                                <Image src={require('../images/logout.svg')} />
+                                <Link to="/logout">Logout</Link>
+                            </div>
+                        }
+
+
                     </div>
                 </Container>
             </div>
