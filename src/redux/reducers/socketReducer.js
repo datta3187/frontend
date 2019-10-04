@@ -1,4 +1,4 @@
-import {MARKET_TRADE, MY_TRADE, TRADE_LIMIT} from "../actions/actionTypes";
+import {MARKET_TRADE, MY_TRADE, TRADE_LIMIT} from "../constants/actions";
 
 
 const initialState = {
