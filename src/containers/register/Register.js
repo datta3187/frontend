@@ -170,7 +170,7 @@ class Register extends Component {
                         </Dimmer>
                     )}
 
-                    <Header />
+                    <Header activePath='register'/>
                     <Container className="boxWithShadow userForms">
                         <div className="userFormHeader">
                             <h1>Sign Up</h1>
