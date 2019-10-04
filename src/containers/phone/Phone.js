@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { Container, Button, Step, Icon } from 'semantic-ui-react';
 import { Form, Input, Dropdown } from 'semantic-ui-react-form-validator';
 
-import { toast } from "react-toastify"
+import { toast } from 'react-toastify';
 
-import Footer from '../../components/Footer'
-import Header from '../../components/Header'
-import LoginGuard from "../../components/loginGuard/LoginGuard";
-import * as Api from "../../api/remoteApi";
-import countryCodes from "./CountryCodes";
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import LoginGuard from '../../components/loginGuard/LoginGuard';
+import * as Api from '../../api/remoteApi';
+import countryCodes from './CountryCodes';
 import './phone.scss'
-import * as CustomError from "../../api/handleError";
+import * as CustomError from '../../api/handleError';
 
-import Auth from "../../components/Auth";
+import Auth from '../../components/Auth';
 
 const auth = new Auth();
 
@@ -159,7 +159,7 @@ export class Phone extends Component {
                                         icon="phone"
                                         iconPosition="left"
                                         placeholder="Phone Number"
-                                        onChange={this.setFormValue.bind(this, "number")}
+                                        onChange={this.setFormValue.bind(this, 'number')}
                                         value={this.state.fields.number}
                                         validators={['required']}
                                         errorMessages={['this field is required']}
@@ -177,7 +177,7 @@ export class Phone extends Component {
                                                 iconPosition="left"
                                                 type="number"
                                                 placeholder="OTP"
-                                                onChange={this.setFormValue.bind(this, "verification_code")}
+                                                onChange={this.setFormValue.bind(this, 'verification_code')}
                                                 value={this.state.fields.verification_code}
                                                 validators={['required']}
                                                 errorMessages={['this field is required']}

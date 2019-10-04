@@ -1,0 +1,52 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": true,
+    "ecmaFeatures": {
+      "jsx": true,
+    }
+  },
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "browser": true
+  },
+  "extends": [
+    "react-app",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-console": "off"
+  },
+  "globals": {
+    "require": true
+  },
+  "settings": {
+    "react": {
+      "version": "16.10.1",
+    }
+  }
+}
