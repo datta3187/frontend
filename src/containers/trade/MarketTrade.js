@@ -3,6 +3,10 @@ import { Column, Table } from 'react-virtualized'
 import { addMarketTrade } from '../../redux/actions/socketAction'
 import 'react-virtualized/styles.css'
 import "./css/exchange.scss";
+import Websocket from 'react-websocket';
+import * as formatter from './Formatter'
+import config from '../../config'
+
 import { connect } from 'react-redux';
 
 
