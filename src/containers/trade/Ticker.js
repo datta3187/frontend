@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Checkbox} from "semantic-ui-react";
 import "./css/exchange.scss";
-import * as formatter from './Formatter'
+import * as formatter from '../../utils/Formatter'
 import Websocket from 'react-websocket';
 import config from "../../config";
 

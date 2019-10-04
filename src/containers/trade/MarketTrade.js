@@ -4,7 +4,7 @@ import { addMarketTrade } from '../../redux/actions/socketAction'
 import 'react-virtualized/styles.css'
 import "./css/exchange.scss";
 import Websocket from 'react-websocket';
-import * as formatter from './Formatter'
+import * as formatter from '../../utils/Formatter'
 import config from '../../config'
 
 import { connect } from 'react-redux';

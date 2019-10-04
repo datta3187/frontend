@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import config from "../../config";
 import "./css/exchange.scss";
 import Websocket from 'react-websocket';
-import * as formatter from './Formatter'
+import * as formatter from '../../utils/Formatter'
 import {Tab, List} from "semantic-ui-react";
 import * as Api from "../../api/remoteApi";
 import MarketTicker from './MarketTicker'

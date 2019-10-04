@@ -6,7 +6,7 @@ import { addMyTrade } from '../../redux/actions/socketAction'
 import 'react-virtualized/styles.css'
 import "./css/exchange.scss";
 import Websocket from 'react-websocket';
-import * as formatter from './Formatter'
+import * as formatter from '../../utils/Formatter'
 
 import { connect } from 'react-redux';
 
