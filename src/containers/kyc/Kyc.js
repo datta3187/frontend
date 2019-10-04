@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 import LoginGuard from "../../components/loginGuard/LoginGuard";
 import { Redirect } from "react-router";
 import * as CustomError from "../../api/handleError";
-import Auth from '../../components/Auth'
+import Auth from '../../components/Auth';
+import Moment from 'moment';
+
 
 const auth = new Auth();
 
@@ -37,17 +39,9 @@ class Kyc extends Component {
             fields: {
                 doc_type: '',
                 doc_number: '',
-                doc_expire: '',
-                upload: ''
-            },
-            errors: {
-                doc_type: '',
-                doc_number: '',
-                doc_expire: '',
-                upload: null,
+                doc_expire: ''
             },
             upload: [],
-
             loading: false,
         }
     }
@@ -69,34 +63,36 @@ class Kyc extends Component {
     }
 
     onFileUploadChange = (e) => {
-        // const formData = new FormData();
-        // formData.append
-        // var file = e.target.files[0];
-        // this.setState(prevState => ({
-        //     upload: [...prevState.upload, file]
-        // }));
+
         this.setState({ upload: e.target.files[0] });
+
+        let files = e.target.files;
+        let size = 2000000;
+        let err = [];
+        const types = ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'];
+        for(let x = 0; x<files.length; x++) {
+            if (files[x].size > size) {
+                err[x] = files[x].type+'is too large, please pick a smaller file\n';
+            }
+            if (types.every(type => (files[x].type !== type))) {
+                err[x] = files[x].type+' is not a supported format\n';
+                // assign message to array
+            }
+        };
+        for(let z = 0; z<err.length; z++) { // loop create toast message
+            e.target.value = null
+            toast.error(err[z])
+        }
+        return true;
     };
-
-    handleChangeDocExpire = (event, { name, value }) => {
-        // if (this.state.hasOwnProperty(name)) {
-        this.setState({ [name]: value });
-        this.setState(prevState => {
-            let fields = Object.assign({}, prevState.fields);  // creating copy of state variable jasper
-            fields.doc_expire = value;                     // update the name property, assign a new value
-            return { fields: fields };                                 // return new object jasper object
-        })
-        // }
-    }
-
 
     dropdownChange = (e, { name, value }) => {
         this.setState({ [name]: value });
 
         this.setState(prevState => {
-            let fields = Object.assign({}, prevState.fields);  // creating copy of state variable jasper
+            let fields = Object.assign({}, prevState.fields);
             fields[name] = value;
-            return { fields: fields };                                 // return new object jasper object
+            return { fields: fields };
         })
     }
 
@@ -107,20 +103,12 @@ class Kyc extends Component {
     }
 
     submitKyc = e => {
-        e.preventDefault()
+        e.preventDefault();
         let formData = new FormData(); //formdata
         formData.append('doc_type', this.state.fields.doc_type)
         formData.append('doc_number', this.state.fields.doc_number)
         formData.append('doc_expire', this.state.fields.doc_expire)
         formData.append('upload', this.state.upload)
-
-        // const formData = new FormData();
-        // formData.append('doc_type',this.state.fields.doc_type)
-        // formData.append('doc_number',this.state.fields.doc_number)
-        // formData.append('doc_expire',this.state.fields.doc_expire)
-        // this.state.upload.map(function(file){
-        //     formData.append('upload', file)
-        // })
 
         Api.onKyc(formData)
             .then(res => {
@@ -194,7 +182,7 @@ class Kyc extends Component {
                                         type="text"
                                         placeholder="Document Number"
                                         onChange={this.setFormValue.bind(this, "doc_number")}
-                                        value={this.state.fields.doc_number}
+                                        value={this.state.fields.doc_number.toUpperCase()}
                                         validators={['required']}
                                         errorMessages={['this field is required']}
                                     />
@@ -211,8 +199,11 @@ class Kyc extends Component {
                                                     name="doc_expire"
                                                     iconPosition='left'
                                                     placeholder="yy/mm/dd"
+                                                    onChange={this.dropdownChange}
+                                                    minDate={Moment().toDate()}
                                                     value={this.state.fields.doc_expire}
-                                                    onChange={this.handleChangeDocExpire}
+                                                    validators={['required']}
+                                                    errorMessages={['this field is required']}
                                                 />
                                             </div>
                                         </div>
@@ -226,13 +217,11 @@ class Kyc extends Component {
                                         placeholder="Upload Document"
                                         value={this.state.upload.filename}
                                         onChange={this.onFileUploadChange}
-                                    // validators={['required']}
-                                    // errorMessages={['this field is required']}
-                                    // allowedExtensions={['jpeg']}
+                                        // validators={['isValidExtension']}
+                                        // errorMessages={['hello ']}
                                     />
                                 </div>
                             </div>
-
                             <Button>Submit</Button>
                         </Form>
                     </Container>

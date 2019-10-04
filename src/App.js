@@ -13,8 +13,10 @@ import Exchange from './containers/trade/Exchange'
 import Profile from './containers/profile/Profile'
 import Setting from './containers/setting/Setting'
 import Phone from './containers/phone/Phone'
+import Wallets from './containers/wallets/Wallets'
 import {toast, ToastContainer} from "react-toastify";
 import NotFound from "./containers/errors/NotFound";
+import DocumentList from './containers/kyc/DocumentList'
 
 class App extends Component {
   render() {
@@ -29,11 +31,13 @@ class App extends Component {
             <Route path="/email-verification" exact component={EmailVerify} />
             <Route path="/profile" component={Profile} />
             <Route path="/kyc" component={Kyc} />
+            <Route path="/documents" component={DocumentList} />
             <Route path="/trading/:market" component={Exchange} />
             <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
             <Route path="/password-reset/:token" exact component={ResetPassword} />
             <Route path="/logout" exact component={Logout} />
             <Route path="/settings" component={Setting} />
+            <Route path="/wallets" component={Wallets} />
             <Route component={NotFound}/>
           </Switch>
           <ToastContainer

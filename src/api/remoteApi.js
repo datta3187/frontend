@@ -11,7 +11,7 @@ export const remoteApi = (api_url, method_type, payload = 'undefined', base_url 
         }
     };
 
-    if (typeof payload !== "undefined" && method_type.toUpperCase() === "POST") {
+    if (typeof payload !== "undefined" && method_type.toUpperCase() !== "GET") {
         others = Object.assign({}, others, { data: payload })
     }
 

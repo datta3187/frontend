@@ -6,12 +6,12 @@ const auth = new Auth()
 
 export const handle = error => {
     if (error.response) {
-        console.log(error)
+        console.log(error);
         const err = error.response.data.errors[0]
         toast.error(err);
         if (err === 'authz.invalid_session') {
             auth.logout()
-            this.props.history.push("/");
+            // this.props.history.push("/");
         }
     }
     else {

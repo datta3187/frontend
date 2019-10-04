@@ -172,7 +172,7 @@ class Login extends Component {
                     if (config.captchaPolicy) {
                         this.recaptcha.reset();
                     }
-
+                    CustomError.handle(error);
                 });
         } else {
             this.setState({ loading: false });

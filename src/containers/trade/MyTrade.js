@@ -6,7 +6,7 @@ import { addMyTrade } from '../../redux/actions/socketAction'
 import 'react-virtualized/styles.css'
 import "./css/exchange.scss";
 import Websocket from 'react-websocket';
-import * as formatter from './Formatter'
+import * as formatter from '../../utils/Formatter'
 
 import { connect } from 'react-redux';
 
@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 class ConnectMyTrade extends Component {
     constructor(props){
         super(props);
-        console.log('Trades =>', this.props.trades.length);
 
         this.handleData = this.handleData.bind(this);
     }
@@ -23,7 +22,7 @@ class ConnectMyTrade extends Component {
     handleData(data){
         let result = JSON.parse(data);
         debugger
-        
+
         console.log('Private trades => :', result['trade']);
 
         // To do later format data coming from socket
@@ -55,7 +54,7 @@ class ConnectMyTrade extends Component {
                            onMessage={this.handleData}/>
                 {
                     this.props.trades.length === 0 ?
-                        <div> No trades</div>
+                        <div> No trade</div>
                         :
                         <Table
                             width={310}
