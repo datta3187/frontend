@@ -27,7 +27,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 20px;
 
   .headerLeft {
     display: flex;
@@ -224,7 +224,7 @@
 
 .sideNav {
   color: #fff;
-  top: 68px !important;
+  top: 93px !important;
   width: 320px !important;
   background: #132447;
 }
@@ -275,4 +275,5 @@
 
 .childDiv {
   border-bottom: 1px solid #737f92 !important;
+  padding-bottom: 11px;
 }
