@@ -31,7 +31,7 @@ class ChangePassword extends Component {
         console.log("data :" + this.state.fields);
         Api.remoteApi(api_url, 'put', this.state.fields)
             .then(res => {
-                this.setState({ isOpen: false })
+                this.props.closeModal();
                 toast.success("Password changed successfully");
             })
             .catch(error => {
@@ -55,30 +55,30 @@ class ChangePassword extends Component {
                     <Modal.Content>
                         <Modal.Description >
                             <Form onSubmit={this.changePassword}>
-                                <Input
-                                    label="Old Password"
-                                    type="password"
-                                    onChange={this.setFormValue.bind(this, "old_password")}
-                                    value={this.state.fields.old_password}
-                                    validators={['required']}
-                                    errorMessages={['Enter your old password']}
-                                />
-                                <Input
-                                    label="New Password"
-                                    type="password"
-                                    onChange={this.setFormValue.bind(this, "new_password")}
-                                    value={this.state.fields.new_password}
-                                    validators={['required']}
-                                    errorMessages={['Enter your password']}
-                                />
-                                <Input
-                                    label="Confirm Password"
-                                    type="password"
-                                    onChange={this.setFormValue.bind(this, "confirm_password")}
-                                    value={this.state.fields.confirm_password}
-                                    validators={['required']}
-                                    errorMessages={['Enter your confirm password']}
-                                />
+                                    <Input
+                                        label="Old Password"
+                                        type="password"
+                                        onChange={this.setFormValue.bind(this, "old_password")}
+                                        value={this.state.fields.old_password}
+                                        validators={['required']}
+                                        errorMessages={['Enter your old password']}
+                                    />
+                                    <Input
+                                        label="New Password"
+                                        type="password"
+                                        onChange={this.setFormValue.bind(this, "new_password")}
+                                        value={this.state.fields.new_password}
+                                        validators={['required']}
+                                        errorMessages={['Enter your password']}
+                                    />
+                                    <Input
+                                        label="Confirm Password"
+                                        type="password"
+                                        onChange={this.setFormValue.bind(this, "confirm_password")}
+                                        value={this.state.fields.confirm_password}
+                                        validators={['required']}
+                                        errorMessages={['Enter your confirm password']}
+                                    />
                                 <Button className="resetButton" primary>Submit</Button>
                             </Form>
                         </Modal.Description>
