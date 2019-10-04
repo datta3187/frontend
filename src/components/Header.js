@@ -68,7 +68,6 @@ class Header extends Component {
                 </Container>
             </div>
         )
-
     }
 }
 
