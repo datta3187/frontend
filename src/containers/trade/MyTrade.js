@@ -89,7 +89,7 @@ class ConnectMyTrade extends Component {
 }
 
 const mapStateToProps = state => {
-    return { trades: state.tradeState.my_trades }
+    return { trades: state.tradeState.myTrades }
 }
 
 function mapDispatchToProps(dispatch){

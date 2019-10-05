@@ -1,9 +1,10 @@
-import {MARKET_TRADE, MY_TRADE, TRADE_LIMIT} from "../constants/actions";
+import {MARKET_TRADE, MY_TRADE, TRADE_LIMIT, GLOBAL_TICKERS} from "../constants/actions";
 
 
 const initialState = {
     trades: getTrades('market_trades'),
-    my_trades: getTrades('my_trades')
+    myTrades: getTrades('my_trades'),
+    globalTickers: {}
 
 }
 
@@ -15,7 +16,11 @@ function socketReducer(state= initialState, action){
             });
         case MY_TRADE:
             return Object.assign({}, state, {
-                my_trades: Array.prototype.concat(action.data,  state.my_trades).slice(0,TRADE_LIMIT)
+                myTrades: Array.prototype.concat(action.data,  state.myTrades).slice(0,TRADE_LIMIT)
+            });
+        case GLOBAL_TICKERS:
+            return Object.assign({}, state, {
+                globalTickers: action.data
             });
         default:
             return state;

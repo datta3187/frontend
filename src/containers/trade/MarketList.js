@@ -5,6 +5,8 @@ import Websocket from 'react-websocket';
 import {Tab, List} from "semantic-ui-react";
 import * as Api from "../../api/remoteApi";
 import MarketTicker from './MarketTicker'
+import { connect } from 'react-redux';
+import {globalTickers} from "../../redux/actions/socketAction";
 
 
 const MarketInfo= (props) => {
@@ -17,12 +19,12 @@ const MarketInfo= (props) => {
     )
 }
 
-class MarketList extends Component {
+class ConnectMarketList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             panes: [],
-            tickers: []
+            tickers: {}
         }
     }
 
@@ -53,6 +55,7 @@ class MarketList extends Component {
         let result = JSON.parse(data);
         if(typeof result['global.tickers'] !== 'undefined'){
             this.setState({tickers: result["global.tickers"] })
+            this.props.addGlobalTickers(this.state.tickers);
         }
     }
 
@@ -68,4 +71,15 @@ class MarketList extends Component {
     }
 }
 
+// const mapStateToProps = state => {
+//     return { trades: state.tradeState.trades }
+// }
+
+function mapDispatchToProps(dispatch){
+    return {
+        addGlobalTickers: (payload) => dispatch(globalTickers(payload))
+    }
+}
+
+const MarketList= connect(null, mapDispatchToProps)(ConnectMarketList)
 export default MarketList;
