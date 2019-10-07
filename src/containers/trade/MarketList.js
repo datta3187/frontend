@@ -65,7 +65,7 @@ class ConnectMarketList extends Component {
                 <Websocket url={this.path()}
                            onMessage={this.handleData.bind(this)} />
 
-               <Tab panes={this.state.panes} />
+                <Tab panes={this.state.panes} />
             </div>
         )
     }

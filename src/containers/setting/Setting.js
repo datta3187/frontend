@@ -246,7 +246,7 @@ export class Setting extends Component {
 
                 {/*Google auth enable modal*/}
                 <Modal size="small" open={this.state.isParentOpen} className="forgotPasswordModal">
-                    <a className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" className="close link icon"></i></a>
+                    <a href='javascript:void(0)' className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" className="close link icon"></i></a>
                     <Modal.Header>
                         <h3>{this.state.googleAuth ? 'Disable' : 'Enable'} Google Authentication</h3>
                     </Modal.Header>
