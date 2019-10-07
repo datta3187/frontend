@@ -30,9 +30,8 @@ class App extends Component {
         const { isFetching, user } = this.props;
         let isAuthenticated = false;
         if (user) {
-            isAuthenticated = user.email && user.state === "active";
+            isAuthenticated = user.email && user.state === 'active';
         }
-
         return (
             <div className="App">
                 <Switch>
