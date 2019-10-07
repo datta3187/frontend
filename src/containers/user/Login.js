@@ -9,14 +9,11 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 import 'react-toastify/dist/ReactToastify.css';
 import config from '../../config';
 import ReCAPTCHA from 'react-google-recaptcha';
-import LogoutGuard from '../../components/logoutGuard/LogoutGuard';
-import Auth from '../../components/Auth';
 import * as Api from '../../api/remoteApi';
 import * as CustomError from '../../api/handleError';
-import { fetchLogin } from '../../redux/actions/auth';
+import { fetchLogin, resetFailLogin } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
 
-const auth = new Auth();
 
 class Login extends Component {
     constructor(props) {
@@ -150,52 +147,13 @@ class Login extends Component {
 
     signInWithPeatio = e => {
         e.preventDefault();
-        // this.setState({ loading: true });
+        this.setState({ loading: true });
         if (this.handleValidation()) {
-
-
-            console.log(this.props);
-
-            this.props.fetchLogin(this.state.fields.email, this.state.fields.password);
-
-
-
-            // let api_url = 'identity/sessions';
-            // let payload = this.state.fields;
-            // Api.remoteApi(api_url, 'POST', payload)
-            //   .then(res => {
-            //     if (res.state === 'pending') {
-            //       toast.error('e-mail verification pending');
-            //     } else {
-            //       auth.setUser(res);
-            //       auth.fetchProfile();
-            //       auth.fetchPhones();
-            //       auth.fetchDocuments();
-            //       this.setState({ loading: false });
-
-            //       this.props.history.push(this.redirectUrl());
-            //       toast.success('Logged In Successfully');
-            //     }
-            //   })
-            //   .catch(error => {
-            //     this.setState({ loading: false });
-            //     if (config.captchaPolicy) {
-            //       this.recaptcha.reset();
-            //     }
-
-            //   });
-        } else {
-            this.setState({ loading: false });
+            this.props.fetchLogin(this.state.fields.email,
+                this.state.fields.password,
+                this.state.fields.captcha_response);
         }
-    };
-
-    redirectUrl = () => {
-        const user = auth.getUser();
-        if (user.level === 1) {
-            return '/phone';
-        } else {
-            return '/settings';
-        }
+        this.setState({ loading: false });
     };
 
     forgotPassword = e => {
@@ -230,8 +188,12 @@ class Login extends Component {
     };
 
     render() {
+        if (config.captchaPolicy && this.props.error) {
+            this.recaptcha.reset();
+            this.props.resetFailLogin();
+        }
+
         return (
-            //    <LogoutGuard>
             <div>
                 {this.state.loading && (
                     <Dimmer active>
@@ -332,7 +294,6 @@ class Login extends Component {
                 </Modal>
 
             </div >
-            //  </LogoutGuard>
         );
     }
 }
@@ -345,7 +306,10 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchLogin: (email, password) => dispatch(fetchLogin(email, password))
+        fetchLogin: (email, password, captcha_response) =>
+            dispatch(fetchLogin(email, password, captcha_response)),
+
+        resetFailLogin: () => dispatch(resetFailLogin())
     };
 };
 
