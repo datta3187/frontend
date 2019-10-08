@@ -2,7 +2,7 @@ import axios from 'axios';
 import config from '../config';
 
 export const remoteApi = (api_url, method_type, payload = 'undefined', base_url = 'barong') => {
-    const URL = (base_url == 'barong' ? config.apiUrl : config.peatioUrl);
+    const URL = (base_url === 'barong' ? config.apiUrl : config.peatioUrl);
 
     let others = {
         method: method_type.toUpperCase(),

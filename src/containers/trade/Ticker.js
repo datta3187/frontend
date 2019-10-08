@@ -4,8 +4,9 @@ import "./css/exchange.scss";
 import * as formatter from '../../utils/Formatter'
 import Websocket from 'react-websocket';
 import config from "../../config";
+import {connect} from "react-redux";
 
-class Ticker extends Component{
+class connectedTicker extends Component{
 
     constructor(props) {
         super(props);
@@ -70,5 +71,12 @@ class Ticker extends Component{
         )
     }
 }
+
+
+const mapStateToProps = state => {
+    return { market: state.trade.market }
+}
+
+const Ticker = connect(mapStateToProps)(connectedTicker)
 
 export default Ticker;

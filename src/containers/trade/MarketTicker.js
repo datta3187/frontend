@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {Tab} from "semantic-ui-react/dist/commonjs/modules/Tab";
 import { Column, Table } from 'react-virtualized';
 import 'react-virtualized/styles.css';
-import { Grid } from 'semantic-ui-react'
 
 class ConnectedMarketTicker extends Component{
     constructor(props){
@@ -15,8 +14,8 @@ class ConnectedMarketTicker extends Component{
             isVolume: false
         }
 
-        this._renderHeader = this._renderHeader.bind(this)
-        this._renderRow = this._renderRow.bind(this)
+        this._renderHeader = this._renderHeader.bind(this);
+        this._renderRow = this._renderRow.bind(this);
     }
     componentDidMount() {
         this.setState({tickers: Object.values(this.props.allTickers)});

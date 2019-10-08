@@ -41,4 +41,8 @@ function getTrades(key){
     }
 }
 
+function getTicker(market){
+
+}
+
 export default socketReducer;

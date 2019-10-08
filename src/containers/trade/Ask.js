@@ -1,0 +1,45 @@
+import React from 'react'
+import { Button, Checkbox, Form } from 'semantic-ui-react'
+
+export const AskLimit =() => {
+        return (
+                <Form>
+                    <div>
+                        <span>Sell ETH</span> &nbsp;  &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;
+                        <span> 100.4050 ETH</span>
+                    </div>
+                    <Form.Field>
+                        <label>First Name</label>
+                        <input placeholder='First Name' />
+                    </Form.Field>
+                    <Form.Field>
+                        <label>Last Name</label>
+                        <input placeholder='Last Name' />
+                    </Form.Field>
+                    <Button type='submit' style={{color: 'white', background: '#ea0070' }}>Sell ETH</Button>
+                </Form>
+        )
+}
+
+export const AskMarket =() => {
+    return (
+            <Form>
+                <div>
+                    <span>Sell ETH</span> &nbsp;  &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;
+                    <span> 100.4050 ETH</span>
+                </div>
+                <Form.Field>
+                    <label>Price</label>
+                    <input placeholder='First Name' />
+                </Form.Field>
+                <Form.Field>
+                    <label>Amount</label>
+                    <input placeholder='Last Name' />
+                </Form.Field>
+                <Button type='submit' style={{color: 'white', background: '#ea0070' }}>Sell ETH</Button>
+            </Form>
+    )
+}
+

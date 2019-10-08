@@ -93,9 +93,11 @@ export default class Auth {
         let api_url = 'resource/users/me';
         return Api.remoteApi(api_url, 'get', {})
             .then(res => {
+                debugger
                 this.setUser(res);
             })
             .catch(error => {
+                debugger
                 console.log(error)
             });
     };
