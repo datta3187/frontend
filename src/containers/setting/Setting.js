@@ -6,12 +6,11 @@ import Header from '../../components/Header'
 import ChangePassword from '../../components/change_password/ChangePassword'
 import * as Api from "../../api/remoteApi";
 import './setting.scss'
-// import LoginGuard from "../../components/loginGuard/LoginGuard";
-// import Auth from '../../components/Auth'
+import Auth from '../../components/Auth'
 import { Redirect } from "react-router";
 import * as CustomError from "../../api/handleError";
 
-// const auth = new Auth();
+const auth = new Auth();
 
 export class Setting extends Component {
 

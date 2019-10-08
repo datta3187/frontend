@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import LoginGuard from '../../components/loginGuard/LoginGuard';
 import * as Api from '../../api/remoteApi';
 import countryCodes from './CountryCodes';
 import './phone.scss'
@@ -102,104 +101,102 @@ export class Phone extends Component {
 
     render() {
         return (
-            <LoginGuard>
-                <div>
-                    <Header />
+            <div>
+                <Header />
 
-                    <Container className="boxWithShadow userForms phoneSection">
-                        <div className="userFormHeader">
-                            <h1>Phone</h1>
+                <Container className="boxWithShadow userForms phoneSection">
+                    <div className="userFormHeader">
+                        <h1>Phone</h1>
+                    </div>
+
+                    <Step.Group className="profileSepts">
+                        <Step active>
+                            <Icon name='phone' />
+                            <Step.Content>
+                                <Step.Title>Phone</Step.Title>
+                            </Step.Content>
+                        </Step>
+                        <Step>
+                            <Icon name='user' />
+                            <Step.Content>
+                                <Step.Title>Profile</Step.Title>
+                            </Step.Content>
+                        </Step>
+                        <Step>
+                            <Icon name='file' />
+                            <Step.Content>
+                                <Step.Title>KYC</Step.Title>
+                            </Step.Content>
+                        </Step>
+                    </Step.Group>
+
+                    <Form ref="form" onSubmit={this.state.on_form_save}>
+                        <div className="form-row">
+                            <div className="form-group ccDrop fw">
+                                <Dropdown
+                                    label="Country Code"
+                                    placeholder="Country Code"
+                                    name="country_code"
+                                    onChange={this.dropdownChange}
+                                    value={this.state.fields.country_code}
+                                    validators={['required']}
+                                    errorMessages={['You must select one option']}
+                                    options={countryCodes}
+                                    fluid
+                                    search
+                                    selection
+                                />
+                            </div>
                         </div>
 
-                        <Step.Group className="profileSepts">
-                            <Step active>
-                                <Icon name='phone' />
-                                <Step.Content>
-                                    <Step.Title>Phone</Step.Title>
-                                </Step.Content>
-                            </Step>
-                            <Step>
-                                <Icon name='user' />
-                                <Step.Content>
-                                    <Step.Title>Profile</Step.Title>
-                                </Step.Content>
-                            </Step>
-                            <Step>
-                                <Icon name='file' />
-                                <Step.Content>
-                                    <Step.Title>KYC</Step.Title>
-                                </Step.Content>
-                            </Step>
-                        </Step.Group>
-
-                        <Form ref="form" onSubmit={this.state.on_form_save}>
-                            <div className="form-row">
-                                <div className="form-group ccDrop fw">
-                                    <Dropdown
-                                        label="Country Code"
-                                        placeholder="Country Code"
-                                        name="country_code"
-                                        onChange={this.dropdownChange}
-                                        value={this.state.fields.country_code}
-                                        validators={['required']}
-                                        errorMessages={['You must select one option']}
-                                        options={countryCodes}
-                                        fluid
-                                        search
-                                        selection
-                                    />
-                                </div>
+                        <div className="form-row">
+                            <div className="form-group fw ph">
+                                <Input
+                                    label="Phone Number"
+                                    type="number"
+                                    icon="phone"
+                                    iconPosition="left"
+                                    placeholder="Phone Number"
+                                    onChange={this.setFormValue.bind(this, 'number')}
+                                    value={this.state.fields.number}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                />
                             </div>
+                        </div>
 
-                            <div className="form-row">
-                                <div className="form-group fw ph">
-                                    <Input
-                                        label="Phone Number"
-                                        type="number"
-                                        icon="phone"
-                                        iconPosition="left"
-                                        placeholder="Phone Number"
-                                        onChange={this.setFormValue.bind(this, 'number')}
-                                        value={this.state.fields.number}
-                                        validators={['required']}
-                                        errorMessages={['this field is required']}
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                {(this.state.show_otp_field) &&
-                                    <div className="form-row">
-                                        <div className="form-group fw otp-sec">
-                                            <Input
-                                                label="OTP"
-                                                icon="barcode"
-                                                iconPosition="left"
-                                                type="number"
-                                                placeholder="OTP"
-                                                onChange={this.setFormValue.bind(this, 'verification_code')}
-                                                value={this.state.fields.verification_code}
-                                                validators={['required']}
-                                                errorMessages={['this field is required']}
-                                            />
-                                            <a className="resOtp" href="javascript:void(0)" onClick={this.sendOtp}>Resend OTP</a>
-                                        </div>
-
+                        <div>
+                            {(this.state.show_otp_field) &&
+                                <div className="form-row">
+                                    <div className="form-group fw otp-sec">
+                                        <Input
+                                            label="OTP"
+                                            icon="barcode"
+                                            iconPosition="left"
+                                            type="number"
+                                            placeholder="OTP"
+                                            onChange={this.setFormValue.bind(this, 'verification_code')}
+                                            value={this.state.fields.verification_code}
+                                            validators={['required']}
+                                            errorMessages={['this field is required']}
+                                        />
+                                        <a className="resOtp" href="javascript:void(0)" onClick={this.sendOtp}>Resend OTP</a>
                                     </div>
-                                }
-                            </div>
 
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <Button>Save Number</Button>
                                 </div>
-                            </div>
+                            }
+                        </div>
 
-                        </Form>
-                    </Container>
-                    <Footer />
-                </div>
-            </LoginGuard>
+                        <div className="form-row">
+                            <div className="form-group">
+                                <Button>Save Number</Button>
+                            </div>
+                        </div>
+
+                    </Form>
+                </Container>
+                <Footer />
+            </div>
         )
     }
 }

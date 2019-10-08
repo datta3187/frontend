@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import Login from './user/Login';
-import Logout from './user/Logout';
 import Register from './register/Register';
 import EmailVerify from './register/EmailVerify';
 import EmailConfirmation from './emailConfirmation/EmailConfirmation';
@@ -30,9 +29,8 @@ class App extends Component {
         const { isFetching, user } = this.props;
         let isAuthenticated = false;
         if (user) {
-            isAuthenticated = user.email && user.state === "active";
+            isAuthenticated = user.email && user.state === 'active';
         }
-
         return (
             <div className="App">
                 <Switch>
@@ -41,14 +39,13 @@ class App extends Component {
                     <Route path="/trading/:market" component={Exchange} />
                     <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
                     <Route path="/password-reset/:token" exact component={ResetPassword} />
-                    <Route path="/logout" exact component={Logout} />
+                    <Route path="/register" exact component={Register} />
+                    <Route path="/email-verification" exact component={EmailVerify} />
 
                     <PrivateRoute path="/wallets" component={Wallets} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/settings" component={Setting} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/phone" component={Phone} isAuthenticated={isAuthenticated} isLoading={isFetching} />
-                    <PrivateRoute path="/register" component={Register} isAuthenticated={isAuthenticated} isLoading={isFetching} />
-                    <PrivateRoute path="/email-verification" exact component={EmailVerify} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/profile" component={Profile} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/kyc" component={Kyc} isAuthenticated={isAuthenticated} isLoading={isFetching} />
 

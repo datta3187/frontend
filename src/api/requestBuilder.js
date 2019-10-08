@@ -15,8 +15,10 @@ axiosInstance.interceptors.response.use(
         if (error.response.status === 401) {
             store.dispatch(fetchLogout()); //dispatch logout for each 401 Unauthorized
         }
-        return error;
+        if (error.response.data) {
+            const err = error.response.data.errors[0];
+            throw err;
+        }
     });
 
 export default axiosInstance;
-
