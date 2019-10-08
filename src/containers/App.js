@@ -17,7 +17,7 @@ import NotFound from './errors/NotFound';
 import { connect } from 'react-redux';
 import PrivateRoute from '../components/PrivateRoute';
 import { fetchUser } from '../redux/actions/user';
-import Wallets from './wallets/Wallets';
+import WalletPage from './WalletPage';
 import DocumentList from './kyc/DocumentList';
 
 
@@ -43,7 +43,7 @@ class App extends Component {
                     <Route path="/password-reset/:token" exact component={ResetPassword} />
                     <Route path="/logout" exact component={Logout} />
 
-                    <PrivateRoute path="/wallets" component={Wallets} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PrivateRoute path="/wallets" component={WalletPage}  />
                     <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/settings" component={Setting} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/phone" component={Phone} isAuthenticated={isAuthenticated} isLoading={isFetching} />

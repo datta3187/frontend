@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { Container, Tab } from 'semantic-ui-react'
-import Footer from '../../components/Footer'
+import React, { Component } from 'react';
+import { Container, Tab } from 'semantic-ui-react';
+import Footer from '../../components/Footer';
 import Header from "../../components/Header";
 import {toast, ToastContainer} from "react-toastify";
 import Funds from "../wallets/Funds";
@@ -36,9 +36,9 @@ class Wallets extends Component {
                     this.setState({loading: false});
                 }
                 else {
-                    toast.error("" + error);
+                    toast.error('' + error);
                 }
-            })
+            });
     }
 
 

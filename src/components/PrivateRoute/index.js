@@ -10,9 +10,9 @@ const PrivateRoute = ({ isAuthenticated, isLoading, ...props }) => {
         </Dimmer>;
     }
 
-    if (!isLoading && !isAuthenticated) {
-        return <Redirect to="/login" />;
-    }
+    // if (!isLoading && !isAuthenticated) {
+    //     return <Redirect to="/login" />;
+    // }
     return <Route {...props} />;
 };
 
