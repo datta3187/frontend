@@ -10,12 +10,12 @@ export const AskLimit =() => {
                         <span> 100.4050 ETH</span>
                     </div>
                     <Form.Field>
-                        <label>First Name</label>
-                        <input placeholder='First Name' />
+                        <label>Price</label>
+                        <input type="number" />
                     </Form.Field>
                     <Form.Field>
-                        <label>Last Name</label>
-                        <input placeholder='Last Name' />
+                        <label>Amount</label>
+                        <input type="number" />
                     </Form.Field>
                     <Button type='submit' style={{color: 'white', background: '#ea0070' }}>Sell ETH</Button>
                 </Form>
@@ -32,11 +32,11 @@ export const AskMarket =() => {
                 </div>
                 <Form.Field>
                     <label>Price</label>
-                    <input placeholder='First Name' />
+                    <input type="number" />
                 </Form.Field>
                 <Form.Field>
                     <label>Amount</label>
-                    <input placeholder='Last Name' />
+                    <input type="number" />
                 </Form.Field>
                 <Button type='submit' style={{color: 'white', background: '#ea0070' }}>Sell ETH</Button>
             </Form>

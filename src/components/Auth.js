@@ -74,7 +74,7 @@ export default class Auth {
                 this.setPhone(res);
             })
             .catch(error => {
-                console.log(error)
+                console.log(error);
             });
     };
 
