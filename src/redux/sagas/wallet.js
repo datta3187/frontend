@@ -40,7 +40,6 @@ export function* fetchWalletSaga() {
 
 // Saga sets active wallet
 function* setActiveWallet({ payload: { id } }) {
-  debugger
   yield put(push(`/wallets/deposit?currency=${id}`));
   const wallets = yield select(state => state.wallet.list);
   if (!wallets[id].address) {

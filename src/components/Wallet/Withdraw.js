@@ -6,6 +6,7 @@ class Withdraw extends Component {
     onClick = () => this.props.onClick();
 
     onChange = field => e => {
+        debugger
         if (field === 'amount' && !/^(\s*|\d+)$/.test(e.target.value.trim())) {
             return null;
         }
@@ -17,7 +18,7 @@ class Withdraw extends Component {
         debugger
 
         return (
-            <Grid container spacing={0}>
+            <Grid columns={3} relaxed='very'>
                 <Grid item xs={12} sm={5} >
                     <Input
                         label={`${currency.name} withdrawal address`}

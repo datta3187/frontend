@@ -41,7 +41,7 @@ class WalletPage extends Component {
         } = this.props;
 
         if (!Object.keys(wallets).length) return null;
-
+        debugger
         return(
             <div>
                 <Header abc="exchangeHdr"/>
@@ -53,35 +53,35 @@ class WalletPage extends Component {
                             setActiveWallet={setActiveWallet}
                             fetchWalletAddress={fetchWalletAddress}
                         />
-                        <WalletLayout location={location} activeWallet={activeWallet} wallets={wallets}>
-                            <Switch>
-                                <Route
-                                    path="/wallets/deposit"
-                                    render={() => (
-                                        <div>
-                                            <Deposit wallet={wallets[activeWallet]} />
-                                            {/*<History history={this.filterHistory(depositHistory)} />*/}
-                                        </div>
-                                    )}
-                                />
-                                <Route
-                                    path="/wallets/withdrawal"
-                                    render={() => (
-                                        <div>
-                                            <Withdraw
-                                                currency={wallets[activeWallet]}
-                                                onChange={handleChangeWithdraw}
-                                                rid={rid}
-                                                amount={amount}
-                                                otp={otp}
-                                                submitting={withdrawIsFetching}
-                                                onClick={fetchSubmitWithdraw}
-                                            />
-                                            <History history={this.filterHistory(withdrawHistory)} />
-                                        </div>
-                                    )}
-                                />
-                            </Switch>
+                        <WalletLayout location={location} activeWallet={activeWallet} wallets={wallets} other_withdraw_params={{handleChangeWithdraw: handleChangeWithdraw, rid: rid, amount: amount, otp: otp, withdrawIsFetching: withdrawIsFetching, fetchSubmitWithdraw: fetchSubmitWithdraw }}>
+                            {/*<Switch>*/}
+                                {/*<Route*/}
+                                    {/*path="/wallets/deposit"*/}
+                                    {/*render={() => (*/}
+                                        {/*<div>*/}
+                                            {/*<Deposit wallet={wallets[activeWallet]} />*/}
+                                            {/*/!*<History history={this.filterHistory(depositHistory)} />*!/*/}
+                                        {/*</div>*/}
+                                    {/*)}*/}
+                                {/*/>*/}
+                                {/*<Route*/}
+                                    {/*path="/wallets/withdrawal"*/}
+                                    {/*render={() => (*/}
+                                        {/*<div>*/}
+                                            {/*<Withdraw*/}
+                                                {/*currency={wallets[activeWallet]}*/}
+                                                {/*onChange={handleChangeWithdraw}*/}
+                                                {/*rid={rid}*/}
+                                                {/*amount={amount}*/}
+                                                {/*otp={otp}*/}
+                                                {/*submitting={withdrawIsFetching}*/}
+                                                {/*onClick={fetchSubmitWithdraw}*/}
+                                            {/*/>*/}
+                                            {/*/!*<History history={this.filterHistory(withdrawHistory)} />*!/*/}
+                                        {/*</div>*/}
+                                    {/*)}*/}
+                                {/*/>*/}
+                            {/*</Switch>*/}
                         </WalletLayout>
                     </div>
                 </Container>
@@ -91,7 +91,7 @@ class WalletPage extends Component {
 }
 
 function mapStateToProps(state){
-debugger
+    debugger
     return {
         wallets: state.wallet.list,
         activeWallet: state.wallet.activeWallet,

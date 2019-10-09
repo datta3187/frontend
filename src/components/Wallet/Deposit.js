@@ -26,25 +26,26 @@ const DepositView = ({ wallet: { name, address, balance, locked } }) => {
                     </p>
                 </Grid.Column>
 
-                {/*<Grid.column*/}
-                {/*>*/}
-                   {/*<p>Please send a payment using the generated deposit address below, Your deposit will be reflected in your account after blockchain confirmation.</p>*/}
-                {/*</Grid.column>*/}
-                {/*<fieldset >*/}
-                    {/*<legend>Deposit by wallet address</legend>*/}
-                    {/*{address || 'Not found'}*/}
-                {/*</fieldset>*/}
-                {/*<CopyToClipboard text={address}>*/}
-                    {/*<Button*/}
-                        {/*disabled={!address}*/}
-                    {/*>*/}
-                        {/*Copy*/}
-                    {/*</Button>*/}
-                {/*</CopyToClipboard>*/}
+                <Grid.Column>
+                   <p>Please send a payment using the generated deposit address below, Your deposit will be reflected in your account after blockchain confirmation.</p>
+                </Grid.Column>
+
+                <fieldset >
+                    <legend>Deposit by wallet address</legend>
+                    {address || 'Not found'}
+                </fieldset>
+
+                <CopyToClipboard text={address}>
+                    <Button
+                        disabled={!address}
+                    >
+                        Copy
+                    </Button>
+                </CopyToClipboard>
             </Grid>
-            {/*<Grid>*/}
-                {/*{address && <QRCode fgColor="#333333" size={300} value={address} />}*/}
-            {/*</Grid>*/}
+            <Grid>
+                {address && <QRCode fgColor="#333333" size={300} value={address} />}
+            </Grid>
         </Container>
     );
 };

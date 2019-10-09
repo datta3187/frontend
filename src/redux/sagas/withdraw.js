@@ -19,7 +19,7 @@ function* fetchSubmitWithdraw() {
 
 
     yield put(actions.successSubmitWithdraw());
-    yield call(delay, 1000);
+    yield delay(1000);
     yield put(actions.clearWithdrawForm());
   } catch (e) {
     yield put(actions.failSubmitWithdraw(e.message));

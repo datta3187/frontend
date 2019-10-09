@@ -43,25 +43,36 @@ export class Setting extends Component {
     }
 
     componentDidMount() {
-        // let api_url = 'resource/otp/generate_qrcode';
-        // Api.remoteApi(api_url, 'post', {})
-        //     .then(res => {
-        //         this.setState({
-        //             qr: res.data.barcode
-        //         })
-        //     })
-        //     .catch(error => {
-        //         CustomError.handle(error)
-        //     })
-
-        // let user = auth.getUser();
-        // this.setState({
-        //     fields: user,
-        //     googleAuth: user.otp
-        // });
+        let api_url = 'resource/users/me';
+        Api.remoteApi(api_url, 'get', {})
+            .then(res => {
+                this.setState({
+                    fields: res,
+                    googleAuth: res.otp
+                })
+            })
+            .catch(error =>{
+                if(error.response){
+                    toast.error(error.response.data.errors[0]);
+                }
+                else{
+                    toast.error(""+ error);
+                }
+            });
     }
 
     componentWillMount() {
+        let api_url = 'resource/otp/generate_qrcode';
+        Api.remoteApi(api_url, 'post', {})
+            .then(res => {
+                this.setState({
+                    qr: res.data.barcode
+                })
+            })
+            .catch(error => {
+                CustomError.handle(error)
+            })
+
         // auth.fetchUser()
         //     .then(res => {
         //         let user = auth.getUser();
