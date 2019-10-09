@@ -18,7 +18,8 @@ import PrivateRoute from '../components/PrivateRoute';
 import { fetchUser } from '../redux/actions/user';
 import Wallets from './wallets/Wallets';
 import DocumentList from './kyc/DocumentList';
-
+import Home from './home/home'
+import CryptoSocekt from './socket/cryptoSocekt'
 
 class App extends Component {
     componentDidMount() {
@@ -34,13 +35,15 @@ class App extends Component {
         return (
             <div className="App">
                 <Switch>
-                    <Route path="/" exact component={Login} />
+                <Route path="/" exact component={Home} />
                     <Route path="/login" exact component={Login} />
                     <Route path="/trading/:market" component={Exchange} />
                     <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
                     <Route path="/password-reset/:token" exact component={ResetPassword} />
                     <Route path="/register" exact component={Register} />
                     <Route path="/email-verification" exact component={EmailVerify} />
+                    
+                    <Route path="/cryptoSocekt" exact component={CryptoSocekt} />
 
                     <PrivateRoute path="/wallets" component={Wallets} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />

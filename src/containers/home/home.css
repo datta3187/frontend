@@ -1,0 +1,75 @@
+
+img.banner_img {
+    width: 100%;
+    float: left;
+    object-fit: fill;
+    height: 300px;
+}
+
+/* 
+
+
+.home_card {
+    width: auto!important;
+    float: left;
+}
+.home_card {
+    width: 100%;
+    float: left;
+    margin: 15px 0px;
+}
+
+.container {
+    margin: 0px 60px;
+}
+
+
+.act {
+    width: 100%;
+    float: left;
+    padding: 5px 0px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.ui.cards {
+    display: flex;
+    margin: 0px;
+    flex-wrap: wrap;
+} */
+
+.ui.cards {
+    display: block;
+    margin-right: 20px;
+} 
+.coin_name {
+    width: 50%;
+    float: left;
+    font-size: 14px;
+    font-weight: 600;
+}
+.ui.cards>.card {
+    border-radius: 0px;width: fit-content;
+}
+.coin_growth {
+    width: 50%;
+    float: left;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+}
+.container {
+    width: 90%;
+    margin: 0 auto; 
+}
+.mydiv {
+    width: 100%;
+    float: left;
+    display: flex;
+    padding: 15px 0px;
+}
+.tbs
+{
+    width: 100%;
+    float: left;
+    margin: 20px 0px;
+}
