@@ -9,12 +9,13 @@ import Teammember from '../../common/teammember'
 import { Tab,Card, Image, TextArea, Icon } from 'semantic-ui-react'
 import HomeCard from './card'
 import Corousalp from '../../common/corousal'
-import './home.css'
+import './home.scss'
 import card from './card';
 import TabTable from './tabTable'
 import SearchItem from './SearchItem'
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import announcement from "../../images/announce-img.jpg";
 
 
 const panes = [
@@ -59,52 +60,58 @@ class Home extends Component {
              <Websocket url={this.path()}
                            onMessage={this.handleData}/>
                 <div className='banner'>
-                    <img className='banner_img' src='https://static1.bigstockphoto.com/0/1/2/large1500/210463369.jpg' />
+                    {/* <img className='banner_img' src='https://static1.bigstockphoto.com/0/1/2/large1500/210463369.jpg' /> */}
             <div className='container'>
             <div className='homebanner'>
             <div className='tradence'>
                 <h2>ENHANCING YOUR TRADING EXPERIENCE</h2>
                 <p>As a user centric exchange, Tradence endeavors to bring to you an exchange experience that's both trustworthy and secure.</p>
-                <Buttonn buttons='WHITEPAPER'></Buttonn>
-                <Buttonn buttons='NEW TO TRADENCE'></Buttonn>
+                <div className="action-btns">
+                <Buttonn buttons='WHITEPAPER' btnDefault="button-comn"></Buttonn>
+                <Buttonn buttons='NEW TO TRADENCE' btnDefault="button-comn"></Buttonn>
+                </div>
             </div>
             <div className="mydiv">
                 <HomeCard></HomeCard> 
             </div>
 
-            <div className='ticketrecord'>
-                <Card>
-                <SampleTable></SampleTable>
-                </Card>
-            </div>
+           
  
             </div>
             </div>
                 </div>
 
-            <div className='container'> 
+            <div className=''> 
+            <div className='ticketrecord'>
+                <Card>
+                <SampleTable></SampleTable>
+                </Card>
+            </div>
             <div className='corousall'>
                 <Corousalp></Corousalp>
             </div>
 
-            <div className='announcement'>
+            <div className='announcement comn-section'>
+                <div className="container">
                 <div className='annouce'>
                     <h2>ANNOUNCEMENT</h2>
                 </div>
                 <div className='peerwin_img'>
                 <div className='peerwin'>
                     <h2>REFER & WIN TRADING COMPETITION</h2>
-                    <p>Joiin the referral program and stand a chance to win</p>
-                    <Buttonn buttons='EMAIL'></Buttonn>
+                    <p>Join the referral program and stand a chance to win</p>
+                    <Buttonn  buttons='EMAIL' className="email-btn"></Buttonn>
                     <Buttonn buttons='WIN NOW!'></Buttonn>
                 </div>
                 <div className='imgg'>
-                        <Image src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaujnAu4SFbBNwLrEC_OWN60dRIbhc_RmlI96AxnRQV8hFlU5J' />
+                        <Image src={announcement} />
+                </div>
                 </div>
                 </div>
             </div>
 
-            <div className='tredence'>
+            <div className='tredence comn-section'>
+                <div className="container">
                 <div className='whytradence'>
                     <h2>WHY TREDENCE?</h2>
                     <div className='rewardAndBonus'>
@@ -135,9 +142,11 @@ class Home extends Component {
                         <Buttonn buttons='GET STARTED'></Buttonn>
                     </div>
                 </div>
+                </div>
             </div>
 
-            <div className='team'>
+            <div className='team comn-section'>
+                <div className="container">
             <div className='teamsection'>
             <Teammember imag='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPOTGpokLWuaX0vpE_7snQlq59CGIdbclxxYwNEcMcwfcSVowy' post='123' name='nmb'></Teammember>
             </div>
@@ -149,6 +158,7 @@ class Home extends Component {
             </div>
             <div className='teamsection'>
             <Teammember imag='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPOTGpokLWuaX0vpE_7snQlq59CGIdbclxxYwNEcMcwfcSVowy' post='123' name='nmb'></Teammember>
+            </div>
             </div>
             </div>
 
