@@ -26,7 +26,6 @@ class PeatioSocket {
     }
 
     handleData(data) {
-        debugger
         console.log('Hello')
         let result = JSON.parse(data);
         // let formatted_data = [];
@@ -39,7 +38,6 @@ class PeatioSocket {
     }
 
     socketConnect = (stream_type, opt=undefined) => {
-        debugger
         console.log('hello')
         return(
             <div>

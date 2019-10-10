@@ -6,7 +6,7 @@ import {List, Image, Grid} from 'semantic-ui-react';
 const SideBarList = ({ wallets, activeWallet = "btc", onClickWallet }) => {
     console.log("SIDE BAR LIST==============");
     return (
-        <div>
+        <div className="parentList">
             <List>
                 {Object.entries(wallets).map(([currency, data]) => {
                     console.log("DATA", data);

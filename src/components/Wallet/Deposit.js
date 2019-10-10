@@ -26,9 +26,9 @@ const DepositView = ({ wallet: { name, address, balance, locked } }) => {
                     </p>
                 </Grid.Column>
 
-                <Grid.Column>
-                   <p>Please send a payment using the generated deposit address below, Your deposit will be reflected in your account after blockchain confirmation.</p>
-                </Grid.Column>
+
+                   <p className="paragraph_column">Please send a payment using the generated deposit address below, Your deposit will be reflected in your account after blockchain confirmation.</p>
+
 
                 <fieldset >
                     <legend>Deposit by wallet address</legend>

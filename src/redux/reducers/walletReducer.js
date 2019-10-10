@@ -31,7 +31,6 @@ function walletReducer(state = initState, action) {
             return { ...state, isFetching: false, error: true };
         }
         case SET_ACTIVE_WALLET: {
-            debugger
             return { ...state, activeWallet: action.payload.id };
         }
         case SUCCESS_WALLET_ADDRESS: {

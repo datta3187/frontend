@@ -1,13 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router';
-import { Route, Switch } from 'react-router-dom';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
 import SideBar from '../../components/Wallet/Sidebar';
 import WalletLayout from '../../components/Wallet/WalletLayout';
-import Deposit from '../../components/Wallet/Deposit';
-import Withdraw from '../../components/Wallet/Withdraw';
-import History from '../../components/Wallet/History';
 import { fetchWalletData, fetchWalletAddress, setActiveWallet } from '../../redux/actions/wallet';
 import { fetchHistory } from '../../redux/actions/history';
 import { handleChangeWithdraw, fetchSubmitWithdraw } from '../../redux/actions/withdraw';
@@ -21,7 +17,7 @@ class WalletPage extends Component {
         this.props.fetchHistory();
     }
 
-    filterHistory = list => list.filter(item => item.currency === this.props.activeWallet);
+    // filterHistory = list => list.filter(item => item.currency === this.props.activeWallet);
 
     render() {
         const {
@@ -41,11 +37,10 @@ class WalletPage extends Component {
         } = this.props;
 
         if (!Object.keys(wallets).length) return null;
-        debugger
         return(
-            <div>
+            <div >
                 <Header abc="exchangeHdr"/>
-                <Container className="boxWithShadow userForms">
+                <Container className="boxWithShadow walletForms">
                     <div className="WalletPagePosition">
                         <SideBar
                             wallets={wallets}
@@ -53,35 +48,17 @@ class WalletPage extends Component {
                             setActiveWallet={setActiveWallet}
                             fetchWalletAddress={fetchWalletAddress}
                         />
-                        <WalletLayout location={location} activeWallet={activeWallet} wallets={wallets} other_withdraw_params={{handleChangeWithdraw: handleChangeWithdraw, rid: rid, amount: amount, otp: otp, withdrawIsFetching: withdrawIsFetching, fetchSubmitWithdraw: fetchSubmitWithdraw }}>
-                            {/*<Switch>*/}
-                                {/*<Route*/}
-                                    {/*path="/wallets/deposit"*/}
-                                    {/*render={() => (*/}
-                                        {/*<div>*/}
-                                            {/*<Deposit wallet={wallets[activeWallet]} />*/}
-                                            {/*/!*<History history={this.filterHistory(depositHistory)} />*!/*/}
-                                        {/*</div>*/}
-                                    {/*)}*/}
-                                {/*/>*/}
-                                {/*<Route*/}
-                                    {/*path="/wallets/withdrawal"*/}
-                                    {/*render={() => (*/}
-                                        {/*<div>*/}
-                                            {/*<Withdraw*/}
-                                                {/*currency={wallets[activeWallet]}*/}
-                                                {/*onChange={handleChangeWithdraw}*/}
-                                                {/*rid={rid}*/}
-                                                {/*amount={amount}*/}
-                                                {/*otp={otp}*/}
-                                                {/*submitting={withdrawIsFetching}*/}
-                                                {/*onClick={fetchSubmitWithdraw}*/}
-                                            {/*/>*/}
-                                            {/*/!*<History history={this.filterHistory(withdrawHistory)} />*!/*/}
-                                        {/*</div>*/}
-                                    {/*)}*/}
-                                {/*/>*/}
-                            {/*</Switch>*/}
+                        <WalletLayout location={location} activeWallet={activeWallet} wallets={wallets}
+                                      other_withdraw_params={{handleChangeWithdraw: handleChangeWithdraw,
+                                          rid: rid,
+                                          amount: amount,
+                                          otp: otp,
+                                          withdrawIsFetching: withdrawIsFetching,
+                                          fetchSubmitWithdraw: fetchSubmitWithdraw,
+                                          depositHistory: depositHistory,
+                                          withdrawHistory: withdrawHistory
+                                      }}
+                        >
                         </WalletLayout>
                     </div>
                 </Container>
@@ -91,7 +68,6 @@ class WalletPage extends Component {
 }
 
 function mapStateToProps(state){
-    debugger
     return {
         wallets: state.wallet.list,
         activeWallet: state.wallet.activeWallet,
@@ -106,7 +82,6 @@ function mapStateToProps(state){
 
 
 function mapDispatchToProps(dispatch) {
-    debugger
     return {
         fetchWalletData: () => dispatch(fetchWalletData()),
         setActiveWallet: id => dispatch(setActiveWallet(id)),

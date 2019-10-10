@@ -21,7 +21,6 @@ class ConnectMyTrade extends Component {
 
     handleData(data){
         let result = JSON.parse(data);
-        debugger
 
         console.log('Private trades => :', result['trade']);
 

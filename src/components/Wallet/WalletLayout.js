@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Tab, Divider, Icon } from 'semantic-ui-react';
+import { Tab, Divider } from 'semantic-ui-react';
 import Deposit from "../../components/Wallet/Deposit";
-
-// import { handleChangeWithdraw, fetchSubmitWithdraw } from '../../redux/actions/withdraw';
 import Withdraw from "../../components/Wallet/Withdraw";
+import History from '../../components/Wallet/History';
 
 const WalletLayout = ({location, activeWallet = 'btc', wallets, children, other_withdraw_params }) => {
     console.log("WALLET LAYOUT======");
-    debugger
+
     return (
         <Fragment>
             <main>
@@ -21,11 +20,14 @@ const WalletLayout = ({location, activeWallet = 'btc', wallets, children, other_
                        panes={[
                            {
                                menuItem: 'Deposit',
-                               render: () => <Tab.Pane label="Deposit" component={Link} to={{pathname: '/wallets/deposit', search: location.search}}><Deposit wallet={wallets[activeWallet]} /></Tab.Pane>,
+                               render: () => <Tab.Pane label="Deposit" component={Link} to={{pathname: '/wallets/deposit', search: location.search}}>
+                                   <Deposit wallet={wallets[activeWallet]} />
+                                   <History history={other_withdraw_params['depositHistory']}/>
+                               </Tab.Pane>,
                            },
                            {
                                menuItem: 'Withdraw',
-                               render: () => <Tab.Pane label="Withdrawal" component={Link} to={{pathname: '/wallets/withdrawal', search: location.search}}>
+                               render: () => <Tab.Pane label="Withdrawal" className="withdrawMainTabs" component={Link} to={{pathname: '/wallets/withdrawal', search: location.search}}>
                                    <Withdraw
                                        currency={wallets[activeWallet]}
                                        onChange={other_withdraw_params['handleChangeWithdraw']}
@@ -35,23 +37,11 @@ const WalletLayout = ({location, activeWallet = 'btc', wallets, children, other_
                                        submitting={other_withdraw_params['withdrawIsFetching']}
                                        onClick={other_withdraw_params['fetchSubmitWithdraw']}
                                    />
+                                   <History history={other_withdraw_params['withdrawHistory']} />
                                </Tab.Pane>,
                            }
                        ]}
                     />
-
-                    {/*<Tab.Pane*/}
-                            {/*label="Deposit"*/}
-                            {/*component={Link}*/}
-                            {/*to={{pathname: '/wallets/deposit', search: location.search}}*/}
-                            {/*// icon={<Icon disabled name='users' />}*/}
-                        {/*/>*/}
-                        {/*<Tab.Pane*/}
-                            {/*label="Withdrawal"*/}
-                            {/*component={Link}*/}
-                            {/*to={{pathname: '/wallets/withdrawal', search: location.search}}*/}
-                        {/*/>*/}
-
                     <Divider />
                     <div>
                         {children}

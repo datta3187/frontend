@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import SideBarList from './SideBarList';
 import {toast, ToastContainer} from "react-toastify";
-import {Container, Tab} from "semantic-ui-react";
 
 class SideBar extends Component {
     onClickWallet = (id, data) => () => {
@@ -14,7 +13,6 @@ class SideBar extends Component {
     render() {
         const { wallets, activeWallet } = this.props;
         console.log("WALLET SIDEBAR=========", activeWallet);
-        debugger
         return (
             <Fragment>
                 <ToastContainer
