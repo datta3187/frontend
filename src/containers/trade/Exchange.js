@@ -11,6 +11,8 @@ import Trade from './Trade'
 // import PeatioSocket from '../../components/PeatioSocket'
 
 import './css/exchange.scss'
+import {assignMarket} from "../../redux/actions/trade";
+import {connect} from "react-redux";
 
 // const mySocket = new PeatioSocket();
 
@@ -20,27 +22,24 @@ const limitMarket = [
     { menuItem: 'Market', render: () => <Tab.Pane><Market /></Tab.Pane> }
 ]
 
-class Exchange extends Component {
+class connectedExchange extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            market: 'ethbtc'
-        }
     }
 
     componentWillMount() {
         let mkt =this.props.match.params.market.toLowerCase().split('_').join('')
-        // mySocket.execute(mkt);
-        this.setState({market: mkt})
+        this.props.assignMarket(mkt);
+
     }
 
     render() {
         return (
             <div style={{ 'background': '#dfdfdf' }}>
                 <Header abc="exchangeHdr" activePath='trade' />
-                <Ticker market={this.state.market} />
+                <Ticker  />
                 <div className="exchangeBlock">
-                    <OrderBook market={this.state.market} />
+                    <OrderBook />
 
                     <div className="exchangeMiddleBlock">
 
@@ -63,7 +62,7 @@ class Exchange extends Component {
                             <MarketList />
                         </div>
                         <div>
-                            <Trade market={this.state.market} />
+                            <Trade />
                         </div>
                     </div>
                 </div>
@@ -72,5 +71,17 @@ class Exchange extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return { market: state.trade.market }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        assignMarket: (payload) => dispatch(assignMarket(payload))
+    }
+}
+
+const Exchange = connect(mapStateToProps, mapDispatchToProps)(connectedExchange)
 
 export default Exchange

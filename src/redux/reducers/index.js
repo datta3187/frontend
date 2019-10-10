@@ -5,6 +5,7 @@ import { history } from '../history';
 import socketReducer from './socketReducer';
 import authReducer from './authReducer';
 import userReducer from './userReducer';
+import tradeReducer from './tradeReducer';
 
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
     tradeState: socketReducer,
     auth: authReducer,
     user: userReducer,
+    trade: tradeReducer
 });

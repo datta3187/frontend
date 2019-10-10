@@ -3,7 +3,7 @@ img.banner_img {
     width: 100%;
     float: left;
     object-fit: fill;
-    height: 300px;
+    height: 480px;
 }
 
 /* 
@@ -48,7 +48,8 @@ img.banner_img {
     font-weight: 600;
 }
 .ui.cards>.card {
-    border-radius: 0px;width: fit-content;
+    border-radius: 20px;
+    width: fit-content;
 }
 .coin_growth {
     width: 50%;
@@ -72,4 +73,109 @@ img.banner_img {
     width: 100%;
     float: left;
     margin: 20px 0px;
+}
+.tradence{
+    width: 50%;
+    float: left;
+}
+.mydiv{
+    width: 50%;
+    float: left;
+}
+.content {
+    text-align: center!important;
+}  
+.homebanner { 
+    float: left;
+    position: absolute;
+    color: white;
+}
+.ticketrecord .ui.card{
+    width: fit-content;
+    position: absolute;
+    bottom: 33px;
+}
+.corousall{
+    width: 100%;
+    float: left;
+    margin: 40px 0px;
+}
+
+.announcement {
+    width: 100%;
+    float: left;
+    display: block;
+}
+.annouce h2 {
+    text-align: center;
+}
+.peerwin_img {
+    width: 100%;
+    float: left;
+}
+.peerwin{
+    width: 50%;
+    float: left;
+}
+
+.imgg{
+    width: 50%;
+    float: left;
+}
+
+.tredence {
+    width: 100%;
+    float: left;
+    margin: 40px 0px;
+}
+.whytradence h2 {
+    margin: 19px 0px;
+}
+.whytradence {
+    width: 100%;
+    float: left;
+    text-align: center;
+}
+.rewardAndBonus{
+    width: 100%;
+    float: left;
+}
+.tradenceImage{
+    width: 50%;
+    float: left;
+}
+
+.tradenceDesc{
+    width: 50%;
+    float: left;
+}
+.getstart{
+    width: 100%;
+    float: left;
+}
+.team{
+    width: 100%;
+    float: left;
+}
+.teamsection {
+    width: auto;
+    float: left;
+    text-align: center;
+}
+.office-inq {
+    width: 100%;
+    float: left;
+    margin: 30px 0px;
+}
+.office {
+    width: 60%;
+    float: left;
+}
+.inquiries {
+    width: 40%;
+    float: left;
+}
+
+.ofc {
+    text-align: center;
 }

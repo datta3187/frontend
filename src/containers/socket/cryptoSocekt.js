@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 // import { subscribeToTimer } from '../../api/sockets';
 import { connect } from '../../api/sockets';
+import Websocket from 'react-websocket';
+
 class CryptoSocekt extends Component {
     constructor(props){
         super(props);

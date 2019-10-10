@@ -1,10 +1,11 @@
 import {MARKET_TRADE, MY_TRADE, TRADE_LIMIT, GLOBAL_TICKERS} from "../constants/actions";
+import config from '../../config'
 
 
 const initialState = {
     trades: getTrades('market_trades'),
     myTrades: getTrades('my_trades'),
-    globalTickers: {}
+    globalTickers: {},
 
 }
 
@@ -40,5 +41,15 @@ function getTrades(key){
         return [];
     }
 }
+
+// function check(){
+//     const ws = new WebSocket(config.webSocketUrl + 'global.tickers')
+//     ws.onmessage = response => {
+//         debugger
+//         console.log("=================>", response.data);
+//     }
+//
+//     return null;
+// }
 
 export default socketReducer;

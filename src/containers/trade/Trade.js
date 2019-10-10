@@ -3,8 +3,9 @@ import "./css/exchange.scss";
 import { Tab } from 'semantic-ui-react'
 import MarketTrade from './MarketTrade'
 import MyTrade from './MyTrade'
+import {connect} from "react-redux";
 
-class Trade extends Component {
+class connectedTrade extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,14 +19,14 @@ class Trade extends Component {
                 { menuItem: 'Market', render: () =>
                     <div>
                         <Tab.Pane>
-                            <MarketTrade market={this.props.market} />
+                            <MarketTrade />
                         </Tab.Pane>
                     </div>
                 },
                 { menuItem: 'Yours', render: () =>
                     <div>
                         <Tab.Pane>
-                            <MyTrade market={this.props.market} />
+                            <MyTrade  />
                         </Tab.Pane>
                     </div>
                 }
@@ -41,5 +42,11 @@ class Trade extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return { market: state.trade.market }
+}
+
+const Trade = connect(mapStateToProps)(connectedTrade)
 
 export default Trade;

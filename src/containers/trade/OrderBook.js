@@ -4,8 +4,9 @@ import  AskOrder from './AskOrder'
 import  BidOrder from './BidOrder'
 
 import "./css/exchange.scss";
+import {connect} from "react-redux";
 
-class OrderBook extends Component {
+class connectedOrderBook extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,7 +20,7 @@ class OrderBook extends Component {
                 { menuItem: 'Tab 1', render: () =>
                         <div>
                             <Tab.Pane>
-                                <AskOrder height={315} market={ this.props.market } />
+                                <AskOrder height={315} />
                             </Tab.Pane>
                             <div>
                                 <center>
@@ -28,18 +29,18 @@ class OrderBook extends Component {
                                 </center>
                             </div>
                             <Tab.Pane>
-                                <BidOrder height={315} market={ this.props.market } />
+                                <BidOrder height={315} />
                             </Tab.Pane>
                         </div>
                 },
                 { menuItem: 'Tab 2', render: () =>
                         <Tab.Pane>
-                            <BidOrder height={630}  market={ this.props.market } />
+                            <BidOrder height={630}  />
                         </Tab.Pane>
                 },
                 { menuItem: 'Tab 3', render: () =>
                         <Tab.Pane>
-                            <AskOrder height={630} market={ this.props.market } />
+                            <AskOrder height={630}  />
                         </Tab.Pane>
                 },
             ]
@@ -58,5 +59,11 @@ class OrderBook extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return { market: state.trade.market }
+}
+
+const OrderBook = connect(mapStateToProps)(connectedOrderBook)
 
 export default OrderBook;

@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 class ConnectMyTrade extends Component {
     constructor(props){
         super(props);
-
         this.handleData = this.handleData.bind(this);
     }
 
@@ -89,8 +88,11 @@ class ConnectMyTrade extends Component {
 }
 
 const mapStateToProps = state => {
-    return { trades: state.tradeState.myTrades }
+    return {
+        trades: state.tradeState.myTrades,
+        market: state.trade.market }
 }
+
 
 function mapDispatchToProps(dispatch){
     return {

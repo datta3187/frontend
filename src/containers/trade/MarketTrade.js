@@ -75,7 +75,10 @@ class ConnectMarketTrade extends Component {
 }
 
 const mapStateToProps = state => {
-    return { trades: state.tradeState.trades }
+    return {
+        trades: state.tradeState.trades,
+        market: state.trade.market
+    }
 }
 
 function mapDispatchToProps(dispatch){

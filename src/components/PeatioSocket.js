@@ -2,7 +2,7 @@ import config from "../config";
 import Websocket from 'react-websocket';
 import React from "react";
 import Auth from "../components/Auth";
-import * as formatter from "../utils/Formatter";
+import * as formatter from "../containers/trade/Formatter";
 
 const auth = new Auth();
 
