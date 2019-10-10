@@ -1,4 +1,5 @@
 export default {
+  baseUrl: 'http://www.app.local/api/v2',
   apiUrl: "http://www.app.local/api/v2/barong",
   peatioUrl: "http://www.app.local/api/v2/peatio",
   webSocketUrl: 'ws://www.app.local/api/v2/ranger/public/?stream=',

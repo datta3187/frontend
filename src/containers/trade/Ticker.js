@@ -36,7 +36,7 @@ class connectedTicker extends Component{
         return formatter.ticker_color_class(this.state.ticker.last, this.state.ticker.open)
     }
 
-    h24Change() {
+    h24Change = () =>{
         return formatter.h24Change(this.state.ticker.last, this.state.ticker.open) + ' ' + this.state.ticker.price_change_percent
     }
 

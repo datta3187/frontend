@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import {Button, Checkbox, Form, Input} from 'semantic-ui-react'
 
 export const AskLimit =() => {
         return (
@@ -17,6 +17,14 @@ export const AskLimit =() => {
                         <label>Amount</label>
                         <input type="number" />
                     </Form.Field>
+
+                    <Form.Field>
+                        <label>Total</label>
+                        <Input type="number"
+                               placeholder='Total' />
+                        <span style={{ color: 'red' }}> </span>
+                    </Form.Field>
+
                     <Button type='submit' style={{color: 'white', background: '#ea0070' }}>Sell ETH</Button>
                 </Form>
         )
