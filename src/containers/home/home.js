@@ -98,10 +98,12 @@ class Home extends Component {
                 </div>
                 <div className='peerwin_img'>
                 <div className='peerwin'>
-                    <h2>REFER & WIN TRADING COMPETITION</h2>
+                    <h2>REFER & WIN <br></br>TRADING COMPETITION</h2>
                     <p>Join the referral program and stand a chance to win</p>
-                    <Buttonn  buttons='EMAIL' className="email-btn"></Buttonn>
-                    <Buttonn buttons='WIN NOW!'></Buttonn>
+                    <div className="btns-wrap">
+                    <Buttonn  buttons='EMAIL' btnDefault="comn-btn email-btn"></Buttonn>
+                    <Buttonn buttons='WIN NOW!' btnDefault="comn-btn"></Buttonn>
+                    </div>
                 </div>
                 <div className='imgg'>
                         <Image src={announcement} />
@@ -162,26 +164,31 @@ class Home extends Component {
             </div>
             </div>
 
-            <div className='office-inq'>
+            <div className='office-inq comn-section'>
+                <div className="container">
                 <div className='office'>
                     <div className='ofc'>
                         <HeadDesc heading='Our offices' desc='around the globe'></HeadDesc>
                     </div>
                     <div className='branch'>
                         <div className='headquter'>
-                        <HeadDesc heading='TRADENCE ESTONIA' subheading='REGISTERED HQ' desc='ScalaCity,tartu mnt 43, 10128 Tallin, Estonia'></HeadDesc>
+                        <HeadDesc heading='TRADENCEESTONIA' subheading='REGISTERED HQ' desc='ScalaCity,tartu mnt 43, 10128 Tallin, Estonia'></HeadDesc>
                         </div>
                         <div className='subBranch'>
-                        <HeadDesc heading='TRADENCE ESTONIA' subheading='REGISTERED HQ' desc='ScalaCity,tartu mnt 43, 10128 Tallin, Estonia'></HeadDesc>
-                        <HeadDesc heading='TRADENCE ESTONIA' subheading='REGISTERED HQ' desc='ScalaCity,tartu mnt 43, 10128 Tallin, Estonia'></HeadDesc>
+                        <HeadDesc heading='HONG KONG' subheading='' desc='Shop G5 On Ground Floor, King Wing Plaza 2, No.1 on Kwan Street, Sha Tin, New Territories, HK.'></HeadDesc>
+                        <HeadDesc heading='MALAYSIA' subheading='' desc='Unit A-12A-3 Level 12A, Menara UOA, Bangsar 5 Jalan Bangsar Utama, 59000 Kuala Lumpur.'></HeadDesc>
+                        <HeadDesc heading='SINGAPORE' subheading='' desc='91 Cavenagh Road, #02-06, Singapore 229629.'></HeadDesc>
+                        <HeadDesc heading='DUBAI' subheading='' desc='Dubai Media City, Building 02, SD1-654 P.O. Box 72280, Dubai, UAE.'></HeadDesc>
                         </div>
                     </div>
                 </div>
                 <div className='inquiries'>
                     <Card>
                          <h2>For Inquiries</h2>
+                         <div className="fields-row">
                             <Textboxx placeholder='Name'></Textboxx>
                             <Textboxx placeholder='Email'></Textboxx>
+                        </div>
                             <Textboxx placeholder='Subject'></Textboxx>
                             <TextArea placeholder='Message' />
                             <Buttonn buttons='CONTACT US'></Buttonn>
@@ -189,8 +196,10 @@ class Home extends Component {
                     </Card>
                 </div>
             </div>
+            </div>
 
             <div className='footer'>
+                <div>
             <div className='copyrite'>
                 <p>© Copyright 2018-2019 Tradence. All Rights Reserved.</p>
             </div>
@@ -202,6 +211,7 @@ class Home extends Component {
             <Icon link name='github g' />
             <Icon link name='youtube y' />
             <Icon link name='bitcoin b' />
+            </div>
             </div>
             
             </div>
