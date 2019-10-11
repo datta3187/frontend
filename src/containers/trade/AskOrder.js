@@ -6,8 +6,9 @@ import 'react-virtualized/styles.css'
 import "./css/exchange.scss";
 import Websocket from 'react-websocket';
 import * as formatter from '../../utils/Formatter'
+import {connect} from "react-redux";
 
-class AskOrder extends Component {
+class connectedAskOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -71,5 +72,11 @@ class AskOrder extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return { market: state.trade.market }
+}
+
+const AskOrder = connect(mapStateToProps)(connectedAskOrder)
 
 export default AskOrder;

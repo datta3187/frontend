@@ -8,6 +8,7 @@ import userReducer from './userReducer';
 import walletReducer from './walletReducer';
 import historyReducer from './historyReducer';
 import withdrawReducer from './withdrawReducer';
+import tradeReducer from './tradeReducer';
 
 
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
     user: userReducer,
     wallet: walletReducer,
     history: historyReducer,
-    withdraw: withdrawReducer
+    withdraw: withdrawReducer,
+    trade: tradeReducer
 });

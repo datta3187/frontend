@@ -7,7 +7,6 @@ import Header from "../../components/Header";
 import * as Api from "../../api/remoteApi";
 import './Kyc.scss'
 import { toast } from "react-toastify";
-import LoginGuard from "../../components/loginGuard/LoginGuard";
 import { Redirect } from "react-router";
 import * as CustomError from "../../api/handleError";
 import Auth from '../../components/Auth';
@@ -70,16 +69,16 @@ class Kyc extends Component {
         let size = 2000000;
         let err = [];
         const types = ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'];
-        for(let x = 0; x<files.length; x++) {
+        for (let x = 0; x < files.length; x++) {
             if (files[x].size > size) {
-                err[x] = files[x].type+'is too large, please pick a smaller file\n';
+                err[x] = files[x].type + 'is too large, please pick a smaller file\n';
             }
             if (types.every(type => (files[x].type !== type))) {
-                err[x] = files[x].type+' is not a supported format\n';
+                err[x] = files[x].type + ' is not a supported format\n';
                 // assign message to array
             }
         };
-        for(let z = 0; z<err.length; z++) { // loop create toast message
+        for (let z = 0; z < err.length; z++) { // loop create toast message
             e.target.value = null
             toast.error(err[z])
         }
@@ -132,102 +131,100 @@ class Kyc extends Component {
             />
         }
         return (
-            <LoginGuard>
-                < div >
-                    <Header />
-                    <Container className="boxWithShadow userForms kycForm">
-                        <div className="userFormHeader">
-                            <h1>Know Your Customer</h1>
-                        </div>
-                        <Step.Group className="profileSepts">
-                            <Step>
-                                <Icon name='phone' />
-                                <Step.Content>
-                                    <Step.Title>Phone</Step.Title>
-                                </Step.Content>
-                            </Step>
-                            <Step>
-                                <Icon name='user' />
-                                <Step.Content>
-                                    <Step.Title>Profile</Step.Title>
-                                </Step.Content>
-                            </Step>
-                            <Step active>
-                                <Icon name='file' />
-                                <Step.Content>
-                                    <Step.Title>KYC</Step.Title>
-                                </Step.Content>
-                            </Step>
-                        </Step.Group>
-                        <Form
-                            ref="form"
-                            onSubmit={this.submitKyc}
-                        >
-                            <div className="form-row">
-                                <div className="form-group dd">
-                                    <Dropdown
-                                        label="Document type"
-                                        placeholder="Document type"
-                                        name="doc_type"
-                                        onChange={this.dropdownChange}
-                                        value={this.state.fields.doc_type}
-                                        validators={['required']}
-                                        errorMessages={['this field is required']}
-                                        options={docType}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <Input
-                                        label="Document Number"
-                                        type="text"
-                                        placeholder="Document Number"
-                                        onChange={this.setFormValue.bind(this, "doc_number")}
-                                        value={this.state.fields.doc_number.toUpperCase()}
-                                        validators={['required']}
-                                        errorMessages={['this field is required']}
-                                    />
-                                </div>
+            < div >
+                <Header />
+                <Container className="boxWithShadow userForms kycForm">
+                    <div className="userFormHeader">
+                        <h1>Know Your Customer</h1>
+                    </div>
+                    <Step.Group className="profileSepts">
+                        <Step>
+                            <Icon name='phone' />
+                            <Step.Content>
+                                <Step.Title>Phone</Step.Title>
+                            </Step.Content>
+                        </Step>
+                        <Step>
+                            <Icon name='user' />
+                            <Step.Content>
+                                <Step.Title>Profile</Step.Title>
+                            </Step.Content>
+                        </Step>
+                        <Step active>
+                            <Icon name='file' />
+                            <Step.Content>
+                                <Step.Title>KYC</Step.Title>
+                            </Step.Content>
+                        </Step>
+                    </Step.Group>
+                    <Form
+                        ref="form"
+                        onSubmit={this.submitKyc}
+                    >
+                        <div className="form-row">
+                            <div className="form-group dd">
+                                <Dropdown
+                                    label="Document type"
+                                    placeholder="Document type"
+                                    name="doc_type"
+                                    onChange={this.dropdownChange}
+                                    value={this.state.fields.doc_type}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                    options={docType}
+                                />
                             </div>
+                            <div className="form-group">
+                                <Input
+                                    label="Document Number"
+                                    type="text"
+                                    placeholder="Document Number"
+                                    onChange={this.setFormValue.bind(this, "doc_number")}
+                                    value={this.state.fields.doc_number.toUpperCase()}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                />
+                            </div>
+                        </div>
 
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <div className="genderAndDatepicker">
-                                        <div className="datePicker">
-                                            <div>
-                                                <DateInput
-                                                    label="Document Expiry Date"
-                                                    name="doc_expire"
-                                                    iconPosition='left'
-                                                    placeholder="yy/mm/dd"
-                                                    onChange={this.dropdownChange}
-                                                    minDate={Moment().toDate()}
-                                                    value={this.state.fields.doc_expire}
-                                                    validators={['required']}
-                                                    errorMessages={['this field is required']}
-                                                />
-                                            </div>
+                        <div className="form-row">
+                            <div className="form-group">
+                                <div className="genderAndDatepicker">
+                                    <div className="datePicker">
+                                        <div>
+                                            <DateInput
+                                                label="Document Expiry Date"
+                                                name="doc_expire"
+                                                iconPosition='left'
+                                                placeholder="yy/mm/dd"
+                                                onChange={this.dropdownChange}
+                                                minDate={Moment().toDate()}
+                                                value={this.state.fields.doc_expire}
+                                                validators={['required']}
+                                                errorMessages={['this field is required']}
+                                            />
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group">
-                                    <Input
-                                        label="Upload Document"
-                                        type="file"
-                                        name="upload"
-                                        placeholder="Upload Document"
-                                        value={this.state.upload.filename}
-                                        onChange={this.onFileUploadChange}
-                                        // validators={['isValidExtension']}
-                                        // errorMessages={['hello ']}
-                                    />
-                                </div>
                             </div>
-                            <Button>Submit</Button>
-                        </Form>
-                    </Container>
-                    <Footer />
-                </div >
-            </LoginGuard>
+                            <div className="form-group">
+                                <Input
+                                    label="Upload Document"
+                                    type="file"
+                                    name="upload"
+                                    placeholder="Upload Document"
+                                    value={this.state.upload.filename}
+                                    onChange={this.onFileUploadChange}
+                                // validators={['isValidExtension']}
+                                // errorMessages={['hello ']}
+                                />
+                            </div>
+                        </div>
+                        <Button>Submit</Button>
+                    </Form>
+                </Container>
+                <Footer />
+            </div >
         )
     }
 }

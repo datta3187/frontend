@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
-import { Link, Button } from 'react-router-dom'
-import './header.scss'
+import { Link } from 'react-router-dom';
+import './header.scss';
 import { Container, Icon, Image } from 'semantic-ui-react';
-import Auth from './Auth'
+import { fetchLogout } from '../redux/actions/auth';
+import { connect } from 'react-redux';
 
-const auth = new Auth();
-const IconNav = () => <Icon link className='navBtn' name='bars' />
+const IconNav = () => <Icon link className='navBtn' name='bars' />;
 
 class Header extends Component {
     constructor(props) {
         super(props);
+        const { user } = this.props;
+        let isAuthenticated = false;
+        if (user) {
+            isAuthenticated = user.email && user.state === 'active';
+        }
         this.state = {
             is_open: false,
-            isLoggedIn: auth.isAuthenticated()
-        }
+            isAuthenticated: isAuthenticated
+        };
     }
 
     openLeftNav = () => {
         this.setState({
             is_open: !this.state.is_open
-        })
+        });
+    };
+
+    logoutUser = () => {
+        this.props.fetchLogout();
     };
 
     render() {
@@ -38,7 +47,7 @@ class Header extends Component {
                     <div className={this.state.is_open ? 'ui visible left wide sidebar sideNav displayActive' : 'displayInactive'}>
                         <div className='childDiv'>
                             {
-                                !this.state.isLoggedIn &&
+                                !this.state.isAuthenticated &&
                                 <div>
                                     <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                         <Image src={require('../images/signin.svg')} />
@@ -57,7 +66,7 @@ class Header extends Component {
                             </div>
 
                             {
-                                this.state.isLoggedIn && (
+                                this.state.isAuthenticated && (
                                     <React.Fragment>
                                         <div className={this.props.activePath == 'wallets' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                             <Image src={require('../images/wallet.svg')} />
@@ -74,10 +83,10 @@ class Header extends Component {
                         </div>
 
                         {
-                            this.state.isLoggedIn &&
+                            this.state.isAuthenticated &&
                             <div className='sideNavChild'>
                                 <Image src={require('../images/logout.svg')} />
-                                <Link to="/logout">Logout</Link>
+                                <Link onClick={this.logoutUser}>Logout</Link>
                             </div>
                         }
 
@@ -85,8 +94,23 @@ class Header extends Component {
                     </div>
                 </Container>
             </div>
-        )
+        );
     }
 }
 
-export default Header
+function mapStateToProps(state) {
+    return {
+        user: state.user.data
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchLogout: () => dispatch(fetchLogout())
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Header);

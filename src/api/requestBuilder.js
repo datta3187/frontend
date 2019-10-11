@@ -1,10 +1,11 @@
 import axios from 'axios';
 import store from '../redux/store';
+import config from '../config';
 import { fetchLogout } from '../redux/actions/auth';
 
 
 const axiosInstance = axios.create({
-    baseURL: 'http://www.app.local'
+    baseURL: config.baseUrl
 });
 
 
@@ -15,8 +16,10 @@ axiosInstance.interceptors.response.use(
         if (error.response.status === 401) {
             store.dispatch(fetchLogout()); //dispatch logout for each 401 Unauthorized
         }
-        return error;
+        if (error.response.data) {
+            const err = error.response.data.errors[0];
+            throw err;
+        }
     });
 
 export default axiosInstance;
-

@@ -5,7 +5,7 @@ import * as types from '../constants/actions';
 import { push } from 'connected-react-router';
 import { logoutUser, loginUser } from '../../api/auth';
 import { fetchUser } from './user';
-
+import { toast } from 'react-toastify';
 
 export function* fetchLogout() {
     try {
@@ -21,14 +21,19 @@ export function* fetchLogoutSaga() {
     yield takeEvery(types.FETCH_LOGOUT, fetchLogout);
 }
 
-
-export function* fetchLogin({ payload: { email, password } }) {
+export function* fetchLogin({ payload: { email, password, captcha_response } }) {
     try {
-        yield call(loginUser, email, password);
-        yield call(fetchUser);
-        yield put(push('/settings'));
+        var auth = yield call(loginUser, email, password, captcha_response);
+        if (auth) {
+            yield call(fetchUser);
+            yield put(push('/settings'));
+            toast.success('Logged In Successfully');
+        } else {
+            yield put(actions.failLogin('Login Failed'));
+        }
     } catch (e) {
-        yield put(actions.failLogin('Oups! Error occurs, please try again later.'));
+        toast.error(e);
+        yield put(actions.failLogin(e));
     }
 }
 
