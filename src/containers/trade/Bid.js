@@ -2,36 +2,30 @@ import React, {Component} from 'react';
 import {Button, Checkbox, Form, Input} from 'semantic-ui-react';
 import {connect} from "react-redux";
 import * as formatter from '../../utils/Formatter';
-import {submitOrder} from '../../redux/actions/trade';
+import {submitOrder, setOrderAttrributes, totalAmount} from '../../redux/actions/trade';
 
  class connectedBidLimit extends Component{
     constructor(props){
         super(props);
-        this.state ={
-            fields: { price: '', volume: '', market: this.props.market, side: 'bid', ord_type: 'limit'}
-        }
 
-        this.total = this.total.bind(this);
         this.placeOrder = this.placeOrder.bind(this);
     }
 
+    componentDidMount() {
+        // set others params here
+        this.props.setOrderAttrributes({ market: this.props.market, side: 'buy', ord_type: 'limit' })
+    }
+
     handleChange(field, e){
-        let fields = this.state.fields;
+        let fields = this.props.fields;
         fields[field] = formatter.preciseNumber(e.target.value);
-        this.setState({ fields });
+        this.props.setOrderAttrributes(fields);
+        this.props.totalAmount(fields);
     }
 
      placeOrder(){
-        let fields = this.state.fields;
+        let fields = this.props.fields;
         this.props.submitOrder(fields);
-     }
-
-     total() {
-        let fields = this.state.fields;
-        if(fields.price !== '' && fields.volume !== ''){
-            return formatter.preciseNumber(formatter.total(fields.price, fields.volume));
-        }
-        return ''
      }
 
     render(){
@@ -47,7 +41,7 @@ import {submitOrder} from '../../redux/actions/trade';
                     <label>Price</label>
                     <Input type="number"
                            onChange={this.handleChange.bind(this, 'price')}
-                           value={this.state.fields.price}
+                           value={this.props.fields.price}
                            placeholder='Price' />
                     <span style={{ color: 'red' }}> </span>
 
@@ -57,7 +51,7 @@ import {submitOrder} from '../../redux/actions/trade';
                     <label>Amount</label>
                     <Input type="number"
                            onChange={this.handleChange.bind(this, 'volume')}
-                           value={this.state.fields.volume}
+                           value={this.props.fields.volume}
                            placeholder='Amount' />
 
                     <span style={{ color: 'red' }}> </span>
@@ -66,7 +60,7 @@ import {submitOrder} from '../../redux/actions/trade';
                 <Form.Field>
                     <label>Total</label>
                     <Input type="number"
-                           value={ this.total() }
+                           value={ this.props.total }
                            placeholder='Total' />
                     <span style={{ color: 'red' }}> </span>
                 </Form.Field>
@@ -115,13 +109,17 @@ class connectedBidMarket extends Component {
 
 const mapStateToProps = state => {
     return {
-        market: state.trade.market
+        market: state.trade.market,
+        fields: state.trade.orderParams,
+        total: state.trade.total
     }
 };
 
 function mapDispatchToProps(dispatch){
     return {
-        submitOrder: (payload) => dispatch(submitOrder(payload))
+        submitOrder: ((payload) => dispatch(submitOrder(payload))) ,
+        setOrderAttrributes: ((payload) => dispatch(setOrderAttrributes(payload))),
+        totalAmount: ((payload) => dispatch(totalAmount(payload)))
     }
 }
 

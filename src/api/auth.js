@@ -1,7 +1,7 @@
 import axiosInstance from './requestBuilder';
 
 export const logoutUser = () => {
-    return axiosInstance.delete('/api/v2/barong/identity/sessions')
+    return axiosInstance.delete('/barong/identity/sessions')
         .then(response => response.data);
 };
 
