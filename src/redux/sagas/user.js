@@ -13,6 +13,11 @@ export function* fetchUser() {
     }
 }
 
+
+
 export function* fetchUserSaga() {
     yield takeEvery(types.FETCH_USER, fetchUser);
 }
+
+
+

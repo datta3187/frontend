@@ -293,7 +293,7 @@ class Login extends Component {
                     </Modal.Content>
                 </Modal>
 
-            </div >
+            </div>
         );
     }
 }

@@ -13,9 +13,9 @@ import './home.css'
 import card from './card';
 import TabTable from './tabTable'
 import SearchItem from './SearchItem'
-
+import {connect} from 'react-redux'
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import { fetchCoinData } from '../../redux/actions/livecoindata';
 
 const panes = [
     { menuItem: 'Faviourate', render: () => <Tab.Pane><TabTable></TabTable></Tab.Pane> },
@@ -29,7 +29,10 @@ class Home extends Component {
         super(props);
         this.state={
         }
+        this.props.fetchCoinData();
     }
+        
+    
 
     handleData(data){
         let result = JSON.parse(data);
@@ -53,11 +56,12 @@ class Home extends Component {
         // return config.webSocketUrl+ this.props.market + '.trades'
     } 
 
+
     render() {
         return (
             <div>
-             <Websocket url={this.path()}
-                           onMessage={this.handleData}/>
+             {/* <Websocket url={this.path()}
+                           onMessage={this.handleData}/> */}
                 <div className='banner'>
                     <img className='banner_img' src='https://static1.bigstockphoto.com/0/1/2/large1500/210463369.jpg' />
             <div className='container'>
@@ -208,4 +212,28 @@ class Home extends Component {
         )
     }
 } 
-export default Home;
+
+ 
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         fetchLogin: (email, password, captcha_response) =>
+//             dispatch(fetchLogin(email, password, captcha_response)),
+
+//         resetFailLogin: () => dispatch(resetFailLogin())
+//     };
+// }; 
+function mapStateToProps(state) {
+    return {
+        error: state.auth.errorLogin
+    };
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchCoinData : () => dispatch(fetchCoinData()),
+        
+    };
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps)(Home);

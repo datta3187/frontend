@@ -4,6 +4,7 @@ import { fetchUserSaga } from './user';
 // import { fetchHistorySaga } from './history';
 // import { fetchSubmitWithdrawSaga } from './withdraw';
 import { fetchLogoutSaga, fetchLoginSaga } from './auth';
+import {fetchCoinDataSaga,}  from './livecoindata';
 
 
 export default function* rootSaga() {
@@ -16,5 +17,7 @@ export default function* rootSaga() {
         // fetchSubmitWithdrawSaga(),
         fetchLogoutSaga(),
         fetchLoginSaga(),
+        fetchCoinDataSaga(),
+
     ]);
 }
