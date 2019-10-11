@@ -1,95 +1,171 @@
 @import './_styleVars.scss';
 
 .beforeLoginHeader {
-  background: url('../images/header-bg.png');
-  background-position: center;
+  background: transparent;
   position: absolute;
-  height: 393px;
-  width: 100%;
   top: 0;
+  z-index: 999;
+  width: 100%;
+  .ui.container {
 
-  &.exchangeHdr {
-    margin: 0;
-    padding: 0;
-    background-position: center 0;
-    height: 92px;
-
-    .ui.container {
-      width: 100%;
+    width: 100%;
+    max-width: 90% !important;
+    @media(max-width: 767px) {
       max-width: 100% !important;
-      box-sizing: border-box;
-      padding-left: 15px;
-      padding-right: 15px;
     }
-  }
+
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-
-  .headerLeft {
+  .header {
     display: flex;
-    align-items: center;
-
-    a {
-      color: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      background: url(../images/logo.png) no-repeat;
-      width: 156px;
-      height: 52px;
-      font-size: 0
-    }
-  }
-
-  .headerRight {
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-
-    .r-nav {
+    justify-content: space-between;
+    margin-top: 20px;
+  
+    .headerLeft {
       display: flex;
-
-      li {
-        color: #a1b0ce;
-        font-size: 14px;
-        padding: 0 11px;
-        font-weight: 500;
-        font-family: Montserrat, sans-serif;
-
-        a {
-          text-decoration: none;
+      align-items: center;
+      .navBtn {
+        display: none;
+        position: absolute;
+        right: 18px;
+        bottom: 0px;
+        @media(max-width: 767px) {
+          display: block;
         }
-
-        &.hasLoginBtn {
-          a {
-            color: #fff;
-            font-size: 14px;
-            padding: 10px 25px;
-            background: $baseColor;
-            font-weight: 500;
-            border-radius: 50px;
-            border: 2px solid $baseColor;;
-            font-family: Montserrat, sans-serif;
-            transition: all .25s;
-
-            &:hover {
-              border-color: #fff;
-              color: #fff;
-              background: 0 0;
-            }
-          }
-        }
-
-        &:last-child {
-          padding-right: 0;
+      }
+  
+      a {
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        background: url(../images/logo.png) no-repeat;
+        width: 264px;
+        height: 53px;
+        font-size: 0;
+        background-size:contain;
+        @media(max-width: 991px) {
+          width: 190px;
+          height: 35px;
         }
       }
     }
+  
+    .headerRight {
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: row;
+  
+      .r-nav {
+        display: flex;
+  
+        li {
+          color: #a1b0ce;
+          font-size: 14px;
+          padding: 0 11px;
+          font-weight: 500;
+          font-family: Montserrat, sans-serif;
+  
+          a {
+            text-decoration: none;
+          }
+  
+          &.hasLoginBtn {
+            a {
+              color: #fff;
+              font-size: 14px;
+              padding: 10px 25px;
+              background: $baseColor;
+              font-weight: 500;
+              border-radius: 50px;
+              border: 2px solid $baseColor;;
+              font-family: Montserrat, sans-serif;
+              transition: all .25s;
+  
+              &:hover {
+                border-color: #fff;
+                color: #fff;
+                background: 0 0;
+              }
+            }
+          }
+  
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+    
+    .top-rgt-nav {
+      li {
+        display: inline-block;
+        margin-right: 23px;
+        &:last-child{
+          margin-right: 0;
+        }
+        a {
+          color: #fff !important;
+          font-size: 14px;
+          font-weight: 600;
+        }
+        .button {
+          background: #3e58a5;
+          color: #fff;
+          border-radius: 8px !important;
+          padding: 14px 30px !important;
+          font-size: 14px !important;
+          &:hover {
+            background: #294494;
+            transition: all ease 0.5s;
+          }
+        }
+        &.whitepaper {
+          margin-right: 10px;
+        }
+      }
+      .ui.selection.dropdown {
+        background: transparent;
+        color: #fff !important;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        border: none;
+        min-width: 5em;
+      }
+      .ui.dropdown:not(.button) > .default.text {
+        color: #fff !important;
+      }
+      .ui.selection.visible.dropdown > .text:not(.default) {
+        color: #fff ;
+        font-weight: 600;
+      }
+      @media(max-width: 767px) {
+        display: none;
+      }
+    }
   }
+  // background: url('../images/header-bg.png');
+  // background-position: center;
+  // height: 393px;
+  // width: 100%;
+  // top: 0;
+
+  // &.exchangeHdr {
+  //   margin: 0;
+  //   padding: 0;
+  //   background-position: center 0;
+  //   height: 92px;
+
+  //   .ui.container {
+  //     width: 100%;
+  //     max-width: 100% !important;
+  //     box-sizing: border-box;
+  //     padding-left: 15px;
+  //     padding-right: 15px;
+  //   }
+  // }
 }
+
+
 
 .tradeBar {
   display: flex;
@@ -226,18 +302,32 @@
   color: #fff;
   top: 93px !important;
   width: 320px !important;
-  background: #132447;
+  background: #fff;
 }
+
 
 .sideNav .sideNavChild {
   color: #737f92 !important;
   padding: 10px 10px 10px 30px !important;
   display: flex;
   align-items: center;
+  .icon {
+    font-size: 19px;
+    margin-right: 0;
+    color: #00adee;
+    opacity: 1 !important;
+  }
+  &:hover {
+    background: #fafafa;
+  }
+ 
+}
+.sideNav .sideNavChild:hover a {
+  color: #00adee !important;
 }
 
 .sideNav .sideNavChild a {
-  color: #737f92 !important;
+  color: #737f92 ;
   font-weight: 600 !important;
   margin-left: 15px;
 }
@@ -251,17 +341,17 @@
 }
 
 .sidebar .route-selected {
-  background-color: #3a4c79 !important;
+  background-color: #ddd !important;
 }
 
 .ui.container {
   max-width: 1250px !important;
 }
 
-.sideNavChild:hover {
-  color: #fff !important;
-  background: #3a4c79 !important;
-}
+// .sideNavChild:hover {
+//   color: #fff !important;
+//   background: #3a4c79 !important;
+// }
 
 .sideNavChild:hover a {
   color: #fff !important;

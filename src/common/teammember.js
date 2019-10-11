@@ -19,8 +19,6 @@ class Teammember extends Component {
             </div>
             <div className='teamMemberPost'>
                 <h2>{this.props.post}</h2>
-            </div>
-            <div className='teamMemberPost'>
                 <p>{this.props.name}</p>
             </div>
 

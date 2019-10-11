@@ -6,7 +6,7 @@ import SampleTable from '../../common/sampleTable';
 import Images from '../../common/images'
 import HeadDesc from '../../common/headDesc'
 import Teammember from '../../common/teammember'
-import { Tab,Card, Image, TextArea, Icon } from 'semantic-ui-react'
+import { Tab,Card, Image, TextArea, Icon, Grid } from 'semantic-ui-react'
 import HomeCard from './card'
 import Corousalp from '../../common/corousal'
 import './home.scss'
@@ -16,6 +16,19 @@ import SearchItem from './SearchItem'
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import announcement from "../../images/announce-img.jpg";
+import trandancOne from "../../images/3Block1.jpg";
+import trandancTwo from "../../images/3Block2.jpg";
+import trandancThree from "../../images/3Block3.jpg";
+import TeamOne from '../../images/th_terry_wlkinson.jpg';
+import TeamTwo from '../../images/th_atul_kamble.jpg';
+import TeamThree from '../../images/th_zoe_chow.jpg';
+import TeamFour from '../../images/th_sungwoo_choi.jpg';
+import TeamFive from '../../images/th_zareena_alwee.jpg';
+import TeamSix from '../../images/th_zareena_alwee-06.jpg';
+import TeamSeven from '../../images/th_zareena_alwee-07.jpg';
+import TeamEight from '../../images/th_vincent_ang.jpg';
+
+
 
 
 const panes = [
@@ -116,30 +129,37 @@ class Home extends Component {
                 <div className="container">
                 <div className='whytradence'>
                     <h2>WHY TREDENCE?</h2>
-                    <div className='rewardAndBonus'>
+                    <div className='rewardAndBonus tredenceBlocks'>
                         <div className='tradenceImage'>
-                        <Images imagec='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx5pdjKnIUofyNEwKSke7n7DjDCtgdfTqiH8enj80Msz0o2xMo_Q' />
+                            <Images imagec={trandancOne} />
                         </div>
                         <div className='tradenceDesc'>
                             <HeadDesc heading='Rewards and Bonuses' desc='The more you trade on Tradence, the more you are rewarded. Our exiting customer rewards and trading bonuses will help build an active community of Tradence traders.'></HeadDesc>
                         </div>
                     </div>
-                    <div className='network_token'>
-                    <div className='tradenceDesc'>
-                            <HeadDesc heading='Rewards and Bonuses' desc='The more you trade on Tradence, the more you are rewarded. Our exiting customer rewards and trading bonuses will help build an active community of Tradence traders.'></HeadDesc>
+                    <div className='network_token tredenceBlocks leftSide'>
+                        <div className='tradenceDesc'>
+                            <HeadDesc heading='Tradence Network Token' desc='Tradence Network Token (TDNT) is an ERC-20 compatible 
+                                token for facilitating and rewarding activity on Tradence 
+                                exchange platform. TDNT users will benefit from discounted 
+                                trading fees, voting for token listing, and much more.'>
+                            </HeadDesc>
                         </div>
                         <div className='tradenceImage'>
-                        <Images imagec='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx5pdjKnIUofyNEwKSke7n7DjDCtgdfTqiH8enj80Msz0o2xMo_Q' />
+                            <Images imagec={trandancTwo} />
                         </div>
                     </div>
-                    <div className='reliable_secure'>
-                    <div className='tradenceImage'>
-                        <Images imagec='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx5pdjKnIUofyNEwKSke7n7DjDCtgdfTqiH8enj80Msz0o2xMo_Q' />
+                    <div className='reliable_secure tredenceBlocks'>
+                        <div className='tradenceImage'>
+                                <Images imagec={trandancThree} />
+                            </div>
+                            <div className='tradenceDesc'>
+                                <HeadDesc heading='Reliable and Secure' desc='We take every precaution to ensure the safety of our users. 
+                                    Our system is specifically built to balance high transaction 
+                                    loads and fend off would-be attacks.'>
+                                </HeadDesc>
+                            </div>
                         </div>
-                        <div className='tradenceDesc'>
-                            <HeadDesc heading='Rewards and Bonuses' desc='The more you trade on Tradence, the more you are rewarded. Our exiting customer rewards and trading bonuses will help build an active community of Tradence traders.'></HeadDesc>
-                        </div>
-                    </div>
                     <div className='getstart'>
                         <Buttonn buttons='GET STARTED'></Buttonn>
                     </div>
@@ -147,21 +167,47 @@ class Home extends Component {
                 </div>
             </div>
 
+
             <div className='team comn-section'>
                 <div className="container">
-            <div className='teamsection'>
-            <Teammember imag='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPOTGpokLWuaX0vpE_7snQlq59CGIdbclxxYwNEcMcwfcSVowy' post='123' name='nmb'></Teammember>
-            </div>
-            <div className='teamsection'>
-            <Teammember imag='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPOTGpokLWuaX0vpE_7snQlq59CGIdbclxxYwNEcMcwfcSVowy' post='123' name='nmb'></Teammember>
-            </div>
-            <div className='teamsection'>
-            <Teammember imag='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPOTGpokLWuaX0vpE_7snQlq59CGIdbclxxYwNEcMcwfcSVowy' post='123' name='nmb'></Teammember>
-            </div>
-            <div className='teamsection'>
-            <Teammember imag='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPOTGpokLWuaX0vpE_7snQlq59CGIdbclxxYwNEcMcwfcSVowy' post='123' name='nmb'></Teammember>
-            </div>
-            </div>
+                    <h2 className='teamheading'>TEAM</h2>
+                <Grid columns={4}>
+                    <Grid.Row>
+                        <Grid.Column mobile={8} tablet={8} computer={4} className='teamsection'>
+                            <Teammember imag={TeamOne}
+                                post='CEO' name='Terry Wilkinson'></Teammember>
+                        </Grid.Column>
+                        <Grid.Column mobile={8} tablet={8} computer={4}  className='teamsection'>
+                            <Teammember imag={TeamTwo}
+                                post='CTO' name='Atul Kamble'></Teammember>
+                        </Grid.Column>
+                        <Grid.Column mobile={8} tablet={8} computer={4} className='teamsection'>
+                            <Teammember imag={TeamThree}
+                                post='CFO' name='Zoe Chow'></Teammember>
+                        </Grid.Column>
+                        <Grid.Column mobile={8} tablet={8} computer={4} className='teamsection'>
+                            <Teammember imag={TeamFour}
+                                post='CMO' name='Sungwoo Choi'></Teammember>
+                        </Grid.Column>
+                        <Grid.Column mobile={8} tablet={8} computer={4} className='teamsection'>
+                            <Teammember imag={TeamFive}
+                                post={['Head of', <br/>, 'International Business']} name='Zareena Alwee'></Teammember>
+                        </Grid.Column>
+                        <Grid.Column mobile={8} tablet={8} computer={4} className='teamsection'>
+                            <Teammember imag={TeamSix}
+                                post={['Head of', <br/>, 'Compliance']} name='Elo Kukk'></Teammember>
+                        </Grid.Column>
+                        <Grid.Column mobile={8} tablet={8} computer={4} className='teamsection'>
+                            <Teammember imag={TeamSeven}
+                                post={['Head of', <br/>, 'Public Relations']} name='Olivia Orlof'></Teammember>
+                        </Grid.Column>
+                        <Grid.Column mobile={8} tablet={8} computer={4} className='teamsection'>
+                            <Teammember imag={TeamEight}
+                                post={['Head of Training', <br/>, '& Development']} name='Vincent Ang'></Teammember>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                </div>
             </div>
 
             <div className='office-inq comn-section'>
@@ -198,23 +244,6 @@ class Home extends Component {
             </div>
             </div>
 
-            <div className='footer'>
-                <div>
-            <div className='copyrite'>
-                <p>© Copyright 2018-2019 Tradence. All Rights Reserved.</p>
-            </div>
-            <div className='sociallink'>
-            <Icon link name='facebook f' />
-            <Icon link name='telegram t' />
-            <Icon link name='twitter t' />
-            <Icon link name='medium m' />
-            <Icon link name='github g' />
-            <Icon link name='youtube y' />
-            <Icon link name='bitcoin b' />
-            </div>
-            </div>
-            
-            </div>
 
 
 
