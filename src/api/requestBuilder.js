@@ -1,10 +1,11 @@
 import axios from 'axios';
 import store from '../redux/store';
+import config from '../config';
 import { fetchLogout } from '../redux/actions/auth';
 
 
 const axiosInstance = axios.create({
-    baseURL: 'http://www.app.local'
+    baseURL: config.baseUrl
 });
 
 

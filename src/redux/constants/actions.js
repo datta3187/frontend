@@ -4,6 +4,13 @@ export const TRADE_LIMIT = 80;
 export const GLOBAL_TICKERS = 'GLOBAL_TICKERS';
 export const MARKET = 'MARKET';
 
+export const ORDER_PARAMS = 'ORDER_PARAMS';
+export const ADD_ORDER= 'ADD_ORDER';
+export const FAIL_ORDER= 'FAIL_ORDER';
+export const RESET_ORDER= 'RESET_ORDER';
+export const TOTAL = "TOTAL";
+
+
 export const FETCH_LOGOUT = 'auth/FETCH_LOGOUT';
 export const FAIL_LOGOUT = 'auth/FAIL_LOGOUT';
 export const FETCH_LOGIN = 'auth/FETCH_LOGIN';

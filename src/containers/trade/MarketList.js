@@ -52,7 +52,6 @@ class ConnectMarketList extends Component {
     }
 
     handleData(data) {
-        debugger
         let result = JSON.parse(data);
         if(typeof result['global.tickers'] !== 'undefined'){
             this.setState({tickers: result["global.tickers"] })
