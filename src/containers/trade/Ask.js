@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, Checkbox, Form, Input} from 'semantic-ui-react'
+import {Button, Form, Input} from 'semantic-ui-react'
 import * as formatter from "../../utils/Formatter";
 import {setOrderAttrributes, submitOrder, totalAmount} from "../../redux/actions/trade";
 import {connect} from "react-redux";
@@ -25,6 +25,7 @@ class connectedAskLimit extends Component{
 
     placeOrder(){
         let fields = this.props.fields;
+        debugger
         this.props.submitOrder(fields);
     }
 
