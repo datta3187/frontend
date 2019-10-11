@@ -3,6 +3,7 @@ import {delay} from 'redux-saga/effects';
 import * as actions from '../actions/withdraw';
 import * as types from '../constants/actions';
 import { postNewWithdraws } from '../../api/withdraw';
+import { fetchHistory } from '../actions/history';
 
 
 function* fetchSubmitWithdraw() {
@@ -21,6 +22,7 @@ function* fetchSubmitWithdraw() {
     yield put(actions.successSubmitWithdraw());
     yield delay(1000);
     yield put(actions.clearWithdrawForm());
+    yield put(fetchHistory('withdraws'));
   } catch (e) {
     yield put(actions.failSubmitWithdraw(e.message));
   }

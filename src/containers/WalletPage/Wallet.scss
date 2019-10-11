@@ -61,17 +61,18 @@
   color: #fff;    width: 100%;}
 
 
-//.WalletPagePosition .ui.button {
-//  font-size: 14px;
-//  font-weight: 600;
-//  color: #fff;
-//  background: #0a9dda;
-//  border-radius: 0;
-//  padding: 16px 43px;
-//  bottom: 40px;
-//  position: absolute;
-//  right: 5px;
-//}
+.WalletPagePosition .ui.button {
+  font-size: 14px;
+  //font-weight: 600;
+  color: #fff;
+  background: #0a9dda;
+  border-radius: 0;
+  padding: 16px 43px;
+  bottom: 40px;
+  //position: absolute;
+  //right: 5px;
+  float: right;
+}
 
 .WalletPagePosition .ui.label.label {
   background: none !important;

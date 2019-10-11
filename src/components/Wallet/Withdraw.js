@@ -2,14 +2,14 @@ import React, { Component }  from 'react';
 import {Grid, Input, Button, Dropdown} from 'semantic-ui-react';
 import {toMinFixed} from "../../utils";
 
-const friendOptions = [
-    {
-        key: 'Jenny Hess',
-        text: 'Jenny Hess',
-        value: 'Jenny Hess',
-        image: { avatar: true, src: '/images/avatar/small/jenny.jpg' },
-    }
-]
+// const friendOptions = [
+//     {
+//         key: 'Jenny Hess',
+//         text: 'Jenny Hess',
+//         value: 'Jenny Hess',
+//         image: { avatar: true, src: '/images/avatar/small/jenny.jpg' },
+//     }
+// ]
 
 class Withdraw extends Component {
     onClick = () => this.props.onClick();
@@ -49,17 +49,17 @@ class Withdraw extends Component {
                 <Grid columns={3} relaxed='very'>
                     <h3>Withdraw Amount</h3>
 
-                    <Grid item xs={6} sm={1} >
-                        <Dropdown
-                            placeholder='Select Friend'
-                            fluid
-                            selection
-                            options={friendOptions}
-                        />
-                    </Grid>
-                    <Grid item xs={6} sm={1} >
-                        <Button>Add Address</Button>
-                    </Grid>
+                    {/*<Grid item xs={6} sm={1} >*/}
+                        {/*<Dropdown*/}
+                            {/*placeholder='Select Friend'*/}
+                            {/*fluid*/}
+                            {/*selection*/}
+                            {/*options={friendOptions}*/}
+                        {/*/>*/}
+                    {/*</Grid>*/}
+                    {/*<Grid item xs={6} sm={1} >*/}
+                        {/*<Button>Add Address</Button>*/}
+                    {/*</Grid>*/}
                     <Grid item xs={12} sm={5} >
                         <Input
                             label={`${currency.name} withdrawal address`}

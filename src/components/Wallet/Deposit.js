@@ -25,26 +25,22 @@ const DepositView = ({ wallet: { name, address, balance, locked } }) => {
                         {toMinFixed(balance, 2)}
                     </p>
                 </Grid.Column>
-
-
-                   <p className="paragraph_column">Please send a payment using the generated deposit address below, Your deposit will be reflected in your account after blockchain confirmation.</p>
-
-
+                <p className="paragraph_column">Please send a payment using the generated deposit address below, Your deposit will be reflected in your account after blockchain confirmation.</p>
                 <fieldset >
                     <legend>Deposit by wallet address</legend>
                     {address || 'Not found'}
+                    <CopyToClipboard text={address}>
+                        <Button
+                            disabled={!address}
+                        >
+                            Copy
+                        </Button>
+                    </CopyToClipboard>
                 </fieldset>
 
-                <CopyToClipboard text={address}>
-                    <Button
-                        disabled={!address}
-                    >
-                        Copy
-                    </Button>
-                </CopyToClipboard>
             </Grid>
             <Grid>
-                {address && <QRCode fgColor="#333333" size={300} value={address} />}
+                {/*{address && <QRCode fgColor="#333333" size={200} value={address} />}*/}
             </Grid>
         </Container>
     );
