@@ -24,13 +24,13 @@ import { getcoindata } from '../../api/livecoindata';
 export function* fetchCoinData() {
    
     try {
-        alert(12345)
+        // alert(12345)
         // const coindata = yield call(getcoindata);
         const coindata = yield call(getcoindata);
         console.log('888888888888888888888888888', coindata);
         yield put(actions.fetchCoinDataSuccess(coindata));
     } catch (e) {
-        alert(123)
+        // alert(123)
         // yield put(actions.failUser());
     }
 }

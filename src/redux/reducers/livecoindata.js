@@ -6,8 +6,7 @@ import {
 } from '../constants/actions';
 
 const initState = {
-    errorLogin: null,
-    errorLogout: null,
+    data: null 
 };
 
 function livecoinReducer(state = initState, action) {

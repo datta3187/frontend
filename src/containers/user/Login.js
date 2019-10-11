@@ -307,8 +307,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
     return {
         fetchLogin: (email, password, captcha_response) =>
-            dispatch(fetchLogin(email, password, captcha_response)),
-
+            dispatch(fetchLogin(email, password, captcha_response)), 
         resetFailLogin: () => dispatch(resetFailLogin())
     };
 };

@@ -10,6 +10,7 @@ const initialState = {
 }
 
 function socketReducer(state= initialState, action){
+    console.log('Vikrant : ', action)
     switch(action.type){
         case MARKET_TRADE:
             return Object.assign({}, state, {

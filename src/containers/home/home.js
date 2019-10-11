@@ -1,19 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Websocket from 'react-websocket';
 import Textboxx from '../../common/textboxx';
 import Buttonn from '../../common/buttonn';
 import SampleTable from '../../common/sampleTable';
-import Images from '../../common/images'
-import HeadDesc from '../../common/headDesc'
-import Teammember from '../../common/teammember'
-import { Tab,Card, Image, TextArea, Icon } from 'semantic-ui-react'
-import HomeCard from './card'
-import Corousalp from '../../common/corousal'
-import './home.css'
+import Images from '../../common/images';
+import HeadDesc from '../../common/headDesc';
+import Teammember from '../../common/teammember';
+import { Tab,Card, Image, TextArea, Icon } from 'semantic-ui-react';
+import HomeCard from './card';
+import Corousalp from '../../common/corousal';
+import './home.css';
 import card from './card';
-import TabTable from './tabTable'
-import SearchItem from './SearchItem'
-import {connect} from 'react-redux'
+import TabTable from './tabTable';
+import SearchItem from './SearchItem';
+import {connect} from 'react-redux';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { fetchCoinData } from '../../redux/actions/livecoindata';
 
@@ -29,7 +29,8 @@ class Home extends Component {
         super(props);
         this.state={
         }
-        this.props.fetchCoinData();
+        this.handleData = this.handleData.bind(this);
+        // this.props.fetchCoinData();
     }
         
     
@@ -37,13 +38,13 @@ class Home extends Component {
     handleData(data){
         let result = JSON.parse(data);
         let coiname = result['global.tickers'];
-        console.log('my data : ', coiname);
+        console.log('my data : ', result);
       
          
         // console.log(Object.keys(coiname)); 
-        let coins = [];
-        coins.push(coiname);
-        console.log('aaaaaaa ', coins)  
+        // let coins = [];
+        // coins.push(coiname);
+        // console.log('aaaaaaa ', coins)  
         // let stream_type = this.props.market + '.trades';
         // console.log('my data : ', stream_type);
         // if(typeof result[stream_type] !== 'undefined') {
@@ -53,15 +54,14 @@ class Home extends Component {
     } 
     path() {
         return 'wss://demo.openware.com/api/v2/ranger/public/?stream=global.tickers'
-        // return config.webSocketUrl+ this.props.market + '.trades'
     } 
 
 
     render() {
         return (
             <div>
-             {/* <Websocket url={this.path()}
-                           onMessage={this.handleData}/> */}
+             <Websocket url={this.path()}
+                onMessage={this.handleData}/>
                 <div className='banner'>
                     <img className='banner_img' src='https://static1.bigstockphoto.com/0/1/2/large1500/210463369.jpg' />
             <div className='container'>
@@ -190,12 +190,12 @@ class Home extends Component {
             </div>
             <div className='sociallink'>
             <Icon link name='facebook f' />
-            <Icon link name='telegram t' />
-            <Icon link name='twitter t' />
-            <Icon link name='medium m' />
-            <Icon link name='github g' />
-            <Icon link name='youtube y' />
-            <Icon link name='bitcoin b' />
+            <Icon link name='telegram' />
+            <Icon link name='twitter' />
+            <Icon link name='medium' />
+            <Icon link name='github' />
+            <Icon link name='youtube' />
+            <Icon link name='bitcoin' />
             </div>
             
             </div>
@@ -224,16 +224,18 @@ class Home extends Component {
 //     };
 // }; 
 function mapStateToProps(state) {
+    console.log('Global ticker :  ', state )
     return {
         error: state.auth.errorLogin
     };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        fetchCoinData : () => dispatch(fetchCoinData()),
+        fetchCoinData : () => dispatch(fetchCoinData()), 
         
     };
 };
 export default connect(
     mapStateToProps,
     mapDispatchToProps)(Home);
+ 
