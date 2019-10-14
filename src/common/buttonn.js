@@ -11,7 +11,7 @@ class Buttonn extends Component {
     render() {
         return (
             <div>
-                <Button>{this.props.buttons}</Button>
+                <Button className={this.props.btnDefault}>{this.props.buttons}</Button>
             </div>
         )
     }
