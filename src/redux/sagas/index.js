@@ -18,8 +18,7 @@ export default function* rootSaga() {
         // fetchSubmitWithdrawSaga(),
         fetchLogoutSaga(),
         fetchLoginSaga(),
-        fetchCoinDataSaga(),
-
-        placeOrderSaga()
+        placeOrderSaga(),
+        fetchOrdersSaga()
     ]);
 }
