@@ -8,6 +8,8 @@ import Ticker from './Ticker'
 import OrderBook from './OrderBook'
 import MarketList from './MarketList'
 import Trade from './Trade'
+import MyOrder from './MyOrder'
+import OrderHistory from './OrderHistory'
 // import PeatioSocket from '../../components/PeatioSocket'
 
 import './css/exchange.scss'
@@ -66,6 +68,8 @@ class connectedExchange extends Component {
                         </div>
                     </div>
                 </div>
+                <MyOrder />
+                <OrderHistory />
                 <Footer />
             </div>
         )

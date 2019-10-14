@@ -10,3 +10,13 @@ export const submitOrder = (data) => {
             throw error;
         });
 };
+
+export const getMyOrders = () => {
+    return axiosInstance.get(
+        '/peatio/market/orders'
+    )
+        .then(response => response.data)
+        .catch(error => {
+            throw error;
+        });
+};
