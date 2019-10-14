@@ -52,7 +52,7 @@ export class Setting extends Component {
             })
             .catch(error =>{
                 if(error.response){
-                    toast.error(error.response.data.errors[0]);
+                    toast.error(error.response.data.errors);
                 }
                 else{
                     toast.error(""+ error);

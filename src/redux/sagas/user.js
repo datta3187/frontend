@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import * as actions from '../actions/user';
-import * as types from '../constants/actions';
+import * as types from '../constants/user';
 import { getUser } from '../../api/user';
 
 

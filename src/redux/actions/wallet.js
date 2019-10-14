@@ -6,7 +6,7 @@ import {
     FETCH_WALLET_ADDRESS,
     FAIL_WALLET_ADDRESS,
     SUCCESS_WALLET_ADDRESS
-} from '../constants/actions';
+} from '../constants/wallet';
 
 export const fetchWalletData = () => {
     return { type: FETCH_WALLET_DATA };

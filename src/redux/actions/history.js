@@ -2,7 +2,7 @@ import {
     FETCH_HISTORY,
     SUCCESS_HISTORY,
     FAIL_HISTORY,
-} from '../constants/actions';
+} from '../constants/history';
 
 export const fetchHistory = type => {
     return { type: FETCH_HISTORY, payload: { type } };

@@ -25,7 +25,6 @@ class connectedAskLimit extends Component{
 
     placeOrder(){
         let fields = this.props.fields;
-        debugger
         this.props.submitOrder(fields);
     }
 

@@ -1,6 +1,6 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects';
 import * as actions from '../actions/wallet';
-import * as types from '../constants/actions';
+import * as types from '../constants/wallet';
 import { getWalletData, getWalletAddress } from '../../api/wallet';
 import { push } from 'connected-react-router';
 import { fetchHistory } from '../actions/history';

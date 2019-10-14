@@ -4,7 +4,7 @@ import {
     FAIL_SUBMIT_WITHDRAW,
     HANDLE_CHANGE_WITHDRAW,
     CLEAR_WITHDRAW_FORM,
-} from '../constants/actions';
+} from '../constants/withdraw';
 
 export const fetchSubmitWithdraw = () => {
     return { type: FETCH_SUBMIT_WITHDRAW };

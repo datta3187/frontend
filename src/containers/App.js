@@ -42,7 +42,7 @@ class App extends Component {
                     <Route path="/register" exact component={Register} />
                     <Route path="/email-verification" exact component={EmailVerify} />
 
-                    <PrivateRoute path="/wallets" component={WalletPage}  />
+                    <PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/settings" component={Setting} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/phone" component={Phone} isAuthenticated={isAuthenticated} isLoading={isFetching} />

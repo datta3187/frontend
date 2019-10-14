@@ -4,7 +4,7 @@ import {
     FAIL_SUBMIT_WITHDRAW,
     HANDLE_CHANGE_WITHDRAW,
     CLEAR_WITHDRAW_FORM,
-} from '../constants/actions';
+} from '../constants/withdraw';
 
 const initState = {
     isFetching: false,

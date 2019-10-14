@@ -45,7 +45,6 @@ function getTrades(key){
 // function check(){
 //     const ws = new WebSocket(config.webSocketUrl + 'global.tickers')
 //     ws.onmessage = response => {
-//         debugger
 //         console.log("=================>", response.data);
 //     }
 //

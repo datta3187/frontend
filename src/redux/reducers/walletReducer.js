@@ -8,7 +8,7 @@ import {
     // FETCH_WALLET_ADDRESS,
     SUCCESS_WALLET_ADDRESS,
     FAIL_WALLET_ADDRESS,
-} from '../constants/actions';
+} from '../constants/wallet';
 
 const initState = {
     list: {},

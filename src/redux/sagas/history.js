@@ -1,7 +1,7 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import moment from 'moment';
 import * as actions from '../actions/history';
-import * as types from '../constants/actions';
+import * as types from '../constants/history';
 import { DEPOSITS_HISTORY_TYPE, WITHDRAWS_HISTORY_TYPE } from '../../redux/constants/history';
 import { getDepositHistory, getWithdrawHistory } from '../../api/history';
 

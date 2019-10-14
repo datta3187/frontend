@@ -6,7 +6,6 @@ export const logoutUser = () => {
 };
 
 export const loginUser = (email, password, recaptcha_response = '', otp_code = '') => {
-    debugger
     return axiosInstance.post(
         '/barong/identity/sessions',
         { email, password, otp_code, recaptcha_response }

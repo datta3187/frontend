@@ -1,0 +1,7 @@
+export const FETCH_WALLET_DATA = 'wallet/FETCH_WALLET_DATA';
+export const SUCCESS_WALLET_DATA = 'wallet/SUCCESS_WALLET_DATA';
+export const FAIL_WALLET_DATA = 'wallet/FAIL_WALLET_DATA';
+export const SET_ACTIVE_WALLET = 'wallet/SET_ACTIVE_WALLET';
+export const FETCH_WALLET_ADDRESS = 'wallet/FETCH_WALLET_ADDRESS';
+export const SUCCESS_WALLET_ADDRESS = 'wallet/SUCCESS_WALLET_ADDRESS';
+export const FAIL_WALLET_ADDRESS = 'wallet/FAIL_WALLET_ADDRESS';

@@ -1,4 +1,4 @@
-import { FETCH_USER, SUCCESS_USER, FAIL_USER, RESET_USER } from '../constants/actions';
+import { FETCH_USER, SUCCESS_USER, FAIL_USER, RESET_USER } from '../constants/user';
 
 export const fetchUser = () => {
     return { type: FETCH_USER };

@@ -4,7 +4,7 @@ import {
     FETCH_LOGIN,
     FAIL_LOGIN,
     RESET_FAIL_LOGIN
-} from '../constants/actions';
+} from '../constants/auth';
 
 const initState = {
     errorLogin: null,
