@@ -4,7 +4,7 @@ import { fetchWalletSaga, setActiveWalletSaga, fetchWalletAddressSaga } from './
 import { fetchHistorySaga } from './history';
 import { fetchSubmitWithdrawSaga } from './withdraw';
 import { fetchLogoutSaga, fetchLoginSaga } from './auth';
-import {placeOrderSaga} from './trade';
+import {placeOrderSaga, fetchOrdersSaga} from './trade';
 import { twoFactorAuthSaga } from './twoFactorAuth';
 
 
@@ -19,6 +19,7 @@ export default function* rootSaga() {
         fetchLogoutSaga(),
         fetchLoginSaga(),
         placeOrderSaga(),
+        fetchOrdersSaga(),
         twoFactorAuthSaga()
     ]);
 }
