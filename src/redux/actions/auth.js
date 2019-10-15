@@ -15,8 +15,8 @@ export const failLogout = message => {
     return { type: FAIL_LOGOUT, payload: { message } };
 };
 
-export const fetchLogin = (email, password, captcha_response) => {
-    return { type: FETCH_LOGIN, payload: { email, password, captcha_response } };
+export const fetchLogin = (payload) => {
+    return { type: FETCH_LOGIN, data: payload };
 };
 
 export const failLogin = message => {

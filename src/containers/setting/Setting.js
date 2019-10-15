@@ -69,7 +69,7 @@ export class Setting extends Component {
                 })
             })
             .catch(error => {
-                CustomError.handle(error)
+                // CustomError.handle(error)
             })
 
         // auth.fetchUser()

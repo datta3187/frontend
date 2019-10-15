@@ -22,10 +22,11 @@ export function* fetchLogoutSaga() {
     yield takeEvery(types.FETCH_LOGOUT, fetchLogout);
 }
 
-export function* fetchLogin({ payload: { email, password, captcha_response } }) {
+export function* fetchLogin(payload) {
     try {
-        let auth = yield call(loginUser, email, password, captcha_response);
-        if (auth && auth.gAuthStatus===0) {
+        let auth = yield call(loginUser, payload.data);
+        if (auth && auth.gAuthStatus===0){
+            localStorage.setItem('userInfo', JSON.stringify(payload.data));
             yield put(push('/two-factor'));
         }else if(auth){
             yield call(fetchUser);

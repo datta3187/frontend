@@ -1,4 +1,4 @@
-import { MARKET_TRADE, MY_TRADE, GLOBAL_TICKERS } from '../constants/actions';
+import { MARKET_TRADE, MY_TRADE, GLOBAL_TICKERS } from '../constants/trade';
 
 export const addMarketTrade = payload => {
     return {

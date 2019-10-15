@@ -11,6 +11,8 @@ import Trade from './Trade'
 import MyOrder from './MyOrder'
 import OrderHistory from './OrderHistory'
 // import PeatioSocket from '../../components/PeatioSocket'
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+
 
 import './css/exchange.scss'
 import {assignMarket} from "../../redux/actions/trade";
@@ -68,8 +70,12 @@ class connectedExchange extends Component {
                         </div>
                     </div>
                 </div>
-                <MyOrder />
-                <OrderHistory />
+                <div>
+                    <MyOrder />
+                </div>
+                <div>
+                    <OrderHistory />
+                </div>
                 <Footer />
             </div>
         )

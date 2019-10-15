@@ -1,9 +1,10 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { submitOrder, getMyOrders } from '../../api/trade';
-import * as types from '../constants/actions';
+import * as types from '../constants/trade';
 import { toast } from 'react-toastify';
 import * as actions from "../actions/trade";
-import {fetchUser} from "./user";
+import {getUser} from "../../api/user";
+import {ORDER_WAIT, ORDER_LIMIT} from "../constants/trade";
 
 export function* placeOrder(payload) {
     try {
@@ -12,6 +13,7 @@ export function* placeOrder(payload) {
             yield put(actions.resetOrder(false));
             toast.success("Order has been placed successfully.");
             yield put(actions.resetOrder(true));
+            yield put(actions.fetchOpenOrders({market: payload.data.market, state: ORDER_WAIT, limit: ORDER_LIMIT}))
         }
     } catch (e) {
         toast.error(e);
@@ -23,19 +25,19 @@ export function* placeOrderSaga() {
     yield takeEvery(types.ADD_ORDER, placeOrder);
 }
 
-export function* fetchOrders() {
+// To get open Orders
+
+export function* fetchOpenOrders(payload) {
     try {
-        debugger
-        const user = yield call(fetchUser);
-        let Orders;
+        const user = yield call(getUser);
+        let openOrders;
         if(user){
-            console.log('calling fetch my orders in saga');
-            Orders = yield call(getMyOrders);
+            openOrders = yield call(getMyOrders , payload);
         }
         else{
-            Orders =[]
+            openOrders =[]
         }
-        yield put(actions.myOrders(Orders));
+        yield put(actions.myOrders(openOrders));
 
     } catch (e) {
         toast.error(e);
@@ -43,6 +45,30 @@ export function* fetchOrders() {
     }
 }
 
-export function* fetchOrdersSaga() {
-    yield takeEvery(types.FETCH_ORDERS, fetchOrders);
+export function* fetchOpenOrdersSaga() {
+    yield takeEvery(types.FETCH_OPEN_ORDERS, fetchOpenOrders);
+}
+
+// To get All orders history
+
+export function* fetchAllOrders(payload) {
+    try {
+        const user = yield call(getUser);
+        let allOrders;
+        if(user){
+            allOrders = yield call(getMyOrders, payload);
+        }
+        else{
+            allOrders =[]
+        }
+        yield put(actions.allOrders(allOrders));
+
+    } catch (e) {
+        toast.error(e);
+        // yield put(actions.failOrder(e));
+    }
+}
+
+export function* fetchAllOrdersSaga() {
+    yield takeEvery(types.FETCH_ALL_ORDERS, fetchAllOrders);
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {Container, Button, Form, Dimmer, Loader, Input} from 'semantic-ui-react';
+import {Container, Button, Dimmer, Loader} from 'semantic-ui-react';
+import { Input, Form } from 'semantic-ui-react-form-validator';
+
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import { toast } from 'react-toastify';
 import compose from "recompose/compose";
 import {connect} from "react-redux";
 import {fetch2fa} from "../../redux/actions/twoFactorAuth";
@@ -19,15 +20,11 @@ class TwoFactorAuth extends Component {
     }
 
     handleChange(field, e){
-
         this.setState({ code: e.target.value });
     }
 
     submitCode(){
-        debugger
-        console.log('helo')
         this.props.fetch2fa(this.state.code);
-
     }
 
     render(){
@@ -41,20 +38,17 @@ class TwoFactorAuth extends Component {
 
                 <Header activePath='login' />
                 <Container className="boxWithShadow userForms">
-                    <div className="userFormHeader">
-                        <h1>Sign in</h1>
-                        <p>Enter 2FA Code</p>
-                    </div>
-                    <Form>
-                        <Form.Field>
-                            <label>Code</label>
-                            <Input
-                                   type="text"
-                                   name="code"
-                                   onChange={this.handleChange.bind(this, 'code')}
-                            />
-                        </Form.Field>
-                        <Button onClick={this.submitCode} primary>SUBMIT</Button>
+                    <Form ref="form" onSubmit={this.submitCode}
+                    >
+                        <Input
+                               type="text"
+                               placeholder="Enter 2FA Code"
+                               onChange={this.handleChange.bind(this, 'code')}
+                               value={this.state.code}
+                               validators={['required']}
+                               errorMessages={['Required']}
+                        />
+                        <Button primary>SUBMIT</Button>
                     </Form>
                 </Container>
                 <Footer />
@@ -63,13 +57,6 @@ class TwoFactorAuth extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-
-    }
-}
-
-
 function mapDispatchToProps(dispatch) {
     return {
         fetch2fa: (otpCode) => dispatch(fetch2fa(otpCode))
@@ -77,7 +64,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps)
+    connect(null, mapDispatchToProps)
 )(TwoFactorAuth);
 
 

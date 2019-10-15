@@ -19,7 +19,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fields: { email: '', password: '' },
+            fields: { email: '', password: '' , captcha_response: '', otp_code: ''},
             errors: { email: '', password: '', captcha_response: '' },
             forfields: { email: '' },
             loading: false,
@@ -149,9 +149,7 @@ class Login extends Component {
         e.preventDefault();
         this.setState({ loading: true });
         if (this.handleValidation()) {
-            this.props.fetchLogin(this.state.fields.email,
-                this.state.fields.password,
-                this.state.fields.captcha_response);
+            this.props.fetchLogin(this.state.fields);
         }
         this.setState({ loading: false });
     };
@@ -306,8 +304,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchLogin: (email, password, captcha_response) =>
-            dispatch(fetchLogin(email, password, captcha_response)),
+        fetchLogin: (payload) => dispatch(fetchLogin(payload)),
 
         resetFailLogin: () => dispatch(resetFailLogin())
     };

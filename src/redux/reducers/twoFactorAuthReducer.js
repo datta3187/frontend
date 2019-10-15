@@ -4,11 +4,10 @@ import {
 } from '../constants/twoFactorAuth';
 
 const initState = {
-   errorMsg: null
+   error2fa: null
 };
 
 function twoFactorAuthReducer(state = initState, action) {
-    debugger
     switch (action.type) {
         case FETCH_2FA: {
             return { ...state };
