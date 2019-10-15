@@ -9,7 +9,6 @@ import { ConnectedRouter } from 'connected-react-router';
 
 
 import './index.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
     <Provider store={store}>
