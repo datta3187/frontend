@@ -18,7 +18,7 @@ import PrivateRoute from '../components/PrivateRoute';
 import { fetchUser } from '../redux/actions/user';
 import WalletPage from './WalletPage';
 import DocumentList from './kyc/DocumentList';
-
+import TwoFactorAuth from './TwoFactorAuth'
 
 class App extends Component {
     componentDidMount() {
@@ -41,6 +41,7 @@ class App extends Component {
                     <Route path="/password-reset/:token" exact component={ResetPassword} />
                     <Route path="/register" exact component={Register} />
                     <Route path="/email-verification" exact component={EmailVerify} />
+                    <Route path="/two-factor" component={TwoFactorAuth} />
 
                     <PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />

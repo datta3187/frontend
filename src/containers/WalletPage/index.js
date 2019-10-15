@@ -17,8 +17,6 @@ class WalletPage extends Component {
         this.props.fetchHistory();
     }
 
-    // filterHistory = list => list.filter(item => item.currency === this.props.activeWallet);
-
     render() {
         const {
             location,

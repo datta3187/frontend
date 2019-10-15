@@ -24,8 +24,10 @@ export function* fetchLogoutSaga() {
 
 export function* fetchLogin({ payload: { email, password, captcha_response } }) {
     try {
-        var auth = yield call(loginUser, email, password, captcha_response);
-        if (auth) {
+        let auth = yield call(loginUser, email, password, captcha_response);
+        if (auth && auth.gAuthStatus===0) {
+            yield put(push('/two-factor'));
+        }else if(auth){
             yield call(fetchUser);
             yield put(push('/settings'));
             toast.success('Logged In Successfully');
