@@ -1,4 +1,4 @@
-import {MARKET_TRADE, MY_TRADE, TRADE_LIMIT, GLOBAL_TICKERS} from "../constants/actions";
+import {MARKET_TRADE, MY_TRADE, TRADE_LIMIT, GLOBAL_TICKERS} from "../constants/trade";
 import config from '../../config'
 
 
