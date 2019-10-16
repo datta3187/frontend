@@ -19,6 +19,8 @@ import { fetchUser } from '../redux/actions/user';
 import WalletPage from './WalletPage';
 import DocumentList from './kyc/DocumentList';
 import TwoFactorAuth from './TwoFactorAuth'
+import Home from './home/home'
+import CryptoSocekt from './socket/cryptoSocekt'
 
 class App extends Component {
     componentDidMount() {
@@ -34,7 +36,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Switch>
-                    <Route path="/" exact component={Login} />
+                    <Route path="/" exact component={Home} />
                     <Route path="/login" exact component={Login} />
                     <Route path="/trading/:market" component={Exchange} />
                     <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
@@ -42,6 +44,7 @@ class App extends Component {
                     <Route path="/register" exact component={Register} />
                     <Route path="/email-verification" exact component={EmailVerify} />
                     <Route path="/two-factor" component={TwoFactorAuth} />
+                    <Route path="/cryptoSocekt" exact component={CryptoSocekt} />
 
                     <PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />

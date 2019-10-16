@@ -9,7 +9,7 @@ import walletReducer from './walletReducer';
 import historyReducer from './historyReducer';
 import withdrawReducer from './withdrawReducer';
 import tradeReducer from './tradeReducer';
-
+import livecoinReducer from './livecoindata'
 
 export default combineReducers({
     router: connectRouter(history),
@@ -19,5 +19,6 @@ export default combineReducers({
     wallet: walletReducer,
     history: historyReducer,
     withdraw: withdrawReducer,
-    trade: tradeReducer
+    trade: tradeReducer,
+    livecoin: livecoinReducer
 });

@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,500i,600,700,700i,800&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap');
+
 @import './components/_styleVars.scss';
 
 html {
@@ -12,16 +14,16 @@ a{text-decoration: none;}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin-bottom: 188px;
   padding-bottom: 50px;
 }
-.ui.modal>.header{font-family: 'Montserrat', sans-serif;}
-h1, h2, h3, h4, h5{font-family: 'Montserrat', sans-serif;}
+.ui.modal>.header{font-family: 'Roboto', sans-serif}
+h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif}
 .ui.button, .ui.form input:not([type]), .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=email], .ui.form input[type=file], .ui.form input[type=number], .ui.form input[type=password], .ui.form input[type=search], .ui.form input[type=tel], .ui.form input[type=text], .ui.form input[type=time], .ui.form input[type=url]{
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif
 }
 .ui.selection.active.dropdown{box-shadow: none !important;}
 code {
@@ -29,21 +31,7 @@ code {
     monospace;
 }
 .ui.container{width: 100%; max-width: 1170px !important;}
-.footer{
-  background: #002245;
-  padding: 15px;
-  float: left;
-  width: 100%;
-  position: absolute;
-  left:0px;
-  bottom: 0;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: end;
-  color: #fff;
-  z-index: 2;
-  box-sizing: border-box;
-}
+
 .boxWithShadow{
   box-shadow: -2px 9px 23px 0 rgba(0,0,0,.06);
   background: #fff;

@@ -9,11 +9,15 @@ import { ConnectedRouter } from 'connected-react-router';
 
 
 import './index.scss';
+import Headers from './components/Header';
+import Footer from './components/Footer';
 
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
+            <Headers />
             <App />
+            <Footer />
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root')
