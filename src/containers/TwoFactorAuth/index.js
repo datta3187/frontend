@@ -4,7 +4,6 @@ import { Input, Form } from 'semantic-ui-react-form-validator';
 
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import compose from "recompose/compose";
 import {connect} from "react-redux";
 import {fetch2fa} from "../../redux/actions/twoFactorAuth";
 

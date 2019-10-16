@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { Table } from 'semantic-ui-react'
 import bitcoin from "../images/icon-bitcoin.png";
-import bitcoincash from "../images/icon-bitcoincash.png";
-import ethereum from "../images/icon-ethereum.png";
-
-
 
 class SampleTable extends Component {
     constructor(props){

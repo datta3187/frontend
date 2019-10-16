@@ -19,8 +19,7 @@ import { fetchUser } from '../redux/actions/user';
 import WalletPage from './WalletPage';
 import DocumentList from './kyc/DocumentList';
 import TwoFactorAuth from './TwoFactorAuth'
-import Home from './home/home'
-import CryptoSocekt from './socket/cryptoSocekt'
+import Home from './home/Home'
 
 class App extends Component {
     componentDidMount() {
@@ -44,7 +43,6 @@ class App extends Component {
                     <Route path="/register" exact component={Register} />
                     <Route path="/email-verification" exact component={EmailVerify} />
                     <Route path="/two-factor" component={TwoFactorAuth} />
-                    <Route path="/cryptoSocekt" exact component={CryptoSocekt} />
 
                     <PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />
@@ -77,6 +75,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

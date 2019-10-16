@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Card, Image, Input, Checkbox, Form } from 'semantic-ui-react'
-import Textboxx from '../../common/textboxx';
+import { Card, Input, Checkbox } from 'semantic-ui-react'
 import Buttonn from '../../common/buttonn'
-import Checkboxx from '../../common/checkbox'
-import axios from 'axios';
 import { connect } from 'react-redux';
-import {registerUsers} from "../../redux/actions/user";
+
 
 class HomeCard extends Component {
     constructor(props){
@@ -13,7 +10,6 @@ class HomeCard extends Component {
         this.state={
             heading:'',
             description:'',
-            // name:'',
             email:'',
             password:'',
             confirm_password:'',
@@ -23,9 +19,6 @@ class HomeCard extends Component {
         }
     }
 
-    // name=(event)=>{
-    //     this.setState({name : event.target.value});
-    // } 
     email=(event)=>{
         this.setState({email : event.target.value});
     } 
@@ -62,17 +55,7 @@ class HomeCard extends Component {
           let errors = {};
           let formIsValid = true;
   
-        //   if(!this.state.name){
-        //       formIsValid = false;
-        //       errors['name'] = '*Please enter name';
-        //   } 
-        //   if(typeof this.state.name !== "undefined"){
-        //       if(! this.state.name.match(/^[a-zA-Z ]*$/))
-        //       { formIsValid = false;
-        //           errors['name']= '*Please enter alphabats only.'; }
-        //   }
-  
-          if(!this.state.email){
+             if(!this.state.email){
               formIsValid = false;
               errors['email'] = "*Please enter a valid Email address."
           }
@@ -121,11 +104,6 @@ class HomeCard extends Component {
                     </Card.Description>
 
                 <form method='post' name = 'userRegistrationForm' onSubmit={this.submituserRegistrationForm}>
-                {/* <div className="form-grp">
-                    <Input name='name' value={this.state.name} onChange={this.name} placeholder='Name'></Input>
-                        <div className='errorMsg'>{this.state.errors.name}</div>
-                    </div> */}
-
                     <div className="form-grp">
                     <Input name='email' value={this.state.email} onChange={this.email} placeholder='Email'></Input>
                         <div className='errorMsg'>{this.state.errors.email}</div>
@@ -161,7 +139,7 @@ class HomeCard extends Component {
 
 function mapDispatchToProps(dispatch){
     return {
-        register_users: (payload) => dispatch(registerUsers(payload))
+        register_users: (payload) => {}
     }
 }
  
