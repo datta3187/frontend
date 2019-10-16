@@ -63,8 +63,6 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default compose(
-    connect(null, mapDispatchToProps)
-)(TwoFactorAuth);
+export default connect(null, mapDispatchToProps)(TwoFactorAuth);
 
 

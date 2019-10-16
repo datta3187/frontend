@@ -5,7 +5,6 @@ import {
     SUCCESS_WALLET_DATA,
     FAIL_WALLET_DATA,
     SET_ACTIVE_WALLET,
-    // FETCH_WALLET_ADDRESS,
     SUCCESS_WALLET_ADDRESS,
     FAIL_WALLET_ADDRESS,
 } from '../constants/wallet';
@@ -20,11 +19,9 @@ const initState = {
 function walletReducer(state = initState, action) {
     switch (action.type) {
         case FETCH_WALLET_DATA: {
-            console.log("FETCH WALLET DATA===========");
             return { ...state, isFetching: true };
         }
         case SUCCESS_WALLET_DATA: {
-            console.log("SUCCESS WALLET DATA============");
             return { ...state, isFetching: false, list: action.payload.data };
         }
         case FAIL_WALLET_DATA: {

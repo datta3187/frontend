@@ -10,7 +10,6 @@ export function* fetch2fa(payload) {
     try {
         let record = JSON.parse(localStorage.getItem("userInfo"));
         record['otp_code'] = payload.otpCode;
-        debugger
         let auth = yield call(loginUser, record);
 
         if (auth){

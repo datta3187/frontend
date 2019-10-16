@@ -6,8 +6,6 @@ import Withdraw from "../../components/Wallet/Withdraw";
 import History from '../../components/Wallet/History';
 
 const WalletLayout = ({location, activeWallet = 'btc', wallets, children, other_withdraw_params }) => {
-    console.log("WALLET LAYOUT======");
-
     return (
         <Fragment>
             <main>

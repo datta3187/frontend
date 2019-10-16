@@ -7,7 +7,7 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 import 'react-toastify/dist/ReactToastify.css';
 import config from '../../config';
 import ReCAPTCHA from 'react-google-recaptcha';
-import {fetchRegister, resetFailRegister} from "../../redux/actions/register";
+import {fetchRegister} from "../../redux/actions/register";
 import {connect} from "react-redux";
 
 class Register extends Component {

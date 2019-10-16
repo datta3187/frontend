@@ -1,10 +1,8 @@
 import React from 'react';
-import cx from 'classnames';
 import { toMinFixed } from '../../utils/index';
 import {List, Image, Grid} from 'semantic-ui-react';
 
 const SideBarList = ({ wallets, activeWallet = "btc", onClickWallet }) => {
-    console.log("SIDE BAR LIST==============");
     return (
         <div className="parentList">
             <List>
