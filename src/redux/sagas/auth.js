@@ -25,6 +25,7 @@ export function* fetchLogoutSaga() {
 export function* fetchLogin(payload) {
     try {
         let auth = yield call(loginUser, payload.data);
+        debugger
         if (auth && auth.gAuthStatus===0){
             localStorage.setItem('userInfo', JSON.stringify(payload.data));
             yield put(push('/two-factor'));

@@ -4,9 +4,9 @@ import { fetchWalletSaga, setActiveWalletSaga, fetchWalletAddressSaga } from './
 import { fetchHistorySaga } from './history';
 import { fetchSubmitWithdrawSaga } from './withdraw';
 import { fetchLogoutSaga, fetchLoginSaga } from './auth';
-import {placeOrderSaga, fetchOpenOrdersSaga, fetchAllOrdersSaga} from './trade';
-import {twoFactorAuthSaga} from './twoFactorAuth'
-
+import { placeOrderSaga, fetchOpenOrdersSaga, fetchAllOrdersSaga } from './trade';
+import { twoFactorAuthSaga } from './twoFactorAuth'
+import { fetchRegisterSaga } from "./register";
 
 export default function* rootSaga() {
     yield all([
@@ -21,6 +21,7 @@ export default function* rootSaga() {
         placeOrderSaga(),
         fetchOpenOrdersSaga(),
         fetchAllOrdersSaga(),
-        twoFactorAuthSaga()
+        twoFactorAuthSaga(),
+        fetchRegisterSaga()
     ]);
 }
