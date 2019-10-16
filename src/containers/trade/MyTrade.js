@@ -49,8 +49,8 @@ class ConnectMyTrade extends Component {
     render(){
         return (
             <div>
-                <Websocket url={this.path()}
-                           onMessage={this.handleData}/>
+                {/* <Websocket url={this.path()}
+                           onMessage={this.handleData}/> */}
                 {
                     this.props.trades.length === 0 ?
                         <div> No trade</div>
@@ -94,12 +94,12 @@ const mapStateToProps = state => {
 }
 
 
-function mapDispatchToProps(dispatch){
-    return {
-        addTrade: (payload) => dispatch(addMyTrade(payload))
-    }
-}
+// function mapDispatchToProps(dispatch){
+//     return {
+//         addTrade: (payload) => dispatch(addMyTrade(payload))
+//     }
+// }
 
-const MyTrade = connect(mapStateToProps, mapDispatchToProps)(ConnectMyTrade)
+const MyTrade = connect(mapStateToProps)(ConnectMyTrade)
 
 export default MyTrade;

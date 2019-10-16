@@ -1,4 +1,4 @@
-import { FETCH_USER, SUCCESS_USER, FAIL_USER, RESET_USER } from '../constants/actions';
+import { FETCH_USER, SUCCESS_USER, FAIL_USER, RESET_USER, SUCCESS_SIGN_UP_USER, FAILED_USER } from '../constants/actions';
 
 const initState = {
     data: {
@@ -30,6 +30,15 @@ function userReducer(state = initState, action) {
         case RESET_USER: {
             return { ...state, data: initState.data };
         }
+
+        case SUCCESS_SIGN_UP_USER: {
+            return { ...state, isFetching: false, data: action.payload.data };
+        }
+        case FAILED_USER: {
+            return { ...state, isFetching: false, error: true };
+        }
+
+
         default:
             return state;
     }

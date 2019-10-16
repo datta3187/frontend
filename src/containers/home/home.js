@@ -14,6 +14,7 @@ import card from './card';
 import TabTable from './tabTable';
 import SearchItem from './SearchItem';
 import {connect} from 'react-redux';
+import config from "../../config";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { fetchCoinData } from '../../redux/actions/livecoindata';
 import announcement from "../../images/announce-img.jpg";
@@ -28,9 +29,12 @@ import TeamFive from '../../images/th_zareena_alwee.jpg';
 import TeamSix from '../../images/th_zareena_alwee-06.jpg';
 import TeamSeven from '../../images/th_zareena_alwee-07.jpg';
 import TeamEight from '../../images/th_vincent_ang.jpg';
-
-
-
+import * as formatter from '../../utils/Formatter'
+  
+import {globalTickers} from "../../redux/actions/socketAction";
+import {fetchCurrencies} from "../../redux/actions/livecoindata";
+import axios from 'axios';
+import { element, object } from 'prop-types';
 
 const panes = [
     { menuItem: 'Faviourate', render: () => <Tab.Pane><TabTable></TabTable></Tab.Pane> },
@@ -39,44 +43,80 @@ const panes = [
     { menuItem: 'EXTO markets', render: () => <Tab.Pane><TabTable></TabTable></Tab.Pane> },
     { menuItem: 'Search',render: () => <SearchItem></SearchItem>}
   ]
-class Home extends Component {
+class ConnectdHome extends Component {
     constructor(props){
         super(props);
-        this.state={
+        this.state= {
+            tickers: {},
+            currencies: [] 
+
         }
         this.handleData = this.handleData.bind(this);
         // this.props.fetchCoinData();
     }
-        
     
+    componentWillMount(){ 
+        this.props.addCurrecyMarket(this.state.currencyy)
+        this.setState({currencyy: ''}) 
+        
+    }
 
-    handleData(data){
-        let result = JSON.parse(data);
-        let coiname = result['global.tickers'];
-        console.log('my data : ', result);
-      
-         
-        // console.log(Object.keys(coiname)); 
-        // let coins = [];
-        // coins.push(coiname);
-        // console.log('aaaaaaa ', coins)  
-        // let stream_type = this.props.market + '.trades';
-        // console.log('my data : ', stream_type);
-        // if(typeof result[stream_type] !== 'undefined') {
-        //     let formatted_data = this.changeFormat(result[stream_type]['trades'])
-        //     this.props.addTrade(formatted_data)
-        // }
-    } 
     path() {
-        return 'wss://demo.openware.com/api/v2/ranger/public/?stream=global.tickers'
-    } 
+        return config.webSocketUrl+ 'global.tickers'
+    }
 
+    handleData(data) {
+        let result = JSON.parse(data);
+        // debugger
+        if(typeof result['global.tickers'] !== 'undefined'){
+            this.setState({tickers: result["global.tickers"] })
+            this.props.addGlobalTickers(this.state.tickers); 
+            console.log('hello ticker state : ', this.state.tickers)
+            console.log(" Object ticker : ",  Object.keys( this.state.tickers));
+            
+            var all_currency_data = [];
+            for (var prop in this.state.tickers) {
+                if (this.state.tickers.hasOwnProperty(prop)) {
+                  var innerObj = {};
+                  innerObj[prop] = this.state.tickers[prop];
+                  all_currency_data.push(innerObj)
+                }
+              }
+
+              console.log("all_currency_data : ",all_currency_data);
+                var usd_coin_list =[];
+
+                all_currency_data.forEach(element => {
+                var key = (Object.keys(element)).toString()
+                var lastThree = key.substr(key.length - 3);
+                  if(lastThree ==='usd'){
+                    usd_coin_list.push(element)
+                  }
+                });
+
+             console.log("usd_coin_list : ",usd_coin_list);
+             var filtered_currency =[]
+             usd_coin_list.forEach((element)=>{
+            
+                var data = {};
+                var data =Object.values(element);
+                console.log("dddddd",data)
+                filtered_currency.push(data[0]) 
+            })
+            console.log("**************final value : ",filtered_currency);
+            this.setState({ currencies : filtered_currency}) 
+            console.log('currency : ', this.props.currency)
+        }
+    }  
 
     render() {
+        console.log("ALL STATE",this.props) 
+
+        
         return (
             <div>
-             {/* <Websocket url={this.path()}
-                onMessage={this.handleData}/> */}
+             <Websocket url={this.path()}
+                           onMessage={this.handleData}/>
                 <div className='banner'>
                     {/* <img className='banner_img' src='https://static1.bigstockphoto.com/0/1/2/large1500/210463369.jpg' /> */}
             <div className='container'>
@@ -90,7 +130,7 @@ class Home extends Component {
                 </div>
             </div>
             <div className="mydiv">
-                <HomeCard></HomeCard> 
+                <HomeCard />
             </div>
 
            
@@ -101,8 +141,8 @@ class Home extends Component {
 
             <div className=''> 
             <div className='ticketrecord'>
-                <Card>
-                <SampleTable></SampleTable>
+                <Card> 
+                <SampleTable  curr={this.state.currencies}></SampleTable>
                 </Card>
             </div>
             <div className='corousall'>
@@ -279,29 +319,23 @@ class Home extends Component {
     }
 } 
 
- 
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         fetchLogin: (email, password, captcha_response) =>
-//             dispatch(fetchLogin(email, password, captcha_response)),
-
-//         resetFailLogin: () => dispatch(resetFailLogin())
-//     };
-// }; 
 function mapStateToProps(state) {
-    console.log('Global ticker :  ', state )
+// console.log("!@#!@#!@3",state)
     return {
-        error: state.auth.errorLogin
+        allTickers: state.tradeState.globalTickers,
+        currency: state.livecoin.currency
     };
 }
-const mapDispatchToProps = dispatch => {
+
+
+function mapDispatchToProps(dispatch){
     return {
-        fetchCoinData : () => dispatch(fetchCoinData()), 
-        
-    };
-};
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps)(Home);
+        addGlobalTickers: (payload) => dispatch(globalTickers(payload)),
+        addCurrecyMarket: () => dispatch(fetchCurrencies())
+    }
+}
+
+
+const Home =  connect(mapStateToProps, mapDispatchToProps)(ConnectdHome);
+export default Home; 
  

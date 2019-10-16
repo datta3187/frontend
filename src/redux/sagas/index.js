@@ -1,11 +1,11 @@
 import { all } from 'redux-saga/effects';
-import { fetchUserSaga } from './user';
+import { fetchUserSaga, registerUserSaga } from './user';
 // import { fetchWalletSaga, setActiveWalletSaga, fetchWalletAddressSaga } from './wallet';
 // import { fetchHistorySaga } from './history';
 // import { fetchSubmitWithdrawSaga } from './withdraw';
 import { fetchLogoutSaga, fetchLoginSaga } from './auth';
-import {fetchCoinDataSaga,}  from './livecoindata';
-import {placeOrderSaga} from './trade';
+import {fetchCoinDataSaga, fetchCurrencies}  from './livecoindata';
+import {placeOrderSaga, fetchOrdersSaga} from './trade';
 
 
 export default function* rootSaga() {
@@ -19,6 +19,9 @@ export default function* rootSaga() {
         fetchLogoutSaga(),
         fetchLoginSaga(),
         placeOrderSaga(),
-        fetchOrdersSaga()
+        fetchOrdersSaga(),
+        fetchCoinDataSaga(),
+        fetchCurrencies(),
+        registerUserSaga()
     ]);
 }

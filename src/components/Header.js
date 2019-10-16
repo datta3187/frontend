@@ -38,7 +38,7 @@ class Headers extends Component {
 
     render() {
         return (
-            <div className={`beforeLoginHeader  ${this.props.abc}`} >
+            <div className={`beforeLoginHeader bg ${this.props.abc}`} >
                 <Container>
                     <div className="header">
                         <div className="headerLeft">

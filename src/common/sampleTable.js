@@ -7,6 +7,20 @@ import ethereum from "../images/icon-ethereum.png";
 
 
 class SampleTable extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+             buySellCoin:''
+        }
+    }
+
+    buySellTrade = (data) =>{
+        if(data.price_change_percent < 0){
+            this.state.buySellCoin = 'Sell';
+        } else{
+            this.state.buySellCoin = 'Buy';
+        }
+    }
     render() {
         return (
             <div>
@@ -22,27 +36,18 @@ class SampleTable extends Component {
                     </Table.Header>
 
                     <Table.Body>
+                    {this.props.curr.map((data,index)=>  (
+                      this.buySellTrade(data),
+      
                     <Table.Row>
-                        <Table.Cell>1</Table.Cell>
-                        <Table.Cell><img src={bitcoin}/>Bitcoin BTC</Table.Cell>
-                        <Table.Cell>$8369.12</Table.Cell>
-                        <Table.Cell>10096.296296296307%</Table.Cell>
-                        <Table.Cell>BUY</Table.Cell>
+                        <Table.Cell>{index+1}</Table.Cell>
+                        <Table.Cell><img src={bitcoin}/>{data.base_unit.toUpperCase()}</Table.Cell>
+                        <Table.Cell>{data.low}</Table.Cell>
+                        <Table.Cell>{data.price_change_percent}</Table.Cell>
+                        <Table.Cell> {this.state.buySellCoin}</Table.Cell>
                     </Table.Row>
-                    <Table.Row>
-                        <Table.Cell>2</Table.Cell>
-                        <Table.Cell><img src={bitcoincash}/>Ethereum ETH</Table.Cell>
-                        <Table.Cell>$180.15</Table.Cell>
-                        <Table.Cell>4615.968586387443%</Table.Cell>
-                        <Table.Cell>BUY</Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell>3</Table.Cell>
-                        <Table.Cell><img src={ethereum}/>Bitcoin Cash BCH</Table.Cell>
-                        <Table.Cell>$224.24</Table.Cell>
-                        <Table.Cell>11112%</Table.Cell>
-                        <Table.Cell>BUY</Table.Cell>
-                    </Table.Row>
+                    ))}
+                  
                     </Table.Body>
                 </Table>
             </div>

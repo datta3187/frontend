@@ -3,42 +3,35 @@ import * as actions from '../actions/livecoindata';
 import * as types from '../constants/actions';
 import { getUser } from '../../api/user';
 import { getcoindata } from '../../api/livecoindata';
+import { getcurrency } from '../../api/livecoindata';
 
-
-
-// export function* fetchCoinData() {
-//     try {
-//         yield call(getcoindata); 
-//         yield put(userActions.resetUser());
-//     } catch (e) {
-//         yield put(actions.failLogout('Oups! Error occurs, please try again later.'));
-//     }
-// }
-
-// export function* fetchCoinDataSaga() {
-//     alert('123')
-//     yield takeEvery(types.FETCH_COIN_DATA, fetchCoinData);
-// }
-
-
+ 
 export function* fetchCoinData() {
    
-    try {
-        // alert(12345)
-        // const coindata = yield call(getcoindata);
+    try { 
         const coindata = yield call(getcoindata);
-        console.log('888888888888888888888888888', coindata);
+        // console.log('888888888888888888888888888', coindata);
         yield put(actions.fetchCoinDataSuccess(coindata));
     } catch (e) {
-        // alert(123)
         // yield put(actions.failUser());
     }
 }
+
+export function* fetchCurrencies() {
+     
+    const coindata = yield call(getcurrency); 
+    yield put(actions.fetchCurrenciesSuccess(coindata));
+}
+
 export function* fetchCoinDataSaga() {
   
     yield takeEvery(types.FETCH_COIN_DATA, fetchCoinData);
 }
 
+export function* fetchCurrencySaga(){ 
+    yield takeEvery(types.FETCH_CURRENCIES, fetchCurrencies);
+
+}
 
 
 
