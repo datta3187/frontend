@@ -37,8 +37,7 @@ class SampleTable extends Component {
 
                     <Table.Body>
                     {this.props.curr.map((data,index)=>  (
-                      this.buySellTrade(data),
-      
+                      this.buySellTrade(data), 
                     <Table.Row>
                         <Table.Cell>{index+1}</Table.Cell>
                         <Table.Cell><img src={bitcoin}/>{data.base_unit.toUpperCase()}</Table.Cell>
