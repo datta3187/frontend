@@ -5,10 +5,10 @@ export const logoutUser = () => {
         .then(response => response.data);
 };
 
-export const loginUser = (email, password, recaptcha_response = '', otp_code = '') => {
+export const loginUser = (payload) => {
     return axiosInstance.post(
         '/barong/identity/sessions',
-        { email, password, otp_code, recaptcha_response }
+        payload
     )
         .then(response => response.data)
         .catch(error => {

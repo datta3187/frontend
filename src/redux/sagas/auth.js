@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import * as actions from '../actions/auth';
 import * as userActions from '../actions/user';
-import * as types from '../constants/actions';
+import * as types from '../constants/auth';
 import { push } from 'connected-react-router';
 import { logoutUser, loginUser } from '../../api/auth';
 import { fetchUser } from './user';
@@ -12,8 +12,9 @@ export function* fetchLogout() {
         yield call(logoutUser);
         sessionStorage.clear();
         yield put(userActions.resetUser());
+        yield put(push('/'));
     } catch (e) {
-        yield put(actions.failLogout('Oups! Error occurs, please try again later.'));
+        yield put(actions.failLogout('Oops! Error occurs, please try again later.'));
     }
 }
 
@@ -21,12 +22,16 @@ export function* fetchLogoutSaga() {
     yield takeEvery(types.FETCH_LOGOUT, fetchLogout);
 }
 
-export function* fetchLogin({ payload: { email, password, captcha_response } }) {
+export function* fetchLogin(payload) {
     try {
-        var auth = yield call(loginUser, email, password, captcha_response);
-        if (auth) {
+        let auth = yield call(loginUser, payload.data);
+        debugger
+        if (auth && auth.gAuthStatus===0){
+            localStorage.setItem('userInfo', JSON.stringify(payload.data));
+            yield put(push('/two-factor'));
+        }else if(auth){
             yield call(fetchUser);
-            yield put(push('/settings'));
+            yield put(push('/s'));
             toast.success('Logged In Successfully');
         } else {
             yield put(actions.failLogin('Login Failed'));

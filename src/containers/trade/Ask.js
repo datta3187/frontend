@@ -18,7 +18,6 @@ class connectedAskLimit extends Component{
 
     componentWillReceiveProps(nextProps, nextContext) {
         if(nextProps.orderStatus){
-            debugger
             this.setState({fields: { price: '', volume: '', market: this.props.market, side: 'sell', ord_type: 'limit'} } );
         }
     }
@@ -97,7 +96,6 @@ class connectedAskMarket extends Component{
 
     componentWillReceiveProps(nextProps, nextContext) {
         if(nextProps.orderStatus){
-            debugger
             this.setState({fields: { volume: '', market: this.props.market, side: 'sell', ord_type: 'market'}})
         }
     }

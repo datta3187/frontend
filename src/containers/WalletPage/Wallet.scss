@@ -1,0 +1,141 @@
+.WalletPagePosition {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: stretch;
+}
+.WalletPagePosition .ui.equal.width.grid .column {
+  color: #fff;
+}
+.WalletPagePosition .item {
+  background: #1f2841;
+  padding: 16px !important;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eee;
+}
+.WalletPagePosition .column p {
+  color: #fff;
+}
+.WalletPagePosition .parentList {
+  width: 314px;
+  float: left;
+}
+  .walletForms{
+    margin-top: 173px;
+    max-width: 1170px !important;
+  }
+.WalletPagePosition {
+  display: table-cell;
+  width: 60%;
+}
+.paragraph_column  {
+  margin-bottom: 19px;
+}
+.WalletPagePosition .ui.tabular.menu {    border: none;}
+
+.WalletPagePosition .ui .three .column {
+  padding: 11px !important;
+}
+
+.WalletPagePosition .ui.fluid.tabular.menu {
+  background: #3a4663;
+
+
+}
+.WalletPagePosition .ui.bottom.attached.segment.active.tab .ui.very.relaxed.three.column.grid {
+  box-sizing: border-box;
+  padding: 0 30px 40px;
+}
+
+.WalletPagePosition .ui.bottom.attached.segment.active.tab {
+  border: none !important;
+  background: #1f2841;
+  margin: 0 !important;
+  box-sizing: border-box;
+  padding-left: 20px;
+  box-sizing: border-box;
+  padding-right: 20px;
+}
+
+.WalletPagePosition fieldset {
+  color: #fff;    width: 100%;}
+
+
+.WalletPagePosition .ui.button {
+  font-size: 14px;
+  //font-weight: 600;
+  color: #fff;
+  background: #0a9dda;
+  border-radius: 0;
+  padding: 16px 43px;
+  bottom: 40px;
+  float: right;
+}
+
+.WalletPagePosition .ui.label.label {
+  background: none !important;
+  color: #fff;
+  font-weight: 300;
+  width: 100%;
+  order: 1;    padding-left: 0 !important;
+}
+.WalletPagePosition  .ui.labeled.input input {
+
+  position: relative;
+  border-radius: 0 !important;
+  order: 2;
+  padding-left: 0 !important;
+  background: transparent !important;
+  border: 1px solid #eee !important;
+  height: 47px !important;
+  margin-bottom: 10px;
+}
+.WalletPagePosition  .ui.labeled.input {
+  width: 100%;
+  flex-flow: row wrap;
+}
+
+.WalletPagePosition a.item {
+  background: #3a4663 !important;
+  border: none !important;
+  color: #fff !important;
+}
+.WalletPagePosition main {
+  width: calc(100% - 422px);
+  float: left;
+  border: 1px solid #f1f1f1;
+}
+.WalletPagePosition .ui.bottom.attached.segment.active.tab {
+  border: none !important;
+  background: #1f2841;
+  margin: 0 !important;
+  padding: 0 10px !important;
+  box-sizing: border-box;
+}
+.withdrawMainTabs .ui.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding: 0;
+}
+.withdrawMainTabs .ui.very.relaxed.three.column.grid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;padding: 0 0 0 20px !important;
+}
+
+.withdrawMainTabs .ui.very.relaxed.three.column.grid h3 {
+  width: 100%;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.withdrawMainTabs .column p {
+  font-size: 16px;
+  line-height: 22px;
+}

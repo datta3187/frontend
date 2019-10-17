@@ -5,8 +5,8 @@ import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import ChangePassword from '../../components/change_password/ChangePassword'
 import * as Api from "../../api/remoteApi";
-import './setting.scss'
-import Auth from '../../components/Auth'
+import './setting.scss';
+import Auth from '../../components/Auth';
 import { Redirect } from "react-router";
 import * as CustomError from "../../api/handleError";
 
@@ -42,25 +42,36 @@ export class Setting extends Component {
     }
 
     componentDidMount() {
-        // let api_url = 'resource/otp/generate_qrcode';
-        // Api.remoteApi(api_url, 'post', {})
-        //     .then(res => {
-        //         this.setState({
-        //             qr: res.data.barcode
-        //         })
-        //     })
-        //     .catch(error => {
-        //         CustomError.handle(error)
-        //     })
-
-        // let user = auth.getUser();
-        // this.setState({
-        //     fields: user,
-        //     googleAuth: user.otp
-        // });
+        let api_url = 'resource/users/me';
+        Api.remoteApi(api_url, 'get', {})
+            .then(res => {
+                this.setState({
+                    fields: res,
+                    googleAuth: res.otp
+                })
+            })
+            .catch(error =>{
+                if(error.response){
+                    toast.error(error.response.data.errors);
+                }
+                else{
+                    toast.error(""+ error);
+                }
+            });
     }
 
     componentWillMount() {
+        let api_url = 'resource/otp/generate_qrcode';
+        Api.remoteApi(api_url, 'post', {})
+            .then(res => {
+                this.setState({
+                    qr: res.data.barcode
+                })
+            })
+            .catch(error => {
+                // CustomError.handle(error)
+            })
+
         // auth.fetchUser()
         //     .then(res => {
         //         let user = auth.getUser();

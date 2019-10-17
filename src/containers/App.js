@@ -16,9 +16,10 @@ import NotFound from './errors/NotFound';
 import { connect } from 'react-redux';
 import PrivateRoute from '../components/PrivateRoute';
 import { fetchUser } from '../redux/actions/user';
-import Wallets from './wallets/Wallets';
+import WalletPage from './WalletPage';
 import DocumentList from './kyc/DocumentList';
-
+import TwoFactorAuth from './TwoFactorAuth'
+import Home from './home/Home'
 
 class App extends Component {
     componentDidMount() {
@@ -34,15 +35,16 @@ class App extends Component {
         return (
             <div className="App">
                 <Switch>
-                    <Route path="/" exact component={Login} />
+                    <Route path="/" exact component={Home} />
                     <Route path="/login" exact component={Login} />
                     <Route path="/trading/:market" component={Exchange} />
                     <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
                     <Route path="/password-reset/:token" exact component={ResetPassword} />
                     <Route path="/register" exact component={Register} />
                     <Route path="/email-verification" exact component={EmailVerify} />
+                    <Route path="/two-factor" component={TwoFactorAuth} />
 
-                    <PrivateRoute path="/wallets" component={Wallets} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/settings" component={Setting} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/phone" component={Phone} isAuthenticated={isAuthenticated} isLoading={isFetching} />
@@ -73,6 +75,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

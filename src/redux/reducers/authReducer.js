@@ -4,11 +4,12 @@ import {
     FETCH_LOGIN,
     FAIL_LOGIN,
     RESET_FAIL_LOGIN
-} from '../constants/actions';
+} from '../constants/auth';
 
 const initState = {
     errorLogin: null,
     errorLogout: null,
+    loading: false
 };
 
 function authReducer(state = initState, action) {
@@ -20,10 +21,10 @@ function authReducer(state = initState, action) {
             return { ...state, errorLogout: action.payload.message };
         }
         case FETCH_LOGIN: {
-            return { ...state, errorLogin: null };
+            return { ...state, loading: true, errorLogin: null };
         }
         case FAIL_LOGIN: {
-            return { ...state, errorLogin: action.payload.message };
+            return { ...state,  loading: false, errorLogin: action.payload.message };
         }
         case RESET_FAIL_LOGIN: {
             return { ...state, errorLogin: null };

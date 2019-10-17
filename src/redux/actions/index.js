@@ -5,11 +5,10 @@ import * as userActions from './user';
 // import * as withdrawActions from './withdraw';
 import * as authActions from './auth';
 import * as socketActions from './socketAction';
-
 export default dispatch => ({
     actions: bindActionCreators({
         ...socketActions,
         ...userActions,
-        ...authActions,
+        ...authActions
     }, dispatch)
 });

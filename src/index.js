@@ -6,9 +6,8 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { history } from './redux/history';
 import { ConnectedRouter } from 'connected-react-router';
-
-
 import './index.scss';
+
 
 ReactDOM.render(
     <Provider store={store}>

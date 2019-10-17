@@ -19,7 +19,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fields: { email: '', password: '' },
+            fields: { email: '', password: '' , captcha_response: '', otp_code: ''},
             errors: { email: '', password: '', captcha_response: '' },
             forfields: { email: '' },
             loading: false,
@@ -147,13 +147,9 @@ class Login extends Component {
 
     signInWithPeatio = e => {
         e.preventDefault();
-        this.setState({ loading: true });
         if (this.handleValidation()) {
-            this.props.fetchLogin(this.state.fields.email,
-                this.state.fields.password,
-                this.state.fields.captcha_response);
+            this.props.fetchLogin(this.state.fields);
         }
-        this.setState({ loading: false });
     };
 
     forgotPassword = e => {
@@ -195,7 +191,7 @@ class Login extends Component {
 
         return (
             <div>
-                {this.state.loading && (
+                {this.props.loading && (
                     <Dimmer active>
                         <Loader content="Loading..." />
                     </Dimmer>
@@ -269,7 +265,7 @@ class Login extends Component {
                     <a className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" className="close link icon"></i></a>
                     <Modal.Header>
                         <h3>Forgot Password?</h3>
-                        <span>We just need your registred email address to send you password reset</span>
+                        <span>We just need your registered email address to send you password reset</span>
                     </Modal.Header>
 
                     <Modal.Content>
@@ -300,15 +296,14 @@ class Login extends Component {
 
 function mapStateToProps(state) {
     return {
-        error: state.auth.errorLogin
+        error: state.auth.errorLogin,
+        loading: state.loading
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchLogin: (email, password, captcha_response) =>
-            dispatch(fetchLogin(email, password, captcha_response)),
-
+        fetchLogin: (payload) => dispatch(fetchLogin(payload)),
         resetFailLogin: () => dispatch(resetFailLogin())
     };
 };

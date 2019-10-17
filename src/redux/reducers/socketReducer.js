@@ -10,6 +10,8 @@ const initialState = {
 }
 
 function socketReducer(state= initialState, action){
+    console.log('My action : ', action)
+    // console.log('My ticker : ', JSON.stringify(initialState.globalTickers));
     switch(action.type){
         case MARKET_TRADE:
             return Object.assign({}, state, {
@@ -45,7 +47,6 @@ function getTrades(key){
 // function check(){
 //     const ws = new WebSocket(config.webSocketUrl + 'global.tickers')
 //     ws.onmessage = response => {
-//         debugger
 //         console.log("=================>", response.data);
 //     }
 //

@@ -7,8 +7,8 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 import 'react-toastify/dist/ReactToastify.css';
 import config from '../../config';
 import ReCAPTCHA from 'react-google-recaptcha';
-import * as Api from '../../api/remoteApi';
-import * as CustomError from '../../api/handleError';
+import {fetchRegister} from "../../redux/actions/register";
+import {connect} from "react-redux";
 
 class Register extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ class Register extends Component {
         });
     }
 
-    aggreed = () => {
+    agreed = () => {
         this.setState({
             isTermSelected: !this.state.isTermSelected
         });
@@ -124,28 +124,13 @@ class Register extends Component {
     // button 
     signupWithPeatio = e => {
         e.preventDefault();
-        this.setState({ loading: true });
-
+        debugger
         if (this.handleValidation() && this.state.isTermSelected) {
-            let api_url = 'identity/users';
-            let payload = this.state.fields;
-            Api.remoteApi(api_url, 'POST', payload)
-                .then(res => {
-                    this.setState({ loading: false });
-
-                    this.props.history.push('/email-verification', {
-                        email: this.state.fields.email
-                    });
-                })
-                .catch(error => {
-                    this.setState({ loading: false });
-                    if (config.captchaPolicy) {
-                        this.recaptcha.reset();
-                    }
-                    CustomError.handle(error);
-                });
-        } else {
-            this.setState({ loading: false });
+            debugger
+            this.props.fetchRegister(this.state.fields);
+            // this.props.history.push("/email-verification", {
+            //     email: this.state.fields.email
+            // });
         }
     };
 
@@ -162,7 +147,7 @@ class Register extends Component {
     render() {
         return (
             < div >
-                {this.state.loading && (
+                {this.props.loading && (
                     <Dimmer active>
                         <Loader content="Loading..." />
                     </Dimmer>
@@ -230,7 +215,7 @@ class Register extends Component {
                             </span>
                         </div>
                         <Form.Field className="userFormAth">
-                            <Checkbox onClick={this.aggreed} label="I agree to AnXchange' s Terms of Use" />
+                            <Checkbox onClick={this.agreed} label="I agree to AnXchange' s Terms of Use" />
                             <span style={{ color: 'red' }}>
                                 {this.state.errors['terms']}
                             </span>
@@ -248,4 +233,18 @@ class Register extends Component {
     }
 }
 
-export default Register;
+function mapStateToProps(state){
+    return {
+        loading: state.loading
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchRegister: (payload) => dispatch(fetchRegister(payload))
+    };
+};
+
+export default connect(mapStateToProps,
+    mapDispatchToProps)(Register);
+
