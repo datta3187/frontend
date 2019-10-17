@@ -1,8 +1,11 @@
 @import '../../components/_styleVars.scss';
+.modal {
+    height: auto;
+}
 
 .forgotPasswordModal{
     box-sizing:border-box;
-    padding: 30px 70px;    
+    padding: 30px 70px;
 
     a.mClose {
         position: absolute;
