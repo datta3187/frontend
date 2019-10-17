@@ -6,18 +6,13 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { history } from './redux/history';
 import { ConnectedRouter } from 'connected-react-router';
-
-
 import './index.scss';
-import Headers from './components/Header';
-import Footer from './components/Footer';
+
 
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <Headers />
             <App />
-            <Footer />
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root')

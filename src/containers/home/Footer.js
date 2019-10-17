@@ -41,7 +41,7 @@ export default class Footer extends  Component {
                     </div>
                 </div>
 
-                <div className='footer'>
+                <div className='footer footer-position'>
                     <div className='copyrite'>
                         <p>© Copyright 2018-2019 Tradence. All Rights Reserved.</p>
                     </div>

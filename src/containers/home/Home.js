@@ -14,6 +14,7 @@ import Announce from './Announce';
 import Bonus from './Bonus';
 import Team from './Team';
 import Footer from './Footer';
+import Headers from "../../components/Header";
 
 
 class ConnectdHome extends Component {
@@ -44,6 +45,7 @@ class ConnectdHome extends Component {
     render() {
         return (
             <div>
+                <Headers />
                 <Websocket url={this.path()}
                            onMessage={this.handleData}/>
                 <Register />
