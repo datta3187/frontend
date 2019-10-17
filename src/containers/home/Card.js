@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Card, Input, Checkbox, Button} from 'semantic-ui-react'
+import {Card, Input, Checkbox, Button, Dimmer, Loader} from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import config from "../../config";
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -13,7 +13,6 @@ class HomeCard extends Component {
         this.state = {
             fields: { email: '', password: '', conPassword: '', refid: config.referralId, terms: '' },
             errors: { email: '', password: '', conPassword: '', refid: '', terms: '', captcha_response: '' },
-            loading: false,
             isTermSelected: false
         };
     }
@@ -141,6 +140,11 @@ class HomeCard extends Component {
     render() {
         return (
             <div>
+                {this.props.loading && (
+                    <Dimmer active>
+                        <Loader content="Loading..." />
+                    </Dimmer>
+                )}
                 <Card.Group>
                     <Card>
                         <Card.Content>

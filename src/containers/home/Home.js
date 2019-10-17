@@ -60,7 +60,7 @@ class ConnectdHome extends Component {
                     </div>
                     <Announce />
                     <Bonus />
-                    <Team />
+                    {/*<Team />*/}
                     <Footer />
                 </div>
             </div>

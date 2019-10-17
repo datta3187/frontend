@@ -3,11 +3,6 @@ import React, { Component } from 'react'
 class HeadDesc extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            heading : '',
-            subheading:'',
-            desc : ''
-        }
     }
     render() {
         return (

@@ -20,10 +20,10 @@ export default class Footer extends  Component {
                                 <HeadDesc heading='TRADENCEESTONIA' subheading='REGISTERED HQ' desc='ScalaCity,tartu mnt 43, 10128 Tallin, Estonia' />
                             </div>
                             <div className='subBranch'>
-                                <HeadDesc heading='HONG KONG' subheading='' desc='Shop G5 On Ground Floor, King Wing Plaza 2, No.1 on Kwan Street, Sha Tin, New Territories, HK.' />
-                                <HeadDesc heading='MALAYSIA' subheading='' desc='Unit A-12A-3 Level 12A, Menara UOA, Bangsar 5 Jalan Bangsar Utama, 59000 Kuala Lumpur.' />
-                                <HeadDesc heading='SINGAPORE' subheading='' desc='91 Cavenagh Road, #02-06, Singapore 229629.' />
-                                <HeadDesc heading='DUBAI' subheading='' desc='Dubai Media City, Building 02, SD1-654 P.O. Box 72280, Dubai, UAE.' />
+                                <HeadDesc heading='HONG KONG' subheading='' desc='' />
+                                <HeadDesc heading='MALAYSIA' subheading='' desc='' />
+                                <HeadDesc heading='SINGAPORE' subheading='' desc='' />
+                                <HeadDesc heading='DUBAI' subheading='' desc='' />
                             </div>
                         </div>
                     </div>
