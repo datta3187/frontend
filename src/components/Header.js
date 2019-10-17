@@ -50,7 +50,7 @@ class Headers extends Component {
                         </div>
                         <ul className="top-rgt-nav">
                             <li><a href="#">HELP</a></li>
-                            <li><a href="#">MARKET</a></li>
+                            <li><a href="/trading/ETH_BTC">MARKET</a></li>
                             <li className="whitepaper"><Buttonn buttons='WHITEPAPER' btnDefault="button-comn"></Buttonn></li>
                             <li>
                                 <Select placeholder='EN' options={countryOptions} />
@@ -69,7 +69,7 @@ class Headers extends Component {
                                     </div>
                                     <div className={this.props.activePath == 'register' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                        <Icon disabled name=' upload' />
-                                       <Link to="/Register">MARKET</Link>
+                                        <Link to="/trading/ETH_BTC">MARKET</Link>
                                     </div>
                                     <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
                                     <Icon disabled name='user circle' />
