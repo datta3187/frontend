@@ -8,7 +8,7 @@ import {push} from "connected-react-router";
 export function* fetchRegister(payload) {
     try {
         let response = yield call(registerUser, payload.data);
-         if(response==201){
+         if(response === 201){
              yield put(push('/login'));
              toast.success('Registered Successfully');
          }

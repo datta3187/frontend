@@ -6,12 +6,8 @@
 
     a.mClose {
         position: absolute;
-        top: -53px;
-        right: 0;
-        width: 43px;
-        height: 43px;
-        background: $baseColor;
-        border-radius: 50% !important;
+        top: 7px;
+        right: 7px;
         text-align: center;
         line-height: 43px;
         transition: all .35s;
@@ -22,10 +18,12 @@
             transition: opacity .1s ease;
             font-size: 16px;
             margin: 0;
-            color: #fff;
+            color: #666;
         }
         &:hover{
-            background: $lightColor;
+            .link.icon {
+                color: $baseColor;
+            }
         }
     }
     .header{
@@ -57,4 +55,8 @@
         }
     }
    
+}
+
+.ui.small.modal {
+    position: relative;
 }

@@ -231,7 +231,7 @@ class Register extends Component {
 
 function mapStateToProps(state){
     return {
-        loading: state.loading
+        loading: state.register.loading
     };
 }
 

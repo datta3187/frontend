@@ -23,7 +23,7 @@ function registerReducer(state = initState, action) {
             return { ...state, loading: false, errorRegister: action.payload.message };
         }
         case RESET_FAIL_REGISTER: {
-            return { ...state, errorLogin: null };
+            return { ...state, errorRegister: null };
         }
         default:
             return state;

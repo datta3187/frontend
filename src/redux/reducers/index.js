@@ -9,6 +9,9 @@ import walletReducer from './walletReducer';
 import historyReducer from './historyReducer';
 import withdrawReducer from './withdrawReducer';
 import tradeReducer from './tradeReducer';
+import forgotPasswordReducer from "./forgotPasswordReducer";
+import registerReducer from "./registerReducer";
+import twoFactorAuthReducer from "./twoFactorAuthReducer";
 
 
 export default combineReducers({
@@ -19,5 +22,8 @@ export default combineReducers({
     wallet: walletReducer,
     history: historyReducer,
     withdraw: withdrawReducer,
-    trade: tradeReducer
+    trade: tradeReducer,
+    forgotPassword: forgotPasswordReducer,
+    register: registerReducer,
+    twoFactorAuth: twoFactorAuthReducer
 });

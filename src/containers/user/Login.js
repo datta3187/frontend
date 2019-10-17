@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import { Container, Button, Checkbox, Form, Input, Modal } from 'semantic-ui-react';
+import { Container, Button, Checkbox, Form, Input, Modal, Icon } from 'semantic-ui-react';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { Link } from 'react-router-dom';
 import './User.scss';
-import { toast } from 'react-toastify';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import 'react-toastify/dist/ReactToastify.css';
 import config from '../../config';
 import ReCAPTCHA from 'react-google-recaptcha';
-import * as Api from '../../api/remoteApi';
-import * as CustomError from '../../api/handleError';
 import { fetchLogin, resetFailLogin } from '../../redux/actions/auth';
+import { fetchForgotPassword, openModal } from "../../redux/actions/forgotPassword";
 import { connect } from 'react-redux';
 
 
@@ -22,8 +20,7 @@ class Login extends Component {
             fields: { email: '', password: '' , captcha_response: '', otp_code: ''},
             errors: { email: '', password: '', captcha_response: '' },
             forfields: { email: '' },
-            loading: false,
-            isParentOpen: false
+            loading: false
         };
     }
 
@@ -156,22 +153,14 @@ class Login extends Component {
         e.preventDefault();
 
         if (this.handleForgotValidation()) {
-            console.log('data :' + this.state.forfields);
-            let api_url = 'identity/users/password/generate_code';
-            let payload = this.state.forfields;
-            Api.remoteApi(api_url, 'POST', payload)
-                .then(res => {
-                    this.setState({ isParentOpen: false });
-                    toast.success('Password reset link has been sent on your email.');
-                })
-                .catch(error => {
-                    CustomError.handle(error);
-                });
-        }
-        else {
-            this.setState({ loading: false });
+            this.props.fetchForgotPassword(this.state.forfields);
         }
     };
+
+    openModalForForgotPassword = () => {
+        this.props.openModal(!this.props.isParentOpen);
+    }
+
 
     handleCaptcha = e => {
         let fields = this.state.fields;
@@ -232,9 +221,7 @@ class Login extends Component {
 
                         <Form.Field className="userFormAth">
                             <Checkbox label='Remember Me' />
-                            <a onClick={() => this.setState({ isParentOpen: true })}>Forgot Password?</a>
-                            {/* <Modal size="small" open={this.state.isParentOpen} trigger={<a>Forgot Password?</a>} className="forgotPasswordModal"> */}
-
+                            <a onClick={ this.openModalForForgotPassword }>Forgot Password?</a>
                         </Form.Field>
 
                         <div className="form-captcha">
@@ -261,8 +248,8 @@ class Login extends Component {
                 {/* Forgot Password Modal */}
 
 
-                <Modal size="small" open={this.state.isParentOpen} className="forgotPasswordModal">
-                    <a className="mClose" onClick={() => this.setState({ isParentOpen: false })}><i aria-hidden="true" className="close link icon"></i></a>
+                <Modal size="small" open={this.props.isParentOpen} className="forgotPasswordModal">
+                    <a className="mClose" onClick={ this.openModalForForgotPassword }><i aria-hidden="true" className="close link icon"></i></a>
                     <Modal.Header>
                         <h3>Forgot Password?</h3>
                         <span>We just need your registered email address to send you password reset</span>
@@ -297,14 +284,17 @@ class Login extends Component {
 function mapStateToProps(state) {
     return {
         error: state.auth.errorLogin,
-        loading: state.loading
+        loading: state.auth.loading,
+        isParentOpen: state.forgotPassword.isParentOpen
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchLogin: (payload) => dispatch(fetchLogin(payload)),
-        resetFailLogin: () => dispatch(resetFailLogin())
+        resetFailLogin: () => dispatch(resetFailLogin()),
+        fetchForgotPassword: (payload) => dispatch(fetchForgotPassword(payload)),
+        openModal: (isParentOpen) => dispatch(openModal(isParentOpen))
     };
 };
 

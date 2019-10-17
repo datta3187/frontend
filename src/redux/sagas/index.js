@@ -7,6 +7,7 @@ import { fetchLogoutSaga, fetchLoginSaga } from './auth';
 import { placeOrderSaga, fetchOpenOrdersSaga, fetchAllOrdersSaga } from './trade';
 import { twoFactorAuthSaga } from './twoFactorAuth'
 import { fetchRegisterSaga } from "./register";
+import { fetchForgotPasswordSaga } from "./forgotPassword";
 
 export default function* rootSaga() {
     yield all([
@@ -22,6 +23,7 @@ export default function* rootSaga() {
         fetchOpenOrdersSaga(),
         fetchAllOrdersSaga(),
         twoFactorAuthSaga(),
-        fetchRegisterSaga()
+        fetchRegisterSaga(),
+        fetchForgotPasswordSaga()
     ]);
 }

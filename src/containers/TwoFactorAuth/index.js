@@ -30,7 +30,7 @@ class TwoFactorAuth extends Component {
     render(){
         return(
             <div>
-                {this.state.loading && (
+                {this.props.loading && (
                     <Dimmer active>
                         <Loader content="Loading..." />
                     </Dimmer>
@@ -57,12 +57,19 @@ class TwoFactorAuth extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        error: state.twoFactorAuth.error,
+        loading: state.twoFactorAuth.loading
+    };
+}
+
 function mapDispatchToProps(dispatch) {
     return {
         fetch2fa: (otpCode) => dispatch(fetch2fa(otpCode))
     }
 }
 
-export default connect(null, mapDispatchToProps)(TwoFactorAuth);
+export default connect(mapStateToProps, mapDispatchToProps)(TwoFactorAuth);
 
 
