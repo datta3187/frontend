@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import HeadDesc from "./Home";
 import {Card, Icon, TextArea} from "semantic-ui-react";
 import Textboxx from '../../common/textboxx';
 import Buttonn from '../../common/buttonn';
