@@ -9,8 +9,8 @@ export function* fetchRegister(payload) {
     try {
         let response = yield call(registerUser, payload.data);
          if(response === 201){
-             yield put(push('/login'));
-             toast.success('Registered Successfully');
+             yield put(actions.successRegister());
+             yield put(push('/email-verification', {email: payload.data.email}));
          }
          else {
             yield put(actions.failRegister('Register Failed'));

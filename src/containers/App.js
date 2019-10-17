@@ -19,6 +19,7 @@ import { fetchUser } from '../redux/actions/user';
 import WalletPage from './WalletPage';
 import DocumentList from './kyc/DocumentList';
 import TwoFactorAuth from './TwoFactorAuth'
+import Home from './home/Home'
 
 class App extends Component {
     componentDidMount() {
@@ -34,7 +35,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Switch>
-                    <Route path="/" exact component={Login} />
+                    <Route path="/" exact component={Home} />
                     <Route path="/login" exact component={Login} />
                     <Route path="/trading/:market" component={Exchange} />
                     <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
@@ -74,6 +75,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

@@ -1,0 +1,40 @@
+.footer{
+    background: #7f7f7f;
+    padding: 15px;
+    float: left;
+    width: 100%;
+    position: absolute;
+    left:0px;
+    bottom: 0;
+    
+    color: #fff;
+    z-index: 2;
+    box-sizing: border-box;
+    align-items: center;
+    .sociallink {
+      @media(max-width: 991px) {
+        margin-top: 15px;
+      }
+      .icon {
+         font-size: 35px;
+         margin: 10px 15px;
+         margin-bottom: -3px;
+         &:hover, &:active, &:focus {
+           color: #fff !important;
+         }
+         @media(max-width: 991px) {
+          font-size: 20px;
+          margin: 6px;
+          margin-bottom: 0px;
+         }
+     }
+  }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @media(max-width: 991px) {
+        flex-direction: column;
+      }
+    }
+  }

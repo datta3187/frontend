@@ -124,9 +124,13 @@ class Register extends Component {
     // button 
     signupWithPeatio = e => {
         e.preventDefault();
-
+        debugger
         if (this.handleValidation() && this.state.isTermSelected) {
+            debugger
             this.props.fetchRegister(this.state.fields);
+            // this.props.history.push("/email-verification", {
+            //     email: this.state.fields.email
+            // });
         }
     };
 

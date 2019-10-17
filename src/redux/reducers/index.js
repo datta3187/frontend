@@ -13,7 +13,6 @@ import forgotPasswordReducer from "./forgotPasswordReducer";
 import registerReducer from "./registerReducer";
 import twoFactorAuthReducer from "./twoFactorAuthReducer";
 
-
 export default combineReducers({
     router: connectRouter(history),
     tradeState: socketReducer,
