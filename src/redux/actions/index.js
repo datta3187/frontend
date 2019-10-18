@@ -5,12 +5,10 @@ import * as userActions from './user';
 // import * as withdrawActions from './withdraw';
 import * as authActions from './auth';
 import * as socketActions from './socketAction';
-import * as livecoinActions from './livecoindata';
 export default dispatch => ({
     actions: bindActionCreators({
         ...socketActions,
         ...userActions,
-        ...authActions,
-        ...livecoinActions
+        ...authActions
     }, dispatch)
 });
