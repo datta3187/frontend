@@ -15,6 +15,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import NotFound from './errors/NotFound';
 import { connect } from 'react-redux';
 import PrivateRoute from '../components/PrivateRoute';
+import PublicRoute from '../components/PublicRoute';
 import { fetchUser } from '../redux/actions/user';
 import WalletPage from './WalletPage';
 import DocumentList from './kyc/DocumentList';
@@ -35,14 +36,14 @@ class App extends Component {
         return (
             <div className="App">
                 <Switch>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/login" exact component={Login} />
-                    <Route path="/trading/:market" component={Exchange} />
-                    <Route path="/email-confirm/:token" exact component={EmailConfirmation} />
-                    <Route path="/password-reset/:token" exact component={ResetPassword} />
-                    <Route path="/register" exact component={Register} />
-                    <Route path="/email-verification" exact component={EmailVerify} />
-                    <Route path="/two-factor" component={TwoFactorAuth} />
+                    <PublicRoute path="/" exact component={Home} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PublicRoute path="/login" exact component={Login} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PublicRoute path="/trading/:market" component={Exchange} />
+                    <PublicRoute path="/email-confirm/:token" exact component={EmailConfirmation} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PublicRoute path="/password-reset/:token" exact component={ResetPassword} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PublicRoute path="/register" exact component={Register} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PublicRoute path="/email-verification" exact component={EmailVerify} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PublicRoute path="/two-factor" component={TwoFactorAuth} isAuthenticated={isAuthenticated} isLoading={isFetching} />
 
                     <PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />

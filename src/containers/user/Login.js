@@ -12,7 +12,6 @@ import { fetchLogin, resetFailLogin } from '../../redux/actions/auth';
 import { fetchForgotPassword, openModal } from "../../redux/actions/forgotPassword";
 import { connect } from 'react-redux';
 
-
 class Login extends Component {
     constructor(props) {
         super(props);

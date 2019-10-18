@@ -19,7 +19,7 @@ export default combineReducers({
     auth: authReducer,
     user: userReducer,
     wallet: walletReducer,
-    history: historyReducer,
+    // history: historyReducer,
     withdraw: withdrawReducer,
     trade: tradeReducer,
     forgotPassword: forgotPasswordReducer,
