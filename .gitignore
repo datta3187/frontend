@@ -26,4 +26,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # for stage merging only
-#src/config.js
+src/config.js
