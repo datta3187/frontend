@@ -53,7 +53,9 @@ class DocumentList extends Component {
                                             <Table.Cell> {doc.doc_number} </Table.Cell>
                                             <Table.Cell> {doc.doc_expire} </Table.Cell>
                                         </Table.Row>
-                                    ) : <Table.Row> No Date Found</Table.Row>
+                                    ) : <Table.Row className="nodata-row">
+                                        <Table.Cell colSpan='3' > No Data Found</Table.Cell>
+                                        </Table.Row>
                             }
                         </Table.Body>
                     </Table>

@@ -12,6 +12,8 @@ import tradeReducer from './tradeReducer';
 import forgotPasswordReducer from "./forgotPasswordReducer";
 import registerReducer from "./registerReducer";
 import twoFactorAuthReducer from "./twoFactorAuthReducer";
+import profileReducer from './profileReducer'
+import kycReducer from "./kycReducer";
 
 export default combineReducers({
     router: connectRouter(history),
@@ -19,10 +21,12 @@ export default combineReducers({
     auth: authReducer,
     user: userReducer,
     wallet: walletReducer,
-    // history: historyReducer,
+    history: historyReducer,
     withdraw: withdrawReducer,
     trade: tradeReducer,
     forgotPassword: forgotPasswordReducer,
     register: registerReducer,
-    twoFactorAuth: twoFactorAuthReducer
+    twoFactorAuth: twoFactorAuthReducer,
+    profile: profileReducer,
+    kyc: kycReducer
 });

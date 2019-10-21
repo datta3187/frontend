@@ -56,16 +56,16 @@ export default class Auth {
         return JSON.parse(localStorage.getItem('user'));
     };
 
-    fetchProfile = () => {
-        let api_url = 'resource/profiles/me';
-        return Api.remoteApi(api_url, 'GET', {})
-            .then(res => {
-                this.setProfile(res)
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    };
+    // fetchProfile = () => {
+    //     let api_url = 'resource/profiles/me';
+    //     return Api.remoteApi(api_url, 'GET', {})
+    //         .then(res => {
+    //             this.setProfile(res)
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //         });
+    // };
 
     fetchPhones = () => {
         let api_url = 'resource/phones';
