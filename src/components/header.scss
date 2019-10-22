@@ -10,13 +10,11 @@
     background: #00adee;
   }
   .ui.container {
-
     width: 100%;
     max-width: 90% !important;
     @media(max-width: 767px) {
       max-width: 100% !important;
     }
-
 }
   .header {
     display: flex;
@@ -146,26 +144,6 @@
       }
     }
   }
-  // background: url('../images/header-bg.png');
-  // background-position: center;
-  // height: 393px;
-  // width: 100%;
-  // top: 0;
-
-  // &.exchangeHdr {
-  //   margin: 0;
-  //   padding: 0;
-  //   background-position: center 0;
-  //   height: 92px;
-
-  //   .ui.container {
-  //     width: 100%;
-  //     max-width: 100% !important;
-  //     box-sizing: border-box;
-  //     padding-left: 15px;
-  //     padding-right: 15px;
-  //   }
-  // }
 }
 
 
@@ -351,11 +329,6 @@
   max-width: 1250px !important;
 }
 
-// .sideNavChild:hover {
-//   color: #fff !important;
-//   background: #3a4c79 !important;
-// }
-
 .sideNavChild:hover a {
   color: #fff !important;
 }
@@ -373,7 +346,3 @@
 .ui.form .twelve.wide.field {
   width: 100% !important;
 }
-//.ui.small.modal {
-//  height: 500px !important;
-//  width: 500px;
-//}

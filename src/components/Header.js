@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './header.scss';
-import { Container, Icon, Image, Select } from 'semantic-ui-react';
+import {Button, Container, Select} from 'semantic-ui-react';
 import { fetchLogout } from '../redux/actions/auth';
 import { connect } from 'react-redux';
-import Buttonn from '../common/buttonn';
+
 const countryOptions = [
     { key: 'af', value: 'af', text: 'UN' },
     { key: 'ax', value: 'ax', text: 'EN' },
    
   ]
-const IconNav = () => <Icon link className='navBtn' name='bars' />;
 
 class Headers extends Component {
     constructor(props) {
@@ -21,18 +20,11 @@ class Headers extends Component {
             isAuthenticated = user.email && user.state === 'active';
         }
         this.state = {
-            is_open: false,
             isAuthenticated: isAuthenticated
         };
     }
 
-    openLeftNav = () => {
-        this.setState({
-            is_open: !this.state.is_open
-        });
-    };
-
-    logoutUser = () => {
+    logoutUser(){
         this.props.fetchLogout();
     };
 
@@ -42,19 +34,23 @@ class Headers extends Component {
                 <Container>
                     <div className="header">
                         <div className="headerLeft">
-                            <div onClick={this.openLeftNav}>
-                                <IconNav />
-                            </div>
-                            <Link to="/login">Logo Goes Here</Link>
+                            <Link to="/">Logo Goes Here</Link>
                            
                         </div>
                         <ul className="top-rgt-nav">
-                            <li><a href="#">HELP</a></li>
-                            <li><a href="/trading/ETH_BTC">MARKET</a></li>
+                            <li>
+                                <Link to="/">HELP</Link>
+                            </li>
+                            <li>
+                                <Link to="/trading/ETH_BTC">MARKET</Link>
+                            </li>
+
                             {
                                 this.state.isAuthenticated ?
-                                    <li className="whitepaper"><Buttonn buttons='LOGOUT' btnDefault="button-comn"></Buttonn></li> :
-                                    <li className="whitepaper"><Buttonn buttons='LOGIN' btnDefault="button-comn"></Buttonn></li>
+                                    <li className="whitepaper"><Button className="button-comn" onClick={ () => this.logoutUser() }>LOGOUT</Button></li> :
+                                    <li className="whitepaper">
+                                        <Link className="button-comn" to="/login">LOGIN</Link>
+                                    </li>
                             }
                             <li>
                                 <Select placeholder='EN' options={countryOptions} />
