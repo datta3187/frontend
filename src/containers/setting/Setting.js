@@ -199,8 +199,6 @@ export class Setting extends Component {
                                 </Grid.Column>
                                 <Grid.Column className="settingListBtn">
                                     <Button type="button" onClick={() => this.setState({ passwordModal: true })}>Change</Button>
-                                    {/*<Button type="button" className="disableBtn" onClick={()=>this.changePasswordEvent()}>Change Password</Button>*/}
-
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row columns={2} className="settingList googleAuth">

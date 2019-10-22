@@ -27,7 +27,7 @@ export function* setProfileSaga() {
 }
 
 
-export function* fetchProfile(payload) {
+export function* fetchProfile() {
     try {
         let response = yield call(fetchKycProfile);
         if(response){

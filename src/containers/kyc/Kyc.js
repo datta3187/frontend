@@ -237,7 +237,6 @@ class Kyc extends Component {
 }
 
 function mapStateToProps(state) {
-    debugger
     return {
         error: state.kyc.error,
         loading: state.kyc.loading

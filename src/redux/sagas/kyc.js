@@ -11,6 +11,7 @@ export function* submitKyc(payload) {
         debugger
         if(response === 201){
             yield put(actions.successSubmitKyc());
+            toast.success('Uploaded successfully');
             yield put(push('/settings'));
         }
         else {

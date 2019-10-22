@@ -183,11 +183,17 @@
 }
 .ui.small.modal.googleAuthModal {
     height: 500px;
+    position: relative;
+    width: 450px;
     .content {
         padding: 50px;
         img {
-            max-width: 30%;
+            max-width: 60%;
             margin-bottom: 30px;
         }
+        .button {
+            margin-top: 10px;
+        }
     }
+
 }
