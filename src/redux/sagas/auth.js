@@ -49,6 +49,7 @@ export function* fetchLogin(payload) {
                 next_path ='/settings'
             }
             yield call(fetchUser);
+            yield put(actions.successFetchLogin());
             yield put(push(next_path));
             toast.success('Logged In Successfully');
         } else {
