@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import * as actions from '../actions/auth';
+import { fetchDocs } from '../../api/kyc';
 import * as userActions from '../actions/user';
 import * as types from '../constants/auth';
 import { push } from 'connected-react-router';
@@ -37,7 +38,12 @@ export function* fetchLogin(payload) {
                 next_path ='/profile';
             }
             else if(auth.level === 2){
-                next_path ='/kyc';
+                let docInfo = yield call(fetchDocs);
+                if(docInfo.Data.length > 0){
+                    next_path ='/settings';
+                } else {
+                    next_path ='/kyc';
+                }
             }
             else{
                 next_path ='/settings'

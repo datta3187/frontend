@@ -1,3 +1,7 @@
 export const SUBMIT_KYC = 'kyc/FETCH_WALLET_DATA';
 export const SUCCESS_SUBMIT_KYC = 'kyc/SUCCESS_WALLET_DATA';
 export const FAIL_SUBMIT_KYC = 'kyc/FAIL_WALLET_DATA';
+export const FETCH_DOCUMENTS = 'kyc/FETCH_DOCUMENTS';
+export const REFRESH_DOCUMENTS = 'kyc/REFRESH_DOCUMENTS';
+export const FAIL_DOCUMENTS = 'kyc/FAIL_DOCUMENTS';
+

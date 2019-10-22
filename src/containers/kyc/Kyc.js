@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
-import {Container, Button, Step, Icon, Dimmer, Loader} from 'semantic-ui-react'
+import {Container, Button, Dimmer, Loader} from 'semantic-ui-react'
 import { Dropdown, Form, Input } from 'semantic-ui-react-form-validator';
 import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
 import Header from "../../components/Header";
 import './Kyc.scss'
 import { toast } from "react-toastify";
-import Auth from '../../components/Auth';
 import Moment from 'moment';
 import {connect} from "react-redux";
 import { submitKyc, successSubmitKyc} from '../../redux/actions/kyc';
 import { fetchProfile } from '../../redux/actions/profile'
 
-const auth = new Auth();
+
 
 const docType = [
     { key: 'passport', value: 'passport', text: 'Passport' },
@@ -46,25 +45,11 @@ class Kyc extends Component {
 
     componentDidMount() {
         this.props.fetchProfile();
-        // auth.fetchUser()
-        //     .then(res => {
-        //         let user = auth.getUser();
-        //         if (user && user.level < 2) {
-        //             this.setState(
-        //                 {
-        //                     redirect: true,
-        //                     redirect_to: '/phone'
-        //                 }
-        //             )
-        //         }
-        //     })
 
     }
 
     onFileUploadChange = (e) => {
-
         this.setState({ upload: e.target.files[0] });
-
         let files = e.target.files;
         let size = 2000000;
         let err = [];
@@ -110,28 +95,9 @@ class Kyc extends Component {
         formData.append('doc_expire', this.state.fields.doc_expire);
         formData.append('upload', this.state.upload);
         this.props.submitKyc(formData);
-
-        // Api.onKyc(formData)
-        //     .then(res => {
-        //         console.log("KYC response", res);
-        //         this.setState({ loading: false });
-        //         toast.success("Submitted Successfully");
-        //         this.props.history.push("/settings");
-        //     })
-        //     .catch(error => {
-        //         CustomError.handle(error);
-        //     })
     }
 
     render() {
-        // if (this.state.redirect) {
-        //     return <Redirect
-        //         to={{
-        //             pathname: this.state.redirect_to,
-        //             state: { from: this.props.location }
-        //         }}
-        //     />
-        // }
         return (
             < div >
                 {this.props.loading && (
@@ -144,26 +110,7 @@ class Kyc extends Component {
                     <div className="userFormHeader">
                         <h1>Know Your Customer</h1>
                     </div>
-                    {/*<Step.Group className="profileSepts">*/}
-                        {/*<Step>*/}
-                            {/*<Icon name='phone' />*/}
-                            {/*<Step.Content>*/}
-                                {/*<Step.Title>Phone</Step.Title>*/}
-                            {/*</Step.Content>*/}
-                        {/*</Step>*/}
-                        {/*<Step>*/}
-                            {/*<Icon name='user' />*/}
-                            {/*<Step.Content>*/}
-                                {/*<Step.Title>Profile</Step.Title>*/}
-                            {/*</Step.Content>*/}
-                        {/*</Step>*/}
-                        {/*<Step active>*/}
-                            {/*<Icon name='file' />*/}
-                            {/*<Step.Content>*/}
-                                {/*<Step.Title>KYC</Step.Title>*/}
-                            {/*</Step.Content>*/}
-                        {/*</Step>*/}
-                    {/*</Step.Group>*/}
+
                     <Form
                         ref="form"
                         onSubmit={this.submitKyc}
@@ -222,8 +169,6 @@ class Kyc extends Component {
                                     placeholder="Upload Document"
                                     value={this.state.uploads.filename}
                                     onChange={this.onFileUploadChange}
-                                // validators={['isValidExtension']}
-                                // errorMessages={['hello ']}
                                 />
                             </div>
                         </div>

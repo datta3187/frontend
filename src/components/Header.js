@@ -52,7 +52,7 @@ class Headers extends Component {
 
                             {
                                 this.state.isAuthenticated ?
-                                    <li><Link to="/funds">FUNDS</Link></li> :
+                                    <li><Link to="/wallets">FUNDS</Link></li> :
                                     <li><Link to="/">HELP</Link></li>
                             }
                             <li>

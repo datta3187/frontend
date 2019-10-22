@@ -1,21 +1,16 @@
-// import axiosInstance from './requestBuilder';
-//
-// export const kycDocument = (payload) => {
-//     debugger
-//     return axiosInstance.post(
-//         '/resource/documents',
-//         payload,{
-//
-//         }
-//     )
-//         .then(response => response)
-//         .catch(error => {
-//             throw error;
-//         });
-// };
-
+import axiosInstance from './requestBuilder';
 import axios from 'axios';
 import config from '../config';
+
+export const fetchDocs = () => {
+    return axiosInstance.get(
+        '/barong/resource/documents'
+    )
+        .then(response => response)
+        .catch(error => {
+            throw error;
+        });
+};
 
 export const kycDocument = payload => {
     const URL = config.apiUrl;
@@ -32,3 +27,7 @@ export const kycDocument = payload => {
             throw error;
         });
 };
+
+export const fetchDocuments = () => {
+
+}

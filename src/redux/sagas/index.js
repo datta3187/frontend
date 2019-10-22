@@ -9,7 +9,7 @@ import { twoFactorAuthSaga } from './twoFactorAuth'
 import { fetchRegisterSaga } from "./register";
 import { fetchForgotPasswordSaga } from "./forgotPassword";
 import { setProfileSaga, fetchProfileSaga} from "./profile";
-import { submitKycSaga } from './kyc'
+import { submitKycSaga, fetchDocumentsSaga } from './kyc'
 
 export default function* rootSaga() {
     yield all([
@@ -29,6 +29,7 @@ export default function* rootSaga() {
         fetchForgotPasswordSaga(),
         setProfileSaga(),
         submitKycSaga(),
-        fetchProfileSaga()
+        fetchProfileSaga(),
+        fetchDocumentsSaga()
     ]);
 }
