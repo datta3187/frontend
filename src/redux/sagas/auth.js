@@ -30,6 +30,7 @@ export function* fetchLogin(payload) {
             yield put(push('/two-factor'));
         }else if(auth){
             yield call(fetchUser);
+            yield put(actions.successFetchLogin());
             yield put(push('/settings'));
             toast.success('Logged In Successfully');
         } else {

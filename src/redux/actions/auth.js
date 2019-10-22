@@ -3,7 +3,8 @@ import {
     FAIL_LOGOUT,
     FETCH_LOGIN,
     FAIL_LOGIN,
-    RESET_FAIL_LOGIN
+    RESET_FAIL_LOGIN,
+    SUCCESS_FETCH_LOGIN
 } from '../constants/auth';
 
 
@@ -17,6 +18,10 @@ export const failLogout = message => {
 
 export const fetchLogin = (payload) => {
     return { type: FETCH_LOGIN, data: payload };
+};
+
+export const successFetchLogin = (payload) => {
+    return { type: SUCCESS_FETCH_LOGIN, data: payload };
 };
 
 export const failLogin = message => {
