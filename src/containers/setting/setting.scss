@@ -161,9 +161,39 @@
                 padding-top: 8px;
                 padding-bottom: 8px;
             }
+            .content {
+                display: inline-block;
+            }
         }
 
     }
     
     
   }
+.setting-row {
+    margin-left:0 !important;
+    margin-right:0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    .row {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin: 0 !important;
+    }
+}
+.ui.small.modal.googleAuthModal {
+    height: 500px;
+    position: relative;
+    width: 450px;
+    .content {
+        padding: 50px;
+        img {
+            max-width: 60%;
+            margin-bottom: 30px;
+        }
+        .button {
+            margin-top: 10px;
+        }
+    }
+
+}

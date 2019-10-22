@@ -1,0 +1,3 @@
+export const SUBMIT_KYC = 'kyc/FETCH_WALLET_DATA';
+export const SUCCESS_SUBMIT_KYC = 'kyc/SUCCESS_WALLET_DATA';
+export const FAIL_SUBMIT_KYC = 'kyc/FAIL_WALLET_DATA';

@@ -51,7 +51,7 @@ class EmailVerify extends Component {
                         <h1>VERIFY YOUR EMAIL ADDRESS{this.state.flag}</h1>
                         <p>To complete registration, check for an email in your inbox with further instruction. If you cannot find the email, please check your spam folder</p>
                     </div>
-                    <div text-align="center">
+                    <div className="center">
                         {
                             this.state.flag ? <Link onClick={this.resendEmail}>Resend email</Link> : null
                         }

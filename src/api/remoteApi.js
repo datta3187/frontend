@@ -23,18 +23,18 @@ export const remoteApi = (api_url, method_type, payload = 'undefined', base_url 
 };
 
 // Kyc Api
-export const onKyc = payload => {
-    const URL = config.apiUrl;
-
-    return axios(`${URL}/resource/documents`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'multipart/form-data'
-        },
-        data: payload
-    })
-        .then(response => response.data)
-        .catch(error => {
-            throw error;
-        });
-};
+// export const onKyc = payload => {
+//     const URL = config.apiUrl;
+//
+//     return axios(`${URL}/resource/documents`, {
+//         method: 'POST',
+//         headers: {
+//             'content-type': 'multipart/form-data'
+//         },
+//         data: payload
+//     })
+//         .then(response => response.data)
+//         .catch(error => {
+//             throw error;
+//         });
+// };

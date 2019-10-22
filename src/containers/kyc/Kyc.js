@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
-import { Container, Button, Step, Icon } from 'semantic-ui-react'
+import {Container, Button, Step, Icon, Dimmer, Loader} from 'semantic-ui-react'
 import { Dropdown, Form, Input } from 'semantic-ui-react-form-validator';
 import { DateInput } from 'semantic-ui-calendar-react';
 import Footer from '../../components/Footer'
 import Header from "../../components/Header";
-import * as Api from "../../api/remoteApi";
 import './Kyc.scss'
 import { toast } from "react-toastify";
-import { Redirect } from "react-router";
-import * as CustomError from "../../api/handleError";
 import Auth from '../../components/Auth';
 import Moment from 'moment';
-
+import {connect} from "react-redux";
+import { submitKyc, successSubmitKyc} from '../../redux/actions/kyc';
+import { fetchProfile } from '../../redux/actions/profile'
 
 const auth = new Auth();
 
@@ -40,24 +39,25 @@ class Kyc extends Component {
                 doc_number: '',
                 doc_expire: ''
             },
-            upload: [],
+            uploads: [],
             loading: false,
         }
     }
 
     componentDidMount() {
-        auth.fetchUser()
-            .then(res => {
-                let user = auth.getUser();
-                if (user && user.level < 2) {
-                    this.setState(
-                        {
-                            redirect: true,
-                            redirect_to: '/phone'
-                        }
-                    )
-                }
-            })
+        this.props.fetchProfile();
+        // auth.fetchUser()
+        //     .then(res => {
+        //         let user = auth.getUser();
+        //         if (user && user.level < 2) {
+        //             this.setState(
+        //                 {
+        //                     redirect: true,
+        //                     redirect_to: '/phone'
+        //                 }
+        //             )
+        //         }
+        //     })
 
     }
 
@@ -103,60 +103,67 @@ class Kyc extends Component {
 
     submitKyc = e => {
         e.preventDefault();
-        let formData = new FormData(); //formdata
-        formData.append('doc_type', this.state.fields.doc_type)
-        formData.append('doc_number', this.state.fields.doc_number)
-        formData.append('doc_expire', this.state.fields.doc_expire)
-        formData.append('upload', this.state.upload)
+        let formData = new FormData();
 
-        Api.onKyc(formData)
-            .then(res => {
-                console.log("KYC response", res);
-                this.setState({ loading: false });
-                toast.success("Submitted Successfully");
-                this.props.history.push("/settings");
-            })
-            .catch(error => {
-                CustomError.handle(error);
-            })
+        formData.append('doc_type', this.state.fields.doc_type);
+        formData.append('doc_number', this.state.fields.doc_number);
+        formData.append('doc_expire', this.state.fields.doc_expire);
+        formData.append('upload', this.state.upload);
+        this.props.submitKyc(formData);
+
+        // Api.onKyc(formData)
+        //     .then(res => {
+        //         console.log("KYC response", res);
+        //         this.setState({ loading: false });
+        //         toast.success("Submitted Successfully");
+        //         this.props.history.push("/settings");
+        //     })
+        //     .catch(error => {
+        //         CustomError.handle(error);
+        //     })
     }
 
     render() {
-        if (this.state.redirect) {
-            return <Redirect
-                to={{
-                    pathname: this.state.redirect_to,
-                    state: { from: this.props.location }
-                }}
-            />
-        }
+        // if (this.state.redirect) {
+        //     return <Redirect
+        //         to={{
+        //             pathname: this.state.redirect_to,
+        //             state: { from: this.props.location }
+        //         }}
+        //     />
+        // }
         return (
             < div >
+                {this.props.loading && (
+                    <Dimmer active>
+                        <Loader content="Loading..." />
+                    </Dimmer>
+                )}
                 <Header />
                 <Container className="boxWithShadow userForms kycForm">
                     <div className="userFormHeader">
                         <h1>Know Your Customer</h1>
                     </div>
-                    <Step.Group className="profileSepts">
-                        <Step>
-                            <Icon name='phone' />
-                            <Step.Content>
-                                <Step.Title>Phone</Step.Title>
-                            </Step.Content>
-                        </Step>
-                        <Step>
-                            <Icon name='user' />
-                            <Step.Content>
-                                <Step.Title>Profile</Step.Title>
-                            </Step.Content>
-                        </Step>
-                        <Step active>
-                            <Icon name='file' />
-                            <Step.Content>
-                                <Step.Title>KYC</Step.Title>
-                            </Step.Content>
-                        </Step>
-                    </Step.Group>
+                    {/*<Step.Group className="profileSepts">*/}
+                        {/*<Step>*/}
+                            {/*<Icon name='phone' />*/}
+                            {/*<Step.Content>*/}
+                                {/*<Step.Title>Phone</Step.Title>*/}
+                            {/*</Step.Content>*/}
+                        {/*</Step>*/}
+                        {/*<Step>*/}
+                            {/*<Icon name='user' />*/}
+                            {/*<Step.Content>*/}
+                                {/*<Step.Title>Profile</Step.Title>*/}
+                            {/*</Step.Content>*/}
+                        {/*</Step>*/}
+                        {/*<Step active>*/}
+                            {/*<Icon name='file' />*/}
+                            {/*<Step.Content>*/}
+                                {/*<Step.Title>KYC</Step.Title>*/}
+                            {/*</Step.Content>*/}
+                        {/*</Step>*/}
+                    {/*</Step.Group>*/}
                     <Form
                         ref="form"
                         onSubmit={this.submitKyc}
@@ -213,7 +220,7 @@ class Kyc extends Component {
                                     type="file"
                                     name="upload"
                                     placeholder="Upload Document"
-                                    value={this.state.upload.filename}
+                                    value={this.state.uploads.filename}
                                     onChange={this.onFileUploadChange}
                                 // validators={['isValidExtension']}
                                 // errorMessages={['hello ']}
@@ -229,4 +236,21 @@ class Kyc extends Component {
     }
 }
 
-export default Kyc
+function mapStateToProps(state) {
+    return {
+        error: state.kyc.error,
+        loading: state.kyc.loading
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        submitKyc: (payload) => dispatch(submitKyc(payload)),
+        successSubmitKyc: () => dispatch(successSubmitKyc()),
+        fetchProfile: () => dispatch(fetchProfile())
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps)(Kyc);

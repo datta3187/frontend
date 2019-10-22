@@ -51,45 +51,49 @@ class Headers extends Component {
                         <ul className="top-rgt-nav">
                             <li><a href="#">HELP</a></li>
                             <li><a href="/trading/ETH_BTC">MARKET</a></li>
-                            <li className="whitepaper"><Buttonn buttons='WHITEPAPER' btnDefault="button-comn"></Buttonn></li>
+                            {
+                                this.state.isAuthenticated ?
+                                    <li className="whitepaper"><Buttonn buttons='LOGOUT' btnDefault="button-comn"></Buttonn></li> :
+                                    <li className="whitepaper"><Buttonn buttons='LOGIN' btnDefault="button-comn"></Buttonn></li>
+                            }
                             <li>
                                 <Select placeholder='EN' options={countryOptions} />
                             </li>
                         </ul>
                     </div>
 
-                    <div className={this.state.is_open ? 'ui visible left wide sidebar sideNav displayActive' : 'displayInactive'}>
-                        <div className='childDiv'>
-                            {
-                                !this.state.isAuthenticated &&
-                                <div>
-                                    <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
-                                    <Icon disabled name='help circle' />
-                                        <Link to="/login">HELP</Link>
-                                    </div>
-                                    <div className={this.props.activePath == 'register' ? 'sideNavChild route-selected' : 'sideNavChild'}>
-                                       <Icon disabled name=' upload' />
-                                        <Link to="/trading/ETH_BTC">MARKET</Link>
-                                    </div>
-                                    <div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>
-                                    <Icon disabled name='user circle' />
-                                        <Link to="/login">LOGIN</Link>
-                                    </div>
-                                </div>
-                            }
+                    {/*<div className={this.state.is_open ? 'ui visible left wide sidebar sideNav displayActive' : 'displayInactive'}>*/}
+                        {/*<div className='childDiv'>*/}
+                            {/*{*/}
+                                {/*!this.state.isAuthenticated &&*/}
+                                {/*<div>*/}
+                                    {/*<div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>*/}
+                                    {/*<Icon disabled name='help circle' />*/}
+                                        {/*<Link to="/login">HELP</Link>*/}
+                                    {/*</div>*/}
+                                    {/*<div className={this.props.activePath == 'register' ? 'sideNavChild route-selected' : 'sideNavChild'}>*/}
+                                       {/*<Icon disabled name=' upload' />*/}
+                                        {/*<Link to="/trading/ETH_BTC">MARKET</Link>*/}
+                                    {/*</div>*/}
+                                    {/*<div className={this.props.activePath == 'login' ? 'sideNavChild route-selected' : 'sideNavChild'}>*/}
+                                    {/*<Icon disabled name='user circle' />*/}
+                                        {/*<Link to="/login">LOGIN</Link>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
+                            {/*}*/}
 
-                        </div>
+                        {/*</div>*/}
 
-                        {
-                            this.state.isAuthenticated &&
-                            <div className='sideNavChild'>
-                                <Image src={require('../images/logout.svg')} />
-                                <Link onClick={this.logoutUser}>Logout</Link>
-                            </div>
-                        }
+                        {/*{*/}
+                            {/*this.state.isAuthenticated &&*/}
+                            {/*<div className='sideNavChild'>*/}
+                                {/*<Image src={require('../images/logout.svg')} />*/}
+                                {/*<Link onClick={this.logoutUser}>Logout</Link>*/}
+                            {/*</div>*/}
+                        {/*}*/}
 
 
-                    </div>
+                    {/*</div>*/}
                 </Container>
             </div>
         );

@@ -9,6 +9,11 @@ import walletReducer from './walletReducer';
 import historyReducer from './historyReducer';
 import withdrawReducer from './withdrawReducer';
 import tradeReducer from './tradeReducer';
+import forgotPasswordReducer from "./forgotPasswordReducer";
+import registerReducer from "./registerReducer";
+import twoFactorAuthReducer from "./twoFactorAuthReducer";
+import profileReducer from './profileReducer'
+import kycReducer from "./kycReducer";
 
 export default combineReducers({
     router: connectRouter(history),
@@ -18,5 +23,10 @@ export default combineReducers({
     wallet: walletReducer,
     history: historyReducer,
     withdraw: withdrawReducer,
-    trade: tradeReducer
+    trade: tradeReducer,
+    forgotPassword: forgotPasswordReducer,
+    register: registerReducer,
+    twoFactorAuth: twoFactorAuthReducer,
+    profile: profileReducer,
+    kyc: kycReducer
 });

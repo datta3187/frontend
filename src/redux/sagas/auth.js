@@ -25,13 +25,12 @@ export function* fetchLogoutSaga() {
 export function* fetchLogin(payload) {
     try {
         let auth = yield call(loginUser, payload.data);
-        debugger
         if (auth && auth.gAuthStatus===0){
             localStorage.setItem('userInfo', JSON.stringify(payload.data));
             yield put(push('/two-factor'));
         }else if(auth){
             yield call(fetchUser);
-            yield put(push('/s'));
+            yield put(push('/settings'));
             toast.success('Logged In Successfully');
         } else {
             yield put(actions.failLogin('Login Failed'));
