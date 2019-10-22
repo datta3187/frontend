@@ -6,5 +6,4 @@ export default {
   captchaPolicy: false,
   recatpchaSiteKey: "6Ldk47kUAAAAADVE3xKJGnt2g4xuRZT6ds_ojc6i",
   referralId: 'EXC5EF234078'
-
 };
