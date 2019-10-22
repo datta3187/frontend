@@ -38,9 +38,12 @@ class Headers extends Component {
                            
                         </div>
                         <ul className="top-rgt-nav">
-                            <li>
-                                <Link to="/">HELP</Link>
-                            </li>
+
+                            {
+                                this.state.isAuthenticated ?
+                                    <li><Link to="/funds">FUNDS</Link></li> :
+                                    <li><Link to="/">HELP</Link></li>
+                            }
                             <li>
                                 <Link to="/trading/ETH_BTC">MARKET</Link>
                             </li>

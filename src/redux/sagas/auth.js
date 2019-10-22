@@ -29,8 +29,21 @@ export function* fetchLogin(payload) {
             localStorage.setItem('userInfo', JSON.stringify(payload.data));
             yield put(push('/two-factor'));
         }else if(auth){
+            let next_path ;
+            if (auth.level === 0){
+                next_path ='/email-verification';
+            }
+            else if (auth.level === 1){
+                next_path ='/profile';
+            }
+            else if(auth.level === 2){
+                next_path ='/kyc';
+            }
+            else{
+                next_path ='/settings'
+            }
             yield call(fetchUser);
-            yield put(push('/settings'));
+            yield put(push(next_path));
             toast.success('Logged In Successfully');
         } else {
             yield put(actions.failLogin('Login Failed'));
