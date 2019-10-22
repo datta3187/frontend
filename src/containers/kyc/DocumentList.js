@@ -12,6 +12,10 @@ class DocumentList extends Component {
         super(props);
     }
 
+    componentWillMount() {
+        this.props.fetchDocuments()
+    }
+
     render() {
         const res = this.props.documents
         return (

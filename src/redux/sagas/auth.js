@@ -39,7 +39,7 @@ export function* fetchLogin(payload) {
             }
             else if(auth.level === 2){
                 let docInfo = yield call(fetchDocs);
-                if(docInfo.Data.length > 0){
+                if(docInfo.data.length > 0){
                     next_path ='/settings';
                 } else {
                     next_path ='/kyc';
