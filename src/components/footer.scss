@@ -12,9 +12,6 @@
     box-sizing: border-box;
     align-items: center;
     .sociallink {
-      @media(max-width: 991px) {
-        margin-top: 15px;
-      }
       .icon {
          font-size: 35px;
          margin: 10px 15px;
@@ -22,6 +19,11 @@
          &:hover, &:active, &:focus {
            color: #fff !important;
          }
+        @media(max-width: 1360px) {
+          font-size: 25px;
+          margin: 10px;
+          margin-bottom: 0px;
+        }
          @media(max-width: 991px) {
           font-size: 20px;
           margin: 6px;
@@ -37,4 +39,11 @@
         flex-direction: column;
       }
     }
+  .copyrite {
+    p {
+      @media(max-width:1360px) {
+        font-size:14px;
+      }
+    }
+  }
   }

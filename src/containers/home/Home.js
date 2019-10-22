@@ -49,13 +49,14 @@ class ConnectdHome extends Component {
                 <Websocket url={this.path()}
                            onMessage={this.handleData}/>
                 <Register />
+
                 <div className=''>
                     <div className='ticketrecord'>
                         <Card>
                             <SampleTable  curr={this.state.currencies}></SampleTable>
                         </Card>
                     </div>
-                    <div className='corousall'>
+                    <div className='corousall web-carousel'>
                         <Corousalp></Corousalp>
                     </div>
                     <Announce />
