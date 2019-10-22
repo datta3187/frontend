@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Buttonn from '../../common/buttonn';
 import HomeCard from './Card';
+import Corousalp from '../../common/corousal';
 
 export default class Register extends  Component {
     render(){
@@ -18,6 +19,9 @@ export default class Register extends  Component {
                         </div>
                         <div className="mydiv">
                             <HomeCard />
+                        </div>
+                        <div className='corousall mob-carousel'>
+                            <Corousalp></Corousalp>
                         </div>
                     </div>
                 </div>

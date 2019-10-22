@@ -4,16 +4,17 @@ import {
 } from '../constants/twoFactorAuth';
 
 const initState = {
-   error2fa: null
+    error: null,
+    loading: false
 };
 
 function twoFactorAuthReducer(state = initState, action) {
     switch (action.type) {
         case FETCH_2FA: {
-            return { ...state };
+            return { ...state, loading: true };
         }
         case FAIL_2FA: {
-            return { ...state, error2fa: action.payload.message };
+            return { ...state, loading: false, error: action.payload.message };
         }
         default:
             return state;

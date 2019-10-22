@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './header.scss';
-import { Container, Icon, Image, Select } from 'semantic-ui-react';
+import {Button, Container, Select, Icon, Image} from 'semantic-ui-react';
 import { fetchLogout } from '../redux/actions/auth';
 import { connect } from 'react-redux';
-import Buttonn from '../common/buttonn';
+
 const countryOptions = [
     { key: 'af', value: 'af', text: 'UN' },
     { key: 'ax', value: 'ax', text: 'EN' },
@@ -44,14 +44,31 @@ class Headers extends Component {
                         <div className="headerLeft">
                             <div onClick={this.openLeftNav}>
                                 <IconNav />
-                            </div>
-                            <Link to="/login">Logo Goes Here</Link>
-                           
+                                </div>
+                            <Link to="/">Logo Goes Here</Link>
+
                         </div>
                         <ul className="top-rgt-nav">
-                            <li><a href="#">HELP</a></li>
-                            <li><a href="/trading/ETH_BTC">MARKET</a></li>
-                            <li className="whitepaper"><Buttonn buttons='WHITEPAPER' btnDefault="button-comn"></Buttonn></li>
+
+                            {
+                                this.state.isAuthenticated ?
+                                    <li><Link to="/wallets">FUNDS</Link></li> :
+                                    <li><Link to="/">HELP</Link></li>
+                            }
+                            <li>
+                                <Link to="/trading/ETH_BTC">MARKET</Link>
+                            </li>
+
+                            {
+                                this.state.isAuthenticated ?
+                                    <li className="whitepaper"><Button className="button-comn" onClick={ () => this.logoutUser() }>LOGOUT</Button></li> :
+                                    <li className="whitepaper">
+                                        <Link className="purple-btn" to="/login">LOGIN</Link>
+                                    </li>
+                            }
+                            <li className="register-mob">
+                                <Link className="purple-btn" to="/login">Register</Link>
+                            </li>
                             <li>
                                 <Select placeholder='EN' options={countryOptions} />
                             </li>
@@ -91,6 +108,7 @@ class Headers extends Component {
 
                     </div>
                 </Container>
+
             </div>
         );
     }

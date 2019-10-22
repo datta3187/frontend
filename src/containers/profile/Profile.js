@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Button, Step, Icon } from 'semantic-ui-react';
+import {Container, Button, Step, Icon, Dimmer, Loader} from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import { Form, Input, Dropdown } from 'semantic-ui-react-form-validator';
-import * as Api from "../../api/remoteApi";
-import { toast } from "react-toastify"
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
-import { Redirect } from "react-router";
-import * as CustomError from "../../api/handleError";
 import Auth from "../../components/Auth";
-import { async } from 'q';
+import { connect } from "react-redux";
+import { setProfile, successProfile } from '../../redux/actions/profile'
 
 const auth = new Auth();
 
@@ -22,10 +19,6 @@ const regionOptions = [
     { key: 'Ka', value: 'Ka', text: 'Kabul' },
     { key: 'Kan', value: 'Kan', text: 'Kandahar' },
     { key: 'Mohali', value: 'Mohali', text: 'Mohali' },
-]
-const docOptions = [
-    { key: 'Word', value: 'Word', text: 'Word' },
-    { key: 'PDF', value: 'PDF', text: 'PDF' },
 ]
 
 export class Profile extends Component {
@@ -42,50 +35,40 @@ export class Profile extends Component {
                 country: '',
                 city: '',
                 postcode: ''
-            },
-            errors: {
-                first_name: '',
-                last_name: '',
-                dob: '',
-                address: '',
-                city: '',
-                country: '',
-                postcode: ''
-            },
-            loading: false,
+            }
         }
 
     }
 
-    componentWillMount() {
-        auth.fetchProfile()
-            .then(res => {
-                let profile = auth.getProfile();
-                if (profile) {
-                    this.setState(
-                        {
-                            redirect: true,
-                            redirect_to: '/kyc'
-                        }
-                    )
-                }
-            })
-
-
-        auth.fetchUser()
-            .then(res => {
-                let user = auth.getUser();
-                if (user.level < 2) {
-                    this.setState(
-                        {
-                            redirect: true,
-                            redirect_to: '/phone'
-                        }
-                    )
-                }
-            })
-
-    }
+    // componentWillMount() {
+    //     auth.fetchProfile()
+    //         .then(res => {
+    //             let profile = auth.getProfile();
+    //             if (profile) {
+    //                 this.setState(
+    //                     {
+    //                         redirect: true,
+    //                         redirect_to: '/kyc'
+    //                     }
+    //                 )
+    //             }
+    //         })
+    //
+    //
+    //     auth.fetchUser()
+    //         .then(res => {
+    //             let user = auth.getUser();
+    //             if (user.level < 2) {
+    //                 this.setState(
+    //                     {
+    //                         redirect: true,
+    //                         redirect_to: '/phone'
+    //                     }
+    //                 )
+    //             }
+    //         })
+    //
+    // }
 
 
 
@@ -99,53 +82,44 @@ export class Profile extends Component {
         this.setState({ [name]: value });
 
         this.setState(prevState => {
-            let fields = Object.assign({}, prevState.fields);  // creating copy of state variable jasper
-            // fields.city = value;
+            let fields = Object.assign({}, prevState.fields);
             fields[name] = value;
-            return { fields: fields };                                 // return new object jasper object
+            return { fields: fields };
         })
     };
 
     handleChangeDate = (event, { name, value }) => {
-        // if (this.state.hasOwnProperty(name)) {
         this.setState({ [name]: value });
         this.setState(prevState => {
-            let fields = Object.assign({}, prevState.fields);  // creating copy of state variable jasper
-            fields.dob = value;                     // update the name property, assign a new value
-            return { fields: fields };                                 // return new object jasper object
+            let fields = Object.assign({}, prevState.fields);
+            fields.dob = value;
+            return { fields: fields };
         })
-        // }
     };
 
     saveProfile = e => {
         e.preventDefault();
-        this.setState({ loading: true });
-        let api_url = 'resource/profiles';
-        let payload = this.state.fields;
-        Api.remoteApi(api_url, 'POST', payload)
-            .then(res => {
-                this.setState({ loading: false });
-                auth.fetchProfile();
-                this.props.history.push("/kyc");
-                toast.success("Submitted Successfully");
-            })
-            .catch(error => {
-                CustomError.handle(error)
-            })
+        this.props.setProfile(this.state.fields);
     };
 
 
     render() {
-        if (this.state.redirect) {
-            return <Redirect
-                to={{
-                    pathname: this.state.redirect_to,
-                    state: { from: this.props.location }
-                }}
-            />
-        }
+        // if (this.state.redirect) {
+        //     return <Redirect
+        //         to={{
+        //             pathname: this.state.redirect_to,
+        //             state: { from: this.props.location }
+        //         }}
+        //     />
+        // }
         return (
             <div>
+                {/*{this.props.loading && (*/}
+                    {/*<Dimmer active>*/}
+                        {/*<Loader content="Loading..." />*/}
+                    {/*</Dimmer>*/}
+                {/*)}*/}
+
                 <Header />
 
                 <Container className="boxWithShadow userForms kycForm">
@@ -153,27 +127,27 @@ export class Profile extends Component {
                         <h1>Profile</h1>
                     </div>
 
-                    <Step.Group className="profileSepts">
-                        <Step>
-                            <Icon name='phone' />
-                            <Step.Content>
-                                <Step.Title>Phone</Step.Title>
-                            </Step.Content>
-                        </Step>
-                        {/*active */}
-                        <Step active >
-                            <Icon name='user' />
-                            <Step.Content>
-                                <Step.Title>Profile</Step.Title>
-                            </Step.Content>
-                        </Step>
-                        <Step>
-                            <Icon name='file' />
-                            <Step.Content>
-                                <Step.Title>KYC</Step.Title>
-                            </Step.Content>
-                        </Step>
-                    </Step.Group>
+                    {/*<Step.Group className="profileSepts">*/}
+                        {/*<Step>*/}
+                            {/*<Icon name='phone' />*/}
+                            {/*<Step.Content>*/}
+                                {/*<Step.Title>Phone</Step.Title>*/}
+                            {/*</Step.Content>*/}
+                        {/*</Step>*/}
+                        {/*/!*active *!/*/}
+                        {/*<Step active >*/}
+                            {/*<Icon name='user' />*/}
+                            {/*<Step.Content>*/}
+                                {/*<Step.Title>Profile</Step.Title>*/}
+                            {/*</Step.Content>*/}
+                        {/*</Step>*/}
+                        {/*<Step>*/}
+                            {/*<Icon name='file' />*/}
+                            {/*<Step.Content>*/}
+                                {/*<Step.Title>KYC</Step.Title>*/}
+                            {/*</Step.Content>*/}
+                        {/*</Step>*/}
+                    {/*</Step.Group>*/}
 
                     <Form
                         ref="form"
@@ -285,4 +259,20 @@ export class Profile extends Component {
     }
 }
 
-export default Profile
+function mapStateToProps(state) {
+    return {
+        error: state.profile.error,
+        loading: state.profile.loading
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setProfile: (payload) => dispatch(setProfile(payload)),
+        successProfile: () => dispatch(successProfile())
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps)(Profile);

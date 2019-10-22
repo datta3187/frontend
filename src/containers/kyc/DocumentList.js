@@ -1,32 +1,23 @@
 import React, { Component } from 'react';
 import Footer from '../../components/Footer';
 import Header from "../../components/Header";
-import * as Api from "../../api/remoteApi";
 import { Container, Image, Table, Divider, Button } from "semantic-ui-react";
+import {fetchDocuments} from "../../redux/actions/kyc";
+import {connect} from "react-redux";
 
 
 class DocumentList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            loading: false,
-            documents: []
-        }
     }
 
-    componentDidMount() {
-        let api_url = 'resource/documents';
-        this.setState({ loading: true });
-        Api.remoteApi(api_url, 'get', {})
-            .then(res => {
-                this.setState({ documents: res });
-                this.setState({ loading: false });
-            });
+    componentWillMount() {
+        this.props.fetchDocuments()
     }
 
     render() {
-        const res = this.state.documents
+        const res = this.props.documents
         return (
             <div>
                 <Header />
@@ -53,7 +44,9 @@ class DocumentList extends Component {
                                             <Table.Cell> {doc.doc_number} </Table.Cell>
                                             <Table.Cell> {doc.doc_expire} </Table.Cell>
                                         </Table.Row>
-                                    ) : <Table.Row> No Date Found</Table.Row>
+                                    ) : <Table.Row className="nodata-row">
+                                        <Table.Cell colSpan='3' > No Data Found</Table.Cell>
+                                        </Table.Row>
                             }
                         </Table.Body>
                     </Table>
@@ -66,4 +59,19 @@ class DocumentList extends Component {
 
 }
 
-export default DocumentList
+
+function mapStateToProps(state) {
+    return {
+        documents: state.kyc.documents
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchDocuments: () => dispatch(fetchDocuments())
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps)(DocumentList);

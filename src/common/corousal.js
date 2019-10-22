@@ -12,14 +12,14 @@ class Corousalp extends Component {
                 <InfiniteCarousel
     breakpoints={[
       {
-        breakpoint: 500,
+        breakpoint: 768,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 768,
+        breakpoint: 769,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -27,8 +27,8 @@ class Corousalp extends Component {
       },
     ]}
     dots={true}
-    showSides={true}
-    sidesOpacity={.5}
+    showSides={false}
+    sidesOpacity={0}
     sideSize={.1}
     slidesToScroll={1}
     slidesToShow={3}

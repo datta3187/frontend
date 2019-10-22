@@ -1,17 +1,16 @@
 @import '../../components/_styleVars.scss';
-
-.forgotPasswordModal{
+.modal {
+    height: auto;
+}
+.ui.small.modal.forgotPasswordModal{
     box-sizing:border-box;
-    padding: 30px 70px;    
-
+    padding: 30px 70px;
+    position: relative !important;
+    height:  386px !important;
     a.mClose {
         position: absolute;
-        top: -53px;
-        right: 0;
-        width: 43px;
-        height: 43px;
-        background: $baseColor;
-        border-radius: 50% !important;
+        top: 12px;
+        right: 12px;
         text-align: center;
         line-height: 43px;
         transition: all .35s;
@@ -22,10 +21,12 @@
             transition: opacity .1s ease;
             font-size: 16px;
             margin: 0;
-            color: #fff;
+            color: #666;
         }
         &:hover{
-            background: $lightColor;
+            .link.icon {
+                color: $baseColor;
+            }
         }
     }
     .header{
@@ -33,14 +34,21 @@
         border-bottom:0px !important;
 
         h3{
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             margin-bottom: 0;
+            white-space: nowrap;
+            @media(max-width: 767px) {
+                font-size: 18px;
+            }
         }
         span{
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 400;
             color: $lightColor;
+            @media(max-width: 767px) {
+                font-size: 14px;
+            }
         }
     }
     .resetButton{
@@ -48,7 +56,7 @@
         color: #fff;
         width: 100%;
         height: 54px;
-        border-radius: 35px;
+        border-radius: 5px;
         border:2px solid $baseColor;
         transition: all .35s;
         &:hover{
@@ -56,5 +64,15 @@
             color: $baseColor !important;
         }
     }
-   
+   .description {
+       img {
+           max-width: 30%;
+           margin-bottom: 40px;
+       }
+   }
+}
+
+
+.ui.form .field>label {
+    text-align: left;
 }

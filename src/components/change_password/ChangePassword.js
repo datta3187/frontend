@@ -3,7 +3,7 @@ import { Button, Modal } from 'semantic-ui-react';
 import { Form, Input } from 'semantic-ui-react-form-validator';
 import * as Api from "../../api/remoteApi";
 import { toast } from "react-toastify";
-
+import './change-password.scss'
 
 class ChangePassword extends Component {
     constructor(props) {
@@ -47,7 +47,7 @@ class ChangePassword extends Component {
     render() {
         return (
             <div>
-                <Modal size="small" open={this.props.passModalOpen} className="forgotPasswordModal">
+                <Modal size="small" open={this.props.passModalOpen} className="changePasswordModal">
                     <a className="mClose" onClick={this.props.closeModal}><i aria-hidden="true" className="close link icon"></i></a>
                     <Modal.Header>
                         <h3>Change Password?</h3>

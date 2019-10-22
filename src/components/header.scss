@@ -10,19 +10,18 @@
     background: #00adee;
   }
   .ui.container {
-
     width: 100%;
     max-width: 90% !important;
     @media(max-width: 767px) {
       max-width: 100% !important;
+      margin: 0 !important;
     }
-
 }
   .header {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
-  
+    padding: 12px 0px;
+    align-items: center;
     .headerLeft {
       display: flex;
       align-items: center;
@@ -30,7 +29,8 @@
         display: none;
         position: absolute;
         right: 18px;
-        bottom: 0px;
+        top: 41%;
+        transform: translateY(-50%);
         @media(max-width: 767px) {
           display: block;
         }
@@ -41,8 +41,8 @@
         font-size: 12px;
         font-weight: 700;
         background: url(../images/logo.png) no-repeat;
-        width: 264px;
-        height: 53px;
+        width: 244px;
+        height: 46px;
         font-size: 0;
         background-size:contain;
         @media(max-width: 991px) {
@@ -99,18 +99,35 @@
     }
     
     .top-rgt-nav {
+      margin-bottom: 0;
+      @media(max-width: 767px) {
+        margin-right: 40px;
+      }
+
       li {
         display: inline-block;
         margin-right: 23px;
         &:last-child{
           margin-right: 0;
         }
+       &.register-mob {
+         display: none;
+         @media(max-width:767px) {
+           display: inline-block;
+           margin-right: 0;
+         }
+       }
+        @media(max-width:767px) {
+          &:nth-child(1), &:nth-child(2) {
+            display: none;
+          }
+        }
         a {
           color: #fff !important;
           font-size: 14px;
           font-weight: 600;
         }
-        .button {
+        a.purple-btn{
           background: #3e58a5;
           color: #fff;
           border-radius: 8px !important;
@@ -119,6 +136,11 @@
           &:hover {
             background: #294494;
             transition: all ease 0.5s;
+            text-decoration: none;
+          }
+          @media(max-width:767px) {
+            border-radius: 4px !important;
+            padding: 10px 20px !important;
           }
         }
         &.whitepaper {
@@ -141,31 +163,11 @@
         color: #fff ;
         font-weight: 600;
       }
-      @media(max-width: 767px) {
-        display: none;
-      }
+      //@media(max-width: 767px) {
+      //  display: none;
+      //}
     }
   }
-  // background: url('../images/header-bg.png');
-  // background-position: center;
-  // height: 393px;
-  // width: 100%;
-  // top: 0;
-
-  // &.exchangeHdr {
-  //   margin: 0;
-  //   padding: 0;
-  //   background-position: center 0;
-  //   height: 92px;
-
-  //   .ui.container {
-  //     width: 100%;
-  //     max-width: 100% !important;
-  //     box-sizing: border-box;
-  //     padding-left: 15px;
-  //     padding-right: 15px;
-  //   }
-  // }
 }
 
 
@@ -351,11 +353,6 @@
   max-width: 1250px !important;
 }
 
-// .sideNavChild:hover {
-//   color: #fff !important;
-//   background: #3a4c79 !important;
-// }
-
 .sideNavChild:hover a {
   color: #fff !important;
 }
@@ -369,4 +366,10 @@
 .childDiv {
   border-bottom: 1px solid #737f92 !important;
   padding-bottom: 11px;
+}
+.ui.form .twelve.wide.field {
+  width: 100% !important;
+}
+.ui.sidebar {
+  top: 62px !important;
 }
