@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { push } from "connected-react-router";
 
 export function* setProfile(payload) {
-    debugger
     try {
         let response = yield call(setKycProfile, payload.data);
         if(response === 201){
@@ -38,7 +37,6 @@ export function* fetchProfile() {
             yield put(actions.failFetchProfile()('Failed to fetch profile detail'));
         }
     } catch (e) {
-        debugger
         yield put(push('/profile'));
         // toast.error(e);
         yield put(actions.failFetchProfile(e));
