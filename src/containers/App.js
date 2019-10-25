@@ -20,7 +20,8 @@ import { fetchUser } from '../redux/actions/user';
 import WalletPage from './WalletPage';
 import DocumentList from './kyc/DocumentList';
 import TwoFactorAuth from './TwoFactorAuth'
-import Home from './home/Home'
+import Home from './home/Home';
+import ProdHome from './prod/home/Home';
 
 class App extends Component {
     componentDidMount() {
@@ -36,7 +37,8 @@ class App extends Component {
         return (
             <div className="App">
                 <Switch>
-                    <PublicRoute path="/" exact component={Home} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PublicRoute path="/" exact component={ProdHome} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    {/*<PublicRoute path="/" exact component={Home} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
                     <PublicRoute path="/login" exact component={Login} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PublicRoute path="/trading/:market" component={Exchange} />
                     <PublicRoute path="/email-confirm/:token" exact component={EmailConfirmation} isAuthenticated={isAuthenticated} isLoading={isFetching} />
