@@ -29,9 +29,9 @@ export function* submitKycSaga() {
 
 export function* fetchDocuments(){
     try {
-        let documents = yield call(fetchDocs);
-        if(documents){
-            yield put(actions.refreshDocuments(documents));
+        let obj = yield call(fetchDocs);
+        if(obj.data){
+            yield put(actions.refreshDocuments(obj.data));
         }
     } catch (e) {
         yield put(actions.failFetchDocument(e));
