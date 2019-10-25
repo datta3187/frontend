@@ -83,5 +83,5 @@ function mapDispatchToProps(dispatch){
 
 
 const Home =  connect(mapStateToProps, mapDispatchToProps)(ConnectdHome);
-export default Home; 
+export default Home;
  
