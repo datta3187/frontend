@@ -20,7 +20,7 @@ import { fetchUser } from '../redux/actions/user';
 import WalletPage from './WalletPage';
 import DocumentList from './kyc/DocumentList';
 import TwoFactorAuth from './TwoFactorAuth'
-import Home from './home/Home';
+import ProdProfile from  './prod/profile/Profile'
 import ProdHome from './prod/home/Home';
 
 class App extends Component {
@@ -40,19 +40,21 @@ class App extends Component {
                     <PublicRoute path="/" exact component={ProdHome} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     {/*<PublicRoute path="/" exact component={Home} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
                     <PublicRoute path="/login" exact component={Login} isAuthenticated={isAuthenticated} isLoading={isFetching} />
-                    <PublicRoute path="/trading/:market" component={Exchange} />
+                    {/*<PublicRoute path="/trading/:market" component={Exchange} />*/}
                     <PublicRoute path="/email-confirm/:token" exact component={EmailConfirmation} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PublicRoute path="/password-reset/:token" exact component={ResetPassword} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PublicRoute path="/register" exact component={Register} isAuthenticated={isAuthenticated} isLoading={isFetching} />
                     <PublicRoute path="/email-verification" exact component={EmailVerify} isAuthenticated={isAuthenticated} isLoading={isFetching} />
-                    <PublicRoute path="/two-factor" component={TwoFactorAuth} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    {/*<PublicRoute path="/two-factor" component={TwoFactorAuth} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
 
-                    <PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching} />
-                    <PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />
-                    <PrivateRoute path="/settings" component={Setting} isAuthenticated={isAuthenticated} isLoading={isFetching} />
-                    <PrivateRoute path="/phone" component={Phone} isAuthenticated={isAuthenticated} isLoading={isFetching} />
-                    <PrivateRoute path="/profile" component={Profile} isAuthenticated={isAuthenticated} isLoading={isFetching} />
-                    <PrivateRoute path="/kyc" component={Kyc} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    {/*<PrivateRoute path="/wallets" component={WalletPage} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
+                    {/*<PrivateRoute path="/documents" component={DocumentList} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
+                    {/*<PrivateRoute path="/settings" component={Setting} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
+                    {/*<PrivateRoute path="/phone" component={Phone} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
+                    {/*<PrivateRoute path="/profile" component={Profile} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
+                    {/*<PrivateRoute path="/kyc" component={Kyc} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
+
+                    <PublicRoute path="/profile" exact component={ProdProfile} isAuthenticated={isAuthenticated} isLoading={isFetching} />
 
                     <Route component={NotFound} />
                 </Switch>

@@ -1,0 +1,274 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+.bgprofile{
+  background: #002fa5 url(../../../images/prod/topbg.jpg) top center no-repeat;
+}
+h1, h2, h3, h4, h5, h6, p{
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+}
+a{
+  text-decoration: none;
+}
+.topBanner{
+  height: 80vh;
+  background: #bf0513 url(../../../images/prod/banner.jpg) center no-repeat;
+  background-size:contain;
+}
+.topBanner img{
+  width: 100%;
+}
+.topBanner .container{
+  width: 1345px  !important;
+}
+
+.bottomBtn{
+  background: #b2b2b2;
+  height:20vh;
+
+}
+.bottomBtn .signup{
+  font-size: 46px;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 4px solid #fff;
+  display: inline-block;
+  padding: 2px 15px !important;
+  line-height: normal;
+  border-radius: 2px
+}
+.bottomBtnin{
+  position: relative;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.bottomBtn .signin{
+  font-size: 30px;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 4px solid #fff;
+  display: block;
+  padding: 2px 15px !important;
+  line-height: normal;
+  border-radius: 2px;
+  position: absolute;
+  right: 0;
+  top:50%;
+  transform: translateY(-50%);
+}
+.logo{
+  width: 300px;
+  height: 58px;
+  float: left;
+  background: url(../../../images/prod/logo.png) top center no-repeat;
+  background-size: 100%;
+}
+.logout{
+  font-size: 40px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  float: right;
+}
+.topimgSec{
+  text-align: center;
+  margin-top: -120px;
+}
+.topimgSec img{
+  width: 400px;
+}
+.topimgSec h3{
+  font-size: 35px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 25px;
+}
+.topimgSec h3 span{
+  font-weight: 400;
+  margin-top: 10px;
+  display: block
+}
+.topimgSec a{
+  font-size: 45px;
+  font-weight: 700;
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 8px 20px;
+  margin-top: 40px;
+  display: inline-block;
+  text-decoration: none;
+  line-height: normal;
+}
+.RankSec{
+  text-align: center;
+  margin-top: 0px;
+  margin: 0 auto;
+  max-width: 800px;
+  float: none;
+}
+.RankSec h4{
+  font-size: 35px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 25px;
+}
+.RankSec table{
+  background: transparent !important;
+  border: 1px solid #fff !important;
+}
+.RankSec table tr th{
+  font-weight: 700;
+  font-size: 30px;
+  color: #fff !important;
+  background: transparent !important;
+  text-align: center !important;
+  border-bottom: 1px solid #fff !important;
+  border-right: 1px solid #fff !important;
+}
+.RankSec table tr th:last-child{
+  border-right: 0 !important;
+}
+.RankSec table tr td{
+  font-weight: 500;
+  font-size: 25px;
+  color: #fff !important;
+  background: transparent !important;
+  text-align: center !important;
+  border-bottom: 1px solid #fff !important;
+  border-right: 1px solid #fff !important;
+}
+.RankSec table tr td:last-child{
+  border-right: 0 !important;
+}
+.RankSec table tr:last-child td{
+  border-bottom: 0 !important;
+}
+.RankSec p{
+  font-size: 20px;
+  color: #fff;
+  font-weight: 400;
+  text-align: left;
+  padding: 15px 0 0 0;
+}
+.RankSec ul{
+  padding-left:20px;
+}
+.RankSec ul li{
+  font-size: 20px;
+  color: #fff;
+  text-align: left;
+  padding: 5px 0;
+  line-height: normal;
+  font-weight: 400;
+}
+@media(max-width:1024px){
+  .bgprofile{
+    background: #002fa5 url(../../../images/prod/topbg_mobile.jpg) top center no-repeat;
+  }
+  .logo{
+    width: 200px;
+    height: 39px;
+  }
+  .topimgSec h3{
+    font-size: 30px;
+  }
+  .RankSec{
+    padding: 0 10px;
+  }
+  .topimgSec{
+    margin-top: 0px;
+  }
+}
+@media(max-width:767px){
+  .logo{
+    width: 150px;
+    height: 29px;
+  }
+  .logout{
+    font-size: 25px;
+  }
+  .topimgSec h3{
+    font-size: 25px;
+  }
+  .topimgSec a{
+    font-size: 30px;
+  }
+  .RankSec{
+    padding: 0 10px;
+  }
+  .RankSec table tr th{
+    font-size: 25px;
+  }
+  .RankSec table tr td{
+    font-size: 20px;
+  }
+  .RankSec h4{
+    font-size: 30px;
+    margin-top: 0;
+  }
+  .bottomBtn .signup{
+    font-size: 25px;
+  }
+  .bottomBtn .signin{
+    font-size: 20px;
+  }
+}
+@media(max-width:600px){
+  .topBanner{
+    height: 60vh;
+  }
+  .bottomBtn{
+    height:40vh;
+  }
+  .bottomBtnin{
+    flex-direction: column;
+  }
+  .bottomBtn .signin{
+    position: relative;
+    transform: none ;
+    left: 0;
+    right: 0;
+    top:0;
+    margin-top: 15px;
+  }
+  .bottomBtn .signin{
+    font-size: 25px;
+  }
+}
+@media(max-width:450px){
+  .RankSec table tr th{
+    font-size: 20px;
+  }
+  .RankSec table tr td{
+    font-size: 16px;
+  }
+  .topimgSec a{
+    font-size: 20px;
+    padding: 8px 12px !important;
+  }
+  .topimgSec h3{
+    font-size: 20px;
+  }
+  .topimgSec img{
+    width: 300px;
+    margin-bottom: 15px;
+  }
+  .bgprofile{
+    background: #002fa5 url(../../../images/prod/topbg_mobile.jpg) center -80px no-repeat;
+  }
+  .RankSec ul li{
+    font-size: 18px !important;
+  }
+  .topimgSec h3{
+    margin-top: 15px;
+    margin-bottom: 5px ;
+  }
+}
