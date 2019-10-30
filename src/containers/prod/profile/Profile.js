@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import '../css/common.scss';
-import {Image} from "semantic-ui-react";
-
-
+import {Button, Image} from "semantic-ui-react";
+import ShareReferral from "../profile/ShareReferral";
+import {Grid} from "semantic-ui-react/dist/commonjs/collections/Grid";
 
 class Profile extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            referralModal: false
+        }
+    }
+
+    changeReferralModalEvent = () => {
+        this.setState({ referralModal: false })
+    }
+
     render() {
         return (
-            <div class="bgprofile">
+            <div className="bgprofile">
                 <div className="ui fluid container">
                     <div className="ui two column grid">
                         <div className="row">
@@ -23,7 +35,8 @@ class Profile extends Component {
                     <h3>RANK IN TRADENCE <br/><span>12</span></h3>
                     <h3>NUMBER OF USERS LEADING YOU <br/><span>11</span></h3>
                     <h3>NUMBER OF USERS TRAILING YOU <br/><span>50</span></h3>
-                    <a href="#">BUMP ME UP THE QUEUE</a>
+                    {/*<a href="#">BUMP ME UP THE QUEUE</a>*/}
+                    <Button type="button" onClick={() => this.setState({ referralModal: true })}>BUMP ME UP THE QUEUE</Button>
                 </div>
 
                 <div className="RankSec">
@@ -74,8 +87,7 @@ class Profile extends Component {
                         </li>
                     </ul>
                 </div>
-
-
+                <ShareReferral passModalOpen={this.state.referralModal} closeModal={this.changeReferralModalEvent} />
             </div>
         )
     }

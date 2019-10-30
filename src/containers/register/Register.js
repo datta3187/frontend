@@ -9,12 +9,17 @@ import config from '../../config';
 import ReCAPTCHA from 'react-google-recaptcha';
 import {fetchRegister} from "../../redux/actions/register";
 import {connect} from "react-redux";
+import queryString from 'query-string';
 
 class Register extends Component {
     constructor(props) {
         super(props);
+        // Use referral Link to register
+        let refId = queryString.parse(window.location.search)['refId'];
+        let referralId = (refId !== undefined  ? refId : config.referralId);
+
         this.state = {
-            fields: { email: '', password: '', conPassword: '', refid: config.referralId, terms: '' },
+            fields: { email: '', password: '', conPassword: '', refid: referralId, terms: '' },
             errors: { email: '', password: '', conPassword: '', refid: '', terms: '', captcha_response: '' },
             loading: false,
             isTermSelected: false

@@ -54,7 +54,7 @@ class App extends Component {
                     {/*<PrivateRoute path="/profile" component={Profile} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
                     {/*<PrivateRoute path="/kyc" component={Kyc} isAuthenticated={isAuthenticated} isLoading={isFetching} />*/}
 
-                    <PublicRoute path="/profile" exact component={ProdProfile} isAuthenticated={isAuthenticated} isLoading={isFetching} />
+                    <PrivateRoute path="/profile" exact component={ProdProfile} isAuthenticated={isAuthenticated} isLoading={isFetching} />
 
                     <Route component={NotFound} />
                 </Switch>
