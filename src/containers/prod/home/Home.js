@@ -6,7 +6,8 @@ import {Link} from "react-router-dom";
 class Home extends Component {
     render() {
         return (
-            <div>
+            <div className="referral">
+            <React.Fragment>
                 <div className="topBanner"></div>
                 <div className="bottomBtn">
                     <div className="ui container bottomBtnin">
@@ -14,8 +15,9 @@ class Home extends Component {
                         <Link className="signin" to="/login">Sign in</Link>
                     </div>
                 </div>
+            </React.Fragment>
             </div>
-        )
+        );
     }
 }
 

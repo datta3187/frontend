@@ -1,0 +1,55 @@
+.copymodel{
+  margin: 0 auto !important ;
+  left: 0;
+  right: 0;
+  height: auto;
+  margin-top: 50px !important;
+  .label_ref{
+    margin-top: 15px;
+  }
+  .label{
+    background: transparent !important;
+    padding-left: 0;
+    font-weight: 400 !important;
+  }
+    .inputfull{
+      width: 100%;
+      margin: 0 0 20px 0;
+    }
+}
+
+.Qr_block {
+  canvas{
+    height: 140px !important;
+    width: 140px !important;
+    padding-left: 20px;
+  }
+}
+.inputouter{
+  border: 1px solid #0a9dda;
+  border-radius: 5px;
+  height: 45px;
+  line-height: 45px;
+  padding-left: 15px;
+  .button{
+    float: right;
+    margin: 0px;
+  }
+}
+.facebook_icon{
+  color: #3b5998;
+}
+
+.twitter_icon{
+  color: #00acee;
+}
+
+.linkedin_icon{
+  color: #0e76a8 !important;
+}
+.socicon{
+  .item{
+    margin-left: 0 !important;
+  }
+}
+
