@@ -25,6 +25,7 @@ class Profile extends Component {
     };
 
     render() {
+        let user = this.props.user
         return (
             <div className="bgprofile referral">
                 <div className="ui fluid container">
@@ -38,10 +39,10 @@ class Profile extends Component {
 
                 <div className="ui fluid container topimgSec">
                     <Image src={require('../../../images/prod/deskimg.png')} />
-                    <h3>NUMBER OF REFERRED USERS <br/><span>112</span></h3>
-                    <h3>RANK IN TRADENCE <br/><span>12</span></h3>
-                    <h3>NUMBER OF USERS LEADING YOU <br/><span>11</span></h3>
-                    <h3>NUMBER OF USERS TRAILING YOU <br/><span>50</span></h3>
+                    <h3>NUMBER OF REFERRED USERS <br/><span>{ user.referred }</span></h3>
+                    <h3>RANK IN TRADENCE <br/><span>{ user.rank }</span></h3>
+                    <h3>NUMBER OF USERS LEADING YOU <br/><span>{ user.leading_users }</span></h3>
+                    <h3>NUMBER OF USERS TRAILING YOU <br/><span>{ user.trailing_users }</span></h3>
                     <Button type="button" onClick={() => this.setState({ referralModal: true })}>BUMP ME UP THE QUEUE</Button>
                 </div>
 
@@ -99,13 +100,16 @@ class Profile extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        user: state.user.data
+    };
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         fetchLogout: () => dispatch(fetchLogout())
     };
 };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
