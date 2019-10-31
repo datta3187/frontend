@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import '../css/common.scss';
-import {Button, Image} from "semantic-ui-react";
+import { Button, Image } from "semantic-ui-react";
 import ShareReferral from "../profile/ShareReferral";
-import {Grid} from "semantic-ui-react/dist/commonjs/collections/Grid";
+import { Grid } from "semantic-ui-react/dist/commonjs/collections/Grid";
+import { connect } from "react-redux";
+import { fetchLogout } from '../../../redux/actions/auth';
+import { Link } from 'react-router-dom';
 
 class Profile extends Component {
 
@@ -15,7 +18,11 @@ class Profile extends Component {
 
     changeReferralModalEvent = () => {
         this.setState({ referralModal: false })
-    }
+    };
+
+    logoutUser = () => {
+        this.props.fetchLogout();
+    };
 
     render() {
         return (
@@ -24,7 +31,7 @@ class Profile extends Component {
                     <div className="ui two column grid">
                         <div className="row">
                             <div className="column"><a href="#" className="logo"></a></div>
-                            <div className="column"><a href="#" className="logout">LOGOUT</a></div>
+                            <div className="column"><Link className="logout" onClick={ () => this.logoutUser() }>LOGOUT</Link></div>
                         </div>
                     </div>
                 </div>
@@ -92,4 +99,13 @@ class Profile extends Component {
     }
 }
 
-export default Profile
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchLogout: () => dispatch(fetchLogout())
+    };
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Profile);

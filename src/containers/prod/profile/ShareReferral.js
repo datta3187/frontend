@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Modal, Grid, Input, Label, Icon, Image, List } from 'semantic-ui-react';
+import { Button, Modal, Grid, Label, Icon, List } from 'semantic-ui-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import QRCode from 'qrcode.react';
 import {connect} from "react-redux";
@@ -18,7 +18,6 @@ class ShareReferral extends Component {
 
     render() {
         const referralLink  = config.domainUrl+'/Register?refId='+this.props.referralId;
-        debugger
         return (
             <div>
                 <Modal size="small" open={this.props.passModalOpen} className="copymodel" >
@@ -39,21 +38,13 @@ class ShareReferral extends Component {
                                 </Label><br />
                                 <Label className="label_ref">Referral Link:</Label><br />
                                 <div className="inputouter">
-                                {/*<Input className="inputfull"*/}
-                                    {/*action={{*/}
-                                        {/*labelPosition: 'right',*/}
-                                        {/*icon: 'copy',*/}
-                                        {/*content: 'Copy',*/}
-                                    {/*}}*/}
-                                    {/*defaultValue='http://ww.short.url/c0opq'*/}
-                                {/*/>*/}
-                                { referralLink || 'Not found'}
-
-                                <CopyToClipboard text={referralLink} onCopy={() => this.setState({copied: true})}>
-                                    <Button disabled={!referralLink}>
-                                        Copy
-                                    </Button>
-                                </CopyToClipboard></div>
+                                    { referralLink || 'Not found'}
+                                    <CopyToClipboard text={referralLink} onCopy={() => this.setState({copied: true})}>
+                                        <Button disabled={!referralLink}>
+                                            Copy
+                                        </Button>
+                                    </CopyToClipboard>
+                                </div>
                                 {this.state.copied ? <span style={{color: 'red'}}>Copied!</span> : null}
                                 <br />
                                 <List horizontal className="socicon">
