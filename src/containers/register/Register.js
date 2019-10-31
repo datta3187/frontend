@@ -213,7 +213,7 @@ class Register extends Component {
                             </span>
                         </div>
                         <Form.Field className="userFormAth">
-                            <Checkbox onClick={this.agreed} label="I agree to AnXchange' s Terms of Use" />
+                            <Checkbox onClick={this.agreed} label="I agree to Tradence' s Terms of Use" />
                             <span style={{ color: 'red' }}>
                                 {this.state.errors['terms']}
                             </span>

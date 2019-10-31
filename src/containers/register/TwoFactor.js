@@ -75,7 +75,7 @@ class TwoFactor extends Component {
                                    iconPosition='left' placeholder='Referral Id' />
                         </Form.Field>
                         <Form.Field className="userFormAth">
-                            <Checkbox onClick={this.aggreed} label="I agree to AnXchange' s Terms of Use" />
+                            <Checkbox onClick={this.aggreed} label="I agree to Tradence' s Terms of Use" />
                             <span style={{ color: "red" }}>
                                 {this.state.errors["terms"]}
                             </span>
