@@ -101,7 +101,7 @@ class Headers extends Component {
                             this.state.isAuthenticated &&
                             <div className='sideNavChild'>
                                 <Image src={require('../images/logout.svg')} />
-                                <Link onClick={this.logoutUser} value="#">Logout</Link>
+                                <Link onClick={() => this.logoutUser()} value="#">Logout</Link>
                             </div>
                         }
 

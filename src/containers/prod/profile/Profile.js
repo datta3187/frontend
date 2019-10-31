@@ -31,7 +31,7 @@ class Profile extends Component {
 
                 <div className="ui fluid container topimgSec">
                     <Image src={require('../../../images/prod/deskimg.png')} />
-                    <h3>NUMBER OFREFERRED USERS <br/><span>112</span></h3>
+                    <h3>NUMBER OF REFERRED USERS <br/><span>112</span></h3>
                     <h3>RANK IN TRADENCE <br/><span>12</span></h3>
                     <h3>NUMBER OF USERS LEADING YOU <br/><span>11</span></h3>
                     <h3>NUMBER OF USERS TRAILING YOU <br/><span>50</span></h3>
@@ -62,7 +62,7 @@ class Profile extends Component {
                         </tr>
                         <tr>
                             <td>#111-1111</td>
-                            <td>WELNESS PRODUCTS</td>
+                            <td>WELLNESS PRODUCTS</td>
                         </tr>
                         <tr>
                             <td>#1111+</td>
