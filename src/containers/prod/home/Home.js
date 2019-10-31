@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 class Home extends Component {
     render() {
         return (
+            <div className="referral">
             <React.Fragment>
                 <div className="topBanner"></div>
                 <div className="bottomBtn">
@@ -15,6 +16,7 @@ class Home extends Component {
                     </div>
                 </div>
             </React.Fragment>
+            </div>
         );
     }
 }
