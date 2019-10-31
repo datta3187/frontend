@@ -9,7 +9,7 @@ const PublicRoute = ({ isAuthenticated, isLoading, ...props }) => {
         </Dimmer>;
     }
     if (!isLoading && isAuthenticated) {
-        return <Redirect to="/settings" />
+        return <Redirect to="/profile" />
 
     }
     return <Route {...props} />;
