@@ -34,7 +34,7 @@ class ShareReferral extends Component {
                             <Grid.Column mobile={16} tablet={11} computer={12} className="sharedata">
                                 <Label as='a'>
                                     My Referral ID
-                                    <Label.Detail>EX659238</Label.Detail>
+                                    <Label.Detail>{ this.props.referralId }</Label.Detail>
                                 </Label><br />
                                 <Label className="label_ref">Referral Link:</Label><br />
                                 <div className="inputouter">
