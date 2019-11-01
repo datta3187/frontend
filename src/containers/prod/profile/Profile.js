@@ -39,13 +39,6 @@ class Profile extends Component {
                         </Grid.Row>
 
                     </Grid>
-
-                    {/*<div className="ui two column grid topsec_logo">*/}
-                        {/*<div className="row ">*/}
-                            {/*<div className="column"><a href="#" className="logo"></a></div>*/}
-                            {/*<div className="column logout_outer"><Link className="logout" onClick={ () => this.logoutUser() }>LOGOUT</Link></div>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
                 </div>
 
                 <div className="ui fluid container topimgSec">
