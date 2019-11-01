@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import '../css/common.scss';
-import { Button, Image } from "semantic-ui-react";
+import { Button, Image, Grid } from "semantic-ui-react";
 import ShareReferral from "../profile/ShareReferral";
-import { Grid } from "semantic-ui-react/dist/commonjs/collections/Grid";
 import { connect } from "react-redux";
 import { fetchLogout } from '../../../redux/actions/auth';
 import { Link } from 'react-router-dom';
@@ -29,12 +28,24 @@ class Profile extends Component {
         return (
             <div className="bgprofile referral">
                 <div className="ui fluid container">
-                    <div className="ui two column grid">
-                        <div className="row">
-                            <div className="column"><a href="#" className="logo"></a></div>
-                            <div className="column"><Link className="logout" onClick={ () => this.logoutUser() }>LOGOUT</Link></div>
-                        </div>
-                    </div>
+                    <Grid columns={2} className="topsec_logo">
+                        <Grid.Row className="logo_outer">
+                            <Grid.Column >
+                                <a href="#" className="logo"></a>
+                            </Grid.Column>
+                            <Grid.Column className="logout_outer">
+                                <Link className="logout" onClick={ () => this.logoutUser() }>LOGOUT</Link>
+                            </Grid.Column>
+                        </Grid.Row>
+
+                    </Grid>
+
+                    {/*<div className="ui two column grid topsec_logo">*/}
+                        {/*<div className="row ">*/}
+                            {/*<div className="column"><a href="#" className="logo"></a></div>*/}
+                            {/*<div className="column logout_outer"><Link className="logout" onClick={ () => this.logoutUser() }>LOGOUT</Link></div>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
                 </div>
 
                 <div className="ui fluid container topimgSec">

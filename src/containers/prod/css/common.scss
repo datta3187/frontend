@@ -77,6 +77,9 @@ a{
   color: #fff;
   float: right;
 }
+.logout:hover{
+  color: rgba(255, 255, 255, 0.8);
+}
 .topimgSec{
   text-align: center;
   width:100%;
@@ -176,6 +179,23 @@ a{
   font-weight: 400;
   list-style: disc;
 }
+.inputouter .button .icon{
+  display: none;
+}
+.logo_outer{
+  padding-left: 15px !important;
+}
+.topsec_logo{
+  padding-top: 15px !important;
+  margin: 0 auto !important;
+}
+.topsec_logo .row{
+  float: left;
+  width: 100%;
+}
+.logout_outer{
+  padding-right: 0 !important;
+}
 @media(max-width:1024px){
   .bgprofile{
     background: #002fa5 url(../../../images/prod/topbg_mobile.jpg) top center no-repeat;
@@ -194,19 +214,35 @@ a{
     margin-top: 0px;
   }
 }
+@media(max-width:960px){
+.inputouter .button{
+      min-width:100px;
+    }
+}
 @media(max-width:767px){
+  .topsec_logo {
+    padding-top: 0px !important;
+    margin: auto !important;
+  }
+  .logo_outer{
+    padding-left: 0 !important;
+  }
+  .logout_outer .logout{
+    margin-right: -15px !important;
+  }
+
   .logo{
     width: 150px;
     height: 29px;
   }
   .logout{
-    font-size: 25px;
+    font-size: 18px;
   }
   .topimgSec h3{
     font-size: 25px;
   }
-  .topimgSec a{
-    font-size: 30px;
+  .topimgSec button{
+    font-size: 30px !important;
   }
   .RankSec{
     padding: 0 10px;
@@ -227,13 +263,19 @@ a{
   .bottomBtn .signin{
     font-size: 20px;
   }
+  .Qr_block{
+    text-align: center;
+  }
+  .sharedata{
+    margin-left: 25px;
+  }
 }
 @media(max-width:600px){
   .topBanner{
-    height: 60vh;
+    height: 55vh;
   }
   .bottomBtn{
-    height:40vh;
+    height:45vh;
   }
   .bottomBtnin{
     flex-direction: column;
@@ -257,8 +299,8 @@ a{
   .RankSec table tr td{
     font-size: 16px;
   }
-  .topimgSec a{
-    font-size: 20px;
+  .topimgSec button{
+    font-size: 20px !important;
     padding: 8px 12px !important;
   }
   .topimgSec h3{
@@ -278,4 +320,26 @@ a{
     margin-top: 15px;
     margin-bottom: 5px ;
   }
+  .inputouter .button .icon{
+    display: block !important;
+    font-size: 18px !important;
+    padding-top: 5px !important;
+    width: auto !important;
+  }
+  .inputouter .button{
+    font-size: 0px !important;
+    min-width:80px !important;
+    height: 43px;
+    padding: 6px 0px 0 13px !important;
+  }
+
+}
+@media(max-width:380px) {
+  .inputouter .button {
+    min-width: 30px !important;
+    padding: 6px 0px 0 13px !important;
+  }
+}
+.mClose{
+  z-index: 5555 !important;
 }

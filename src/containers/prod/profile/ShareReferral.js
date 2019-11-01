@@ -25,13 +25,13 @@ class ShareReferral extends Component {
                     <Modal.Content>
                         <Grid>
                             <Grid.Row>
-                            <Grid.Column floated='left' width={4}>
+                            <Grid.Column mobile={16} tablet={5} computer={4}>
                                 <div className="Qr_block">
                                     {referralLink && <QRCode fgColor="#333333" size={200} value={referralLink} />}
                                     {/*<Image src={`${require('../../../images/QR-code-300x3001.png')}`} size='small' />*/}
                                 </div>
                             </Grid.Column>
-                            <Grid.Column floated='right' width={12}>
+                            <Grid.Column mobile={16} tablet={11} computer={12} className="sharedata">
                                 <Label as='a'>
                                     My Referral ID
                                     <Label.Detail>EX659238</Label.Detail>
@@ -41,7 +41,7 @@ class ShareReferral extends Component {
                                     { referralLink || 'Not found'}
                                     <CopyToClipboard text={referralLink} onCopy={() => this.setState({copied: true})}>
                                         <Button disabled={!referralLink}>
-                                            Copy
+                                            Copy <Icon name='copy outline' />
                                         </Button>
                                     </CopyToClipboard>
                                 </div>
