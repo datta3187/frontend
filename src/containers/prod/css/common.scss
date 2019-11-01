@@ -196,6 +196,14 @@ a{
 .logout_outer{
   padding-right: 0 !important;
 }
+.inputouter{
+  position: relative;
+}
+.inputouter .button{
+  position: absolute;
+  top:0px;
+  right: 0px;
+}
 @media(max-width:1024px){
   .bgprofile{
     background: #002fa5 url(../../../images/prod/topbg_mobile.jpg) top center no-repeat;
@@ -218,6 +226,9 @@ a{
 .inputouter .button{
       min-width:100px;
     }
+  .inputouter{
+    font-size: 11px !important;
+  }
 }
 @media(max-width:767px){
   .topsec_logo {
