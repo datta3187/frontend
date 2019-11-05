@@ -232,7 +232,7 @@ class Register extends Component {
                         </Form.Field>
                         <div className="form-button">
                             <Button type='submit' onClick={this.signupWithPeatio} primary>Sign Up</Button>
-                            <p>Already have an account?  <Link to="/login">Sign In</Link></p>
+                            <p>Already have an account?  <Link to="/login">Log In</Link></p>
                         </div>
                     </Form>
                 </Container>
