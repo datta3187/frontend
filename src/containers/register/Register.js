@@ -58,20 +58,20 @@ class Register extends Component {
             errors['password'] = 'Password is required.';
         }
 
-        if (
-            typeof fields['password'] !== 'undefined' &&
-            fields['password'] !== ''
-        ) {
-            if (
-                !fields['password'].match(
-                    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-                )
-            ) {
-                formIsValid = false;
-                errors['password'] =
-                    'Password should have one number and one special character,minimum 8 characters';
-            }
-        }
+        // if (
+        //     typeof fields['password'] !== 'undefined' &&
+        //     fields['password'] !== ''
+        // ) {
+        //     if (
+        //         !fields['password'].match(
+        //             /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+        //         )
+        //     ) {
+        //         formIsValid = false;
+        //         errors['password'] =
+        //             'Password should have one number and one special character,minimum 8 characters';
+        //     }
+        // }
 
         //Confirm Password
         if (
@@ -112,7 +112,7 @@ class Register extends Component {
 
         if (!this.state.isTermSelected) {
             formIsValid = false;
-            errors['terms'] = 'Please accept terms & conditions';
+            errors['terms'] = "Please accept Tradence's Term Of Use";
         }
 
         if (config.captchaPolicy) {
@@ -120,6 +120,13 @@ class Register extends Component {
                 formIsValid = false;
                 errors['captcha_response'] = 'Verify the captcha';
             }
+        }
+
+        //referral Id
+
+        if (!fields['refid']) {
+            formIsValid = false;
+            errors['refid'] = 'Referral ID is required';
         }
 
         this.setState({ errors: errors });

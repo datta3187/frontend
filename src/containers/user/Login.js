@@ -53,20 +53,20 @@ class Login extends Component {
             errors['password'] = 'Password is required.';
         }
 
-        if (
-            typeof fields['password'] !== 'undefined' &&
-            fields['password'] !== ''
-        ) {
-            if (
-                !fields['password'].match(
-                    /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,64}$/
-                )
-            ) {
-                formIsValid = false;
-                errors['password'] =
-                    'Password should have one number and one special character,minimum 8 characters';
-            }
-        }
+        // if (
+        //     typeof fields['password'] !== 'undefined' &&
+        //     fields['password'] !== ''
+        // ) {
+        //     if (
+        //         !fields['password'].match(
+        //             /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,64}$/
+        //         )
+        //     ) {
+        //         formIsValid = false;
+        //         errors['password'] =
+        //             'Password should have one number and one special character,minimum 8 characters';
+        //     }
+        // }
         //Email
         if (!fields['email']) {
             formIsValid = false;
@@ -188,7 +188,7 @@ class Login extends Component {
                 <Header activePath='login' />
                 <Container className="boxWithShadow userForms">
                     <div className="userFormHeader">
-                        <h1>Sign in</h1>
+                        <h1>Log In</h1>
                         <p>Enter your details to Email id and password to access your account</p>
                     </div>
                     <Form>
@@ -237,7 +237,7 @@ class Login extends Component {
                         </div>
 
                         <div className="form-button">
-                            <Button onClick={this.signInWithPeatio} primary>Sign In</Button>
+                            <Button onClick={this.signInWithPeatio} primary>Log In</Button>
                             <p>Don't have an Account? <Link to="/Register">Sign Up Now</Link></p>
                         </div>
                     </Form>

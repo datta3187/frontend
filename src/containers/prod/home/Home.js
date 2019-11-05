@@ -12,7 +12,7 @@ class Home extends Component {
                 <div className="bottomBtn">
                     <div className="ui container bottomBtnin">
                         <Link className="signup" to="/Register">Sign up and win!</Link>
-                        <Link className="signin" to="/login">Sign in</Link>
+                        <Link className="signin" to="/login">Log In</Link>
                     </div>
                 </div>
             </React.Fragment>
