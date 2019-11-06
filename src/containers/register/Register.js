@@ -69,7 +69,7 @@ class Register extends Component {
             ) {
                 formIsValid = false;
                 errors['password'] =
-                    'Password should have one number and one special character,minimum 8 characters';
+                    'Password should contain atleast 1 number, 1 special character, 1 capital leter & minimum length of 8 characters.';
             }
         }
 
