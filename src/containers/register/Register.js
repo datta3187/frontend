@@ -58,20 +58,20 @@ class Register extends Component {
             errors['password'] = 'Password is required.';
         }
 
-        // if (
-        //     typeof fields['password'] !== 'undefined' &&
-        //     fields['password'] !== ''
-        // ) {
-        //     if (
-        //         !fields['password'].match(
-        //             /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-        //         )
-        //     ) {
-        //         formIsValid = false;
-        //         errors['password'] =
-        //             'Password should have one number and one special character,minimum 8 characters';
-        //     }
-        // }
+        if (
+            typeof fields['password'] !== 'undefined' &&
+            fields['password'] !== ''
+        ) {
+            if (
+                !fields['password'].match(
+                    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+                )
+            ) {
+                formIsValid = false;
+                errors['password'] =
+                    'Password should have one number and one special character,minimum 8 characters';
+            }
+        }
 
         //Confirm Password
         if (
