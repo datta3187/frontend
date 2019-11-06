@@ -79,9 +79,11 @@ class Register extends Component {
             fields['conPassword'] !== ''
         ) {
             if (fields['conPassword'] !== fields['password']) {
-                errors['conPassword'] = 'Passwords don\'t match';
+                formIsValid = false;
+                errors['conPassword'] = "Passwords don\'t match";
             }
         } else {
+            formIsValid = false;
             errors['conPassword'] = 'Confirm Password is Required';
         }
 
